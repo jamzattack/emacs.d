@@ -121,6 +121,20 @@
     (ido-vertical-mode 1))
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+END_SRC
+**** Which-key
+Shows what your keys do
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :init (which-key-mode)) 
+#+END_SRC
+*** Powerline
+#+BEGIN_SRC emacs-lisp
+  (use-package powerline
+    :ensure t
+    :init
+    (powerline-vim-theme))
+#+END_SRC
 * Environment Variables
   Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
@@ -153,7 +167,7 @@
 *** Font and cursor
     Use system monospace font, red blinking cursor
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "monospace-9")
+(set-frame-font "monospace-9" t)
 (set-cursor-color "#d35c5c")
 (blink-cursor-mode 1)
 #+END_SRC
@@ -238,6 +252,24 @@
 (add-hook 'LilyPond-mode-hook 'flycheck-mode)
 (eval-after-load 'flycheck '(require 'flycheck-lilypond))
 #+END_SRC
+** Electric pairs
+   Auto-add parentheses
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '(
+                              (?\( . ?\))
+                              ))
+#+END_SRC
+   Only when programming
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook (electric-pair-mode t))
+#+END_SRC
+** Org Mode
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (setq org-src-window-setup 'current-window)
+  (setq org-src-tab-acts-natively t)
+  (setq org-ellipsis "\ \\ ")
+#+END_SRC
 * Keybindings
 ** Miscellaneous
 *** Line numbers
@@ -272,13 +304,10 @@
 (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 * Mode-line
-   Just some basic extra stuff in the mode-line.
+  Just some basic extra stuff in the mode-line.
   I don't want anything fancy.
 #+BEGIN_SRC emacs-lisp
 (column-number-mode t)
 (display-time-mode t)
 (setq display-time-24hr-format 1)
 #+END_SRC
-
-
-
