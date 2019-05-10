@@ -1,7 +1,7 @@
 * Packages
 ** Startup
 *** Repositories and initialisation
-   Enable melpa archive and making sure packages work
+    Enable melpa archive and making sure packages work
 #+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -10,14 +10,14 @@
 (package-initialize)
 #+END_SRC
 *** Use-package
-   Install use-package if not installed
+    Install use-package if not installed
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 #+END_SRC
 *** Base16-theme
-   Gotta have that woodland theme
+    Gotta have that woodland theme
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'base16-theme)
   (package-refresh-contents)
@@ -25,7 +25,7 @@
 (load-theme 'base16-woodland t)
 ;;(setq 'base16-distinct-fringe-background nil)
 #+END_SRC
-** Installing Packages
+** Installed Packages
 *** Pinentry
     This package lets emacs be used for gpg authentication
 #+BEGIN_SRC emacs-lisp
@@ -47,14 +47,14 @@
 #+END_SRC
 *** "Applications"
 **** Mingus
-    A nice mpd front-end in emacs
-    (I couldn't get EMMS working with mopidy)
+     A nice mpd front-end in emacs
+     (I couldn't get EMMS working with mopidy)
 #+BEGIN_SRC emacs-lisp
 (use-package mingus
    :ensure t)
 #+END_SRC
 **** Notmuch
-    A simple email client, with emphasis on searching
+     A simple email client, with emphasis on searching
 #+BEGIN_SRC emacs-lisp
 (use-package notmuch
    :ensure t)
@@ -67,8 +67,8 @@
 #+END_SRC
 *** Colours
 **** Rainbow-mode
-    This package highlights hex colours
-    (also install xterm-color to use in a terminal emulator)
+     This package highlights hex colours
+     (also install xterm-color to use in a terminal emulator)
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :ensure t
@@ -104,6 +104,7 @@
 #+END_SRC
 *** Quality of life
 **** Smex
+     smex integrates "M-x" with =ido=
 #+BEGIN_SRC emacs-lisp
   (use-package smex
     :ensure t
@@ -112,6 +113,7 @@
     ("M-x" . smex))
 #+END_SRC
 **** Ido-vertical
+     This package enables a vertical mode for the =ido= function
 #+BEGIN_SRC emacs-lisp
   (use-package ido-vertical-mode
     :ensure t
@@ -208,13 +210,21 @@
    (t (push key unread-command-events))))
 (global-set-key (kbd "C-c +") 'v-resize)
 #+END_SRC
+** Go to config file
+   Visit your config file. Bound to "C-c e" in =Keybindings= section.
+#+BEGIN_SRC emacs-lisp
+(defun config-visit ()
+  "Go to your config.org"
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+#+END_SRC
 ** Reloading config
+   Reloads this config file. Bound to "C-c r" in Keybindings section.
 #+BEGIN_SRC emacs-lisp
 (defun config-reload ()
   "Reloads ~/.emacs.d/config.org at runtime"
   (interactive)
   (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
-(global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 * Other
 ** Lilypond mode
@@ -229,14 +239,21 @@
 (eval-after-load 'flycheck '(require 'flycheck-lilypond))
 #+END_SRC
 * Keybindings
-  Simple C-c bindings
+** Miscellaneous
+*** Line numbers
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c n") 'display-line-numbers-mode)
-(global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
-(global-set-key (kbd "C-c y") 'clipboard-yank)
+#+END_SRC
+*** Spelling correction
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c s") 'flyspell-mode)
 #+END_SRC
-  Moving between windows
+** Clipboard
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
+(global-set-key (kbd "C-c y") 'clipboard-yank)
+#+END_SRC
+** Moving between windows
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x M-p") 'windmove-up)
 (global-set-key (kbd "C-x M-n") 'windmove-down)
@@ -244,13 +261,24 @@
 (global-set-key (kbd "C-x M-f") 'windmove-right)
 (global-set-key (kbd "<M-tab>") 'other-window)
 #+END_SRC
+** Config file
+    Both defined in the Custom Functions section
+*** Visit config file
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c e") 'config-visit)
+#+END_SRC
+*** Reload config file
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
 * Mode-line
-  Just some basic extra stuff in the mode-line.
+   Just some basic extra stuff in the mode-line.
   I don't want anything fancy.
 #+BEGIN_SRC emacs-lisp
 (column-number-mode t)
 (display-time-mode t)
 (setq display-time-24hr-format 1)
 #+END_SRC
+
 
 
