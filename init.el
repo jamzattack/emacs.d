@@ -13,6 +13,7 @@
  '(custom-safe-themes
    (quote
     ("8be07a2c1b3a7300860c7a65c0ad148be6d127671be04d3d2120f1ac541ac103" default)))
+ '(line-number-mode nil)
  '(notmuch-address-internal-completion (quote (received nil)))
  '(notmuch-saved-searches
    (quote
@@ -25,7 +26,8 @@
      (:name "university" :query "university"))))
  '(package-selected-packages
    (quote
-    (pinentry mingus xterm-color flycheck-lilypond transmission notmuch rainbow-delimiters base16-theme company-shell company auto-complete rainbow-mode ##))))
+    (mingus pinentry use-package xterm-color which-key powerline ido-vertical-mode smex pinentry flycheck-lilypond transmission notmuch rainbow-delimiters base16-theme company rainbow-mode ##)))
+ '(send-mail-function (quote mailclient-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

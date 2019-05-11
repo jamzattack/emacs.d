@@ -268,7 +268,7 @@ Shows what your keys do
   (add-hook 'org-mode-hook 'org-indent-mode)
   (setq org-src-window-setup 'current-window)
   (setq org-src-tab-acts-natively t)
-  (setq org-ellipsis "\ \\ ")
+  (setq org-ellipsis " ")
 #+END_SRC
 * Keybindings
 ** Miscellaneous
