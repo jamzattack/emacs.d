@@ -3,27 +3,28 @@
 *** Repositories and initialisation
     Enable melpa archive and making sure packages work
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.org/packages/") t)
+  (package-initialize)
 #+END_SRC
 *** Use-package
     Install use-package if not installed
 #+BEGIN_SRC emacs-lisp
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
 #+END_SRC
 *** Base16-theme
     Gotta have that woodland theme
 #+BEGIN_SRC emacs-lisp
-(unless (package-installed-p 'base16-theme)
-  (package-refresh-contents)
-  (package-install 'base16-theme))
-(load-theme 'base16-woodland t)
-;;(setq 'base16-distinct-fringe-background nil)
+  (unless (package-installed-p 'base16-theme)
+    (package-refresh-contents)
+    (package-install 'base16-theme))
+  (load-theme 'base16-woodland t)
+  (setq base16-theme-256-color-source "terminal")
+  ;;(setq 'base16-distinct-fringe-background nil)
 #+END_SRC
 ** Installed Packages
 *** Pinentry
@@ -50,20 +51,20 @@
      A nice mpd front-end in emacs
      (I couldn't get EMMS working with mopidy)
 #+BEGIN_SRC emacs-lisp
-(use-package mingus
-   :ensure t)
+  (use-package mingus
+     :ensure t)
 #+END_SRC
 **** Notmuch
      A simple email client, with emphasis on searching
 #+BEGIN_SRC emacs-lisp
-(use-package notmuch
-   :ensure t)
+  (use-package notmuch
+     :ensure t)
 #+END_SRC
 **** Transmission
      An emacs front-end for the transmission bittorrent daemon
 #+BEGIN_SRC emacs-lisp
-(use-package transmission
-   :ensure t)
+  (use-package transmission
+     :ensure t)
 #+END_SRC
 *** Colours
 **** Rainbow-mode
@@ -78,24 +79,24 @@
 **** xterm-color
     Allows a terminal emulator to use 256 colors
 #+BEGIN_SRC emacs-lisp
-(use-package xterm-color
-  :ensure t)
+  (use-package xterm-color
+    :ensure t)
 #+END_SRC
 **** Rainbow-delimiters
     Minor mode that highlights parentheses well
 #+BEGIN_SRC emacs-lisp
-(use-package rainbow-delimiters
-  :ensure t
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
 *** Flycheck
     Lets you know about errors in your code
 #+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :ensure t
-  :config
-  (global-set-key (kbd "C-c f") 'flycheck-mode))
+  (use-package flycheck
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c f") 'flycheck-mode))
 #+END_SRC
 **** Flycheck-lilypond
 #+BEGIN_SRC emacs-lisp
@@ -107,10 +108,10 @@
      smex integrates "M-x" with =ido=
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-    :ensure t
-    :init (smex-initialize)
-    :bind
-    ("M-x" . smex))
+      :ensure t
+      :init (smex-initialize)
+      :bind
+      ("M-x" . smex))
 #+END_SRC
 **** Ido-vertical
      This package enables a vertical mode for the =ido= function
@@ -138,128 +139,133 @@ Shows what your keys do
 * Environment Variables
   Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
-(setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
-(setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
-(setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack.scripts"))
-(setq exec-path (append exec-path '("/home/jamzattack/.scripts")))
+  (setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
+  (setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
+  (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack.scripts"))
+  (setq exec-path (append exec-path '("/home/jamzattack/.scripts")))
 #+END_SRC
 * Fixing defaults
 ** Miscellaneous stuff
-   No more pesky extra files, other basics
+***   No more pesky extra files, other basics
 #+BEGIN_SRC emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'save-buffers-kill-emacs 'delete-frame)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (defalias 'save-buffers-kill-emacs 'delete-frame)
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
 #+END_SRC
-   Enable all the features, because what's the point in having less?
+***   Enable all the features, because what's the point in having less?
 #+BEGIN_SRC emacs-lisp
 (setq disabled-command-function nil)
+#+END_SRC
+***   Disable version control
+#+BEGIN_SRC emacs-lisp
+(remove-hook 'find-file-hook 'vc-find-file-hook)
+(setq vc-handled-backends nil)
 #+END_SRC
 ** Aesthetic stuff
 *** GUI ugliness
     Disable all the wasteful bars
 #+BEGIN_SRC emacs-lisp
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
 #+END_SRC
 *** Font and cursor
     Use system monospace font, red blinking cursor
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "monospace-9" t)
-(set-cursor-color "#d35c5c")
-(blink-cursor-mode 1)
+  (set-frame-font "monospace-9" t)
+  (set-cursor-color "#d35c5c")
+  (blink-cursor-mode 1)
 #+END_SRC
 ** Tabs
    Tabs are 4 spaces wide
 #+BEGIN_SRC emacs-lisp
-(setq-default indent-tabs-mode nil)
-(setq tab-width 4)
+  (setq-default indent-tabs-mode nil)
+  (setq tab-width 4)
 #+END_SRC
 ** Encoding
    UTF-8 everywhere!
 #+BEGIN_SRC emacs-lisp
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
 #+END_SRC
 ** Buffers
 *** ido-mode
     ido-mode is much better than the default for switching
     buffers and going to files.
 #+BEGIN_SRC emacs-lisp
-(setq ido-enable-flex-matching nil)
-(setq ido-create-new-buffer 'always)
-(setq ido-everywhere t)
-(ido-mode 1)
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
 #+END_SRC
 *** ibuffer
     ibuffer is also a lot better than the default
     (plus it has colours)
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+END_SRC
 * Custom functions
 ** Resizing windows
 #+BEGIN_SRC emacs-lisp
-(defun v-resize (key)
-  "interactively resize the window"  
-  (interactive "cHit p/n/b/f to resize") 
-  (cond                                  
-   ((eq key (string-to-char "n"))                      
-    (enlarge-window 1)             
-    (call-interactively 'v-resize)) 
-   ((eq key (string-to-char "p"))                      
-    (enlarge-window -1)             
-    (call-interactively 'v-resize)) 
-   ((eq key (string-to-char "b"))                      
-    (enlarge-window-horizontally -1)             
-    (call-interactively 'v-resize)) 
-   ((eq key (string-to-char "f"))                      
-    (enlarge-window-horizontally 1)            
-    (call-interactively 'v-resize)) 
-   (t (push key unread-command-events))))
-(global-set-key (kbd "C-c +") 'v-resize)
+  (defun v-resize (key)
+    "interactively resize the window"  
+    (interactive "cHit p/n/b/f to resize") 
+    (cond                                  
+     ((eq key (string-to-char "n"))                      
+      (enlarge-window 1)             
+      (call-interactively 'v-resize)) 
+     ((eq key (string-to-char "p"))                      
+      (enlarge-window -1)             
+      (call-interactively 'v-resize)) 
+     ((eq key (string-to-char "b"))                      
+      (enlarge-window-horizontally -1)             
+      (call-interactively 'v-resize)) 
+     ((eq key (string-to-char "f"))                      
+      (enlarge-window-horizontally 1)            
+      (call-interactively 'v-resize)) 
+     (t (push key unread-command-events))))
+  (global-set-key (kbd "C-c +") 'v-resize)
 #+END_SRC
 ** Go to config file
    Visit your config file. Bound to "C-c e" in =Keybindings= section.
 #+BEGIN_SRC emacs-lisp
-(defun config-visit ()
-  "Go to your config.org"
-  (interactive)
-  (find-file "~/.emacs.d/config.org"))
+  (defun config-visit ()
+    "Go to your config.org"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
 #+END_SRC
 ** Reloading config
    Reloads this config file. Bound to "C-c r" in Keybindings section.
 #+BEGIN_SRC emacs-lisp
-(defun config-reload ()
-  "Reloads ~/.emacs.d/config.org at runtime"
-  (interactive)
-  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+  (defun config-reload ()
+    "Reloads ~/.emacs.d/config.org at runtime"
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
 #+END_SRC
 * Other
 ** Lilypond mode
    Use lilypond mode for .ly files
    (taken from lilypond.org)
 #+BEGIN_SRC emacs-lisp
-(autoload 'LilyPond-mode "lilypond-mode")
-(setq auto-mode-alist
-      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-(add-hook 'LilyPond-mode-hook 'flycheck-mode)
-(eval-after-load 'flycheck '(require 'flycheck-lilypond))
+  (autoload 'LilyPond-mode "lilypond-mode")
+  (setq auto-mode-alist
+        (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+  (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+  (add-hook 'LilyPond-mode-hook 'flycheck-mode)
+  (eval-after-load 'flycheck '(require 'flycheck-lilypond))
 #+END_SRC
 ** Electric pairs
-   Auto-add parentheses
+  Auto-add parentheses
 #+BEGIN_SRC emacs-lisp
   (setq electric-pair-pairs '(
                               (?\( . ?\))
                               ))
 #+END_SRC
-   Only when programming
+  Only when programming
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook (electric-pair-mode t))
 #+END_SRC
@@ -274,34 +280,34 @@ Shows what your keys do
 ** Miscellaneous
 *** Line numbers
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c n") 'display-line-numbers-mode)
+  (global-set-key (kbd "C-c n") 'display-line-numbers-mode)
 #+END_SRC
 *** Spelling correction
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c s") 'flyspell-mode)
+  (global-set-key (kbd "C-c s") 'flyspell-mode)
 #+END_SRC
 ** Clipboard
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
-(global-set-key (kbd "C-c y") 'clipboard-yank)
+  (global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
+  (global-set-key (kbd "C-c y") 'clipboard-yank)
 #+END_SRC
 ** Moving between windows
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x M-p") 'windmove-up)
-(global-set-key (kbd "C-x M-n") 'windmove-down)
-(global-set-key (kbd "C-x M-b") 'windmove-left)
-(global-set-key (kbd "C-x M-f") 'windmove-right)
-(global-set-key (kbd "<M-tab>") 'other-window)
+  (global-set-key (kbd "C-x M-p") 'windmove-up)
+  (global-set-key (kbd "C-x M-n") 'windmove-down)
+  (global-set-key (kbd "C-x M-b") 'windmove-left)
+  (global-set-key (kbd "C-x M-f") 'windmove-right)
+  (global-set-key (kbd "<M-tab>") 'other-window)
 #+END_SRC
 ** Config file
     Both defined in the Custom Functions section
 *** Visit config file
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c e") 'config-visit)
+  (global-set-key (kbd "C-c e") 'config-visit)
 #+END_SRC
 *** Reload config file
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c r") 'config-reload)
+  (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 * Mode-line
   Just some basic extra stuff in the mode-line.
