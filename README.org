@@ -6,7 +6,8 @@ Enable melpa archive and making sure packages work
   (require 'package)
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/") t)
+               '("melpa" . "https://melpa.org/packages/")
+               '("gnu" . "https://elpa.gnu.org/packages/"))
   (package-initialize)
 #+END_SRC
 *** Use-package
@@ -22,8 +23,9 @@ Gotta have that HIGH-CONTRAST theme
   (unless (package-installed-p 'base16-theme)
     (package-refresh-contents)
     (package-install 'base16-theme))
-  (load-theme 'base16-bright t)
+  (setq base16-distinct-fringe-background nil)
   (setq base16-theme-256-color-source "terminal")
+  (load-theme 'base16-bright t)
 #+END_SRC
 *** exwm
 Emacs X Window Manager
@@ -31,7 +33,7 @@ Emacs X Window Manager
   (use-package exwm
     :ensure t
     :config
-    (require 'exwm)
+    (require 'exwm-config)
     (exwm-config-default))
 #+END_SRC
 ** Installed Packages
@@ -105,28 +107,14 @@ Minor mode that highlights parentheses well
     :init
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
-**** Powerline
-A sensible mode-line
-#+BEGIN_SRC emacs-lisp
-  (use-package powerline
-    :ensure t
-    :init
-    (powerline-vim-theme))
-#+END_SRC
-*** Flycheck
-Lets you know about errors in your code
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :config
-    (global-set-key (kbd "C-c f") 'flycheck-mode))
-#+END_SRC
-**** Flycheck-lilypond
-Lilypond support for flycheck
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck-lilypond
-    :ensure t)
-#+END_SRC
+# **** Powerline
+# A sensible mode-line
+# #+BEGIN_SRC emacs-lisp
+#   (use-package powerline
+#     :ensure t
+#     :init
+#     (powerline-vim-theme))
+# #+END_SRC
 *** Quality of life
 **** Smex
 smex integrates "M-x" with =ido=
@@ -179,7 +167,8 @@ A 'Lorem ipsum' generator
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
-    :ensure t)
+    :ensure t
+    :init (pdf-tools-install))
 #+END_SRC
 * Environment Variables
 Setting path, email and password variables
@@ -214,28 +203,20 @@ Disable all the wasteful bars
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
+  (fringe-mode 1)
 #+END_SRC
 *** Font and cursor
-Use system monospace font, red blinking cursor
+Use system monospace font, red non-blinking cursor
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "monospace-9")
+  (set-frame-font "monospace-9" t)
   (set-cursor-color "red")
-  (blink-cursor-mode 1)
+  (blink-cursor-mode -1)
 #+END_SRC
 ** Tabs
 Tabs are 4 spaces wide
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
   (setq tab-width 4)
-#+END_SRC
-** Encoding
-UTF-8 everywhere!
-#+BEGIN_SRC emacs-lisp
-  (setq locale-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
 #+END_SRC
 ** Buffers/input
 *** ido-mode
@@ -301,14 +282,40 @@ Compile the file associate with current buffer.
   lilypond, groff (ms, mom), c, tex, python, and go"
     (interactive)
     (shell-command (concat "compiler "
-                           (buffer-file-name) " &")))
-
+                           (buffer-file-name) " &"))
+    (bury-buffer "*Async Shell Command*"))
+#+END_SRC
+*** Compiling in emacs via lambda
+#+BEGIN_SRC emacs-lisp
+  (require 'compile)
+  (defun my-compiler-command ()
+    "A simple lambda to set compile-command"
+    (lambda ()
+      (set (make-local-variable 'compile-command)
+           (format "compiler %s" buffer-file-name))))
+#+END_SRC
+*** Notification bar replacement
+#+BEGIN_SRC emacs-lisp
+  (defun notibar ()
+    "Brings up a notification with the following information:
+  Date
+  Time
+  Memory used
+  Disk available
+  Brightness level
+  Volume level
+  Battery level"
+    (interactive)
+    (shell-command "notibar"))
 #+END_SRC
 *** Opening Output
 #+BEGIN_SRC emacs-lisp
   (defun opout ()
+    "Opens a pdf file of the same name as the current file"
     (interactive)
-    (shell-command (concat "opout " (buffer-file-name))))
+    (find-file-other-window (concat
+                             (file-name-sans-extension buffer-file-name)
+                             ".pdf")))
 #+END_SRC
 ** Email
 #+BEGIN_SRC emacs-lisp
@@ -318,9 +325,17 @@ Compile the file associate with current buffer.
     (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
 #+END_SRC
 ** dmenu
+*** dmenu launcher
+#+BEGIN_SRC emacs-lisp
+  (defun dmenu_recency ()
+    "Launch a program with dmenu"
+    (interactive)
+    (start-process "dmenu_recency" nil
+                   "dmenu_recency"))
+#+END_SRC
 *** dmenuhandler
 #+BEGIN_SRC emacs-lisp
-  (defun dmenuhander ()
+  (defun dmenuhandler ()
     "Choose how to handle the url in X11 clipboard"
     (interactive)
     (start-process "dmenuhandler" nil
@@ -350,7 +365,7 @@ Compile the file associate with current buffer.
     (interactive)
     (shell-command "mousetoggle"))
 #+END_SRC
-* Other
+* Major mode hooks and variables
 ** Lilypond mode
 Use lilypond mode for .ly files
 (taken from lilypond.org)
@@ -367,7 +382,6 @@ Auto-add parentheses
                               (?\( . ?\))
                               ))
 #+END_SRC
-Only when programming
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook (electric-pair-mode t))
 #+END_SRC
@@ -377,6 +391,41 @@ Only when programming
   (setq org-src-window-setup 'current-window)
   (setq org-src-tab-acts-natively t)
   (setq org-ellipsis " ")
+#+END_SRC
+** M-x compile hooks
+The function ´my-compiler-command´ is defined above.  Simply changes
+variable 'compiler-command.
+*** Groff
+#+BEGIN_SRC emacs-lisp
+  (add-hook' nroff-mode-hook
+             (lambda ()
+               (set (make-local-variable 'compile-command)
+                    (format "groff -ms -Tpdf %s > %s" 
+                            (shell-quote-argument buffer-file-name)
+                            (concat (file-name-sans-extension
+                                     (shell-quote-argument
+                                      buffer-file-name)) ".pdf")))))
+#+END_SRC
+*** C
+#+BEGIN_SRC emacs-lisp
+  (add-hook' c-mode-hook
+             (lambda ()
+               (set (make-local-variable 'compile-command)
+                    (format "compiler %s" buffer-file-name))))
+#+END_SRC
+*** LiLyPond
+#+BEGIN_SRC emacs-lisp
+  (add-hook' LilyPond-mode-hook
+             (lambda ()
+               (set (make-local-variable 'compile-command)
+                    (format "lilypond %s" buffer-file-name))))
+#+END_SRC
+*** LaTeX
+#+BEGIN_SRC emacs-lisp
+  (add-hook' latex-mode-hook
+             (lambda ()
+               (set (make-local-variable 'compile-command)
+                    (format "pdflatex %s" buffer-file-name))))
 #+END_SRC
 * Keybindings
 ** Miscellaneous
@@ -394,7 +443,7 @@ Only when programming
 #+END_SRC
 *** Mouse
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-t \ ") 'mousetoggle)
+  (global-set-key (kbd "s-t \\") 'mousetoggle)
 #+END_SRC
 ** Clipboard
 #+BEGIN_SRC emacs-lisp
@@ -420,20 +469,22 @@ Both defined in the Custom Functions section
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 ** General WM stuff
-*** Battery
+*** Information
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "s-t b") 'battery)
+  (global-set-key (kbd "s-t s-b") 'notibar)
 #+END_SRC
 *** dmenu scripts
 All of these are bound to functions written in 'Custom functions'
 #+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-t d") 'dmenu_recency)
   (global-set-key (kbd "s-t P") 'pdf-opener)
   (global-set-key (kbd "s-t V") 'video-opener)
   (global-set-key (kbd "s-t D") 'dmenuhandler)
 #+END_SRC
 ** Programming/Typesetting
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c c") 'generic-compiler)
+  (global-set-key (kbd "C-c C-m") 'compile)
   (global-set-key (kbd "C-c p") 'opout)
 #+END_SRC
 * Mode-line
@@ -452,3 +503,7 @@ I don't want anything fancy.
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+END_SRC
+
+
+
+
