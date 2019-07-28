@@ -1,249 +1,262 @@
-
-# Table of Contents
-
-1.  [Packages](#orgc500f33)
-    1.  [Startup](#org6fff18e)
-        1.  [Repositories and initialisation](#org750f95f)
-        2.  [Use-package](#org252b846)
-        3.  [Base16-theme](#org68beaa3)
-        4.  [exwm](#orgf6bd89b)
-    2.  [Installed Packages](#org1019584)
-        1.  [Pinentry](#org7bf5d85)
-        2.  [Completion](#org6957343)
-    3.  ["Applications"](#org7372484)
-        1.  [Appearance](#org483536e)
-        2.  [Quality of life](#org293d07d)
-        3.  [Not really useful](#orgba816dc)
-        4.  [To be confirmed](#org9546deb)
-        5.  [PDF-tools](#org7c552e2)
-2.  [Environment Variables](#org75f844c)
-3.  [Fixing defaults](#org0d428a4)
-    1.  [Miscellaneous stuff](#orgee0421f)
-        1.  [No more pesky extra files, other basics](#org7d5d660)
-        2.  [Enable all the features, because what's the point in having less?](#org10d4919)
-    2.  [Aesthetic stuff](#orgad761e3)
-        1.  [GUI ugliness](#org6a59af4)
-        2.  [Font and cursor](#orgb5c9196)
-    3.  [Tabs](#org24c3047)
-    4.  [Buffers/input](#org7cad837)
-        1.  [ido-mode](#org32742d8)
-        2.  [ibuffer](#org20b8968)
-4.  [Custom functions](#orgcd5c751)
-    1.  [Resizing windows](#orga1b7f17)
-    2.  [Go to config file](#org88e65bf)
-    3.  [Reloading config](#org8ca3297)
-    4.  [Programming](#orgb25c35b)
-        1.  [Compiling](#org23d2fb8)
-        2.  [Compiling in emacs via lambda](#org1df6509)
-        3.  [Notification bar replacement](#org010e7e1)
-        4.  [Opening Output](#orgb201709)
-    5.  [Email](#orgaa9f147)
-    6.  [dmenu](#org2617eee)
-        1.  [dmenu launcher](#orgdfc7f53)
-        2.  [dmenuhandler](#orga56d33c)
-        3.  [pdf-opener](#orgf4c6089)
-        4.  [video-opener](#orgc530903)
-    7.  [Other&#x2026;](#org35bf3d1)
-        1.  [Mouse](#org0dd4084)
-5.  [Major mode hooks and variables](#org88c68f2)
-    1.  [Lilypond mode](#orge5c3a2c)
-    2.  [Electric pairs](#orga6ec6cd)
-    3.  [Org Mode](#org10d2a35)
-    4.  [M-x compile hooks](#org3c8c518)
-        1.  [Groff](#org8e8b3f4)
-        2.  [C](#org7dd537b)
-        3.  [LiLyPond](#org70aad47)
-        4.  [LaTeX](#orgd5df58f)
-6.  [Keybindings](#org6a1cddf)
-    1.  [Miscellaneous](#org9425ec7)
-        1.  [Line numbers](#org32fb029)
-        2.  [Spelling correction](#org70dfc0b)
-        3.  [Line wrap](#org014a6ec)
-        4.  [Mouse](#org703ee2d)
-        5.  [client](#org60bc810)
-    2.  [Clipboard](#org0526919)
-    3.  [Moving between windows](#org26b2104)
-    4.  [Config file](#org074cc8c)
-        1.  [Visit config file](#org15b5a31)
-        2.  [Reload config file](#org45bc18b)
-    5.  [General WM stuff](#org0386657)
-        1.  [Information](#orga4da5e2)
-        2.  [dmenu scripts](#org4c52e1e)
-    6.  [Programming/Typesetting](#orgd0f3187)
-7.  [Mode-line](#org454b4f7)
-8.  [Email](#org70d09df)
+- [Packages](#org0ede44f)
+  - [Startup](#org7c7ba1c)
+    - [Repositories and initialisation](#org06cfa5f)
+    - [Use-package](#orgebb5271)
+    - [Base16-theme](#orgf100bcf)
+    - [exwm](#orga253e45)
+  - [Installed Packages](#orgf12b25c)
+    - [Pinentry](#org32e20b8)
+    - [Completion](#orgff494af)
+  - ["Applications"](#org9c71b05)
+    - [Appearance](#orgc509ee4)
+    - [Quality of life](#org6619f4f)
+    - [Not really useful](#org2a227fa)
+    - [To be confirmed](#org3e01933)
+    - [PDF-tools](#orgc7fff73)
+- [Environment Variables](#orgcbda003)
+- [Fixing defaults](#org5875a51)
+  - [Miscellaneous stuff](#orge2f2538)
+    - [No more pesky extra files, other basics](#org892d2fd)
+    - [Enable all the features, because what's the point in having less?](#org072a315)
+  - [Aesthetic stuff](#orgd49b4b5)
+    - [GUI ugliness](#orgb899f03)
+    - [Font and cursor](#org9de6e14)
+  - [Tabs](#orgfb392d1)
+  - [Buffers/input](#org415977f)
+    - [ido-mode](#orgcf8d0d8)
+    - [ibuffer](#org596e3d8)
+- [Custom functions](#orgf7fb40e)
+  - [Resizing windows](#orgc8a1cf7)
+  - [Go to config file](#org5c8d196)
+  - [Reloading config](#org6f2ac50)
+  - [Programming](#orgb97033e)
+    - [Compiling](#org6546249)
+    - [Compiling in emacs via lambda](#org59ba1da)
+    - [Notification bar replacement](#org10bdade)
+    - [Opening Output](#orge01fa4a)
+  - [Email](#org8136aff)
+  - [dmenu](#org390ffde)
+    - [dmenu launcher](#orge36102d)
+    - [dmenuhandler](#orgca0fd3f)
+    - [pdf-opener](#org892bcf6)
+    - [video-opener](#orgbce9526)
+  - [Other&#x2026;](#org2dce061)
+    - [Mouse](#org4341c34)
+- [Major mode hooks and variables](#org8bf073a)
+  - [Lilypond mode](#orga793bc0)
+  - [Electric pairs](#orgb216f04)
+  - [Org Mode](#org52785fc)
+  - [M-x compile hooks](#orgebb993e)
+    - [Groff](#org561bbaf)
+    - [C](#org448dfa4)
+    - [LiLyPond](#orgf5f147b)
+    - [LaTeX](#org5a7d214)
+- [Keybindings](#org9841694)
+  - [Miscellaneous](#org2b064a7)
+    - [Line numbers](#orga50c189)
+    - [Spelling correction](#orge52d005)
+    - [Line wrap](#orgd1241da)
+    - [Mouse](#org8c2d7d6)
+    - [client](#org9bb49f7)
+  - [Clipboard](#org201622e)
+  - [Moving between windows](#orgbceb506)
+  - [Config file](#org58dee1f)
+    - [Visit config file](#org86e115f)
+    - [Reload config file](#org1f51db9)
+  - [General WM stuff](#org658a3ea)
+    - [Information](#org39af047)
+    - [dmenu scripts](#org0f591ce)
+  - [Programming/Typesetting](#orgce1dc59)
+- [Mode-line](#org23c1b14)
+- [Email](#org30159fb)
 
 
-<a id="orgc500f33"></a>
+<a id="org0ede44f"></a>
 
 # Packages
 
 
-<a id="org6fff18e"></a>
+<a id="org7c7ba1c"></a>
 
 ## Startup
 
 
-<a id="org750f95f"></a>
+<a id="org06cfa5f"></a>
 
 ### Repositories and initialisation
 
 Enable melpa archive and making sure packages work
 
-    (require 'package)
-    (setq package-enable-at-startup nil)
-    (add-to-list 'package-archives
-                 '("melpa" . "https://melpa.org/packages/")
-                 '("gnu" . "https://elpa.gnu.org/packages/"))
-    (package-initialize)
+```emacs-lisp
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/")
+             '("gnu" . "https://elpa.gnu.org/packages/"))
+(package-initialize)
+```
 
 
-<a id="org252b846"></a>
+<a id="orgebb5271"></a>
 
 ### Use-package
 
 Install use-package if not installed
 
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
+```emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+```
 
 
-<a id="org68beaa3"></a>
+<a id="orgf100bcf"></a>
 
 ### Base16-theme
 
 Gotta have that HIGH-CONTRAST theme
 
-    (unless (package-installed-p 'base16-theme)
-      (package-refresh-contents)
-      (package-install 'base16-theme))
-    (setq base16-distinct-fringe-background nil)
-    (setq base16-theme-256-color-source "terminal")
-    (load-theme 'base16-bright t)
+```emacs-lisp
+(unless (package-installed-p 'base16-theme)
+  (package-refresh-contents)
+  (package-install 'base16-theme))
+(setq base16-distinct-fringe-background nil)
+(setq base16-theme-256-color-source "terminal")
+(load-theme 'base16-bright t)
+```
 
 
-<a id="orgf6bd89b"></a>
+<a id="orga253e45"></a>
 
 ### exwm
 
 Emacs X Window Manager
 
-    (use-package exwm
-      :ensure t
-      :config
-      (require 'exwm-config)
-      (exwm-config-default))
+```emacs-lisp
+(use-package exwm
+  :ensure t
+  :config
+  (require 'exwm-config)
+  (exwm-config-default))
+```
 
 
-<a id="org1019584"></a>
+<a id="orgf12b25c"></a>
 
 ## Installed Packages
 
 
-<a id="org7bf5d85"></a>
+<a id="org32e20b8"></a>
 
 ### Pinentry
 
 This package lets emacs be used for gpg authentication
 
-    (use-package pinentry
-      :ensure t
-      :init
-      (setq epa-pinentry-mode 'loopback)
-      (pinentry-start))
+```emacs-lisp
+(use-package pinentry
+  :ensure t
+  :init
+  (setq epa-pinentry-mode 'loopback)
+  (pinentry-start))
+```
 
 
-<a id="org6957343"></a>
+<a id="orgff494af"></a>
 
 ### Completion
 
 1.  Company
 
-    A very good package for auto-completion
-    \#+BEGIN<sub>SRC</sub> emacs-lisp
-      (use-package company
-        :ensure t
-        :init
-        (add-hook 'after-init-hook 'global-company-mode)
-        :config
-        (setq company-idle-delay 0))
-    \#+END<sub>SRC</sub>\*
+    A very good package for auto-completion \#+BEGIN<sub>SRC</sub> emacs-lisp (use-package company :ensure t :init (add-hook 'after-init-hook 'global-company-mode) :config (setq company-idle-delay 0)) \#+END<sub>SRC</sub>\*
 
 2.  Geiser
 
     A scheme backend
     
-        (use-package geiser
-          :ensure t)
+    ```emacs-lisp
+    (use-package geiser
+      :ensure t)
+    ```
 
 
-<a id="org7372484"></a>
+<a id="org9c71b05"></a>
 
 ## "Applications"
 
 1.  Mingus
 
-    A nice mpd front-end in emacs
-    (I couldn't get EMMS working with mopidy)
+    A nice mpd front-end in emacs (I couldn't get EMMS working with mopidy)
     
-        (use-package mingus
-          :ensure t)
+    ```emacs-lisp
+    (use-package mingus
+      :ensure t)
+    ```
 
 2.  Notmuch
 
     A simple email client, with emphasis on searching
     
-        (use-package notmuch
-          :ensure t
-          :config (setq notmuch-archive-tags '("-unread" "-inbox")))
+    ```emacs-lisp
+    (use-package notmuch
+      :ensure t
+      :config (setq notmuch-archive-tags '("-unread" "-inbox")))
+    ```
 
 3.  Transmission
 
     An emacs front-end for the transmission bittorrent daemon
     
-        (use-package transmission
-          :ensure t)
+    ```emacs-lisp
+    (use-package transmission
+      :ensure t)
+    ```
 
 4.  Elfeed
 
-        (use-package elfeed
-          :ensure t
-          :config (load-file (expand-file-name "~/.emacs.d/feeds.el")))
+    ```emacs-lisp
+    (use-package elfeed
+      :ensure t
+      :config (load-file (expand-file-name "~/.emacs.d/feeds.el")))
+    ```
 
 
-<a id="org483536e"></a>
+<a id="orgc509ee4"></a>
 
 ### Appearance
 
 1.  Rainbow-mode
 
-    This package highlights hex colours
-    (also install xterm-color to use in a terminal emulator)
+    This package highlights hex colours (also install xterm-color to use in a terminal emulator)
     
-        (use-package rainbow-mode
-          :ensure t
-          :config
-          (global-set-key (kbd "C-c h") 'rainbow-mode))
+    ```emacs-lisp
+    (use-package rainbow-mode
+      :ensure t
+      :config
+      (global-set-key (kbd "C-c h") 'rainbow-mode))
+    ```
 
 2.  xterm-color
 
     Allows a terminal emulator to use 256 colors
     
-        (use-package xterm-color
-          :ensure t)
+    ```emacs-lisp
+    (use-package xterm-color
+      :ensure t)
+    ```
 
 3.  Rainbow-delimiters
 
     Minor mode that highlights parentheses well
     
-        (use-package rainbow-delimiters
-          :ensure t
-          :init
-          (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    ```emacs-lisp
+    (use-package rainbow-delimiters
+      :ensure t
+      :init
+      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    ```
 
 
-<a id="org293d07d"></a>
+<a id="org6619f4f"></a>
 
 ### Quality of life
 
@@ -251,39 +264,47 @@ This package lets emacs be used for gpg authentication
 
     smex integrates "M-x" with `ido`
     
-        (use-package smex
-          :ensure t
-          :init (smex-initialize)
-          :bind
-          ("M-x" . smex))
+    ```emacs-lisp
+    (use-package smex
+      :ensure t
+      :init (smex-initialize)
+      :bind
+      ("M-x" . smex))
+    ```
 
 2.  Ido-vertical
 
     This package enables a vertical mode for the `ido` function
     
-        (use-package ido-vertical-mode
-          :ensure t
-          :init
-          (ido-vertical-mode 1))
-        (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+    ```emacs-lisp
+    (use-package ido-vertical-mode
+      :ensure t
+      :init
+      (ido-vertical-mode 1))
+    (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+    ```
 
 3.  Which-key
 
     Shows what your keys do
     
-        (use-package which-key
-          :ensure t
-          :init (which-key-mode)) 
+    ```emacs-lisp
+    (use-package which-key
+      :ensure t
+      :init (which-key-mode)) 
+    ```
 
 4.  Try
 
     Allows you to try other packages without committing
     
-        (use-package try
-          :ensure t)
+    ```emacs-lisp
+    (use-package try
+      :ensure t)
+    ```
 
 
-<a id="orgba816dc"></a>
+<a id="org2a227fa"></a>
 
 ### Not really useful
 
@@ -291,576 +312,669 @@ This package lets emacs be used for gpg authentication
 
     A 'Lorem ipsum' generator
     
-        (use-package lorem-ipsum
-          :ensure t)
+    ```emacs-lisp
+    (use-package lorem-ipsum
+      :ensure t)
+    ```
 
 
-<a id="org9546deb"></a>
+<a id="org3e01933"></a>
 
 ### To be confirmed
 
 1.  Elpher - gopher client
 
-        (use-package elpher
-          :ensure t)
+    ```emacs-lisp
+    (use-package elpher
+      :ensure t)
+    ```
 
 2.  xclip - enable use of X11 clipboard in terminal
 
-        (use-package xclip
-          :ensure t)
+    ```emacs-lisp
+    (use-package xclip
+      :ensure t)
+    ```
 
 3.  exwm-surf - allows emacsy control of surf
 
-        ;; (use-package exwm-surf
-        ;;   :ensure t
-        ;;   :config
-        ;;   (setq exwm-surf-history-file "/home/jamzattack/.surf/history")
-        ;;   (setq exwm-surf-bookmark-file "/home/jamzattack/.surf/bookmarks")
-        ;;   (add-hook 'exwm-manage-finish-hook 'exwm-surf-init))
+    ```emacs-lisp
+    ;; (use-package exwm-surf
+    ;;   :ensure t
+    ;;   :config
+    ;;   (setq exwm-surf-history-file "/home/jamzattack/.surf/history")
+    ;;   (setq exwm-surf-bookmark-file "/home/jamzattack/.surf/bookmarks")
+    ;;   (add-hook 'exwm-manage-finish-hook 'exwm-surf-init))
+    ```
 
 
-<a id="org7c552e2"></a>
+<a id="orgc7fff73"></a>
 
 ### PDF-tools
 
 Majorly increases performance when viewing pdfs as a file
 
-    (use-package pdf-tools
-      :ensure t
-      :init
-      (pdf-tools-install))
+```emacs-lisp
+(use-package pdf-tools
+  :ensure t
+  :init
+  (pdf-tools-install))
+```
 
 
-<a id="org75f844c"></a>
+<a id="orgcbda003"></a>
 
 # Environment Variables
 
 Setting path, email and password variables
 
-    (setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
-    (setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
-    (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin"))
-    (setq exec-path (append exec-path '("/home/jamzattack/.local/bin")))
+```emacs-lisp
+(setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
+(setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
+(setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin"))
+(setq exec-path (append exec-path '("/home/jamzattack/.local/bin")))
+```
 
 
-<a id="org0d428a4"></a>
+<a id="org5875a51"></a>
 
 # Fixing defaults
 
 
-<a id="orgee0421f"></a>
+<a id="orge2f2538"></a>
 
 ## Miscellaneous stuff
 
 
-<a id="org7d5d660"></a>
+<a id="org892d2fd"></a>
 
 ### No more pesky extra files, other basics
 
-    (defalias 'yes-or-no-p 'y-or-n-p)
-    (setq make-backup-files nil)
-    (setq auto-save-default nil)
+```emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+```
 
 
-<a id="org10d4919"></a>
+<a id="org072a315"></a>
 
 ### Enable all the features, because what's the point in having less?
 
-    (setq disabled-command-function nil)
+```emacs-lisp
+(setq disabled-command-function nil)
+```
 
 
-<a id="orgad761e3"></a>
+<a id="orgd49b4b5"></a>
 
 ## Aesthetic stuff
 
 
-<a id="org6a59af4"></a>
+<a id="orgb899f03"></a>
 
 ### GUI ugliness
 
 Disable all the wasteful bars
 
-    (scroll-bar-mode -1)
-    (menu-bar-mode -1)
-    (tool-bar-mode -1)
-    (fringe-mode 1)
+```emacs-lisp
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(fringe-mode 1)
+```
 
 
-<a id="orgb5c9196"></a>
+<a id="org9de6e14"></a>
 
 ### Font and cursor
 
 Use system monospace font, red non-blinking cursor
 
-    (set-cursor-color "red")
-    (blink-cursor-mode -1)
+```emacs-lisp
+(set-cursor-color "red")
+(blink-cursor-mode -1)
+```
 
 
-<a id="org24c3047"></a>
+<a id="orgfb392d1"></a>
 
 ## Tabs
 
 Tabs are 4 spaces wide
 
-    (setq-default indent-tabs-mode nil)
-    (setq tab-width 4)
+```emacs-lisp
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+```
 
 
-<a id="org7cad837"></a>
+<a id="org415977f"></a>
 
 ## Buffers/input
 
 
-<a id="org32742d8"></a>
+<a id="orgcf8d0d8"></a>
 
 ### ido-mode
 
-ido-mode is much better than the default for switching
-buffers and going to files.
+ido-mode is much better than the default for switching buffers and going to files.
 
-    (setq ido-enable-flex-matching nil)
-    (setq ido-create-new-buffer 'always)
-    (setq ido-everywhere t)
-    (ido-mode 1)
+```emacs-lisp
+(setq ido-enable-flex-matching nil)
+(setq ido-create-new-buffer 'always)
+(setq ido-everywhere t)
+(ido-mode 1)
+```
 
 
-<a id="org20b8968"></a>
+<a id="org596e3d8"></a>
 
 ### ibuffer
 
-ibuffer is also a lot better than the default
-(plus it has colours)
+ibuffer is also a lot better than the default (plus it has colours)
 
-    (global-set-key (kbd "C-x C-b") 'ibuffer)
+```emacs-lisp
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+```
 
 
-<a id="orgcd5c751"></a>
+<a id="orgf7fb40e"></a>
 
 # Custom functions
 
 
-<a id="orga1b7f17"></a>
+<a id="orgc8a1cf7"></a>
 
 ## Resizing windows
 
-    (defun v-resize (key)
-      "interactively resize the window"  
-      (interactive "cHit p/n/b/f to resize") 
-      (cond                                  
-       ((eq key (string-to-char "n"))                      
-        (enlarge-window 1)             
-        (call-interactively 'v-resize)) 
-       ((eq key (string-to-char "p"))                      
-        (enlarge-window -1)             
-        (call-interactively 'v-resize)) 
-       ((eq key (string-to-char "b"))                      
-        (enlarge-window-horizontally -1)             
-        (call-interactively 'v-resize)) 
-       ((eq key (string-to-char "f"))                      
-        (enlarge-window-horizontally 1)            
-        (call-interactively 'v-resize)) 
-       (t (push key unread-command-events))))
-    (global-set-key (kbd "C-c +") 'v-resize)
+```emacs-lisp
+(defun v-resize (key)
+  "interactively resize the window"  
+  (interactive "cHit p/n/b/f to resize") 
+  (cond                                  
+   ((eq key (string-to-char "n"))                      
+    (enlarge-window 1)             
+    (call-interactively 'v-resize)) 
+   ((eq key (string-to-char "p"))                      
+    (enlarge-window -1)             
+    (call-interactively 'v-resize)) 
+   ((eq key (string-to-char "b"))                      
+    (enlarge-window-horizontally -1)             
+    (call-interactively 'v-resize)) 
+   ((eq key (string-to-char "f"))                      
+    (enlarge-window-horizontally 1)            
+    (call-interactively 'v-resize)) 
+   (t (push key unread-command-events))))
+(global-set-key (kbd "C-c +") 'v-resize)
+```
 
 
-<a id="org88e65bf"></a>
+<a id="org5c8d196"></a>
 
 ## Go to config file
 
 Visit your config file. Bound to "C-c e" in `Keybindings` section.
 
-    (defun config-visit ()
-      "Go to your config.org"
-      (interactive)
-      (find-file "~/.emacs.d/config.org"))
+```emacs-lisp
+(defun config-visit ()
+  "Go to your config.org"
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+```
 
 
-<a id="org8ca3297"></a>
+<a id="org6f2ac50"></a>
 
 ## Reloading config
 
 Reloads this config file. Bound to "C-c r" in Keybindings section.
 
-    (defun config-reload ()
-      "Reloads ~/.emacs.d/config.org at runtime"
-      (interactive)
-      (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+```emacs-lisp
+(defun config-reload ()
+  "Reloads ~/.emacs.d/config.org at runtime"
+  (interactive)
+  (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+```
 
 
-<a id="orgb25c35b"></a>
+<a id="orgb97033e"></a>
 
 ## Programming
 
 
-<a id="org23d2fb8"></a>
+<a id="org6546249"></a>
 
 ### Compiling
 
 Compile the file associate with current buffer.
 
-    (defun generic-compiler ()
-      "Runs my own compile script on the file associated with the
-    current buffer. Works with:
-    lilypond, groff (ms, mom), c, tex, python, and go"
-      (interactive)
-      (shell-command (concat "compiler "
-                             (buffer-file-name) " &"))
-      (bury-buffer "*Async Shell Command*"))
+```emacs-lisp
+(defun generic-compiler ()
+  "Runs my own compile script on the file associated with the
+current buffer. Works with:
+lilypond, groff (ms, mom), c, tex, python, and go"
+  (interactive)
+  (shell-command (concat "compiler "
+                         (buffer-file-name) " &"))
+  (bury-buffer "*Async Shell Command*"))
+```
 
 
-<a id="org1df6509"></a>
+<a id="org59ba1da"></a>
 
 ### Compiling in emacs via lambda
 
-    (require 'compile)
-    (defun my-compiler-command ()
-      "A simple lambda to set compile-command"
-      (lambda ()
-        (set (make-local-variable 'compile-command)
-             (format "compiler %s" buffer-file-name))))
+```emacs-lisp
+(require 'compile)
+(defun my-compiler-command ()
+  "A simple lambda to set compile-command"
+  (lambda ()
+    (set (make-local-variable 'compile-command)
+         (format "compiler %s" buffer-file-name))))
+```
 
 
-<a id="org010e7e1"></a>
+<a id="org10bdade"></a>
 
 ### Notification bar replacement
 
-    (defun notibar ()
-      "Brings up a notification with the following information:
-    Date
-    Time
-    Memory used
-    Disk available
-    Brightness level
-    Volume level
-    Battery level"
-      (interactive)
-      (shell-command "notibar"))
+```emacs-lisp
+(defun notibar ()
+  "Brings up a notification with the following information:
+Date
+Time
+Memory used
+Disk available
+Brightness level
+Volume level
+Battery level"
+  (interactive)
+  (shell-command "notibar"))
+```
 
 
-<a id="orgb201709"></a>
+<a id="orge01fa4a"></a>
 
 ### Opening Output
 
-    (defun opout ()
-      "Opens a pdf file of the same name as the current file"
-      (interactive)
-      (find-file-other-window (concat
-                               (file-name-sans-extension buffer-file-name)
-                               ".pdf")))
+```emacs-lisp
+(defun opout ()
+  "Opens a pdf file of the same name as the current file"
+  (interactive)
+  (find-file-other-window (concat
+                           (file-name-sans-extension buffer-file-name)
+                           ".pdf")))
+```
 
 
-<a id="orgaa9f147"></a>
+<a id="org8136aff"></a>
 
 ## Email
 
-    (defun mailsync ()
-      "Downloads new mail and adds it to the notmuch database"
-      (interactive)
-      (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
+```emacs-lisp
+(defun mailsync ()
+  "Downloads new mail and adds it to the notmuch database"
+  (interactive)
+  (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
+```
 
 
-<a id="org2617eee"></a>
+<a id="org390ffde"></a>
 
 ## dmenu
 
 
-<a id="orgdfc7f53"></a>
+<a id="orge36102d"></a>
 
 ### dmenu launcher
 
-    (defun dmenu_recency ()
-      "Launch a program with dmenu"
-      (interactive)
-      (start-process "dmenu_recency" nil
-                     "dmenu_recency"))
+```emacs-lisp
+(defun dmenu_recency ()
+  "Launch a program with dmenu"
+  (interactive)
+  (start-process "dmenu_recency" nil
+                 "dmenu_recency"))
+```
 
 
-<a id="orga56d33c"></a>
+<a id="orgca0fd3f"></a>
 
 ### dmenuhandler
 
-    (defun dmenuhandler ()
-      "Choose how to handle the url in X11 clipboard"
-      (interactive)
-      (start-process "dmenuhandler" nil
-                     "dmenuhandler"))
+```emacs-lisp
+(defun dmenuhandler ()
+  "Choose how to handle the url in X11 clipboard"
+  (interactive)
+  (start-process "dmenuhandler" nil
+                 "dmenuhandler"))
+```
 
 
-<a id="orgf4c6089"></a>
+<a id="org892bcf6"></a>
 
 ### pdf-opener
 
-    (defun pdf-opener ()
-      "Select a .pdf or .ps file to view in zathura"
-      (interactive)
-      (start-process "pdf-opener" nil
-                     "pdf-opener"))
+```emacs-lisp
+(defun pdf-opener ()
+  "Select a .pdf or .ps file to view in zathura"
+  (interactive)
+  (start-process "pdf-opener" nil
+                 "pdf-opener"))
+```
 
 
-<a id="orgc530903"></a>
+<a id="orgbce9526"></a>
 
 ### video-opener
 
-    (defun video-opener ()
-      "Select a downloaded video to watch via dmenu and mpv"
-      (interactive)
-      (start-process "video-opener" nil
-                     "video-opener"))
+```emacs-lisp
+(defun video-opener ()
+  "Select a downloaded video to watch via dmenu and mpv"
+  (interactive)
+  (start-process "video-opener" nil
+                 "video-opener"))
+```
 
 
-<a id="org35bf3d1"></a>
+<a id="org2dce061"></a>
 
 ## Other&#x2026;
 
 
-<a id="org0dd4084"></a>
+<a id="org4341c34"></a>
 
 ### Mouse
 
-    (defun mousetoggle ()
-      "Toggles touchpad on my laptop"
-      (interactive)
-      (shell-command "mousetoggle")
-      (message "touchpad input toggled"))
+```emacs-lisp
+(defun mousetoggle ()
+  "Toggles touchpad on my laptop"
+  (interactive)
+  (shell-command "mousetoggle")
+  (message "touchpad input toggled"))
+```
 
 
-<a id="org88c68f2"></a>
+<a id="org8bf073a"></a>
 
 # Major mode hooks and variables
 
 
-<a id="orge5c3a2c"></a>
+<a id="orga793bc0"></a>
 
 ## Lilypond mode
 
-Use lilypond mode for .ly files
-(taken from lilypond.org)
+Use lilypond mode for .ly files (taken from lilypond.org)
 
-    (autoload 'LilyPond-mode "lilypond-mode")
-    (setq auto-mode-alist
-          (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-    (setq LilyPond-pdf-command "zathura")
+```emacs-lisp
+(autoload 'LilyPond-mode "lilypond-mode")
+(setq auto-mode-alist
+      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+(setq LilyPond-pdf-command "zathura")
+```
 
 
-<a id="orga6ec6cd"></a>
+<a id="orgb216f04"></a>
 
 ## Electric pairs
 
 Auto-add parentheses
 
-    (setq electric-pair-pairs '(
-                                (?\( . ?\))
-                                ))
+```emacs-lisp
+(setq electric-pair-pairs '(
+                            (?\( . ?\))
+                            ))
+```
 
-    (add-hook 'prog-mode-hook (electric-pair-mode t))
+```emacs-lisp
+(add-hook 'prog-mode-hook (electric-pair-mode t))
+```
 
 
-<a id="org10d2a35"></a>
+<a id="org52785fc"></a>
 
 ## Org Mode
 
-    (add-hook 'org-mode-hook 'org-indent-mode)
-    (setq org-src-window-setup 'current-window)
-    (setq org-src-tab-acts-natively t)
-    (setq org-ellipsis " ")
+```emacs-lisp
+(add-hook 'org-mode-hook 'org-indent-mode)
+(setq org-src-window-setup 'current-window)
+(setq org-src-tab-acts-natively t)
+(setq org-ellipsis " ")
+```
 
 
-<a id="org3c8c518"></a>
+<a id="orgebb993e"></a>
 
 ## M-x compile hooks
 
-The function ´my-compiler-command´ is defined above.  Simply changes
-variable 'compiler-command.
+The function ´my-compiler-command´ is defined above. Simply changes variable 'compiler-command.
 
 
-<a id="org8e8b3f4"></a>
+<a id="org561bbaf"></a>
 
 ### Groff
 
-    (add-hook 'nroff-mode-hook
-              (lambda ()
-                (set (make-local-variable 'compile-command)
-                     (format "groff -ms -Tpdf %s > %s" 
-                             (shell-quote-argument buffer-file-name)
-                             (concat (file-name-sans-extension
-                                      (shell-quote-argument
-                                       buffer-file-name)) ".pdf")))))
+```emacs-lisp
+(add-hook 'nroff-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (format "groff -ms -Tpdf %s > %s" 
+                         (shell-quote-argument buffer-file-name)
+                         (concat (file-name-sans-extension
+                                  (shell-quote-argument
+                                   buffer-file-name)) ".pdf")))))
 
 
-<a id="org7dd537b"></a>
+```
+
+
+<a id="org448dfa4"></a>
 
 ### C
 
-    (add-hook 'c-mode-hook
-              (lambda ()
-                (set (make-local-variable 'compile-command)
-                     (format "compiler %s" buffer-file-name))))
+```emacs-lisp
+(add-hook 'c-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (format "compiler %s" buffer-file-name))))
+```
 
 
-<a id="org70aad47"></a>
+<a id="orgf5f147b"></a>
 
 ### LiLyPond
 
-    (add-hook 'LilyPond-mode-hook
-              (lambda ()
-                (set (make-local-variable 'compile-command)
-                     (format "lilypond %s" buffer-file-name))))
+```emacs-lisp
+(add-hook 'LilyPond-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (format "lilypond %s" buffer-file-name))))
+```
 
 
-<a id="orgd5df58f"></a>
+<a id="org5a7d214"></a>
 
 ### LaTeX
 
-    (add-hook 'latex-mode-hook
-              (lambda ()
-                (set (make-local-variable 'compile-command)
-                     (format "pdflatex %s" buffer-file-name))))
+```emacs-lisp
+(add-hook 'latex-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (format "pdflatex %s" buffer-file-name))))
+```
 
-Somewhat related, overrides latex-mode keybinding that interferes with
-my compile key "C-c C-m".
+Somewhat related, overrides latex-mode keybinding that interferes with my compile key "C-c C-m".
 
-    (add-hook 'latex-mode-hook
-              (lambda ()
-                (local-unset-key (kbd "C-c C-m"))))
+```emacs-lisp
+(add-hook 'latex-mode-hook
+          (lambda ()
+            (local-unset-key (kbd "C-c C-m"))))
+```
 
 
-<a id="org6a1cddf"></a>
+<a id="org9841694"></a>
 
 # Keybindings
 
 
-<a id="org9425ec7"></a>
+<a id="org2b064a7"></a>
 
 ## Miscellaneous
 
 
-<a id="org32fb029"></a>
+<a id="orga50c189"></a>
 
 ### Line numbers
 
-    (global-set-key (kbd "C-c n") 'display-line-numbers-mode)
+```emacs-lisp
+(global-set-key (kbd "C-c n") 'display-line-numbers-mode)
+```
 
 
-<a id="org70dfc0b"></a>
+<a id="orge52d005"></a>
 
 ### Spelling correction
 
-    (global-set-key (kbd "C-c s") 'flyspell-mode)
+```emacs-lisp
+(global-set-key (kbd "C-c s") 'flyspell-mode)
+```
 
 
-<a id="org014a6ec"></a>
+<a id="orgd1241da"></a>
 
 ### Line wrap
 
-    (global-set-key (kbd "C-c l") 'toggle-truncate-lines)
+```emacs-lisp
+(global-set-key (kbd "C-c l") 'toggle-truncate-lines)
+```
 
 
-<a id="org703ee2d"></a>
+<a id="org8c2d7d6"></a>
 
 ### Mouse
 
-    (global-set-key (kbd "s-t \\") 'mousetoggle)
+```emacs-lisp
+(global-set-key (kbd "s-t \\") 'mousetoggle)
+```
 
 
-<a id="org60bc810"></a>
+<a id="org9bb49f7"></a>
 
 ### client
 
-    (global-set-key (kbd "C-x C-c") 'delete-frame)
+```emacs-lisp
+(global-set-key (kbd "C-x C-c") 'delete-frame)
+```
 
 
-<a id="org0526919"></a>
+<a id="org201622e"></a>
 
 ## Clipboard
 
-    (global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
-    (global-set-key (kbd "C-c y") 'clipboard-yank)
+```emacs-lisp
+(global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
+(global-set-key (kbd "C-c y") 'clipboard-yank)
+```
 
 
-<a id="org26b2104"></a>
+<a id="orgbceb506"></a>
 
 ## Moving between windows
 
-    (global-set-key (kbd "s-p") 'windmove-up)
-    (global-set-key (kbd "s-n") 'windmove-down)
-    (global-set-key (kbd "s-b") 'windmove-left)
-    (global-set-key (kbd "s-f") 'windmove-right)
-    (global-set-key (kbd "<M-tab>") 'other-window)
+```emacs-lisp
+(global-set-key (kbd "s-p") 'windmove-up)
+(global-set-key (kbd "s-n") 'windmove-down)
+(global-set-key (kbd "s-b") 'windmove-left)
+(global-set-key (kbd "s-f") 'windmove-right)
+(global-set-key (kbd "<M-tab>") 'other-window)
+```
 
 
-<a id="org074cc8c"></a>
+<a id="org58dee1f"></a>
 
 ## Config file
 
 Both defined in the Custom Functions section
 
 
-<a id="org15b5a31"></a>
+<a id="org86e115f"></a>
 
 ### Visit config file
 
-    (global-set-key (kbd "C-c e") 'config-visit)
+```emacs-lisp
+(global-set-key (kbd "C-c e") 'config-visit)
+```
 
 
-<a id="org45bc18b"></a>
+<a id="org1f51db9"></a>
 
 ### Reload config file
 
-    (global-set-key (kbd "C-c r") 'config-reload)
+```emacs-lisp
+(global-set-key (kbd "C-c r") 'config-reload)
+```
 
 
-<a id="org0386657"></a>
+<a id="org658a3ea"></a>
 
 ## General WM stuff
 
 
-<a id="orga4da5e2"></a>
+<a id="org39af047"></a>
 
 ### Information
 
-    (global-set-key (kbd "s-t b") 'battery)
-    (global-set-key (kbd "s-t s-b") 'notibar)
+```emacs-lisp
+(global-set-key (kbd "s-t b") 'battery)
+(global-set-key (kbd "s-t s-b") 'notibar)
+```
 
 
-<a id="org4c52e1e"></a>
+<a id="org0f591ce"></a>
 
 ### dmenu scripts
 
 All of these are bound to functions written in 'Custom functions'
 
-    (global-set-key (kbd "s-t d") 'dmenu_recency)
-    (global-set-key (kbd "s-t P") 'pdf-opener)
-    (global-set-key (kbd "s-t V") 'video-opener)
-    (global-set-key (kbd "s-t D") 'dmenuhandler)
+```emacs-lisp
+(global-set-key (kbd "s-t d") 'dmenu_recency)
+(global-set-key (kbd "s-t P") 'pdf-opener)
+(global-set-key (kbd "s-t V") 'video-opener)
+(global-set-key (kbd "s-t D") 'dmenuhandler)
+```
 
 
-<a id="orgd0f3187"></a>
+<a id="orgce1dc59"></a>
 
 ## Programming/Typesetting
 
-    (global-set-key (kbd "C-c C-m") 'compile)
-    (global-set-key (kbd "C-c p") 'opout)
+```emacs-lisp
+(global-set-key (kbd "C-c C-m") 'compile)
+(global-set-key (kbd "C-c p") 'opout)
+```
 
 
-<a id="org454b4f7"></a>
+<a id="org23c1b14"></a>
 
 # Mode-line
 
-Just some basic extra stuff in the mode-line.
-I don't want anything fancy.
+Just some basic extra stuff in the mode-line. I don't want anything fancy.
 
-    (column-number-mode t)
-    (display-time-mode t)
-    (setq display-time-24hr-format 1)
+```emacs-lisp
+(column-number-mode t)
+(display-time-mode t)
+(setq display-time-24hr-format 1)
+```
 
 
-<a id="org70d09df"></a>
+<a id="org30159fb"></a>
 
 # Email
 
-    (setq send-mail-function 'sendmail-send-it
-          sendmail-program "/usr/bin/msmtp"
-          mail-specify-envelope-from t
-          message-sendmail-envelope-from 'header
-          mail-envelope-from 'header)
-
+```emacs-lisp
+(setq send-mail-function 'sendmail-send-it
+      sendmail-program "/usr/bin/msmtp"
+      mail-specify-envelope-from t
+      message-sendmail-envelope-from 'header
+      mail-envelope-from 'header)
+```
