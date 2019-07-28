@@ -8,12 +8,27 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(base16-distinct-fringe-background nil)
- '(base16-highlight-mode-line "box")
- '(custom-enabled-themes (quote (base16-woodland)))
+ '(browse-url-browser-function (quote eww-browse-url))
+ '(byte-compile-verbose nil)
+ '(custom-enabled-themes (quote (base16-bright)))
  '(custom-safe-themes
    (quote
-    ("8be07a2c1b3a7300860c7a65c0ad148be6d127671be04d3d2120f1ac541ac103" default)))
- '(line-number-mode nil)
+    ("5a39d2a29906ab273f7900a2ae843e9aa29ed5d205873e1199af4c9ec921aaab" default)))
+ '(dired-listing-switches "-alh")
+ '(dired-use-ls-dired (quote unspecified))
+ '(eshell-ls-use-in-dired nil nil (em-ls))
+ '(exwm-input-prefix-keys
+   (quote
+    ("" "" ""
+     [134217848]
+     [134217824]
+     [134217766]
+     [134217786]
+     [8388724])))
+ '(exwm-workspace-number 4)
+ '(font-lock-global-modes (quote (not speedbar-mode)))
+ '(ido-vertical-mode t)
+ '(line-number-mode t)
  '(notmuch-address-internal-completion (quote (received nil)))
  '(notmuch-saved-searches
    (quote
@@ -26,14 +41,17 @@
      (:name "university" :query "university"))))
  '(package-selected-packages
    (quote
-    (mingus pinentry use-package xterm-color which-key powerline ido-vertical-mode smex pinentry flycheck-lilypond transmission notmuch rainbow-delimiters base16-theme company rainbow-mode ##)))
- '(send-mail-function (quote mailclient-send-it)))
+    (scheme-complete powerline flycheck-lilypond flycheck pdf-tools xelb exwm xterm-color xclip which-key use-package try transmission switch-window smex rainbow-mode rainbow-delimiters pinentry notmuch mingus lorem-ipsum ido-vertical-mode elpher elfeed counsel company base16-theme)))
+ '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mouse ((t (:background "white")))))
+ '(default ((t (:weight normal :height 60 :width normal :foundry "xos4" :family "xos4 Terminus"))))
+ '(fixed-pitch ((t (:family "monospace-9"))))
+ '(mouse ((t (:background "white"))))
+ '(variable-pitch ((t (:family "Linux Biolinum")))))
 
 (provide 'init)
 

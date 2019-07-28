@@ -155,20 +155,32 @@ A 'Lorem ipsum' generator
     :ensure t)
 #+END_SRC
 *** To be confirmed
+**** Elpher - gopher client
 #+BEGIN_SRC emacs-lisp
-  ;; Gopher client
   (use-package elpher
     :ensure t)
-  ;; Use X11 clipboard in terminal
+#+END_SRC
+**** xclip - enable use of X11 clipboard in terminal
+#+BEGIN_SRC emacs-lisp
   (use-package xclip
     :ensure t)
+#+END_SRC
+**** exwm-surf - allows emacsy control of surf
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package exwm-surf
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq exwm-surf-history-file "/home/jamzattack/.surf/history")
+  ;;   (setq exwm-surf-bookmark-file "/home/jamzattack/.surf/bookmarks")
+  ;;   (add-hook 'exwm-manage-finish-hook 'exwm-surf-init))
 #+END_SRC
 *** PDF-tools
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
     :ensure t
-    :init (pdf-tools-install))
+    :init
+    (pdf-tools-install))
 #+END_SRC
 * Environment Variables
 Setting path, email and password variables
@@ -191,11 +203,6 @@ Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
   (setq disabled-command-function nil)
 #+END_SRC
-*** Disable version control
-#+BEGIN_SRC emacs-lisp
-  (remove-hook 'find-file-hook 'vc-find-file-hook)
-  (setq vc-handled-backends nil)
-#+END_SRC
 ** Aesthetic stuff
 *** GUI ugliness
 Disable all the wasteful bars
@@ -208,7 +215,6 @@ Disable all the wasteful bars
 *** Font and cursor
 Use system monospace font, red non-blinking cursor
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "monospace-9" t)
   (set-cursor-color "red")
   (blink-cursor-mode -1)
 #+END_SRC
@@ -363,7 +369,8 @@ Compile the file associate with current buffer.
   (defun mousetoggle ()
     "Toggles touchpad on my laptop"
     (interactive)
-    (shell-command "mousetoggle"))
+    (shell-command "mousetoggle")
+    (message "touchpad input toggled"))
 #+END_SRC
 * Major mode hooks and variables
 ** Lilypond mode
@@ -397,35 +404,45 @@ The function ´my-compiler-command´ is defined above.  Simply changes
 variable 'compiler-command.
 *** Groff
 #+BEGIN_SRC emacs-lisp
-  (add-hook' nroff-mode-hook
-             (lambda ()
-               (set (make-local-variable 'compile-command)
-                    (format "groff -ms -Tpdf %s > %s" 
-                            (shell-quote-argument buffer-file-name)
-                            (concat (file-name-sans-extension
-                                     (shell-quote-argument
-                                      buffer-file-name)) ".pdf")))))
+  (add-hook 'nroff-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "groff -ms -Tpdf %s > %s" 
+                           (shell-quote-argument buffer-file-name)
+                           (concat (file-name-sans-extension
+                                    (shell-quote-argument
+                                     buffer-file-name)) ".pdf")))))
+
+
 #+END_SRC
 *** C
 #+BEGIN_SRC emacs-lisp
-  (add-hook' c-mode-hook
-             (lambda ()
-               (set (make-local-variable 'compile-command)
-                    (format "compiler %s" buffer-file-name))))
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "compiler %s" buffer-file-name))))
 #+END_SRC
 *** LiLyPond
 #+BEGIN_SRC emacs-lisp
-  (add-hook' LilyPond-mode-hook
-             (lambda ()
-               (set (make-local-variable 'compile-command)
-                    (format "lilypond %s" buffer-file-name))))
+  (add-hook 'LilyPond-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "lilypond %s" buffer-file-name))))
 #+END_SRC
 *** LaTeX
 #+BEGIN_SRC emacs-lisp
-  (add-hook' latex-mode-hook
-             (lambda ()
-               (set (make-local-variable 'compile-command)
-                    (format "pdflatex %s" buffer-file-name))))
+  (add-hook 'latex-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "pdflatex %s" buffer-file-name))))
+#+END_SRC
+
+Somewhat related, overrides latex-mode keybinding that interferes with
+my compile key "C-c C-m".
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'latex-mode-hook
+            (lambda ()
+              (local-unset-key (kbd "C-c C-m"))))
 #+END_SRC
 * Keybindings
 ** Miscellaneous
@@ -503,7 +520,3 @@ I don't want anything fancy.
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+END_SRC
-
-
-
-
