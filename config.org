@@ -63,7 +63,7 @@ A scheme backend
   (use-package geiser
     :ensure t)
 #+END_SRC
-** "Applications"
+*** "Applications"
 **** Mingus
 A nice mpd front-end in emacs
 (I couldn't get EMMS working with mopidy)
