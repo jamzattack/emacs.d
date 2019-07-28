@@ -46,7 +46,8 @@ This package lets emacs be used for gpg authentication
     (setq epa-pinentry-mode 'loopback)
     (pinentry-start))
 #+END_SRC
-*** Company
+*** Completion
+**** Company
 A very good package for auto-completion
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -55,8 +56,14 @@ A very good package for auto-completion
     (add-hook 'after-init-hook 'global-company-mode)
     :config
     (setq company-idle-delay 0))
+#+END_SRC*
+**** Geiser
+A scheme backend
+#+BEGIN_SRC emacs-lisp
+  (use-package geiser
+    :ensure t)
 #+END_SRC
-*** "Applications"
+** "Applications"
 **** Mingus
 A nice mpd front-end in emacs
 (I couldn't get EMMS working with mopidy)
@@ -195,7 +202,6 @@ Setting path, email and password variables
 *** No more pesky extra files, other basics
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
-  (defalias 'save-buffers-kill-emacs 'delete-frame)
   (setq make-backup-files nil)
   (setq auto-save-default nil)
 #+END_SRC
@@ -461,6 +467,10 @@ my compile key "C-c C-m".
 *** Mouse
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "s-t \\") 'mousetoggle)
+#+END_SRC
+*** client
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-c") 'delete-frame)
 #+END_SRC
 ** Clipboard
 #+BEGIN_SRC emacs-lisp
