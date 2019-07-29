@@ -1,87 +1,83 @@
-- [Packages](#orgee66018)
-  - [Startup](#orgdabeba4)
-    - [Repositories and initialisation](#org97a1943)
-    - [Use-package](#org40cae66)
-    - [Base16-theme](#org6c344b2)
-    - [exwm](#org2743eac)
-  - [Installed Packages](#org97e66b6)
-    - [Pinentry](#orgda4ef86)
-    - [Completion](#org004055e)
-    - ["Applications"](#org9f34b6a)
-    - [Appearance](#org3cb0d4a)
-    - [Quality of life](#orgc38d317)
-    - [Not really useful](#orgb1929a5)
-    - [To be confirmed](#orgc9bb7e4)
-    - [PDF-tools](#org8363448)
-- [Environment Variables](#orgf2842cf)
-- [Fixing defaults](#org732db5f)
-  - [Miscellaneous stuff](#orgee36ea2)
-    - [No more pesky extra files, other basics](#orged91d6a)
-    - [Enable all the features, because what's the point in having less?](#orgfc52869)
-  - [Aesthetic stuff](#orga43846f)
-    - [GUI ugliness](#orgde62220)
-    - [Font and cursor](#orgf4de03c)
-  - [Tabs](#org77e32f4)
-  - [Buffers/input](#org51db9b7)
-    - [ido-mode](#org148c4e4)
-    - [ibuffer](#orgbdd67f9)
-- [Custom functions](#org2a75bda)
-  - [Resizing windows](#orgbbde894)
-  - [Go to config file](#orgeb030ef)
-  - [Reloading config](#org302edf9)
-  - [Programming](#orgc2cd43b)
-    - [Compiling](#org36bb660)
-    - [Compiling in emacs via lambda](#org13abb08)
-    - [Notification bar replacement](#orgd52c625)
-    - [Opening Output](#orgd19ad03)
-  - [Email](#orgeef64d6)
-  - [dmenu](#orgc74d61c)
-    - [dmenu launcher](#orgcf2fcf9)
-    - [dmenuhandler](#orgab2336a)
-    - [pdf-opener](#orgd955a22)
-    - [video-opener](#org1f365b6)
-  - [Other&#x2026;](#org1d3296e)
-    - [Mouse](#org3040a91)
-- [Major mode hooks and variables](#org15d82f2)
-  - [Lilypond mode](#org10afe62)
-  - [Electric pairs](#org85138d0)
-  - [Org Mode](#org7c5e300)
-  - [M-x compile hooks](#org68cfa57)
-    - [Groff](#org2b5ce1f)
-    - [C](#org0994209)
-    - [LiLyPond](#org3c4dfe9)
-    - [LaTeX](#orged4a221)
-- [Keybindings](#org36c40c1)
-  - [Miscellaneous](#org3842cc8)
-    - [Line numbers](#orgb26e99d)
-    - [Spelling correction](#org520a9e8)
-    - [Line wrap](#org500db4d)
-    - [Mouse](#orgc833bb4)
-    - [client](#orgf9abd05)
-  - [Clipboard](#org19f59a8)
-  - [Moving between windows](#orge56f355)
-  - [Config file](#org2b9f371)
-    - [Visit config file](#org55166ae)
-    - [Reload config file](#orgf6887c0)
-  - [General WM stuff](#org0472a9f)
-    - [Information](#org2a0378c)
-    - [dmenu scripts](#org0fb4adf)
-  - [Programming/Typesetting](#orgebb4db4)
-- [Mode-line](#org8d8ca58)
-- [Email](#org900efcf)
+- [Packages](#orga3fd7d8)
+  - [Startup](#org3e9ae4a)
+    - [Repositories and initialisation](#org63ae400)
+    - [Use-package](#org6617b5d)
+    - [Base16-theme](#org636c4c2)
+    - [exwm](#org11a5f40)
+  - [Installed Packages](#org5fed59a)
+    - [Pinentry](#org78c7b78)
+    - [Org](#org0c24984)
+    - [Completion](#orgffbea8e)
+    - ["Applications"](#orgc2b2f4c)
+    - [Appearance](#orgfa738b8)
+    - [Quality of life](#org9be62c5)
+    - [Not really useful](#org0d4fdf2)
+    - [To be confirmed](#orgaefa3d4)
+    - [PDF-tools](#orga1cc1b5)
+- [Environment Variables](#org446a5fb)
+- [Fixing defaults](#orgfa30881)
+  - [Miscellaneous stuff](#orgb4c5540)
+    - [No more pesky extra files, other basics](#orgf7a4b6b)
+    - [Enable all the features, because what's the point in having less?](#org765814c)
+  - [Aesthetic stuff](#orge0ce14f)
+    - [GUI ugliness](#org755c880)
+    - [Font and cursor](#org0c75f94)
+  - [Tabs](#orgea43c04)
+  - [Buffers/input](#org28a8af0)
+    - [ido-mode](#orge90dfcd)
+    - [ibuffer](#org63cb5a8)
+- [Custom functions](#org1e35a72)
+  - [Resizing windows](#org73de44b)
+  - [Go to config file](#org6c13e14)
+  - [Reloading config](#org374a11f)
+  - [Programming](#orgdd2e7ea)
+    - [Compiling](#org2f0b97d)
+    - [Opening Output](#org4dfc2fb)
+  - [Email](#org6d7cb5b)
+  - [WM stuff](#org56beae0)
+    - [Notification bar replacement](#org7febf5e)
+    - [dmenu](#org2debdf0)
+    - [Other&#x2026;](#org93813b8)
+- [Major mode hooks and variables](#orgc6766ef)
+  - [Lilypond mode](#org1111109)
+  - [Electric pairs](#org7619958)
+  - [Org Mode](#org36e3793)
+  - [M-x compile hooks](#org83e610a)
+    - [Groff](#org8c0e4ed)
+    - [C](#org2614a8f)
+    - [LiLyPond](#org891be9e)
+    - [LaTeX](#org229a124)
+- [Keybindings](#org67057eb)
+  - [Miscellaneous](#org8893709)
+    - [Line numbers](#orgae7a582)
+    - [Spelling correction](#org8f5e42c)
+    - [Line wrap](#org05d38b3)
+    - [Mouse](#org61c58ae)
+    - [client](#org8b4a43e)
+  - [Clipboard](#org25e30e0)
+  - [Moving between windows](#orgbbebc08)
+  - [Config file](#org25ca5e6)
+    - [Visit config file](#org82c4329)
+    - [Reload config file](#orga5058b3)
+  - [General WM stuff](#org32749d7)
+    - [Information](#org96a71d9)
+    - [dmenu scripts](#org08f2cbe)
+  - [Programming/Typesetting](#org9e4d0b8)
+- [Mode-line](#org12f4496)
+- [Email](#orgb081e5f)
 
 
-<a id="orgee66018"></a>
+<a id="orga3fd7d8"></a>
 
 # Packages
 
 
-<a id="orgdabeba4"></a>
+<a id="org3e9ae4a"></a>
 
 ## Startup
 
 
-<a id="org97a1943"></a>
+<a id="org63ae400"></a>
 
 ### Repositories and initialisation
 
@@ -97,7 +93,7 @@ Enable melpa archive and making sure packages work
 ```
 
 
-<a id="org40cae66"></a>
+<a id="org6617b5d"></a>
 
 ### Use-package
 
@@ -110,7 +106,7 @@ Install use-package if not installed
 ```
 
 
-<a id="org6c344b2"></a>
+<a id="org636c4c2"></a>
 
 ### Base16-theme
 
@@ -126,7 +122,7 @@ Gotta have that HIGH-CONTRAST theme
 ```
 
 
-<a id="org2743eac"></a>
+<a id="org11a5f40"></a>
 
 ### exwm
 
@@ -141,12 +137,12 @@ Emacs X Window Manager
 ```
 
 
-<a id="org97e66b6"></a>
+<a id="org5fed59a"></a>
 
 ## Installed Packages
 
 
-<a id="orgda4ef86"></a>
+<a id="org78c7b78"></a>
 
 ### Pinentry
 
@@ -161,13 +157,41 @@ This package lets emacs be used for gpg authentication
 ```
 
 
-<a id="org004055e"></a>
+<a id="org0c24984"></a>
+
+### Org
+
+1.  Github markdown
+
+    ```emacs-lisp
+    (use-package ox-gfm
+      :ensure t)
+    ```
+
+2.  Html export
+
+    ```emacs-lisp
+    (use-package htmlize
+      :ensure t)
+    ```
+
+
+<a id="orgffbea8e"></a>
 
 ### Completion
 
 1.  Company
 
-    A very good package for auto-completion \#+BEGIN<sub>SRC</sub> emacs-lisp (use-package company :ensure t :init (add-hook 'after-init-hook 'global-company-mode) :config (setq company-idle-delay 0)) \#+END<sub>SRC</sub>\*
+    A very good package for auto-completion
+    
+    ```emacs-lisp
+    (use-package company
+      :ensure t
+      :init
+      (global-company-mode)
+      :config
+      (setq company-idle-delay 0))
+    ```
 
 2.  Geiser
 
@@ -179,7 +203,7 @@ This package lets emacs be used for gpg authentication
     ```
 
 
-<a id="org9f34b6a"></a>
+<a id="orgc2b2f4c"></a>
 
 ### "Applications"
 
@@ -220,7 +244,7 @@ This package lets emacs be used for gpg authentication
     ```
 
 
-<a id="org3cb0d4a"></a>
+<a id="orgfa738b8"></a>
 
 ### Appearance
 
@@ -256,7 +280,7 @@ This package lets emacs be used for gpg authentication
     ```
 
 
-<a id="orgc38d317"></a>
+<a id="org9be62c5"></a>
 
 ### Quality of life
 
@@ -304,7 +328,7 @@ This package lets emacs be used for gpg authentication
     ```
 
 
-<a id="orgb1929a5"></a>
+<a id="org0d4fdf2"></a>
 
 ### Not really useful
 
@@ -318,7 +342,7 @@ This package lets emacs be used for gpg authentication
     ```
 
 
-<a id="orgc9bb7e4"></a>
+<a id="orgaefa3d4"></a>
 
 ### To be confirmed
 
@@ -348,7 +372,7 @@ This package lets emacs be used for gpg authentication
     ```
 
 
-<a id="org8363448"></a>
+<a id="orga1cc1b5"></a>
 
 ### PDF-tools
 
@@ -362,7 +386,7 @@ Majorly increases performance when viewing pdfs as a file
 ```
 
 
-<a id="orgf2842cf"></a>
+<a id="org446a5fb"></a>
 
 # Environment Variables
 
@@ -371,22 +395,24 @@ Setting path, email and password variables
 ```emacs-lisp
 (setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
 (setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
-(setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin"))
-(setq exec-path (append exec-path '("/home/jamzattack/.local/bin")))
+(add-hook 'after-init-hook
+          (lambda ()
+            (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin/"))
+            (push "/home/jamzattack/.local/bin/" exec-path)))
 ```
 
 
-<a id="org732db5f"></a>
+<a id="orgfa30881"></a>
 
 # Fixing defaults
 
 
-<a id="orgee36ea2"></a>
+<a id="orgb4c5540"></a>
 
 ## Miscellaneous stuff
 
 
-<a id="orged91d6a"></a>
+<a id="orgf7a4b6b"></a>
 
 ### No more pesky extra files, other basics
 
@@ -397,7 +423,7 @@ Setting path, email and password variables
 ```
 
 
-<a id="orgfc52869"></a>
+<a id="org765814c"></a>
 
 ### Enable all the features, because what's the point in having less?
 
@@ -406,12 +432,12 @@ Setting path, email and password variables
 ```
 
 
-<a id="orga43846f"></a>
+<a id="orge0ce14f"></a>
 
 ## Aesthetic stuff
 
 
-<a id="orgde62220"></a>
+<a id="org755c880"></a>
 
 ### GUI ugliness
 
@@ -425,7 +451,7 @@ Disable all the wasteful bars
 ```
 
 
-<a id="orgf4de03c"></a>
+<a id="org0c75f94"></a>
 
 ### Font and cursor
 
@@ -437,7 +463,7 @@ Use system monospace font, red non-blinking cursor
 ```
 
 
-<a id="org77e32f4"></a>
+<a id="orgea43c04"></a>
 
 ## Tabs
 
@@ -449,12 +475,12 @@ Tabs are 4 spaces wide
 ```
 
 
-<a id="org51db9b7"></a>
+<a id="org28a8af0"></a>
 
 ## Buffers/input
 
 
-<a id="org148c4e4"></a>
+<a id="orge90dfcd"></a>
 
 ### ido-mode
 
@@ -468,7 +494,7 @@ ido-mode is much better than the default for switching buffers and going to file
 ```
 
 
-<a id="orgbdd67f9"></a>
+<a id="org63cb5a8"></a>
 
 ### ibuffer
 
@@ -479,12 +505,12 @@ ibuffer is also a lot better than the default (plus it has colours)
 ```
 
 
-<a id="org2a75bda"></a>
+<a id="org1e35a72"></a>
 
 # Custom functions
 
 
-<a id="orgbbde894"></a>
+<a id="org73de44b"></a>
 
 ## Resizing windows
 
@@ -510,7 +536,7 @@ ibuffer is also a lot better than the default (plus it has colours)
 ```
 
 
-<a id="orgeb030ef"></a>
+<a id="org6c13e14"></a>
 
 ## Go to config file
 
@@ -524,7 +550,7 @@ Visit your config file. Bound to "C-c e" in `Keybindings` section.
 ```
 
 
-<a id="org302edf9"></a>
+<a id="org374a11f"></a>
 
 ## Reloading config
 
@@ -538,44 +564,48 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 ```
 
 
-<a id="orgc2cd43b"></a>
+<a id="orgdd2e7ea"></a>
 
 ## Programming
 
 
-<a id="org36bb660"></a>
+<a id="org2f0b97d"></a>
 
 ### Compiling
 
-Compile the file associate with current buffer.
+
+<a id="org4dfc2fb"></a>
+
+### Opening Output
 
 ```emacs-lisp
-(defun generic-compiler ()
-  "Runs my own compile script on the file associated with the
-current buffer. Works with:
-lilypond, groff (ms, mom), c, tex, python, and go"
+(defun opout ()
+  "Opens a pdf file of the same name as the current file"
   (interactive)
-  (shell-command (concat "compiler "
-                         (buffer-file-name) " &"))
-  (bury-buffer "*Async Shell Command*"))
+  (find-file-other-window (concat
+                           (file-name-sans-extension buffer-file-name)
+                           ".pdf")))
 ```
 
 
-<a id="org13abb08"></a>
+<a id="org6d7cb5b"></a>
 
-### Compiling in emacs via lambda
+## Email
 
 ```emacs-lisp
-(require 'compile)
-(defun my-compiler-command ()
-  "A simple lambda to set compile-command"
-  (lambda ()
-    (set (make-local-variable 'compile-command)
-         (format "compiler %s" buffer-file-name))))
+(defun mailsync ()
+  "Downloads new mail and adds it to the notmuch database"
+  (interactive)
+  (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
 ```
 
 
-<a id="orgd52c625"></a>
+<a id="org56beae0"></a>
+
+## WM stuff
+
+
+<a id="org7febf5e"></a>
 
 ### Notification bar replacement
 
@@ -590,117 +620,76 @@ Brightness level
 Volume level
 Battery level"
   (interactive)
-  (shell-command "notibar"))
+  (call-process "notibar"))
 ```
 
 
-<a id="orgd19ad03"></a>
+<a id="org2debdf0"></a>
 
-### Opening Output
+### dmenu
 
-```emacs-lisp
-(defun opout ()
-  "Opens a pdf file of the same name as the current file"
-  (interactive)
-  (find-file-other-window (concat
-                           (file-name-sans-extension buffer-file-name)
-                           ".pdf")))
-```
+1.  dmenu launcher
 
+    ```emacs-lisp
+    (defun dmenu_recency ()
+      "Launch a program with dmenu"
+      (interactive)
+      (start-process "dmenu_recency" nil
+                     "dmenu_recency"))
+    ```
 
-<a id="orgeef64d6"></a>
+2.  dmenuhandler
 
-## Email
+    ```emacs-lisp
+    (defun dmenuhandler ()
+      "Choose how to handle the url in X11 clipboard"
+      (interactive)
+      (start-process "dmenuhandler" nil
+                     "dmenuhandler"))
+    ```
 
-```emacs-lisp
-(defun mailsync ()
-  "Downloads new mail and adds it to the notmuch database"
-  (interactive)
-  (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
-```
+3.  pdf-opener
 
+    ```emacs-lisp
+    (defun pdf-opener ()
+      "Select a .pdf or .ps file to view in zathura"
+      (interactive)
+      (start-process "pdf-opener" nil
+                     "pdf-opener"))
+    ```
 
-<a id="orgc74d61c"></a>
+4.  video-opener
 
-## dmenu
-
-
-<a id="orgcf2fcf9"></a>
-
-### dmenu launcher
-
-```emacs-lisp
-(defun dmenu_recency ()
-  "Launch a program with dmenu"
-  (interactive)
-  (start-process "dmenu_recency" nil
-                 "dmenu_recency"))
-```
-
-
-<a id="orgab2336a"></a>
-
-### dmenuhandler
-
-```emacs-lisp
-(defun dmenuhandler ()
-  "Choose how to handle the url in X11 clipboard"
-  (interactive)
-  (start-process "dmenuhandler" nil
-                 "dmenuhandler"))
-```
+    ```emacs-lisp
+    (defun video-opener ()
+      "Select a downloaded video to watch via dmenu and mpv"
+      (interactive)
+      (start-process "video-opener" nil
+                     "video-opener"))
+    ```
 
 
-<a id="orgd955a22"></a>
+<a id="org93813b8"></a>
 
-### pdf-opener
+### Other&#x2026;
 
-```emacs-lisp
-(defun pdf-opener ()
-  "Select a .pdf or .ps file to view in zathura"
-  (interactive)
-  (start-process "pdf-opener" nil
-                 "pdf-opener"))
-```
+1.  Mouse
 
-
-<a id="org1f365b6"></a>
-
-### video-opener
-
-```emacs-lisp
-(defun video-opener ()
-  "Select a downloaded video to watch via dmenu and mpv"
-  (interactive)
-  (start-process "video-opener" nil
-                 "video-opener"))
-```
+    ```emacs-lisp
+    (defun mousetoggle ()
+      "Toggles touchpad on my laptop"
+      (interactive)
+      (shell-command "mousetoggle")
+      (message "touchpad input toggled"))
+    ```
 
 
-<a id="org1d3296e"></a>
-
-## Other&#x2026;
-
-
-<a id="org3040a91"></a>
-
-### Mouse
-
-```emacs-lisp
-(defun mousetoggle ()
-  "Toggles touchpad on my laptop"
-  (interactive)
-  (shell-command "mousetoggle")
-  (message "touchpad input toggled"))
-```
-
-
-<a id="org15d82f2"></a>
+<a id="orgc6766ef"></a>
 
 # Major mode hooks and variables
 
 
-<a id="org10afe62"></a>
+<a id="org1111109"></a>
 
 ## Lilypond mode
 
@@ -714,7 +703,7 @@ Use lilypond mode for .ly files (taken from lilypond.org)
 ```
 
 
-<a id="org85138d0"></a>
+<a id="org7619958"></a>
 
 ## Electric pairs
 
@@ -731,7 +720,7 @@ Auto-add parentheses
 ```
 
 
-<a id="org7c5e300"></a>
+<a id="org36e3793"></a>
 
 ## Org Mode
 
@@ -743,14 +732,12 @@ Auto-add parentheses
 ```
 
 
-<a id="org68cfa57"></a>
+<a id="org83e610a"></a>
 
 ## M-x compile hooks
 
-The function ´my-compiler-command´ is defined above. Simply changes variable 'compiler-command.
 
-
-<a id="org2b5ce1f"></a>
+<a id="org8c0e4ed"></a>
 
 ### Groff
 
@@ -768,7 +755,7 @@ The function ´my-compiler-command´ is defined above. Simply changes variable '
 ```
 
 
-<a id="org0994209"></a>
+<a id="org2614a8f"></a>
 
 ### C
 
@@ -780,7 +767,7 @@ The function ´my-compiler-command´ is defined above. Simply changes variable '
 ```
 
 
-<a id="org3c4dfe9"></a>
+<a id="org891be9e"></a>
 
 ### LiLyPond
 
@@ -792,7 +779,7 @@ The function ´my-compiler-command´ is defined above. Simply changes variable '
 ```
 
 
-<a id="orged4a221"></a>
+<a id="org229a124"></a>
 
 ### LaTeX
 
@@ -812,17 +799,17 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="org36c40c1"></a>
+<a id="org67057eb"></a>
 
 # Keybindings
 
 
-<a id="org3842cc8"></a>
+<a id="org8893709"></a>
 
 ## Miscellaneous
 
 
-<a id="orgb26e99d"></a>
+<a id="orgae7a582"></a>
 
 ### Line numbers
 
@@ -831,7 +818,7 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="org520a9e8"></a>
+<a id="org8f5e42c"></a>
 
 ### Spelling correction
 
@@ -840,7 +827,7 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="org500db4d"></a>
+<a id="org05d38b3"></a>
 
 ### Line wrap
 
@@ -849,7 +836,7 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="orgc833bb4"></a>
+<a id="org61c58ae"></a>
 
 ### Mouse
 
@@ -858,7 +845,7 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="orgf9abd05"></a>
+<a id="org8b4a43e"></a>
 
 ### client
 
@@ -867,7 +854,7 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="org19f59a8"></a>
+<a id="org25e30e0"></a>
 
 ## Clipboard
 
@@ -877,7 +864,7 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="orge56f355"></a>
+<a id="orgbbebc08"></a>
 
 ## Moving between windows
 
@@ -890,14 +877,14 @@ Somewhat related, overrides latex-mode keybinding that interferes with my compil
 ```
 
 
-<a id="org2b9f371"></a>
+<a id="org25ca5e6"></a>
 
 ## Config file
 
 Both defined in the Custom Functions section
 
 
-<a id="org55166ae"></a>
+<a id="org82c4329"></a>
 
 ### Visit config file
 
@@ -906,7 +893,7 @@ Both defined in the Custom Functions section
 ```
 
 
-<a id="orgf6887c0"></a>
+<a id="orga5058b3"></a>
 
 ### Reload config file
 
@@ -915,12 +902,12 @@ Both defined in the Custom Functions section
 ```
 
 
-<a id="org0472a9f"></a>
+<a id="org32749d7"></a>
 
 ## General WM stuff
 
 
-<a id="org2a0378c"></a>
+<a id="org96a71d9"></a>
 
 ### Information
 
@@ -930,7 +917,7 @@ Both defined in the Custom Functions section
 ```
 
 
-<a id="org0fb4adf"></a>
+<a id="org08f2cbe"></a>
 
 ### dmenu scripts
 
@@ -944,7 +931,7 @@ All of these are bound to functions written in 'Custom functions'
 ```
 
 
-<a id="orgebb4db4"></a>
+<a id="org9e4d0b8"></a>
 
 ## Programming/Typesetting
 
@@ -954,7 +941,7 @@ All of these are bound to functions written in 'Custom functions'
 ```
 
 
-<a id="org8d8ca58"></a>
+<a id="org12f4496"></a>
 
 # Mode-line
 
@@ -967,7 +954,7 @@ Just some basic extra stuff in the mode-line. I don't want anything fancy.
 ```
 
 
-<a id="org900efcf"></a>
+<a id="orgb081e5f"></a>
 
 # Email
 

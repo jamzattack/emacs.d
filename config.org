@@ -46,6 +46,17 @@ This package lets emacs be used for gpg authentication
     (setq epa-pinentry-mode 'loopback)
     (pinentry-start))
 #+END_SRC
+*** Org
+**** Github markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-gfm
+    :ensure t)
+#+END_SRC
+**** Html export
+#+BEGIN_SRC emacs-lisp
+  (use-package htmlize
+    :ensure t)
+#+END_SRC
 *** Completion
 **** Company
 A very good package for auto-completion
@@ -53,10 +64,10 @@ A very good package for auto-completion
   (use-package company
     :ensure t
     :init
-    (add-hook 'after-init-hook 'global-company-mode)
+    (global-company-mode)
     :config
     (setq company-idle-delay 0))
-#+END_SRC*
+#+END_SRC
 **** Geiser
 A scheme backend
 #+BEGIN_SRC emacs-lisp
@@ -194,8 +205,10 @@ Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
   (setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
   (setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
-  (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin"))
-  (setq exec-path (append exec-path '("/home/jamzattack/.local/bin")))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin/"))
+              (push "/home/jamzattack/.local/bin/" exec-path)))
 #+END_SRC
 * Fixing defaults
 ** Miscellaneous stuff
@@ -286,40 +299,6 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 #+END_SRC
 ** Programming
 *** Compiling
-Compile the file associate with current buffer.
-#+BEGIN_SRC emacs-lisp
-  (defun generic-compiler ()
-    "Runs my own compile script on the file associated with the
-  current buffer. Works with:
-  lilypond, groff (ms, mom), c, tex, python, and go"
-    (interactive)
-    (shell-command (concat "compiler "
-                           (buffer-file-name) " &"))
-    (bury-buffer "*Async Shell Command*"))
-#+END_SRC
-*** Compiling in emacs via lambda
-#+BEGIN_SRC emacs-lisp
-  (require 'compile)
-  (defun my-compiler-command ()
-    "A simple lambda to set compile-command"
-    (lambda ()
-      (set (make-local-variable 'compile-command)
-           (format "compiler %s" buffer-file-name))))
-#+END_SRC
-*** Notification bar replacement
-#+BEGIN_SRC emacs-lisp
-  (defun notibar ()
-    "Brings up a notification with the following information:
-  Date
-  Time
-  Memory used
-  Disk available
-  Brightness level
-  Volume level
-  Battery level"
-    (interactive)
-    (shell-command "notibar"))
-#+END_SRC
 *** Opening Output
 #+BEGIN_SRC emacs-lisp
   (defun opout ()
@@ -336,8 +315,23 @@ Compile the file associate with current buffer.
     (interactive)
     (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
 #+END_SRC
-** dmenu
-*** dmenu launcher
+** WM stuff
+*** Notification bar replacement
+#+BEGIN_SRC emacs-lisp
+  (defun notibar ()
+    "Brings up a notification with the following information:
+  Date
+  Time
+  Memory used
+  Disk available
+  Brightness level
+  Volume level
+  Battery level"
+    (interactive)
+    (call-process "notibar"))
+#+END_SRC
+*** dmenu
+**** dmenu launcher
 #+BEGIN_SRC emacs-lisp
   (defun dmenu_recency ()
     "Launch a program with dmenu"
@@ -345,7 +339,7 @@ Compile the file associate with current buffer.
     (start-process "dmenu_recency" nil
                    "dmenu_recency"))
 #+END_SRC
-*** dmenuhandler
+**** dmenuhandler
 #+BEGIN_SRC emacs-lisp
   (defun dmenuhandler ()
     "Choose how to handle the url in X11 clipboard"
@@ -353,7 +347,7 @@ Compile the file associate with current buffer.
     (start-process "dmenuhandler" nil
                    "dmenuhandler"))
 #+END_SRC
-*** pdf-opener
+**** pdf-opener
 #+BEGIN_SRC emacs-lisp
   (defun pdf-opener ()
     "Select a .pdf or .ps file to view in zathura"
@@ -361,7 +355,7 @@ Compile the file associate with current buffer.
     (start-process "pdf-opener" nil
                    "pdf-opener"))
 #+END_SRC
-*** video-opener
+**** video-opener
 #+BEGIN_SRC emacs-lisp
   (defun video-opener ()
     "Select a downloaded video to watch via dmenu and mpv"
@@ -369,8 +363,8 @@ Compile the file associate with current buffer.
     (start-process "video-opener" nil
                    "video-opener"))
 #+END_SRC
-** Other...
-*** Mouse
+*** Other...
+**** Mouse
 #+BEGIN_SRC emacs-lisp
   (defun mousetoggle ()
     "Toggles touchpad on my laptop"
@@ -406,8 +400,6 @@ Auto-add parentheses
   (setq org-ellipsis " ")
 #+END_SRC
 ** M-x compile hooks
-The function ´my-compiler-command´ is defined above.  Simply changes
-variable 'compiler-command.
 *** Groff
 #+BEGIN_SRC emacs-lisp
   (add-hook 'nroff-mode-hook

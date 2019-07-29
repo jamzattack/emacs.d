@@ -24,9 +24,11 @@
      [134217824]
      [134217766]
      [134217786]
+     [134217761]
      [8388724])))
  '(exwm-workspace-number 4)
  '(font-lock-global-modes (quote (not speedbar-mode)))
+ '(global-company-mode t)
  '(ido-vertical-mode t)
  '(line-number-mode t)
  '(notmuch-address-internal-completion (quote (received nil)))
@@ -41,13 +43,14 @@
      (:name "university" :query "university"))))
  '(package-selected-packages
    (quote
-    (geiser powerline flycheck-lilypond flycheck pdf-tools xelb exwm xterm-color xclip which-key use-package try transmission switch-window smex rainbow-mode rainbow-delimiters pinentry notmuch mingus lorem-ipsum ido-vertical-mode elpher elfeed counsel company base16-theme)))
+    (auto-complete auto-comp htmlize ox-gfm geiser powerline flycheck-lilypond flycheck pdf-tools xelb exwm xterm-color xclip which-key use-package try transmission switch-window smex rainbow-mode rainbow-delimiters pinentry notmuch mingus lorem-ipsum ido-vertical-mode elpher elfeed counsel company base16-theme)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:height 60 :width normal :foundry "xos4" :family "xos4 Terminus"))))
  '(fixed-pitch-serif ((t (:height 1.2 :foundry "PfEd" :family "Terminus (TTF)")))))
 
 (provide 'init)
