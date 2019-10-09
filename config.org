@@ -24,17 +24,8 @@ Gotta have that HIGH-CONTRAST theme
     (package-refresh-contents)
     (package-install 'base16-theme))
   (setq base16-distinct-fringe-background nil)
-  (setq base16-theme-256-color-source "terminal")
+  (setq base16-theme-256-color-source "colors")
   (load-theme 'base16-bright t)
-#+END_SRC
-*** exwm
-Emacs X Window Manager
-#+BEGIN_SRC emacs-lisp
-  (use-package exwm
-    :ensure t
-    :config
-    (require 'exwm-config)
-    (exwm-config-default))
 #+END_SRC
 ** Installed Packages
 *** Pinentry
@@ -56,6 +47,24 @@ This package lets emacs be used for gpg authentication
 #+BEGIN_SRC emacs-lisp
   (use-package htmlize
     :ensure t)
+#+END_SRC
+*** Window management
+**** EXWM - Emacs X Window Manager
+Manipulate X windows as emacs buffers.
+# #+BEGIN_SRC emacs-lisp
+#   (use-package exwm
+#     :ensure t
+#     :config
+#     (require 'exwm-config)
+#     (exwm-config-default))
+# #+END_SRC
+**** Golden ratio
+This package resizes windows according to the golden ratio.  The
+focused window is larger
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :ensure t
+    :config (golden-ratio-mode))
 #+END_SRC
 *** Completion
 **** Company
@@ -99,7 +108,9 @@ An emacs front-end for the transmission bittorrent daemon
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
     :ensure t
-    :config (load-file (expand-file-name "~/.emacs.d/feeds.el")))
+    :config
+    (if (file-exists-p "~/.emacs.d/feeds.el")
+        (load-file (expand-file-name "~/.emacs.d/feeds.el"))))
 #+END_SRC
 *** Appearance
 **** Rainbow-mode
@@ -143,15 +154,6 @@ smex integrates "M-x" with =ido=
     :bind
     ("M-x" . smex))
 #+END_SRC
-**** Ido-vertical
-This package enables a vertical mode for the =ido= function
-#+BEGIN_SRC emacs-lisp
-  (use-package ido-vertical-mode
-    :ensure t
-    :init
-    (ido-vertical-mode 1))
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
-#+END_SRC
 **** Which-key
 Shows what your keys do
 #+BEGIN_SRC emacs-lisp
@@ -182,15 +184,6 @@ A 'Lorem ipsum' generator
 #+BEGIN_SRC emacs-lisp
   (use-package xclip
     :ensure t)
-#+END_SRC
-**** exwm-surf - allows emacsy control of surf
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package exwm-surf
-  ;;   :ensure t
-  ;;   :config
-  ;;   (setq exwm-surf-history-file "/home/jamzattack/.surf/history")
-  ;;   (setq exwm-surf-bookmark-file "/home/jamzattack/.surf/bookmarks")
-  ;;   (add-hook 'exwm-manage-finish-hook 'exwm-surf-init))
 #+END_SRC
 *** PDF-tools
 Majorly increases performance when viewing pdfs as a file
@@ -462,7 +455,8 @@ my compile key "C-c C-m".
 #+END_SRC
 *** client
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x C-c") 'delete-frame)
+  (when window-system
+    (global-set-key (kbd "C-x C-c") 'delete-frame))
 #+END_SRC
 ** Clipboard
 #+BEGIN_SRC emacs-lisp
@@ -505,6 +499,15 @@ All of these are bound to functions written in 'Custom functions'
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-m") 'compile)
   (global-set-key (kbd "C-c p") 'opout)
+#+END_SRC
+** Terminal functionality
+Rebinding some useful keys that can't be used in a terminal.
+#+BEGIN_SRC emacs-lisp
+  (unless (window-system)
+    ;; Comments -- C-x C-;
+    (global-set-key (kbd "C-c ;") 'comment-line)
+    ;; Indentation -- C-M-\"
+    (global-set-key (kbd "C-c \\") 'indent-region))
 #+END_SRC
 * Mode-line
 Just some basic extra stuff in the mode-line.
