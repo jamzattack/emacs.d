@@ -106,10 +106,10 @@ An emacs front-end for the transmission bittorrent daemon
 #+END_SRC
 **** Elfeed
 #+BEGIN_SRC emacs-lisp
-  (use-package elfeed
-    :ensure t
-    :config
-    (if (file-exists-p "~/.emacs.d/feeds.el")
+  (use-package elfeed                                         
+    :ensure t                                                 
+    :config                                                   
+    (if (file-exists-p "~/.emacs.d/feeds.el")                 
         (load-file (expand-file-name "~/.emacs.d/feeds.el"))))
 #+END_SRC
 *** Appearance
@@ -188,12 +188,13 @@ A 'Lorem ipsum' generator
 *** PDF-tools
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
-  (use-package pdf-tools
-    :ensure t
-    :init
-    (pdf-tools-install))
+  ; (use-package pdf-tools
+  ;   :ensure t
+  ;   :init
+  ;   (pdf-tools-install))
 #+END_SRC
-* Environment Variables
+* Stuff to do when loading
+** Environment Variables
 Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
   (setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
@@ -202,6 +203,11 @@ Setting path, email and password variables
             (lambda ()
               (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin/"))
               (push "/home/jamzattack/.local/bin/" exec-path)))
+#+END_SRC
+** Load bookmarks
+For some reason, this doesn't happen automatically for me.
+#+BEGIN_SRC emacs-lisp
+(bookmark-load bookmark-default-file)
 #+END_SRC
 * Fixing defaults
 ** Miscellaneous stuff
@@ -219,10 +225,10 @@ Setting path, email and password variables
 *** GUI ugliness
 Disable all the wasteful bars
 #+BEGIN_SRC emacs-lisp
-  (scroll-bar-mode -1)
+  ;  (scroll-bar-mode -1)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
-  (fringe-mode 1)
+  ;  (fringe-mode 1)
 #+END_SRC
 *** Font and cursor
 Use system monospace font, red non-blinking cursor
@@ -281,6 +287,16 @@ Visit your config file. Bound to "C-c e" in =Keybindings= section.
     "Go to your config.org"
     (interactive)
     (find-file "~/.emacs.d/config.org"))
+#+END_SRC
+** Ido
+*** Bookmarks
+#+BEGIN_SRC emacs-lisp
+  (defun ido-bookmark-jump ()
+    "An ido wrapper for `bookmark-jump'. Designed for interactive
+  use, so just use `bookmark-jump' in elisp."
+    (interactive)
+    (bookmark-jump
+     (ido-completing-read "Bookmark: " bookmark-alist)))
 #+END_SRC
 ** Reloading config
 Reloads this config file. Bound to "C-c r" in Keybindings section.
@@ -436,6 +452,54 @@ my compile key "C-c C-m".
               (local-unset-key (kbd "C-c C-m"))))
 #+END_SRC
 * Keybindings
+** Interaction with Emacs
+*** ido-bookmark-jump (custom function)
+Open a bookmark with the default keybinding =C-x r b=, but with ido
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x r b") 'ido-bookmark-jump)
+#+END_SRC
+*** Terminal functionality
+Rebinding some useful keys that can't be used in a terminal.
+#+BEGIN_SRC emacs-lisp
+  (unless (window-system)
+    ;; Comments -- C-x C-;
+    (global-set-key (kbd "C-c ;") 'comment-line)
+    ;; Indentation -- C-M-\"
+    (global-set-key (kbd "C-c \\") 'indent-region))
+#+END_SRC
+
+** Config
+** General WM stuff
+*** System information
+Built-in battery function with =s-t b=.
+Custom notification script with =s-t s-b=. 
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-t b") 'battery)
+  (global-set-key (kbd "s-t s-b") 'notibar)
+#+END_SRC
+*** dmenu scripts
+I still have some use for dmenu, despite only using emacs...
+All commands are prefixed with =s-t=
+| d | enter commands into dmenu       |
+| P | select a pdf to open with emacs |
+| V | select a video to open with mpv |
+| D | choose what to do with a URL    |
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-t d") 'dmenu_recency)
+  (global-set-key (kbd "s-t P") 'pdf-opener)
+  (global-set-key (kbd "s-t V") 'video-opener)
+  (global-set-key (kbd "s-t D") 'dmenuhandler)
+#+END_SRC
+** Programming/Typesetting
+Bind emacs compile to =C-c C-m=. This allows 2 rapid presses of =C-m=
+or =RET= to skip the prompt.
+
+ "opout" is a script to open the output of a file (e.g. TeX,
+LilyPond).
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c C-m") 'compile)
+  (global-set-key (kbd "C-c p") 'opout)
+#+END_SRC
 ** Miscellaneous
 *** Line numbers
 #+BEGIN_SRC emacs-lisp
@@ -458,57 +522,7 @@ my compile key "C-c C-m".
   (when window-system
     (global-set-key (kbd "C-x C-c") 'delete-frame))
 #+END_SRC
-** Clipboard
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c w") 'clipboard-kill-ring-save)
-  (global-set-key (kbd "C-c y") 'clipboard-yank)
-#+END_SRC
-** Moving between windows
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-p") 'windmove-up)
-  (global-set-key (kbd "s-n") 'windmove-down)
-  (global-set-key (kbd "s-b") 'windmove-left)
-  (global-set-key (kbd "s-f") 'windmove-right)
-  (global-set-key (kbd "<M-tab>") 'other-window)
-#+END_SRC
-** Config file
-Both defined in the Custom Functions section
-*** Visit config file
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c e") 'config-visit)
-#+END_SRC
-*** Reload config file
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c r") 'config-reload)
-#+END_SRC
-** General WM stuff
-*** Information
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-t b") 'battery)
-  (global-set-key (kbd "s-t s-b") 'notibar)
-#+END_SRC
-*** dmenu scripts
-All of these are bound to functions written in 'Custom functions'
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-t d") 'dmenu_recency)
-  (global-set-key (kbd "s-t P") 'pdf-opener)
-  (global-set-key (kbd "s-t V") 'video-opener)
-  (global-set-key (kbd "s-t D") 'dmenuhandler)
-#+END_SRC
-** Programming/Typesetting
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c C-m") 'compile)
-  (global-set-key (kbd "C-c p") 'opout)
-#+END_SRC
-** Terminal functionality
-Rebinding some useful keys that can't be used in a terminal.
-#+BEGIN_SRC emacs-lisp
-  (unless (window-system)
-    ;; Comments -- C-x C-;
-    (global-set-key (kbd "C-c ;") 'comment-line)
-    ;; Indentation -- C-M-\"
-    (global-set-key (kbd "C-c \\") 'indent-region))
-#+END_SRC
+
 * Mode-line
 Just some basic extra stuff in the mode-line.
 I don't want anything fancy.
