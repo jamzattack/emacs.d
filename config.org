@@ -207,7 +207,8 @@ Setting path, email and password variables
 ** Load bookmarks
 For some reason, this doesn't happen automatically for me.
 #+BEGIN_SRC emacs-lisp
-(bookmark-load bookmark-default-file)
+  (if (file-exists-p bookmark-default-file)
+      (bookmark-load bookmark-default-file))
 #+END_SRC
 * Fixing defaults
 ** Miscellaneous stuff
@@ -225,10 +226,12 @@ For some reason, this doesn't happen automatically for me.
 *** GUI ugliness
 Disable all the wasteful bars
 #+BEGIN_SRC emacs-lisp
-  ;  (scroll-bar-mode -1)
+  (when (window-system)
+    (scroll-bar-mode -1)
+    (fringe-mode 1))
   (menu-bar-mode -1)
   (tool-bar-mode -1)
-  ;  (fringe-mode 1)
+
 #+END_SRC
 *** Font and cursor
 Use system monospace font, red non-blinking cursor
@@ -469,6 +472,9 @@ Rebinding some useful keys that can't be used in a terminal.
 #+END_SRC
 
 ** Config
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
 ** General WM stuff
 *** System information
 Built-in battery function with =s-t b=.
