@@ -23,31 +23,6 @@ Install use-package if not installed
     (package-install 'use-package))
 #+END_SRC
 
-*** Theme
-
-**** moe-theme
-
-#+BEGIN_SRC emacs-lisp
-  (use-package moe-theme
-    :ensure t
-    :config
-    (require 'moe-theme-switcher)
-    (setq moe-theme-switch-by-sunrise-and-sunset t)
-    (moe-theme-set-color 'purple))
-#+END_SRC
-
-**** base16
-
-Base16 is a nice theme framework, but moe-theme is my new best friend.
-#+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'base16-theme)
-    (package-refresh-contents)
-    (package-install 'base16-theme))
-  (setq base16-distinct-fringe-background nil)
-  (setq base16-theme-256-color-source "colors")
-  ;; (load-theme 'base16-bright t)
-#+END_SRC
-
 ** Installed Packages
 
 *** Pinentry
@@ -161,6 +136,30 @@ An emacs front-end for the transmission bittorrent daemon
 #+END_SRC
 
 *** Appearance
+**** Theme
+
+***** moe-theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package moe-theme
+    :ensure t
+    :config
+    (require 'moe-theme-switcher)
+    (setq moe-theme-switch-by-sunrise-and-sunset t)
+    (moe-theme-set-color 'purple))
+#+END_SRC
+
+***** base16
+
+Base16 is a nice theme framework, but moe-theme is my new best friend.
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'base16-theme)
+    (package-refresh-contents)
+    (package-install 'base16-theme))
+  (setq base16-distinct-fringe-background nil)
+  (setq base16-theme-256-color-source "colors")
+  ;; (load-theme 'base16-bright t)
+#+END_SRC
 
 **** Rainbow-mode
 
@@ -172,6 +171,7 @@ This package highlights hex colours
     :config
     (global-set-key (kbd "C-c h") 'rainbow-mode))
 #+END_SRC
+
 **** xterm-color
 
 Allows a terminal emulator to use 256 colors
@@ -179,6 +179,7 @@ Allows a terminal emulator to use 256 colors
   (use-package xterm-color
     :ensure t)
 #+END_SRC
+
 **** Rainbow-delimiters
 
 Minor mode that highlights parentheses well
@@ -348,6 +349,12 @@ ibuffer is also a lot better than the default
 (plus it has colours)
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+
+** desktop-save
+
+#+BEGIN_SRC emacs-lisp
+  (desktop-save-mode t)
 #+END_SRC
 
 * Custom functions
