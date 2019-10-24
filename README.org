@@ -1,0 +1,712 @@
+* Packages
+
+** Startup
+
+*** Repositories and initialisation
+
+Enable melpa archive and making sure packages work
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/")
+               '("gnu" . "https://elpa.gnu.org/packages/"))
+  (package-initialize)
+#+END_SRC
+
+*** Use-package
+
+Install use-package if not installed
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+#+END_SRC
+
+** Installed Packages
+
+*** Pinentry
+
+This package lets emacs be used for gpg authentication
+#+BEGIN_SRC emacs-lisp
+  (use-package pinentry
+    :ensure t
+    :init
+    (setq epa-pinentry-mode 'loopback)
+    (pinentry-start))
+#+END_SRC
+
+*** Org
+
+**** Github markdown
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-gfm
+    :ensure t)
+#+END_SRC
+
+**** Html export
+
+#+BEGIN_SRC emacs-lisp
+  (use-package htmlize
+    :ensure t)
+#+END_SRC
+
+*** Window management
+
+**** EXWM - Emacs X Window Manager
+
+Manipulate X windows as emacs buffers.
+#+BEGIN_SRC emacs-lisp
+  (use-package exwm
+    :ensure t
+    :config
+    (require 'exwm-config)
+    (exwm-config-default))
+#+END_SRC
+
+**** Golden ratio
+
+This package resizes windows according to the golden ratio.  The
+focused window is larger
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :ensure t
+    :config (golden-ratio-mode))
+#+END_SRC
+
+*** Completion
+
+**** Company
+
+A very good package for auto-completion
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (global-company-mode)
+    :config
+    (setq company-idle-delay 0))
+#+END_SRC
+
+**** Geiser
+
+A scheme backend
+#+BEGIN_SRC emacs-lisp
+  (use-package geiser
+    :ensure t)
+#+END_SRC
+
+*** "Applications"
+
+**** Mingus
+
+A nice mpd front-end in emacs
+(I couldn't get EMMS working with mopidy)
+#+BEGIN_SRC emacs-lisp
+  (use-package mingus
+    :ensure t)
+#+END_SRC
+
+**** Notmuch
+
+A simple email client, with emphasis on searching
+#+BEGIN_SRC emacs-lisp
+  (use-package notmuch
+    :ensure t
+    :config (setq notmuch-archive-tags '("-unread" "-inbox")))
+#+END_SRC
+
+**** Transmission
+
+An emacs front-end for the transmission bittorrent daemon
+#+BEGIN_SRC emacs-lisp
+  (use-package transmission
+    :ensure t)
+#+END_SRC
+
+**** Elfeed
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed                                         
+    :ensure t                                                 
+    :config                                                   
+    (if (file-exists-p "~/.emacs.d/feeds.el")                 
+        (load-file (expand-file-name "~/.emacs.d/feeds.el"))))
+#+END_SRC
+
+*** Appearance
+**** Theme
+
+***** moe-theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package moe-theme
+    :ensure t
+    :config
+    (require 'moe-theme-switcher)
+    (setq moe-theme-switch-by-sunrise-and-sunset t)
+    (moe-theme-set-color 'purple))
+#+END_SRC
+
+***** base16
+
+Base16 is a nice theme framework, but moe-theme is my new best friend.
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'base16-theme)
+    (package-refresh-contents)
+    (package-install 'base16-theme))
+  (setq base16-distinct-fringe-background nil)
+  (setq base16-theme-256-color-source "colors")
+  ;; (load-theme 'base16-bright t)
+#+END_SRC
+
+**** Rainbow-mode
+
+This package highlights hex colours
+(also install xterm-color to use in a terminal emulator)
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c h") 'rainbow-mode))
+#+END_SRC
+
+**** xterm-color
+
+Allows a terminal emulator to use 256 colors
+#+BEGIN_SRC emacs-lisp
+  (use-package xterm-color
+    :ensure t)
+#+END_SRC
+
+**** Rainbow-delimiters
+
+Minor mode that highlights parentheses well
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+#+END_SRC
+
+*** god-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package god-mode
+    :ensure t
+    :config
+    (global-set-key (kbd "<left>") 'god-local-mode)
+    (global-set-key (kbd "<right>") 'god-local-mode)
+    (god-mode))
+#+END_SRC
+
+*** Quality of life
+
+**** Smex
+
+smex integrates "M-x" with =ido=
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init (smex-initialize)
+    :bind
+    ("M-x" . smex))
+#+END_SRC
+
+**** Which-key
+
+Shows what your keys do
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init (which-key-mode)
+    :config (which-key-enable-god-mode-support))
+#+END_SRC
+
+**** Try
+
+Allows you to try other packages without committing
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+
+*** Not really useful
+
+**** Lorem Ipsum
+
+A 'Lorem ipsum' generator
+#+BEGIN_SRC emacs-lisp
+  (use-package lorem-ipsum
+    :ensure t)
+#+END_SRC
+
+*** To be confirmed
+
+**** Elpher - gopher client
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elpher
+    :ensure t)
+#+END_SRC
+
+**** xclip - enable use of X11 clipboard in terminal
+
+#+BEGIN_SRC emacs-lisp
+  (use-package xclip
+    :ensure t)
+#+END_SRC
+
+*** PDF-tools
+
+Majorly increases performance when viewing pdfs as a file
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package pdf-tools
+  ;;   :ensure t
+  ;;   :init
+  ;;   (pdf-tools-install))
+#+END_SRC
+
+* Stuff to do when loading
+
+** Environment Variables
+
+Setting path, email and password variables
+#+BEGIN_SRC emacs-lisp
+  (setenv "NOTMUCH_CONFIG" (expand-file-name "~/.config/notmuch-config"))
+  (setenv "PASSWORD_STORE_DIR" (expand-file-name "~/.local/share/password-store/"))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (setenv "PATH" (concat (getenv "PATH") ":/home/jamzattack/.local/bin/"))
+              (push "/home/jamzattack/.local/bin/" exec-path)))
+#+END_SRC
+
+* Fixing defaults
+
+** Miscellaneous stuff
+
+*** No more pesky extra files, other basics
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+#+END_SRC
+
+*** Enable all the features, because what's the point in having less?
+
+#+BEGIN_SRC emacs-lisp
+  (setq disabled-command-function nil)
+#+END_SRC
+
+** Aesthetic stuff
+
+*** GUI ugliness
+
+Disable all the wasteful bars
+#+BEGIN_SRC emacs-lisp
+  (when (window-system)
+    (scroll-bar-mode -1)
+    (fringe-mode 1))
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+
+#+END_SRC
+
+*** Font and cursor
+
+Use system monospace font, red non-blinking cursor
+#+BEGIN_SRC emacs-lisp
+  (set-cursor-color "red")
+  (blink-cursor-mode -1)
+#+END_SRC
+
+** Tabs
+
+Tabs are 4 spaces wide
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq tab-width 4)
+#+END_SRC
+
+** Buffers/input
+
+*** ido-mode
+
+ido-mode is much better than the default for switching
+buffers and going to files.
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+#+END_SRC
+
+*** ibuffer
+
+ibuffer is also a lot better than the default
+(plus it has colours)
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+
+** desktop-save
+
+#+BEGIN_SRC emacs-lisp
+  (desktop-save-mode t)
+#+END_SRC
+
+* Custom functions
+
+** Resizing windows
+
+#+BEGIN_SRC emacs-lisp
+  (defun v-resize (key)
+    "interactively resize the window"  
+    (interactive "cHit p/n/b/f to resize") 
+    (cond                                  
+     ((eq key (string-to-char "n"))                      
+      (enlarge-window 1)             
+      (call-interactively 'v-resize)) 
+     ((eq key (string-to-char "p"))                      
+      (enlarge-window -1)             
+      (call-interactively 'v-resize)) 
+     ((eq key (string-to-char "b"))                      
+      (enlarge-window-horizontally -1)             
+      (call-interactively 'v-resize)) 
+     ((eq key (string-to-char "f"))                      
+      (enlarge-window-horizontally 1)            
+      (call-interactively 'v-resize)) 
+     (t (push key unread-command-events))))
+  (global-set-key (kbd "C-c +") 'v-resize)
+#+END_SRC
+
+** Go to config file
+
+Visit your config file. Bound to "C-c e" in =Keybindings= section.
+#+BEGIN_SRC emacs-lisp
+  (defun config-visit ()
+    "Go to your config.org"
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+#+END_SRC
+
+** Ido
+
+*** Bookmarks
+
+#+BEGIN_SRC emacs-lisp
+  (defun ido-bookmark-jump ()
+    "An ido wrapper for `bookmark-jump'. Designed for interactive
+  use, so just use `bookmark-jump' in elisp."
+    (interactive)
+    (bookmark-maybe-load-default-file)
+    (bookmark-jump
+     (ido-completing-read "Bookmark: " bookmark-alist)))
+#+END_SRC
+
+** Reloading config
+
+Reloads this config file. Bound to "C-c r" in Keybindings section.
+#+BEGIN_SRC emacs-lisp
+  (defun config-reload ()
+    "Reloads ~/.emacs.d/config.org at runtime"
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+#+END_SRC
+
+** Programming
+
+*** Opening Output
+
+#+BEGIN_SRC emacs-lisp
+  (defun opout ()
+    "Opens a pdf file of the same name as the current file"
+    (interactive)
+    (find-file-other-window (concat
+                             (file-name-sans-extension buffer-file-name)
+                             ".pdf")))
+#+END_SRC
+
+** Email
+
+#+BEGIN_SRC emacs-lisp
+  (defun mailsync ()
+    "Downloads new mail and adds it to the notmuch database"
+    (interactive)
+    (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
+#+END_SRC
+
+** WM stuff
+
+*** Notification bar replacement
+
+#+BEGIN_SRC emacs-lisp
+  (defun notibar ()
+    "Brings up a notification with the following information:
+  Date
+  Time
+  Memory used
+  Disk available
+  Brightness level
+  Volume level
+  Battery level"
+    (interactive)
+    (call-process "notibar"))
+#+END_SRC
+
+*** dmenu
+
+**** dmenu launcher
+
+#+BEGIN_SRC emacs-lisp
+  (defun dmenu_recency ()
+    "Launch a program with dmenu"
+    (interactive)
+    (start-process "dmenu_recency" nil
+                   "dmenu_recency"))
+#+END_SRC
+**** dmenuhandler
+
+#+BEGIN_SRC emacs-lisp
+  (defun dmenuhandler ()
+    "Choose how to handle the url in X11 clipboard"
+    (interactive)
+    (start-process "dmenuhandler" nil
+                   "dmenuhandler"))
+#+END_SRC
+**** pdf-opener
+
+#+BEGIN_SRC emacs-lisp
+  (defun pdf-opener ()
+    "Select a .pdf or .ps file to view in zathura"
+    (interactive)
+    (start-process "pdf-opener" nil
+                   "pdf-opener"))
+#+END_SRC
+**** video-opener
+
+#+BEGIN_SRC emacs-lisp
+  (defun video-opener ()
+    "Select a downloaded video to watch via dmenu and mpv"
+    (interactive)
+    (start-process "video-opener" nil
+                   "video-opener"))
+#+END_SRC
+*** Other...
+
+**** Mouse
+
+#+BEGIN_SRC emacs-lisp
+  (defun mousetoggle ()
+    "Toggles touchpad on my laptop"
+    (interactive)
+    (shell-command "mousetoggle")
+    (message "touchpad input toggled"))
+#+END_SRC
+
+* Major mode hooks and variables
+
+** Lilypond mode
+
+Use lilypond mode for .ly files
+(taken from lilypond.org)
+#+BEGIN_SRC emacs-lisp
+  (autoload 'LilyPond-mode "lilypond-mode")
+  (setq auto-mode-alist
+        (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+  (setq LilyPond-pdf-command "zathura")
+#+END_SRC
+
+** Electric pairs
+
+Auto-add parentheses
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '(
+                              (?\( . ?\))
+                              ))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook (electric-pair-mode t))
+#+END_SRC
+
+** Org Mode
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (setq org-src-window-setup 'current-window)
+  (setq org-src-tab-acts-natively t)
+  (setq org-ellipsis " ")
+#+END_SRC
+
+** M-x compile hooks
+
+*** Groff
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'nroff-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "groff -ms -Tpdf %s > %s" 
+                           (shell-quote-argument buffer-file-name)
+                           (concat (file-name-sans-extension
+                                    (shell-quote-argument
+                                     buffer-file-name)) ".pdf")))))
+
+
+#+END_SRC
+
+*** C
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "compiler %s" buffer-file-name))))
+#+END_SRC
+
+*** LiLyPond
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'LilyPond-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "lilypond %s" buffer-file-name))))
+#+END_SRC
+
+*** LaTeX
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'latex-mode-hook
+            (lambda ()
+              (set (make-local-variable 'compile-command)
+                   (format "pdflatex %s" buffer-file-name))))
+#+END_SRC
+
+Somewhat related, overrides latex-mode keybinding that interferes with
+my compile key "C-c C-m".
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'latex-mode-hook
+            (lambda ()
+              (local-unset-key (kbd "C-c C-m"))))
+#+END_SRC
+
+* Keybindings
+
+** Interaction with Emacs
+
+*** ido-bookmark-jump (custom function)
+
+Open a bookmark with the default keybinding =C-x r b=, but with ido
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x r b") 'ido-bookmark-jump)
+#+END_SRC
+
+*** Terminal functionality
+
+Rebinding some useful keys that can't be used in a terminal.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (window-system)
+    ;; Comments -- C-x C-;
+    (global-set-key (kbd "C-c ;") 'comment-line)
+    ;; Indentation -- C-M-\"
+    (global-set-key (kbd "C-c \\") 'indent-region))
+#+END_SRC
+
+** Config
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
+
+** General WM stuff
+
+*** System information
+
+Built-in battery function with =s-t b=.
+Custom notification script with =s-t s-b=. 
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-t b") 'battery)
+  (global-set-key (kbd "s-t s-b") 'notibar)
+#+END_SRC
+
+*** dmenu scripts
+
+I still have some use for dmenu, despite only using emacs...
+All commands are prefixed with =s-t=
+| d | enter commands into dmenu       |
+| P | select a pdf to open with emacs |
+| V | select a video to open with mpv |
+| D | choose what to do with a URL    |
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-t d") 'dmenu_recency)
+  (global-set-key (kbd "s-t P") 'pdf-opener)
+  (global-set-key (kbd "s-t V") 'video-opener)
+  (global-set-key (kbd "s-t D") 'dmenuhandler)
+#+END_SRC
+
+** Programming/Typesetting
+
+Bind emacs compile to =C-c C-m=. This allows 2 rapid presses of =C-m=
+or =RET= to skip the prompt.
+
+"opout" is a script to open the output of a file (e.g. TeX,
+LilyPond).
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c C-m") 'compile)
+  (global-set-key (kbd "C-c p") 'opout)
+#+END_SRC
+
+** Miscellaneous
+
+*** Line numbers
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c n") 'display-line-numbers-mode)
+#+END_SRC
+
+*** Spelling correction
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c s") 'flyspell-mode)
+#+END_SRC
+
+*** Line wrap
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c l") 'toggle-truncate-lines)
+#+END_SRC
+
+*** Mouse
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "s-t \\") 'mousetoggle)
+#+END_SRC
+
+* Mode-line
+
+Just some basic extra stuff in the mode-line.
+I don't want anything fancy.
+#+BEGIN_SRC emacs-lisp
+  (column-number-mode t)
+  (display-time-mode t)
+  (setq display-time-24hr-format 1)
+#+END_SRC
+
+* Email
+
+email settings
+#+BEGIN_SRC emacs-lisp
+  (setq send-mail-function 'sendmail-send-it
+        sendmail-program "/usr/bin/msmtp"
+        mail-specify-envelope-from t
+        message-sendmail-envelope-from 'header
+        mail-envelope-from 'header)
+#+END_SRC
+
