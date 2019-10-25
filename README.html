@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-10-25 Fri 10:30 -->
+<!-- 2019-10-25 Fri 20:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -233,214 +233,219 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0a3955c">1. Packages</a>
+<li><a href="#org01d70a2">1. Packages</a>
 <ul>
-<li><a href="#org1362323">1.1. Startup</a>
+<li><a href="#orgbd22d74">1.1. Startup</a>
 <ul>
-<li><a href="#org89afbf7">1.1.1. Repositories and initialisation</a></li>
-<li><a href="#orgfc0de86">1.1.2. Use-package</a></li>
+<li><a href="#org0feea25">1.1.1. Repositories and initialisation</a></li>
+<li><a href="#orgc2aa6c5">1.1.2. Use-package</a></li>
 </ul>
 </li>
-<li><a href="#orgf7862ce">1.2. Installed Packages</a>
+<li><a href="#orgf32f209">1.2. Installed Packages</a>
 <ul>
-<li><a href="#orgd9d33a8">1.2.1. Pinentry</a></li>
-<li><a href="#orgd5db0de">1.2.2. Org</a></li>
-<li><a href="#orgd5f28d3">1.2.3. Window management</a></li>
-<li><a href="#orgadb2487">1.2.4. Completion</a></li>
-<li><a href="#org9ab7c37">1.2.5. "Applications"</a></li>
-<li><a href="#orgc877718">1.2.6. Appearance</a></li>
-<li><a href="#org51f12d8">1.2.7. god-mode</a></li>
-<li><a href="#org1f82ed1">1.2.8. Quality of life</a></li>
-<li><a href="#orgad015e6">1.2.9. Not really useful</a></li>
-<li><a href="#org74d25be">1.2.10. To be confirmed</a></li>
-<li><a href="#org677e58b">1.2.11. PDF-tools</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgcb95221">2. Stuff to do when loading</a>
-<ul>
-<li><a href="#org8b9fafc">2.1. Environment Variables</a></li>
-</ul>
-</li>
-<li><a href="#org2b9ce11">3. Fixing defaults</a>
-<ul>
-<li><a href="#org652651f">3.1. Miscellaneous stuff</a>
-<ul>
-<li><a href="#org7546762">3.1.1. No more pesky extra files, other basics</a></li>
-<li><a href="#org8ce66ea">3.1.2. Enable all the features, because what's the point in having less?</a></li>
-</ul>
-</li>
-<li><a href="#org5d99bf9">3.2. Aesthetic stuff</a>
-<ul>
-<li><a href="#org37740e9">3.2.1. GUI ugliness</a></li>
-<li><a href="#org0ed092f">3.2.2. Font and cursor</a></li>
-</ul>
-</li>
-<li><a href="#org30ccb5f">3.3. Tabs</a></li>
-<li><a href="#org7a831a0">3.4. Buffers/input</a>
-<ul>
-<li><a href="#orgcf8e40c">3.4.1. ido-mode</a></li>
-<li><a href="#org731d7b6">3.4.2. ibuffer</a></li>
-</ul>
-</li>
-<li><a href="#org4a5ade0">3.5. desktop-save</a></li>
-</ul>
-</li>
-<li><a href="#org2d1d7b3">4. Custom functions</a>
-<ul>
-<li><a href="#orgf2cceb7">4.1. Resizing windows</a></li>
-<li><a href="#org1de630a">4.2. Go to config file</a></li>
-<li><a href="#org3e6976f">4.3. Ido</a>
-<ul>
-<li><a href="#org8f5712c">4.3.1. Bookmarks</a></li>
-</ul>
-</li>
-<li><a href="#orgf40f7d2">4.4. Reloading config</a></li>
-<li><a href="#org08adcaf">4.5. Programming</a>
-<ul>
-<li><a href="#org333898d">4.5.1. Opening Output</a></li>
-</ul>
-</li>
-<li><a href="#orgc2bc90a">4.6. Email</a></li>
-<li><a href="#orgff570b2">4.7. WM stuff</a>
-<ul>
-<li><a href="#orgeae913f">4.7.1. Notification bar replacement</a></li>
-<li><a href="#org355e5de">4.7.2. dmenu</a></li>
-<li><a href="#org9b7f6ec">4.7.3. Other&#x2026;</a></li>
+<li><a href="#org8bacb19">1.2.1. Pinentry</a></li>
+<li><a href="#org908e41e">1.2.2. Org</a></li>
+<li><a href="#org52c7698">1.2.3. Window management</a></li>
+<li><a href="#orge05c643">1.2.4. Completion</a></li>
+<li><a href="#orgf4326bc">1.2.5. "Applications"</a></li>
+<li><a href="#orgbcadd2c">1.2.6. Appearance</a></li>
+<li><a href="#orga146caf">1.2.7. god-mode</a></li>
+<li><a href="#orge69a5dd">1.2.8. Quality of life</a></li>
+<li><a href="#org76a7782">1.2.9. Not really useful</a></li>
+<li><a href="#org92f94a8">1.2.10. To be confirmed</a></li>
+<li><a href="#org3dad924">1.2.11. PDF-tools</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org3811c72">5. Major mode hooks and variables</a>
+<li><a href="#org0a49637">2. Stuff to do when loading</a>
 <ul>
-<li><a href="#org676a1ce">5.1. Lilypond mode</a></li>
-<li><a href="#org8a0f7d0">5.2. Electric pairs</a></li>
-<li><a href="#orgf936f57">5.3. Org Mode</a></li>
-<li><a href="#orgfd12bb1">5.4. M-x compile hooks</a>
+<li><a href="#orgd67f517">2.1. Environment Variables</a></li>
+</ul>
+</li>
+<li><a href="#org4796f73">3. Fixing defaults</a>
 <ul>
-<li><a href="#orgc9c8fb0">5.4.1. Groff</a></li>
-<li><a href="#orgbd7b6d9">5.4.2. C</a></li>
-<li><a href="#orgad9d066">5.4.3. LiLyPond</a></li>
-<li><a href="#org13d73c9">5.4.4. LaTeX</a></li>
+<li><a href="#orgae30ef9">3.1. Miscellaneous stuff</a>
+<ul>
+<li><a href="#org5ef0356">3.1.1. No more pesky extra files, other basics</a></li>
+<li><a href="#org0e77721">3.1.2. Enable all the features, because what's the point in having less?</a></li>
+</ul>
+</li>
+<li><a href="#org8d19bb9">3.2. Aesthetic stuff</a>
+<ul>
+<li><a href="#org3f4c30c">3.2.1. GUI ugliness</a></li>
+<li><a href="#org50f5a3f">3.2.2. Font and cursor</a></li>
+</ul>
+</li>
+<li><a href="#org530c353">3.3. Tabs</a></li>
+<li><a href="#org43ca111">3.4. Buffers/input</a>
+<ul>
+<li><a href="#org3513335">3.4.1. ido-mode</a></li>
+<li><a href="#org1b1f2ff">3.4.2. ibuffer</a></li>
+</ul>
+</li>
+<li><a href="#org6c51637">3.5. desktop-save</a></li>
+</ul>
+</li>
+<li><a href="#orgb591920">4. Custom functions</a>
+<ul>
+<li><a href="#orgaac21de">4.1. Resizing windows</a></li>
+<li><a href="#org10c1cc8">4.2. Go to config file</a></li>
+<li><a href="#orgce74cf1">4.3. Ido</a>
+<ul>
+<li><a href="#org24bec92">4.3.1. Bookmarks</a></li>
+</ul>
+</li>
+<li><a href="#orgb781037">4.4. Reloading config</a></li>
+<li><a href="#org22a098e">4.5. Programming</a>
+<ul>
+<li><a href="#org1796921">4.5.1. Opening Output</a></li>
+</ul>
+</li>
+<li><a href="#orgae9f854">4.6. Email</a></li>
+<li><a href="#orgc001a1b">4.7. WM stuff</a>
+<ul>
+<li><a href="#orgfc2c754">4.7.1. Notification bar replacement</a></li>
+<li><a href="#orgc77ded5">4.7.2. dmenu</a></li>
+<li><a href="#org4ab21e3">4.7.3. Other&#x2026;</a></li>
+</ul>
+</li>
+<li><a href="#org7fa9eb0">4.8. Other</a>
+<ul>
+<li><a href="#org3e49ecd">4.8.1. Xah Lee form feed</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org60a4e6c">6. Keybindings</a>
+<li><a href="#orgf02725e">5. Major mode hooks and variables</a>
 <ul>
-<li><a href="#org2e2b072">6.1. Interaction with Emacs</a>
+<li><a href="#org700e8ae">5.1. Lilypond mode</a></li>
+<li><a href="#orgcf69038">5.2. Electric pairs</a></li>
+<li><a href="#org86ed61d">5.3. Org Mode</a></li>
+<li><a href="#org596f903">5.4. M-x compile hooks</a>
 <ul>
-<li><a href="#orgefb447a">6.1.1. ido-bookmark-jump (custom function)</a></li>
-<li><a href="#org72bed51">6.1.2. Terminal functionality</a></li>
-</ul>
-</li>
-<li><a href="#orgbb4026b">6.2. Config</a></li>
-<li><a href="#org02bb3bd">6.3. General WM stuff</a>
-<ul>
-<li><a href="#org4fb1ea0">6.3.1. System information</a></li>
-<li><a href="#org2bc1548">6.3.2. dmenu scripts</a></li>
-</ul>
-</li>
-<li><a href="#org2f5a70f">6.4. Programming/Typesetting</a></li>
-<li><a href="#orgdb667eb">6.5. Miscellaneous</a>
-<ul>
-<li><a href="#orgc7f880a">6.5.1. Line numbers</a></li>
-<li><a href="#orgf77fc03">6.5.2. Spelling correction</a></li>
-<li><a href="#orge7c17be">6.5.3. Line wrap</a></li>
-<li><a href="#org8544700">6.5.4. Mouse</a></li>
+<li><a href="#orgc0e3289">5.4.1. Groff</a></li>
+<li><a href="#orgc2d0bf0">5.4.2. C</a></li>
+<li><a href="#orgb3f9522">5.4.3. LiLyPond</a></li>
+<li><a href="#orgdf764bc">5.4.4. LaTeX</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org657095f">7. Mode-line</a></li>
-<li><a href="#org6a8de86">8. Email</a></li>
+<li><a href="#org8e4a3e2">6. Keybindings</a>
+<ul>
+<li><a href="#org1b6323d">6.1. Interaction with Emacs</a>
+<ul>
+<li><a href="#org02caff5">6.1.1. ido-bookmark-jump (custom function)</a></li>
+<li><a href="#org05f8e10">6.1.2. Terminal functionality</a></li>
+</ul>
+</li>
+<li><a href="#org1388eed">6.2. Config</a></li>
+<li><a href="#org8309e89">6.3. General WM stuff</a>
+<ul>
+<li><a href="#org7925e82">6.3.1. System information</a></li>
+<li><a href="#org49feab4">6.3.2. dmenu scripts</a></li>
+</ul>
+</li>
+<li><a href="#org68defe1">6.4. Programming/Typesetting</a></li>
+<li><a href="#orgf7991a3">6.5. Miscellaneous</a>
+<ul>
+<li><a href="#orga752276">6.5.1. Line numbers</a></li>
+<li><a href="#org2295b74">6.5.2. Spelling correction</a></li>
+<li><a href="#org67c249c">6.5.3. Line wrap</a></li>
+<li><a href="#org1f4e789">6.5.4. Mouse</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org5e4bf37">7. Mode-line</a></li>
+<li><a href="#org1f5ec76">8. Email</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0a3955c" class="outline-2">
-<h2 id="org0a3955c"><span class="section-number-2">1</span> Packages</h2>
+<div id="outline-container-org01d70a2" class="outline-2">
+<h2 id="org01d70a2"><span class="section-number-2">1</span> Packages</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org1362323" class="outline-3">
-<h3 id="org1362323"><span class="section-number-3">1.1</span> Startup</h3>
+<div id="outline-container-orgbd22d74" class="outline-3">
+<h3 id="orgbd22d74"><span class="section-number-3">1.1</span> Startup</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-org89afbf7" class="outline-4">
-<h4 id="org89afbf7"><span class="section-number-4">1.1.1</span> Repositories and initialisation</h4>
+<div id="outline-container-org0feea25" class="outline-4">
+<h4 id="org0feea25"><span class="section-number-4">1.1.1</span> Repositories and initialisation</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 Enable melpa archive and making sure packages work
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">package</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> package-enable-at-startup nil<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>add-to-list 'package-archives
-             '<span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #ff1f8b;">"melpa"</span> . <span style="color: #ff1f8b;">"https://melpa.org/packages/"</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-             '<span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #ff1f8b;">"gnu"</span> . <span style="color: #ff1f8b;">"https://elpa.gnu.org/packages/"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>package-initialize<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">require</span> '<span style="color: #5fafd7;">package</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> package-enable-at-startup nil<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>add-to-list 'package-archives
+             '<span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #ff4ea3;">"melpa"</span> . <span style="color: #ff4ea3;">"https://melpa.org/packages/"</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+             '<span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #ff4ea3;">"gnu"</span> . <span style="color: #ff4ea3;">"https://elpa.gnu.org/packages/"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>package-initialize<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfc0de86" class="outline-4">
-<h4 id="orgfc0de86"><span class="section-number-4">1.1.2</span> Use-package</h4>
+<div id="outline-container-orgc2aa6c5" class="outline-4">
+<h4 id="orgc2aa6c5"><span class="section-number-4">1.1.2</span> Use-package</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <p>
 Install use-package if not installed
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">unless</span> <span style="color: #1f5bff; font-weight: bold;">(</span>package-installed-p 'use-package<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>package-refresh-contents<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>package-install 'use-package<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">unless</span> <span style="color: #5fafd7; font-weight: bold;">(</span>package-installed-p 'use-package<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>package-refresh-contents<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>package-install 'use-package<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf7862ce" class="outline-3">
-<h3 id="orgf7862ce"><span class="section-number-3">1.2</span> Installed Packages</h3>
+<div id="outline-container-orgf32f209" class="outline-3">
+<h3 id="orgf32f209"><span class="section-number-3">1.2</span> Installed Packages</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orgd9d33a8" class="outline-4">
-<h4 id="orgd9d33a8"><span class="section-number-4">1.2.1</span> Pinentry</h4>
+<div id="outline-container-org8bacb19" class="outline-4">
+<h4 id="org8bacb19"><span class="section-number-4">1.2.1</span> Pinentry</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
 This package lets emacs be used for gpg authentication
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">pinentry</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:init</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> epa-pinentry-mode 'loopback<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>pinentry-start<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">pinentry</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:init</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> epa-pinentry-mode 'loopback<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>pinentry-start<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd5db0de" class="outline-4">
-<h4 id="orgd5db0de"><span class="section-number-4">1.2.2</span> Org</h4>
+<div id="outline-container-org908e41e" class="outline-4">
+<h4 id="org908e41e"><span class="section-number-4">1.2.2</span> Org</h4>
 <div class="outline-text-4" id="text-1-2-2">
 </div>
 <ol class="org-ol">
-<li><a id="org845c7df"></a>Github markdown<br />
+<li><a id="org47ddbdd"></a>Github markdown<br />
 <div class="outline-text-5" id="text-1-2-2-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">ox-gfm</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">ox-gfm</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org90ec19d"></a>Html export<br />
+<li><a id="orgbb9cc5c"></a>Html export<br />
 <div class="outline-text-5" id="text-1-2-2-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">htmlize</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">htmlize</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -448,37 +453,37 @@ This package lets emacs be used for gpg authentication
 </ol>
 </div>
 
-<div id="outline-container-orgd5f28d3" class="outline-4">
-<h4 id="orgd5f28d3"><span class="section-number-4">1.2.3</span> Window management</h4>
+<div id="outline-container-org52c7698" class="outline-4">
+<h4 id="org52c7698"><span class="section-number-4">1.2.3</span> Window management</h4>
 <div class="outline-text-4" id="text-1-2-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgbc59527"></a>EXWM - Emacs X Window Manager<br />
+<li><a id="org958e653"></a>EXWM - Emacs X Window Manager<br />
 <div class="outline-text-5" id="text-1-2-3-1">
 <p>
 Manipulate X windows as emacs buffers.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">exwm</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:config</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">exwm-config</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>exwm-config-default<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">exwm</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:config</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">require</span> '<span style="color: #5fafd7;">exwm-config</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>exwm-config-default<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="orgf31f022"></a>Golden ratio<br />
+<li><a id="org95a402a"></a>Golden ratio<br />
 <div class="outline-text-5" id="text-1-2-3-2">
 <p>
 This package resizes windows according to the golden ratio.  The
 focused window is larger
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">golden-ratio</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:config</span> <span style="color: #1f5bff; font-weight: bold;">(</span>golden-ratio-mode<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">golden-ratio</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:config</span> <span style="color: #5fafd7; font-weight: bold;">(</span>golden-ratio-mode<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -486,36 +491,36 @@ focused window is larger
 </ol>
 </div>
 
-<div id="outline-container-orgadb2487" class="outline-4">
-<h4 id="orgadb2487"><span class="section-number-4">1.2.4</span> Completion</h4>
+<div id="outline-container-orge05c643" class="outline-4">
+<h4 id="orge05c643"><span class="section-number-4">1.2.4</span> Completion</h4>
 <div class="outline-text-4" id="text-1-2-4">
 </div>
 <ol class="org-ol">
-<li><a id="org1ae11c6"></a>Company<br />
+<li><a id="orgd4c82f5"></a>Company<br />
 <div class="outline-text-5" id="text-1-2-4-1">
 <p>
 A very good package for auto-completion
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">company</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:init</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>global-company-mode<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #b218b2;">:config</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> company-idle-delay 0<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">company</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:init</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>global-company-mode<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #d18aff;">:config</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> company-idle-delay 0<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org98d2d78"></a>Geiser<br />
+<li><a id="orga4497b6"></a>Geiser<br />
 <div class="outline-text-5" id="text-1-2-4-2">
 <p>
 A scheme backend
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">geiser</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">geiser</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -523,60 +528,60 @@ A scheme backend
 </ol>
 </div>
 
-<div id="outline-container-org9ab7c37" class="outline-4">
-<h4 id="org9ab7c37"><span class="section-number-4">1.2.5</span> "Applications"</h4>
+<div id="outline-container-orgf4326bc" class="outline-4">
+<h4 id="orgf4326bc"><span class="section-number-4">1.2.5</span> "Applications"</h4>
 <div class="outline-text-4" id="text-1-2-5">
 </div>
 <ol class="org-ol">
-<li><a id="org81edcc5"></a>Mingus<br />
+<li><a id="orgf681b1e"></a>Mingus<br />
 <div class="outline-text-5" id="text-1-2-5-1">
 <p>
 A nice mpd front-end in emacs
 (I couldn't get EMMS working with mopidy)
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">mingus</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">mingus</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org26d99a1"></a>Notmuch<br />
+<li><a id="orge118a33"></a>Notmuch<br />
 <div class="outline-text-5" id="text-1-2-5-2">
 <p>
 A simple email client, with emphasis on searching
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">notmuch</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:config</span> <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> notmuch-archive-tags '<span style="color: #00af00; font-weight: bold;">(</span><span style="color: #ff1f8b;">"-unread"</span> <span style="color: #ff1f8b;">"-inbox"</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">notmuch</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:config</span> <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> notmuch-archive-tags '<span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3;">"-unread"</span> <span style="color: #ff4ea3;">"-inbox"</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org0290db5"></a>Transmission<br />
+<li><a id="org6bc0039"></a>Transmission<br />
 <div class="outline-text-5" id="text-1-2-5-3">
 <p>
 An emacs front-end for the transmission bittorrent daemon
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">transmission</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">transmission</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org5e6a53d"></a>Elfeed<br />
+<li><a id="org255d961"></a>Elfeed<br />
 <div class="outline-text-5" id="text-1-2-5-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">elfeed</span>                                         
-  <span style="color: #b218b2;">:ensure</span> t                                                 
-  <span style="color: #b218b2;">:config</span>                                                   
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">if</span> <span style="color: #00af00; font-weight: bold;">(</span>file-exists-p <span style="color: #ff1f8b;">"~/.emacs.d/feeds.el"</span><span style="color: #00af00; font-weight: bold;">)</span>                 
-      <span style="color: #00af00; font-weight: bold;">(</span>load-file <span style="color: #ff4ea3; font-weight: bold;">(</span>expand-file-name <span style="color: #ff1f8b;">"~/.emacs.d/feeds.el"</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">elfeed</span>                                         
+  <span style="color: #d18aff;">:ensure</span> t                                                 
+  <span style="color: #d18aff;">:config</span>                                                   
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">if</span> <span style="color: #a1db00; font-weight: bold;">(</span>file-exists-p <span style="color: #ff4ea3;">"~/.emacs.d/feeds.el"</span><span style="color: #a1db00; font-weight: bold;">)</span>                 
+      <span style="color: #a1db00; font-weight: bold;">(</span>load-file <span style="color: #ff4ea3; font-weight: bold;">(</span>expand-file-name <span style="color: #ff4ea3;">"~/.emacs.d/feeds.el"</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -584,39 +589,39 @@ An emacs front-end for the transmission bittorrent daemon
 </ol>
 </div>
 
-<div id="outline-container-orgc877718" class="outline-4">
-<h4 id="orgc877718"><span class="section-number-4">1.2.6</span> Appearance</h4>
+<div id="outline-container-orgbcadd2c" class="outline-4">
+<h4 id="orgbcadd2c"><span class="section-number-4">1.2.6</span> Appearance</h4>
 <div class="outline-text-4" id="text-1-2-6">
 </div>
 <ol class="org-ol">
-<li><a id="org4ff958f"></a>Theme<br />
+<li><a id="org53f7d4b"></a>Theme<br />
 <ol class="org-ol">
-<li><a id="org09dccfe"></a>moe-theme<br />
+<li><a id="org90d22e4"></a>moe-theme<br />
 <div class="outline-text-6" id="text-1-2-6-1-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">moe-theme</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:config</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">moe-theme-switcher</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> moe-theme-switch-by-sunrise-and-sunset t<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>moe-theme-set-color 'purple<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">moe-theme</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:config</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">require</span> '<span style="color: #5fafd7;">moe-theme-switcher</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> moe-theme-switch-by-sunrise-and-sunset t<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>moe-theme-set-color 'purple<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org1ad49dc"></a>base16<br />
+<li><a id="orga9423ce"></a>base16<br />
 <div class="outline-text-6" id="text-1-2-6-1-2">
 <p>
 Base16 is a nice theme framework, but moe-theme is my new best friend.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">unless</span> <span style="color: #1f5bff; font-weight: bold;">(</span>package-installed-p 'base16-theme<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>package-refresh-contents<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>package-install 'base16-theme<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> base16-distinct-fringe-background nil<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> base16-theme-256-color-source <span style="color: #ff1f8b;">"colors"</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">(load-theme 'base16-bright t)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">unless</span> <span style="color: #5fafd7; font-weight: bold;">(</span>package-installed-p 'base16-theme<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>package-refresh-contents<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>package-install 'base16-theme<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> base16-distinct-fringe-background nil<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> base16-theme-256-color-source <span style="color: #ff4ea3;">"colors"</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #6c6c6c; font-style: italic;">;; </span><span style="color: #6c6c6c; font-style: italic;">(load-theme 'base16-bright t)</span>
 </pre>
 </div>
 </div>
@@ -624,45 +629,45 @@ Base16 is a nice theme framework, but moe-theme is my new best friend.
 </ol>
 </li>
 
-<li><a id="org87dd657"></a>Rainbow-mode<br />
+<li><a id="orgef043a2"></a>Rainbow-mode<br />
 <div class="outline-text-5" id="text-1-2-6-2">
 <p>
 This package highlights hex colours
 (also install xterm-color to use in a terminal emulator)
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">rainbow-mode</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:config</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>global-set-key <span style="color: #00af00; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c h"</span><span style="color: #00af00; font-weight: bold;">)</span> 'rainbow-mode<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">rainbow-mode</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:config</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c h"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'rainbow-mode<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="orgcd0c2ff"></a>xterm-color<br />
+<li><a id="orgdd70639"></a>xterm-color<br />
 <div class="outline-text-5" id="text-1-2-6-3">
 <p>
 Allows a terminal emulator to use 256 colors
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">xterm-color</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">xterm-color</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="orgb3a7315"></a>Rainbow-delimiters<br />
+<li><a id="org69180ec"></a>Rainbow-delimiters<br />
 <div class="outline-text-5" id="text-1-2-6-4">
 <p>
 Minor mode that highlights parentheses well
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">rainbow-delimiters</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:init</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>add-hook 'prog-mode-hook 'rainbow-delimiters-mode<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">rainbow-delimiters</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:init</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>add-hook 'prog-mode-hook 'rainbow-delimiters-mode<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -670,65 +675,67 @@ Minor mode that highlights parentheses well
 </ol>
 </div>
 
-<div id="outline-container-org51f12d8" class="outline-4">
-<h4 id="org51f12d8"><span class="section-number-4">1.2.7</span> god-mode</h4>
+<div id="outline-container-orga146caf" class="outline-4">
+<h4 id="orga146caf"><span class="section-number-4">1.2.7</span> god-mode</h4>
 <div class="outline-text-4" id="text-1-2-7">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">god-mode</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:config</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>global-set-key <span style="color: #00af00; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"&lt;left&gt;"</span><span style="color: #00af00; font-weight: bold;">)</span> 'god-local-mode<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>global-set-key <span style="color: #00af00; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"&lt;right&gt;"</span><span style="color: #00af00; font-weight: bold;">)</span> 'god-local-mode<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>god-mode<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"> <span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">god-mode</span>
+   <span style="color: #d18aff;">:ensure</span> t
+   <span style="color: #d18aff;">:config</span>
+   <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> god-exempt-major-modes nil
+         god-exempt-predicates nil<span style="color: #5fafd7; font-weight: bold;">)</span>
+<span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"&lt;left&gt;"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'god-local-mode<span style="color: #5fafd7; font-weight: bold;">)</span>
+   <span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"&lt;right&gt;"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'god-local-mode<span style="color: #5fafd7; font-weight: bold;">)</span>
+   <span style="color: #5fafd7; font-weight: bold;">(</span>god-mode<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1f82ed1" class="outline-4">
-<h4 id="org1f82ed1"><span class="section-number-4">1.2.8</span> Quality of life</h4>
+<div id="outline-container-orge69a5dd" class="outline-4">
+<h4 id="orge69a5dd"><span class="section-number-4">1.2.8</span> Quality of life</h4>
 <div class="outline-text-4" id="text-1-2-8">
 </div>
 <ol class="org-ol">
-<li><a id="orgda63b93"></a>Smex<br />
+<li><a id="org3f51dd2"></a>Smex<br />
 <div class="outline-text-5" id="text-1-2-8-1">
 <p>
 smex integrates "M-x" with <code>ido</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">smex</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:init</span> <span style="color: #1f5bff; font-weight: bold;">(</span>smex-initialize<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #b218b2;">:bind</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #ff1f8b;">"M-x"</span> . smex<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">smex</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:init</span> <span style="color: #5fafd7; font-weight: bold;">(</span>smex-initialize<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #d18aff;">:bind</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #ff4ea3;">"M-x"</span> . smex<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="orgf6c473c"></a>Which-key<br />
+<li><a id="org20d431c"></a>Which-key<br />
 <div class="outline-text-5" id="text-1-2-8-2">
 <p>
 Shows what your keys do
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">which-key</span>
-  <span style="color: #b218b2;">:ensure</span> t
-  <span style="color: #b218b2;">:init</span> <span style="color: #1f5bff; font-weight: bold;">(</span>which-key-mode<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #b218b2;">:config</span> <span style="color: #1f5bff; font-weight: bold;">(</span>which-key-enable-god-mode-support<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">which-key</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:init</span> <span style="color: #5fafd7; font-weight: bold;">(</span>which-key-mode<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #d18aff;">:config</span> <span style="color: #5fafd7; font-weight: bold;">(</span>which-key-enable-god-mode-support<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org1eaeddd"></a>Try<br />
+<li><a id="org14089e3"></a>Try<br />
 <div class="outline-text-5" id="text-1-2-8-3">
 <p>
 Allows you to try other packages without committing
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">try</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">try</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -736,19 +743,19 @@ Allows you to try other packages without committing
 </ol>
 </div>
 
-<div id="outline-container-orgad015e6" class="outline-4">
-<h4 id="orgad015e6"><span class="section-number-4">1.2.9</span> Not really useful</h4>
+<div id="outline-container-org76a7782" class="outline-4">
+<h4 id="org76a7782"><span class="section-number-4">1.2.9</span> Not really useful</h4>
 <div class="outline-text-4" id="text-1-2-9">
 </div>
 <ol class="org-ol">
-<li><a id="org0c087ff"></a>Lorem Ipsum<br />
+<li><a id="orgfa6b921"></a>Lorem Ipsum<br />
 <div class="outline-text-5" id="text-1-2-9-1">
 <p>
 A 'Lorem ipsum' generator
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">lorem-ipsum</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">lorem-ipsum</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -756,26 +763,26 @@ A 'Lorem ipsum' generator
 </ol>
 </div>
 
-<div id="outline-container-org74d25be" class="outline-4">
-<h4 id="org74d25be"><span class="section-number-4">1.2.10</span> To be confirmed</h4>
+<div id="outline-container-org92f94a8" class="outline-4">
+<h4 id="org92f94a8"><span class="section-number-4">1.2.10</span> To be confirmed</h4>
 <div class="outline-text-4" id="text-1-2-10">
 </div>
 <ol class="org-ol">
-<li><a id="org639a854"></a>Elpher - gopher client<br />
+<li><a id="org2910298"></a>Elpher - gopher client<br />
 <div class="outline-text-5" id="text-1-2-10-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">elpher</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">elpher</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 
-<li><a id="org075a2c8"></a>xclip - enable use of X11 clipboard in terminal<br />
+<li><a id="org478f24d"></a>xclip - enable use of X11 clipboard in terminal<br />
 <div class="outline-text-5" id="text-1-2-10-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">xclip</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">xclip</span>
+  <span style="color: #d18aff;">:ensure</span> t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -783,17 +790,17 @@ A 'Lorem ipsum' generator
 </ol>
 </div>
 
-<div id="outline-container-org677e58b" class="outline-4">
-<h4 id="org677e58b"><span class="section-number-4">1.2.11</span> PDF-tools</h4>
+<div id="outline-container-org3dad924" class="outline-4">
+<h4 id="org3dad924"><span class="section-number-4">1.2.11</span> PDF-tools</h4>
 <div class="outline-text-4" id="text-1-2-11">
 <p>
 Majorly increases performance when viewing pdfs as a file
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">(use-package pdf-tools</span>
-<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:ensure t</span>
-<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:init</span>
-<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">(pdf-tools-install))</span>
+<pre class="src src-emacs-lisp"><span style="color: #6c6c6c; font-style: italic;">;; </span><span style="color: #6c6c6c; font-style: italic;">(use-package pdf-tools</span>
+<span style="color: #6c6c6c; font-style: italic;">;;   </span><span style="color: #6c6c6c; font-style: italic;">:ensure t</span>
+<span style="color: #6c6c6c; font-style: italic;">;;   </span><span style="color: #6c6c6c; font-style: italic;">:init</span>
+<span style="color: #6c6c6c; font-style: italic;">;;   </span><span style="color: #6c6c6c; font-style: italic;">(pdf-tools-install))</span>
 </pre>
 </div>
 </div>
@@ -801,445 +808,469 @@ Majorly increases performance when viewing pdfs as a file
 </div>
 </div>
 
-<div id="outline-container-orgcb95221" class="outline-2">
-<h2 id="orgcb95221"><span class="section-number-2">2</span> Stuff to do when loading</h2>
+<div id="outline-container-org0a49637" class="outline-2">
+<h2 id="org0a49637"><span class="section-number-2">2</span> Stuff to do when loading</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org8b9fafc" class="outline-3">
-<h3 id="org8b9fafc"><span class="section-number-3">2.1</span> Environment Variables</h3>
+<div id="outline-container-orgd67f517" class="outline-3">
+<h3 id="orgd67f517"><span class="section-number-3">2.1</span> Environment Variables</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Setting path, email and password variables
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>setenv <span style="color: #ff1f8b;">"NOTMUCH_CONFIG"</span> <span style="color: #1f5bff; font-weight: bold;">(</span>expand-file-name <span style="color: #ff1f8b;">"~/.config/notmuch-config"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>setenv <span style="color: #ff1f8b;">"PASSWORD_STORE_DIR"</span> <span style="color: #1f5bff; font-weight: bold;">(</span>expand-file-name <span style="color: #ff1f8b;">"~/.local/share/password-store/"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'after-init-hook
-          <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">lambda</span> <span style="color: #00af00; font-weight: bold;">()</span>
-            <span style="color: #00af00; font-weight: bold;">(</span>setenv <span style="color: #ff1f8b;">"PATH"</span> <span style="color: #ff4ea3; font-weight: bold;">(</span>concat <span style="color: #00d7af; font-weight: bold;">(</span>getenv <span style="color: #ff1f8b;">"PATH"</span><span style="color: #00d7af; font-weight: bold;">)</span> <span style="color: #ff1f8b;">":/home/jamzattack/.local/bin/"</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span>
-            <span style="color: #00af00; font-weight: bold;">(</span><span style="color: #00af00;">push</span> <span style="color: #ff1f8b;">"/home/jamzattack/.local/bin/"</span> exec-path<span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>setenv <span style="color: #ff4ea3;">"NOTMUCH_CONFIG"</span>
+        <span style="color: #5fafd7; font-weight: bold;">(</span>expand-file-name <span style="color: #ff4ea3;">"~/.config/notmuch-config"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>setenv <span style="color: #ff4ea3;">"PASSWORD_STORE_DIR"</span>
+        <span style="color: #5fafd7; font-weight: bold;">(</span>expand-file-name <span style="color: #ff4ea3;">"~/.local/share/password-store/"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2b9ce11" class="outline-2">
-<h2 id="org2b9ce11"><span class="section-number-2">3</span> Fixing defaults</h2>
+<div id="outline-container-org4796f73" class="outline-2">
+<h2 id="org4796f73"><span class="section-number-2">3</span> Fixing defaults</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org652651f" class="outline-3">
-<h3 id="org652651f"><span class="section-number-3">3.1</span> Miscellaneous stuff</h3>
+<div id="outline-container-orgae30ef9" class="outline-3">
+<h3 id="orgae30ef9"><span class="section-number-3">3.1</span> Miscellaneous stuff</h3>
 <div class="outline-text-3" id="text-3-1">
 </div>
-<div id="outline-container-org7546762" class="outline-4">
-<h4 id="org7546762"><span class="section-number-4">3.1.1</span> No more pesky extra files, other basics</h4>
+<div id="outline-container-org5ef0356" class="outline-4">
+<h4 id="org5ef0356"><span class="section-number-4">3.1.1</span> No more pesky extra files, other basics</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defalias</span> '<span style="color: #ef2929;">yes-or-no-p</span> 'y-or-n-p<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> make-backup-files nil<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> auto-save-default nil<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defalias</span> '<span style="color: #ffd700;">yes-or-no-p</span> 'y-or-n-p<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> make-backup-files nil<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> auto-save-default nil<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8ce66ea" class="outline-4">
-<h4 id="org8ce66ea"><span class="section-number-4">3.1.2</span> Enable all the features, because what's the point in having less?</h4>
+<div id="outline-container-org0e77721" class="outline-4">
+<h4 id="org0e77721"><span class="section-number-4">3.1.2</span> Enable all the features, because what's the point in having less?</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> disabled-command-function nil<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> disabled-command-function nil<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5d99bf9" class="outline-3">
-<h3 id="org5d99bf9"><span class="section-number-3">3.2</span> Aesthetic stuff</h3>
+<div id="outline-container-org8d19bb9" class="outline-3">
+<h3 id="org8d19bb9"><span class="section-number-3">3.2</span> Aesthetic stuff</h3>
 <div class="outline-text-3" id="text-3-2">
 </div>
-<div id="outline-container-org37740e9" class="outline-4">
-<h4 id="org37740e9"><span class="section-number-4">3.2.1</span> GUI ugliness</h4>
+<div id="outline-container-org3f4c30c" class="outline-4">
+<h4 id="org3f4c30c"><span class="section-number-4">3.2.1</span> GUI ugliness</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 Disable all the wasteful bars
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">when</span> <span style="color: #1f5bff; font-weight: bold;">(</span>window-system<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>scroll-bar-mode -1<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>fringe-mode 1<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>menu-bar-mode -1<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>tool-bar-mode -1<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">when</span> <span style="color: #5fafd7; font-weight: bold;">(</span>window-system<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>scroll-bar-mode -1<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>fringe-mode 1<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>menu-bar-mode -1<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>tool-bar-mode -1<span style="color: #dd0000; font-weight: bold;">)</span>
 
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org0ed092f" class="outline-4">
-<h4 id="org0ed092f"><span class="section-number-4">3.2.2</span> Font and cursor</h4>
+<div id="outline-container-org50f5a3f" class="outline-4">
+<h4 id="org50f5a3f"><span class="section-number-4">3.2.2</span> Font and cursor</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 Use system monospace font, red non-blinking cursor
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>set-cursor-color <span style="color: #ff1f8b;">"red"</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>blink-cursor-mode -1<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>set-cursor-color <span style="color: #ff4ea3;">"red"</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>blink-cursor-mode -1<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org30ccb5f" class="outline-3">
-<h3 id="org30ccb5f"><span class="section-number-3">3.3</span> Tabs</h3>
+<div id="outline-container-org530c353" class="outline-3">
+<h3 id="org530c353"><span class="section-number-3">3.3</span> Tabs</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Tabs are 4 spaces wide
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq-default</span> indent-tabs-mode nil<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> tab-width 4<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq-default</span> indent-tabs-mode nil<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> tab-width 4<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org7a831a0" class="outline-3">
-<h3 id="org7a831a0"><span class="section-number-3">3.4</span> Buffers/input</h3>
+<div id="outline-container-org43ca111" class="outline-3">
+<h3 id="org43ca111"><span class="section-number-3">3.4</span> Buffers/input</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-orgcf8e40c" class="outline-4">
-<h4 id="orgcf8e40c"><span class="section-number-4">3.4.1</span> ido-mode</h4>
+<div id="outline-container-org3513335" class="outline-4">
+<h4 id="org3513335"><span class="section-number-4">3.4.1</span> ido-mode</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <p>
 ido-mode is much better than the default for switching
 buffers and going to files.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> ido-enable-flex-matching nil<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> ido-create-new-buffer 'always<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> ido-everywhere t<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>ido-mode 1<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> ido-enable-flex-matching nil<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> ido-create-new-buffer 'always<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> ido-everywhere t<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>ido-mode 1<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org731d7b6" class="outline-4">
-<h4 id="org731d7b6"><span class="section-number-4">3.4.2</span> ibuffer</h4>
+<div id="outline-container-org1b1f2ff" class="outline-4">
+<h4 id="org1b1f2ff"><span class="section-number-4">3.4.2</span> ibuffer</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <p>
 ibuffer is also a lot better than the default
 (plus it has colours)
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-x C-b"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'ibuffer<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-x C-b"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'ibuffer<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4a5ade0" class="outline-3">
-<h3 id="org4a5ade0"><span class="section-number-3">3.5</span> desktop-save</h3>
+<div id="outline-container-org6c51637" class="outline-3">
+<h3 id="org6c51637"><span class="section-number-3">3.5</span> desktop-save</h3>
 <div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>desktop-save-mode t<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>desktop-save-mode t<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2d1d7b3" class="outline-2">
-<h2 id="org2d1d7b3"><span class="section-number-2">4</span> Custom functions</h2>
+<div id="outline-container-orgb591920" class="outline-2">
+<h2 id="orgb591920"><span class="section-number-2">4</span> Custom functions</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgf2cceb7" class="outline-3">
-<h3 id="orgf2cceb7"><span class="section-number-3">4.1</span> Resizing windows</h3>
+<div id="outline-container-orgaac21de" class="outline-3">
+<h3 id="orgaac21de"><span class="section-number-3">4.1</span> Resizing windows</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">v-resize</span> <span style="color: #1f5bff; font-weight: bold;">(</span>key<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #cc0000;">"interactively resize the window"</span>  
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span> <span style="color: #ff1f8b;">"cHit p/n/b/f to resize"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">cond</span>                                  
-   <span style="color: #00af00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff1f8b;">"n"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">v-resize</span> <span style="color: #5fafd7; font-weight: bold;">(</span>key<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #ff4b4b;">"interactively resize the window"</span>  
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span> <span style="color: #ff4ea3;">"cHit p/n/b/f to resize"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">cond</span>                                  
+   <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff4ea3;">"n"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
     <span style="color: #ff4ea3; font-weight: bold;">(</span>enlarge-window 1<span style="color: #ff4ea3; font-weight: bold;">)</span>             
-    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span> 
-   <span style="color: #00af00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff1f8b;">"p"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
+    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span> 
+   <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff4ea3;">"p"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
     <span style="color: #ff4ea3; font-weight: bold;">(</span>enlarge-window -1<span style="color: #ff4ea3; font-weight: bold;">)</span>             
-    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span> 
-   <span style="color: #00af00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff1f8b;">"b"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
+    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span> 
+   <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff4ea3;">"b"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
     <span style="color: #ff4ea3; font-weight: bold;">(</span>enlarge-window-horizontally -1<span style="color: #ff4ea3; font-weight: bold;">)</span>             
-    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span> 
-   <span style="color: #00af00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff1f8b;">"f"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
+    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span> 
+   <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3; font-weight: bold;">(</span>eq key <span style="color: #00d7af; font-weight: bold;">(</span>string-to-char <span style="color: #ff4ea3;">"f"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span>                      
     <span style="color: #ff4ea3; font-weight: bold;">(</span>enlarge-window-horizontally 1<span style="color: #ff4ea3; font-weight: bold;">)</span>            
-    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span> 
-   <span style="color: #00af00; font-weight: bold;">(</span>t <span style="color: #ff4ea3; font-weight: bold;">(</span><span style="color: #00af00;">push</span> key unread-command-events<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c +"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'v-resize<span style="color: #cc0000; font-weight: bold;">)</span>
+    <span style="color: #ff4ea3; font-weight: bold;">(</span>call-interactively 'v-resize<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span> 
+   <span style="color: #a1db00; font-weight: bold;">(</span>t <span style="color: #ff4ea3; font-weight: bold;">(</span><span style="color: #a1db00;">push</span> key unread-command-events<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c +"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'v-resize<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1de630a" class="outline-3">
-<h3 id="org1de630a"><span class="section-number-3">4.2</span> Go to config file</h3>
+<div id="outline-container-org10c1cc8" class="outline-3">
+<h3 id="org10c1cc8"><span class="section-number-3">4.2</span> Go to config file</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Visit your config file. Bound to "C-c e" in <code>Keybindings</code> section.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">config-visit</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Go to your config.org"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>find-file <span style="color: #ff1f8b;">"~/.emacs.d/config.org"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">config-visit</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Go to your config.org"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>find-file <span style="color: #ff4ea3;">"~/.emacs.d/config.org"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3e6976f" class="outline-3">
-<h3 id="org3e6976f"><span class="section-number-3">4.3</span> Ido</h3>
+<div id="outline-container-orgce74cf1" class="outline-3">
+<h3 id="orgce74cf1"><span class="section-number-3">4.3</span> Ido</h3>
 <div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-org8f5712c" class="outline-4">
-<h4 id="org8f5712c"><span class="section-number-4">4.3.1</span> Bookmarks</h4>
+<div id="outline-container-org24bec92" class="outline-4">
+<h4 id="org24bec92"><span class="section-number-4">4.3.1</span> Bookmarks</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">ido-bookmark-jump</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"An ido wrapper for `</span><span style="color: #1f5bff;">bookmark-jump</span><span style="color: #cc0000;">'. Designed for interactive</span>
-<span style="color: #cc0000;">use, so just use `</span><span style="color: #1f5bff;">bookmark-jump</span><span style="color: #cc0000;">' in elisp."</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>bookmark-maybe-load-default-file<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>bookmark-jump
-   <span style="color: #00af00; font-weight: bold;">(</span>ido-completing-read <span style="color: #ff1f8b;">"Bookmark: "</span> bookmark-alist<span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">ido-bookmark-jump</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"An ido wrapper for `</span><span style="color: #5fafd7;">bookmark-jump</span><span style="color: #ff4b4b;">'. Designed for interactive</span>
+<span style="color: #ff4b4b;">use, so just use `</span><span style="color: #5fafd7;">bookmark-jump</span><span style="color: #ff4b4b;">' in elisp."</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>bookmark-maybe-load-default-file<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>bookmark-jump
+   <span style="color: #a1db00; font-weight: bold;">(</span>ido-completing-read <span style="color: #ff4ea3;">"Bookmark: "</span> bookmark-alist<span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf40f7d2" class="outline-3">
-<h3 id="orgf40f7d2"><span class="section-number-3">4.4</span> Reloading config</h3>
+<div id="outline-container-orgb781037" class="outline-3">
+<h3 id="orgb781037"><span class="section-number-3">4.4</span> Reloading config</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Reloads this config file. Bound to "C-c r" in Keybindings section.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">config-reload</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Reloads ~/.emacs.d/config.org at runtime"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>org-babel-load-file <span style="color: #00af00; font-weight: bold;">(</span>expand-file-name <span style="color: #ff1f8b;">"~/.emacs.d/config.org"</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">config-reload</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Reloads ~/.emacs.d/config.org at runtime"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>org-babel-load-file <span style="color: #a1db00; font-weight: bold;">(</span>expand-file-name <span style="color: #ff4ea3;">"~/.emacs.d/config.org"</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org08adcaf" class="outline-3">
-<h3 id="org08adcaf"><span class="section-number-3">4.5</span> Programming</h3>
+<div id="outline-container-org22a098e" class="outline-3">
+<h3 id="org22a098e"><span class="section-number-3">4.5</span> Programming</h3>
 <div class="outline-text-3" id="text-4-5">
 </div>
-<div id="outline-container-org333898d" class="outline-4">
-<h4 id="org333898d"><span class="section-number-4">4.5.1</span> Opening Output</h4>
+<div id="outline-container-org1796921" class="outline-4">
+<h4 id="org1796921"><span class="section-number-4">4.5.1</span> Opening Output</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">opout</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Opens a pdf file of the same name as the current file"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>find-file-other-window <span style="color: #00af00; font-weight: bold;">(</span>concat
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">opout</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Opens a pdf file of the same name as the current file"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>find-file-other-window <span style="color: #a1db00; font-weight: bold;">(</span>concat
                            <span style="color: #ff4ea3; font-weight: bold;">(</span>file-name-sans-extension buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span>
-                           <span style="color: #ff1f8b;">".pdf"</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+                           <span style="color: #ff4ea3;">".pdf"</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc2bc90a" class="outline-3">
-<h3 id="orgc2bc90a"><span class="section-number-3">4.6</span> Email</h3>
+<div id="outline-container-orgae9f854" class="outline-3">
+<h3 id="orgae9f854"><span class="section-number-3">4.6</span> Email</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">mailsync</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Downloads new mail and adds it to the notmuch database"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>shell-command <span style="color: #ff1f8b;">"mbsync -a &amp;&amp; notmuch new &amp;"</span> <span style="color: #ff1f8b;">"*mailsync*"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">mailsync</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Downloads new mail and adds it to the notmuch database"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>shell-command <span style="color: #ff4ea3;">"mbsync -a &amp;&amp; notmuch new &amp;"</span> <span style="color: #ff4ea3;">"*mailsync*"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgff570b2" class="outline-3">
-<h3 id="orgff570b2"><span class="section-number-3">4.7</span> WM stuff</h3>
+<div id="outline-container-orgc001a1b" class="outline-3">
+<h3 id="orgc001a1b"><span class="section-number-3">4.7</span> WM stuff</h3>
 <div class="outline-text-3" id="text-4-7">
 </div>
-<div id="outline-container-orgeae913f" class="outline-4">
-<h4 id="orgeae913f"><span class="section-number-4">4.7.1</span> Notification bar replacement</h4>
+<div id="outline-container-orgfc2c754" class="outline-4">
+<h4 id="orgfc2c754"><span class="section-number-4">4.7.1</span> Notification bar replacement</h4>
 <div class="outline-text-4" id="text-4-7-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">notibar</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Brings up a notification with the following information:</span>
-<span style="color: #cc0000;">Date</span>
-<span style="color: #cc0000;">Time</span>
-<span style="color: #cc0000;">Memory used</span>
-<span style="color: #cc0000;">Disk available</span>
-<span style="color: #cc0000;">Brightness level</span>
-<span style="color: #cc0000;">Volume level</span>
-<span style="color: #cc0000;">Battery level"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>call-process <span style="color: #ff1f8b;">"notibar"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">notibar</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Brings up a notification with the following information:</span>
+<span style="color: #ff4b4b;">Date</span>
+<span style="color: #ff4b4b;">Time</span>
+<span style="color: #ff4b4b;">Memory used</span>
+<span style="color: #ff4b4b;">Disk available</span>
+<span style="color: #ff4b4b;">Brightness level</span>
+<span style="color: #ff4b4b;">Volume level</span>
+<span style="color: #ff4b4b;">Battery level"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>call-process <span style="color: #ff4ea3;">"notibar"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org355e5de" class="outline-4">
-<h4 id="org355e5de"><span class="section-number-4">4.7.2</span> dmenu</h4>
+<div id="outline-container-orgc77ded5" class="outline-4">
+<h4 id="orgc77ded5"><span class="section-number-4">4.7.2</span> dmenu</h4>
 <div class="outline-text-4" id="text-4-7-2">
 </div>
 <ol class="org-ol">
-<li><a id="org1ca374e"></a>dmenu launcher<br />
+<li><a id="orgb8083ac"></a>dmenu launcher<br />
 <div class="outline-text-5" id="text-4-7-2-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">dmenu_recency</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Launch a program with dmenu"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>start-process <span style="color: #ff1f8b;">"dmenu_recency"</span> nil
-                 <span style="color: #ff1f8b;">"dmenu_recency"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">dmenu_recency</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Launch a program with dmenu"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>start-process <span style="color: #ff4ea3;">"dmenu_recency"</span> nil
+                 <span style="color: #ff4ea3;">"dmenu_recency"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
-<li><a id="org3fbde5c"></a>dmenuhandler<br />
+<li><a id="orgd5749d7"></a>dmenuhandler<br />
 <div class="outline-text-5" id="text-4-7-2-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">dmenuhandler</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Choose how to handle the url in X11 clipboard"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>start-process <span style="color: #ff1f8b;">"dmenuhandler"</span> nil
-                 <span style="color: #ff1f8b;">"dmenuhandler"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">dmenuhandler</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Choose how to handle the url in X11 clipboard"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>start-process <span style="color: #ff4ea3;">"dmenuhandler"</span> nil
+                 <span style="color: #ff4ea3;">"dmenuhandler"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
-<li><a id="org84f38eb"></a>pdf-opener<br />
+<li><a id="org271cb4d"></a>pdf-opener<br />
 <div class="outline-text-5" id="text-4-7-2-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">pdf-opener</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Select a .pdf or .ps file to view in zathura"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>start-process <span style="color: #ff1f8b;">"pdf-opener"</span> nil
-                 <span style="color: #ff1f8b;">"pdf-opener"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">pdf-opener</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Select a .pdf or .ps file to view in zathura"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>start-process <span style="color: #ff4ea3;">"pdf-opener"</span> nil
+                 <span style="color: #ff4ea3;">"pdf-opener"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
-<li><a id="org03c9412"></a>video-opener<br />
+<li><a id="org7f937f9"></a>video-opener<br />
 <div class="outline-text-5" id="text-4-7-2-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">video-opener</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Select a downloaded video to watch via dmenu and mpv"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>start-process <span style="color: #ff1f8b;">"video-opener"</span> nil
-                 <span style="color: #ff1f8b;">"video-opener"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">video-opener</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Select a downloaded video to watch via dmenu and mpv"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>start-process <span style="color: #ff4ea3;">"video-opener"</span> nil
+                 <span style="color: #ff4ea3;">"video-opener"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 </ol>
 </div>
-<div id="outline-container-org9b7f6ec" class="outline-4">
-<h4 id="org9b7f6ec"><span class="section-number-4">4.7.3</span> Other&#x2026;</h4>
+<div id="outline-container-org4ab21e3" class="outline-4">
+<h4 id="org4ab21e3"><span class="section-number-4">4.7.3</span> Other&#x2026;</h4>
 <div class="outline-text-4" id="text-4-7-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgfd82b37"></a>Mouse<br />
+<li><a id="orgc1e01e9"></a>Mouse<br />
 <div class="outline-text-5" id="text-4-7-3-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">defun</span> <span style="color: #ef2929;">mousetoggle</span> <span style="color: #1f5bff; font-weight: bold;">()</span>
-  <span style="color: #cc0000;">"Toggles touchpad on my laptop"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">interactive</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>shell-command <span style="color: #ff1f8b;">"mousetoggle"</span><span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>message <span style="color: #ff1f8b;">"touchpad input toggled"</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">mousetoggle</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Toggles touchpad on my laptop"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>shell-command <span style="color: #ff4ea3;">"mousetoggle"</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>message <span style="color: #ff4ea3;">"touchpad input toggled"</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </li>
 </ol>
+</div>
+</div>
+
+<div id="outline-container-org7fa9eb0" class="outline-3">
+<h3 id="org7fa9eb0"><span class="section-number-3">4.8</span> Other</h3>
+<div class="outline-text-3" id="text-4-8">
+</div>
+<div id="outline-container-org3e49ecd" class="outline-4">
+<h4 id="org3e49ecd"><span class="section-number-4">4.8.1</span> Xah Lee form feed</h4>
+<div class="outline-text-4" id="text-4-8-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">xah-show-formfeed-as-line</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
+  <span style="color: #ff4b4b;">"Display the formfeed ^L char as line.</span>
+<span style="color: #ff4b4b;">URL `</span><span style="color: #5fafd7;">http://ergoemacs.org/emacs/emacs_form_feed_section_paging.html</span><span style="color: #ff4b4b;">'</span>
+<span style="color: #ff4b4b;">Version 2018-08-30"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">interactive</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #6c6c6c; font-style: italic;">;; </span><span style="color: #6c6c6c; font-style: italic;">2016-10-11 thanks to Steve Purcell's page-break-lines.el</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">progn</span>
+    <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #a1db00;">when</span> <span style="color: #ff4ea3; font-weight: bold;">(</span>not buffer-display-table<span style="color: #ff4ea3; font-weight: bold;">)</span>
+      <span style="color: #ff4ea3; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> buffer-display-table <span style="color: #00d7af; font-weight: bold;">(</span>make-display-table<span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span>
+    <span style="color: #a1db00; font-weight: bold;">(</span>aset buffer-display-table ?\^L
+          <span style="color: #ff4ea3; font-weight: bold;">(</span>vconcat <span style="color: #00d7af; font-weight: bold;">(</span>make-list 70 <span style="color: #ff8700; font-weight: bold;">(</span>make-glyph-code ?&#9472; 'font-lock-comment-face<span style="color: #ff8700; font-weight: bold;">)</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span>
+    <span style="color: #a1db00; font-weight: bold;">(</span>redraw-frame<span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3811c72" class="outline-2">
-<h2 id="org3811c72"><span class="section-number-2">5</span> Major mode hooks and variables</h2>
+<div id="outline-container-orgf02725e" class="outline-2">
+<h2 id="orgf02725e"><span class="section-number-2">5</span> Major mode hooks and variables</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org676a1ce" class="outline-3">
-<h3 id="org676a1ce"><span class="section-number-3">5.1</span> Lilypond mode</h3>
+<div id="outline-container-org700e8ae" class="outline-3">
+<h3 id="org700e8ae"><span class="section-number-3">5.1</span> Lilypond mode</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Use lilypond mode for .ly files
 (taken from lilypond.org)
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>autoload 'LilyPond-mode <span style="color: #ff1f8b;">"lilypond-mode"</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> auto-mode-alist
-      <span style="color: #1f5bff; font-weight: bold;">(</span>cons '<span style="color: #00af00; font-weight: bold;">(</span><span style="color: #ff1f8b;">"\\.ly$"</span> . LilyPond-mode<span style="color: #00af00; font-weight: bold;">)</span> auto-mode-alist<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> LilyPond-pdf-command <span style="color: #ff1f8b;">"zathura"</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>autoload 'LilyPond-mode <span style="color: #ff4ea3;">"lilypond-mode"</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> auto-mode-alist
+      <span style="color: #5fafd7; font-weight: bold;">(</span>cons '<span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3;">"\\.ly$"</span> . LilyPond-mode<span style="color: #a1db00; font-weight: bold;">)</span> auto-mode-alist<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> LilyPond-pdf-command <span style="color: #ff4ea3;">"zathura"</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8a0f7d0" class="outline-3">
-<h3 id="org8a0f7d0"><span class="section-number-3">5.2</span> Electric pairs</h3>
+<div id="outline-container-orgcf69038" class="outline-3">
+<h3 id="orgcf69038"><span class="section-number-3">5.2</span> Electric pairs</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Auto-add parentheses
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> electric-pair-pairs '<span style="color: #1f5bff; font-weight: bold;">(</span>
-                            <span style="color: #00af00; font-weight: bold;">(</span>?\( . ?\)<span style="color: #00af00; font-weight: bold;">)</span>
-                            <span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> electric-pair-pairs '<span style="color: #5fafd7; font-weight: bold;">(</span>
+                            <span style="color: #a1db00; font-weight: bold;">(</span>?\( . ?\)<span style="color: #a1db00; font-weight: bold;">)</span>
+                            <span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'prog-mode-hook <span style="color: #1f5bff; font-weight: bold;">(</span>electric-pair-mode t<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'prog-mode-hook <span style="color: #5fafd7; font-weight: bold;">(</span>electric-pair-mode t<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf936f57" class="outline-3">
-<h3 id="orgf936f57"><span class="section-number-3">5.3</span> Org Mode</h3>
+<div id="outline-container-org86ed61d" class="outline-3">
+<h3 id="org86ed61d"><span class="section-number-3">5.3</span> Org Mode</h3>
 <div class="outline-text-3" id="text-5-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'org-mode-hook 'org-indent-mode<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> org-src-window-setup 'current-window<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> org-src-tab-acts-natively t<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> org-ellipsis <span style="color: #ff1f8b;">" "</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'org-mode-hook 'org-indent-mode<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> org-src-window-setup 'current-window<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> org-src-tab-acts-natively t<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> org-ellipsis <span style="color: #ff4ea3;">" "</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfd12bb1" class="outline-3">
-<h3 id="orgfd12bb1"><span class="section-number-3">5.4</span> M-x compile hooks</h3>
+<div id="outline-container-org596f903" class="outline-3">
+<h3 id="org596f903"><span class="section-number-3">5.4</span> M-x compile hooks</h3>
 <div class="outline-text-3" id="text-5-4">
 </div>
-<div id="outline-container-orgc9c8fb0" class="outline-4">
-<h4 id="orgc9c8fb0"><span class="section-number-4">5.4.1</span> Groff</h4>
+<div id="outline-container-orgc0e3289" class="outline-4">
+<h4 id="orgc0e3289"><span class="section-number-4">5.4.1</span> Groff</h4>
 <div class="outline-text-4" id="text-5-4-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'nroff-mode-hook
-          <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">lambda</span> <span style="color: #00af00; font-weight: bold;">()</span>
-            <span style="color: #00af00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
-                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff1f8b;">"groff -ms -Tpdf %s &gt; %s"</span> 
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'nroff-mode-hook
+          <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #a1db00; font-weight: bold;">()</span>
+            <span style="color: #a1db00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
+                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff4ea3;">"groff -ms -Tpdf %s &gt; %s"</span> 
                          <span style="color: #00d7af; font-weight: bold;">(</span>shell-quote-argument buffer-file-name<span style="color: #00d7af; font-weight: bold;">)</span>
                          <span style="color: #00d7af; font-weight: bold;">(</span>concat <span style="color: #ff8700; font-weight: bold;">(</span>file-name-sans-extension
-                                  <span style="color: #b218b2; font-weight: bold;">(</span>shell-quote-argument
-                                   buffer-file-name<span style="color: #b218b2; font-weight: bold;">)</span><span style="color: #ff8700; font-weight: bold;">)</span> <span style="color: #ff1f8b;">".pdf"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+                                  <span style="color: #af5fff; font-weight: bold;">(</span>shell-quote-argument
+                                   buffer-file-name<span style="color: #af5fff; font-weight: bold;">)</span><span style="color: #ff8700; font-weight: bold;">)</span> <span style="color: #ff4ea3;">".pdf"</span><span style="color: #00d7af; font-weight: bold;">)</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 
 
 </pre>
@@ -1247,40 +1278,40 @@ Auto-add parentheses
 </div>
 </div>
 
-<div id="outline-container-orgbd7b6d9" class="outline-4">
-<h4 id="orgbd7b6d9"><span class="section-number-4">5.4.2</span> C</h4>
+<div id="outline-container-orgc2d0bf0" class="outline-4">
+<h4 id="orgc2d0bf0"><span class="section-number-4">5.4.2</span> C</h4>
 <div class="outline-text-4" id="text-5-4-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'c-mode-hook
-          <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">lambda</span> <span style="color: #00af00; font-weight: bold;">()</span>
-            <span style="color: #00af00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
-                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff1f8b;">"compiler %s"</span> buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'c-mode-hook
+          <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #a1db00; font-weight: bold;">()</span>
+            <span style="color: #a1db00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
+                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff4ea3;">"compiler %s"</span> buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgad9d066" class="outline-4">
-<h4 id="orgad9d066"><span class="section-number-4">5.4.3</span> LiLyPond</h4>
+<div id="outline-container-orgb3f9522" class="outline-4">
+<h4 id="orgb3f9522"><span class="section-number-4">5.4.3</span> LiLyPond</h4>
 <div class="outline-text-4" id="text-5-4-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'LilyPond-mode-hook
-          <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">lambda</span> <span style="color: #00af00; font-weight: bold;">()</span>
-            <span style="color: #00af00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
-                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff1f8b;">"lilypond %s"</span> buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'LilyPond-mode-hook
+          <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #a1db00; font-weight: bold;">()</span>
+            <span style="color: #a1db00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
+                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff4ea3;">"lilypond %s"</span> buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org13d73c9" class="outline-4">
-<h4 id="org13d73c9"><span class="section-number-4">5.4.4</span> LaTeX</h4>
+<div id="outline-container-orgdf764bc" class="outline-4">
+<h4 id="orgdf764bc"><span class="section-number-4">5.4.4</span> LaTeX</h4>
 <div class="outline-text-4" id="text-5-4-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'latex-mode-hook
-          <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">lambda</span> <span style="color: #00af00; font-weight: bold;">()</span>
-            <span style="color: #00af00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
-                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff1f8b;">"pdflatex %s"</span> buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'latex-mode-hook
+          <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #a1db00; font-weight: bold;">()</span>
+            <span style="color: #a1db00; font-weight: bold;">(</span>set <span style="color: #ff4ea3; font-weight: bold;">(</span>make-local-variable 'compile-command<span style="color: #ff4ea3; font-weight: bold;">)</span>
+                 <span style="color: #ff4ea3; font-weight: bold;">(</span>format <span style="color: #ff4ea3;">"pdflatex %s"</span> buffer-file-name<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 
@@ -1289,9 +1320,9 @@ Somewhat related, overrides latex-mode keybinding that interferes with
 my compile key "C-c C-m".
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>add-hook 'latex-mode-hook
-          <span style="color: #1f5bff; font-weight: bold;">(</span><span style="color: #00af00;">lambda</span> <span style="color: #00af00; font-weight: bold;">()</span>
-            <span style="color: #00af00; font-weight: bold;">(</span>local-unset-key <span style="color: #ff4ea3; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c C-m"</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #00af00; font-weight: bold;">)</span><span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'latex-mode-hook
+          <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #a1db00; font-weight: bold;">()</span>
+            <span style="color: #a1db00; font-weight: bold;">(</span>local-unset-key <span style="color: #ff4ea3; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c C-m"</span><span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -1299,63 +1330,63 @@ my compile key "C-c C-m".
 </div>
 </div>
 
-<div id="outline-container-org60a4e6c" class="outline-2">
-<h2 id="org60a4e6c"><span class="section-number-2">6</span> Keybindings</h2>
+<div id="outline-container-org8e4a3e2" class="outline-2">
+<h2 id="org8e4a3e2"><span class="section-number-2">6</span> Keybindings</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org2e2b072" class="outline-3">
-<h3 id="org2e2b072"><span class="section-number-3">6.1</span> Interaction with Emacs</h3>
+<div id="outline-container-org1b6323d" class="outline-3">
+<h3 id="org1b6323d"><span class="section-number-3">6.1</span> Interaction with Emacs</h3>
 <div class="outline-text-3" id="text-6-1">
 </div>
-<div id="outline-container-orgefb447a" class="outline-4">
-<h4 id="orgefb447a"><span class="section-number-4">6.1.1</span> ido-bookmark-jump (custom function)</h4>
+<div id="outline-container-org02caff5" class="outline-4">
+<h4 id="org02caff5"><span class="section-number-4">6.1.1</span> ido-bookmark-jump (custom function)</h4>
 <div class="outline-text-4" id="text-6-1-1">
 <p>
 Open a bookmark with the default keybinding <code>C-x r b</code>, but with ido
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-x r b"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'ido-bookmark-jump<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-x r b"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'ido-bookmark-jump<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org72bed51" class="outline-4">
-<h4 id="org72bed51"><span class="section-number-4">6.1.2</span> Terminal functionality</h4>
+<div id="outline-container-org05f8e10" class="outline-4">
+<h4 id="org05f8e10"><span class="section-number-4">6.1.2</span> Terminal functionality</h4>
 <div class="outline-text-4" id="text-6-1-2">
 <p>
 Rebinding some useful keys that can't be used in a terminal.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">unless</span> <span style="color: #1f5bff; font-weight: bold;">(</span>window-system<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">Comments -- C-x C-;</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>global-set-key <span style="color: #00af00; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c ;"</span><span style="color: #00af00; font-weight: bold;">)</span> 'comment-line<span style="color: #1f5bff; font-weight: bold;">)</span>
-  <span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">Indentation -- C-M-\"</span>
-  <span style="color: #1f5bff; font-weight: bold;">(</span>global-set-key <span style="color: #00af00; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c \\"</span><span style="color: #00af00; font-weight: bold;">)</span> 'indent-region<span style="color: #1f5bff; font-weight: bold;">)</span><span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">unless</span> <span style="color: #5fafd7; font-weight: bold;">(</span>window-system<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #6c6c6c; font-style: italic;">;; </span><span style="color: #6c6c6c; font-style: italic;">Comments -- C-x C-;</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c ;"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'comment-line<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #6c6c6c; font-style: italic;">;; </span><span style="color: #6c6c6c; font-style: italic;">Indentation -- C-M-\"</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c \\"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'indent-region<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbb4026b" class="outline-3">
-<h3 id="orgbb4026b"><span class="section-number-3">6.2</span> Config</h3>
+<div id="outline-container-org1388eed" class="outline-3">
+<h3 id="org1388eed"><span class="section-number-3">6.2</span> Config</h3>
 <div class="outline-text-3" id="text-6-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c r"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'config-reload<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c r"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'config-reload<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org02bb3bd" class="outline-3">
-<h3 id="org02bb3bd"><span class="section-number-3">6.3</span> General WM stuff</h3>
+<div id="outline-container-org8309e89" class="outline-3">
+<h3 id="org8309e89"><span class="section-number-3">6.3</span> General WM stuff</h3>
 <div class="outline-text-3" id="text-6-3">
 </div>
-<div id="outline-container-org4fb1ea0" class="outline-4">
-<h4 id="org4fb1ea0"><span class="section-number-4">6.3.1</span> System information</h4>
+<div id="outline-container-org7925e82" class="outline-4">
+<h4 id="org7925e82"><span class="section-number-4">6.3.1</span> System information</h4>
 <div class="outline-text-4" id="text-6-3-1">
 <p>
 Built-in battery function with <code>s-t b</code>.
@@ -1363,15 +1394,15 @@ Custom notification script with <code>s-t s-b</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t b"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'battery<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t s-b"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'notibar<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t b"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'battery<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t s-b"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'notibar<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2bc1548" class="outline-4">
-<h4 id="org2bc1548"><span class="section-number-4">6.3.2</span> dmenu scripts</h4>
+<div id="outline-container-org49feab4" class="outline-4">
+<h4 id="org49feab4"><span class="section-number-4">6.3.2</span> dmenu scripts</h4>
 <div class="outline-text-4" id="text-6-3-2">
 <p>
 I still have some use for dmenu, despite only using emacs&#x2026;
@@ -1409,18 +1440,18 @@ All commands are prefixed with <code>s-t</code>
 </table>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t d"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'dmenu_recency<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t P"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'pdf-opener<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t V"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'video-opener<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t D"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'dmenuhandler<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t d"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'dmenu_recency<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t P"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'pdf-opener<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t V"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'video-opener<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t D"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'dmenuhandler<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2f5a70f" class="outline-3">
-<h3 id="org2f5a70f"><span class="section-number-3">6.4</span> Programming/Typesetting</h3>
+<div id="outline-container-org68defe1" class="outline-3">
+<h3 id="org68defe1"><span class="section-number-3">6.4</span> Programming/Typesetting</h3>
 <div class="outline-text-3" id="text-6-4">
 <p>
 Bind emacs compile to <code>C-c C-m</code>. This allows 2 rapid presses of <code>C-m</code>
@@ -1433,52 +1464,52 @@ LilyPond).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c C-m"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'compile<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c p"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'opout<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c C-m"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'compile<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c p"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'opout<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdb667eb" class="outline-3">
-<h3 id="orgdb667eb"><span class="section-number-3">6.5</span> Miscellaneous</h3>
+<div id="outline-container-orgf7991a3" class="outline-3">
+<h3 id="orgf7991a3"><span class="section-number-3">6.5</span> Miscellaneous</h3>
 <div class="outline-text-3" id="text-6-5">
 </div>
-<div id="outline-container-orgc7f880a" class="outline-4">
-<h4 id="orgc7f880a"><span class="section-number-4">6.5.1</span> Line numbers</h4>
+<div id="outline-container-orga752276" class="outline-4">
+<h4 id="orga752276"><span class="section-number-4">6.5.1</span> Line numbers</h4>
 <div class="outline-text-4" id="text-6-5-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c n"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'display-line-numbers-mode<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c n"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'display-line-numbers-mode<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf77fc03" class="outline-4">
-<h4 id="orgf77fc03"><span class="section-number-4">6.5.2</span> Spelling correction</h4>
+<div id="outline-container-org2295b74" class="outline-4">
+<h4 id="org2295b74"><span class="section-number-4">6.5.2</span> Spelling correction</h4>
 <div class="outline-text-4" id="text-6-5-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c s"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'flyspell-mode<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c s"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'flyspell-mode<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge7c17be" class="outline-4">
-<h4 id="orge7c17be"><span class="section-number-4">6.5.3</span> Line wrap</h4>
+<div id="outline-container-org67c249c" class="outline-4">
+<h4 id="org67c249c"><span class="section-number-4">6.5.3</span> Line wrap</h4>
 <div class="outline-text-4" id="text-6-5-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"C-c l"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'toggle-truncate-lines<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c l"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'toggle-truncate-lines<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8544700" class="outline-4">
-<h4 id="org8544700"><span class="section-number-4">6.5.4</span> Mouse</h4>
+<div id="outline-container-org1f4e789" class="outline-4">
+<h4 id="org1f4e789"><span class="section-number-4">6.5.4</span> Mouse</h4>
 <div class="outline-text-4" id="text-6-5-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>global-set-key <span style="color: #1f5bff; font-weight: bold;">(</span>kbd <span style="color: #ff1f8b;">"s-t \\"</span><span style="color: #1f5bff; font-weight: bold;">)</span> 'mousetoggle<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t \\"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'mousetoggle<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -1486,34 +1517,34 @@ LilyPond).
 </div>
 </div>
 
-<div id="outline-container-org657095f" class="outline-2">
-<h2 id="org657095f"><span class="section-number-2">7</span> Mode-line</h2>
+<div id="outline-container-org5e4bf37" class="outline-2">
+<h2 id="org5e4bf37"><span class="section-number-2">7</span> Mode-line</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Just some basic extra stuff in the mode-line.
 I don't want anything fancy.
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span>column-number-mode t<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span>display-time-mode t<span style="color: #cc0000; font-weight: bold;">)</span>
-<span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> display-time-24hr-format 1<span style="color: #cc0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>column-number-mode t<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span>display-time-mode t<span style="color: #dd0000; font-weight: bold;">)</span>
+<span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> display-time-24hr-format 1<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6a8de86" class="outline-2">
-<h2 id="org6a8de86"><span class="section-number-2">8</span> Email</h2>
+<div id="outline-container-org1f5ec76" class="outline-2">
+<h2 id="org1f5ec76"><span class="section-number-2">8</span> Email</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 email settings
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #cc0000; font-weight: bold;">(</span><span style="color: #00af00;">setq</span> send-mail-function 'sendmail-send-it
-      sendmail-program <span style="color: #ff1f8b;">"/usr/bin/msmtp"</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> send-mail-function 'sendmail-send-it
+      sendmail-program <span style="color: #ff4ea3;">"/usr/bin/msmtp"</span>
       mail-specify-envelope-from t
       message-sendmail-envelope-from 'header
-      mail-envelope-from 'header<span style="color: #cc0000; font-weight: bold;">)</span>
+      mail-envelope-from 'header<span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
@@ -1521,7 +1552,7 @@ email settings
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unknown</p>
-<p class="date">Created: 2019-10-25 Fri 10:30</p>
+<p class="date">Created: 2019-10-25 Fri 20:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
