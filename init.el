@@ -33,12 +33,7 @@
    (quote
     (moe-theme haskell-mode auto-complete auto-comp htmlize ox-gfm geiser powerline flycheck-lilypond flycheck pdf-tools xelb exwm xterm-color xclip which-key use-package try transmission switch-window smex rainbow-mode rainbow-delimiters pinentry notmuch mingus lorem-ipsum ido-vertical-mode elpher elfeed counsel company base16-theme)))
  '(show-paren-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fixed-pitch-serif ((t (:height 1.2 :foundry "PfEd" :family "Terminus (TTF)")))))
+
 
 (provide 'init)
 
