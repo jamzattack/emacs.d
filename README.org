@@ -193,14 +193,22 @@ Minor mode that highlights parentheses well
 *** god-mode
 
 #+BEGIN_SRC emacs-lisp
-   (use-package god-mode
-     :ensure t
-     :config
-     (setq god-exempt-major-modes nil
-           god-exempt-predicates nil)
-  (global-set-key (kbd "<left>") 'god-local-mode)
-     (global-set-key (kbd "<right>") 'god-local-mode)
-     (god-mode))
+  (use-package god-mode
+    :ensure t
+    :bind
+    (("<left>" . 'god-mode-all)
+     ("<right>" . 'god-mode-all)
+     :map god-local-mode-map
+     ("." . 'repeat))
+    :init
+    (add-hook 'god-mode-enabled-hook (lambda ()
+                             (moe-theme-set-color 'purple)))
+    (add-hook 'god-mode-disabled-hook (lambda ()
+                              (moe-theme-set-color 'green)))
+    :config
+    (setq god-exempt-major-modes nil
+          god-exempt-predicates nil)
+    (god-mode))
 #+END_SRC
 
 *** Quality of life

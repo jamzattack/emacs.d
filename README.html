@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-10-25 Fri 20:36 -->
+<!-- 2019-10-25 Fri 23:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -233,146 +233,146 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org01d70a2">1. Packages</a>
+<li><a href="#org529cf31">1. Packages</a>
 <ul>
-<li><a href="#orgbd22d74">1.1. Startup</a>
+<li><a href="#org231aa16">1.1. Startup</a>
 <ul>
-<li><a href="#org0feea25">1.1.1. Repositories and initialisation</a></li>
-<li><a href="#orgc2aa6c5">1.1.2. Use-package</a></li>
+<li><a href="#org77ce021">1.1.1. Repositories and initialisation</a></li>
+<li><a href="#org6ea6e13">1.1.2. Use-package</a></li>
 </ul>
 </li>
-<li><a href="#orgf32f209">1.2. Installed Packages</a>
+<li><a href="#orgc0a79d8">1.2. Installed Packages</a>
 <ul>
-<li><a href="#org8bacb19">1.2.1. Pinentry</a></li>
-<li><a href="#org908e41e">1.2.2. Org</a></li>
-<li><a href="#org52c7698">1.2.3. Window management</a></li>
-<li><a href="#orge05c643">1.2.4. Completion</a></li>
-<li><a href="#orgf4326bc">1.2.5. "Applications"</a></li>
-<li><a href="#orgbcadd2c">1.2.6. Appearance</a></li>
-<li><a href="#orga146caf">1.2.7. god-mode</a></li>
-<li><a href="#orge69a5dd">1.2.8. Quality of life</a></li>
-<li><a href="#org76a7782">1.2.9. Not really useful</a></li>
-<li><a href="#org92f94a8">1.2.10. To be confirmed</a></li>
-<li><a href="#org3dad924">1.2.11. PDF-tools</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org0a49637">2. Stuff to do when loading</a>
-<ul>
-<li><a href="#orgd67f517">2.1. Environment Variables</a></li>
-</ul>
-</li>
-<li><a href="#org4796f73">3. Fixing defaults</a>
-<ul>
-<li><a href="#orgae30ef9">3.1. Miscellaneous stuff</a>
-<ul>
-<li><a href="#org5ef0356">3.1.1. No more pesky extra files, other basics</a></li>
-<li><a href="#org0e77721">3.1.2. Enable all the features, because what's the point in having less?</a></li>
-</ul>
-</li>
-<li><a href="#org8d19bb9">3.2. Aesthetic stuff</a>
-<ul>
-<li><a href="#org3f4c30c">3.2.1. GUI ugliness</a></li>
-<li><a href="#org50f5a3f">3.2.2. Font and cursor</a></li>
-</ul>
-</li>
-<li><a href="#org530c353">3.3. Tabs</a></li>
-<li><a href="#org43ca111">3.4. Buffers/input</a>
-<ul>
-<li><a href="#org3513335">3.4.1. ido-mode</a></li>
-<li><a href="#org1b1f2ff">3.4.2. ibuffer</a></li>
-</ul>
-</li>
-<li><a href="#org6c51637">3.5. desktop-save</a></li>
-</ul>
-</li>
-<li><a href="#orgb591920">4. Custom functions</a>
-<ul>
-<li><a href="#orgaac21de">4.1. Resizing windows</a></li>
-<li><a href="#org10c1cc8">4.2. Go to config file</a></li>
-<li><a href="#orgce74cf1">4.3. Ido</a>
-<ul>
-<li><a href="#org24bec92">4.3.1. Bookmarks</a></li>
-</ul>
-</li>
-<li><a href="#orgb781037">4.4. Reloading config</a></li>
-<li><a href="#org22a098e">4.5. Programming</a>
-<ul>
-<li><a href="#org1796921">4.5.1. Opening Output</a></li>
-</ul>
-</li>
-<li><a href="#orgae9f854">4.6. Email</a></li>
-<li><a href="#orgc001a1b">4.7. WM stuff</a>
-<ul>
-<li><a href="#orgfc2c754">4.7.1. Notification bar replacement</a></li>
-<li><a href="#orgc77ded5">4.7.2. dmenu</a></li>
-<li><a href="#org4ab21e3">4.7.3. Other&#x2026;</a></li>
-</ul>
-</li>
-<li><a href="#org7fa9eb0">4.8. Other</a>
-<ul>
-<li><a href="#org3e49ecd">4.8.1. Xah Lee form feed</a></li>
+<li><a href="#orgc828d68">1.2.1. Pinentry</a></li>
+<li><a href="#orgfcd4247">1.2.2. Org</a></li>
+<li><a href="#org4add307">1.2.3. Window management</a></li>
+<li><a href="#org3adce09">1.2.4. Completion</a></li>
+<li><a href="#org660e844">1.2.5. "Applications"</a></li>
+<li><a href="#orga7a1c6c">1.2.6. Appearance</a></li>
+<li><a href="#org382a701">1.2.7. god-mode</a></li>
+<li><a href="#org2ecc055">1.2.8. Quality of life</a></li>
+<li><a href="#org72600ed">1.2.9. Not really useful</a></li>
+<li><a href="#orgafc8b7c">1.2.10. To be confirmed</a></li>
+<li><a href="#org0434149">1.2.11. PDF-tools</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgf02725e">5. Major mode hooks and variables</a>
+<li><a href="#orgd473289">2. Stuff to do when loading</a>
 <ul>
-<li><a href="#org700e8ae">5.1. Lilypond mode</a></li>
-<li><a href="#orgcf69038">5.2. Electric pairs</a></li>
-<li><a href="#org86ed61d">5.3. Org Mode</a></li>
-<li><a href="#org596f903">5.4. M-x compile hooks</a>
+<li><a href="#org6459fde">2.1. Environment Variables</a></li>
+</ul>
+</li>
+<li><a href="#orgc2ff2e6">3. Fixing defaults</a>
 <ul>
-<li><a href="#orgc0e3289">5.4.1. Groff</a></li>
-<li><a href="#orgc2d0bf0">5.4.2. C</a></li>
-<li><a href="#orgb3f9522">5.4.3. LiLyPond</a></li>
-<li><a href="#orgdf764bc">5.4.4. LaTeX</a></li>
+<li><a href="#orge5049d0">3.1. Miscellaneous stuff</a>
+<ul>
+<li><a href="#orgb839211">3.1.1. No more pesky extra files, other basics</a></li>
+<li><a href="#orgc8c09db">3.1.2. Enable all the features, because what's the point in having less?</a></li>
+</ul>
+</li>
+<li><a href="#org150fe84">3.2. Aesthetic stuff</a>
+<ul>
+<li><a href="#org729d01e">3.2.1. GUI ugliness</a></li>
+<li><a href="#orgd36ab3a">3.2.2. Font and cursor</a></li>
+</ul>
+</li>
+<li><a href="#org61baf22">3.3. Tabs</a></li>
+<li><a href="#org94ca914">3.4. Buffers/input</a>
+<ul>
+<li><a href="#org3b44dd2">3.4.1. ido-mode</a></li>
+<li><a href="#orged3cec9">3.4.2. ibuffer</a></li>
+</ul>
+</li>
+<li><a href="#orgfae95af">3.5. desktop-save</a></li>
+</ul>
+</li>
+<li><a href="#org8ce7c7a">4. Custom functions</a>
+<ul>
+<li><a href="#orgcb1e70a">4.1. Resizing windows</a></li>
+<li><a href="#org689a5cc">4.2. Go to config file</a></li>
+<li><a href="#org6ca6572">4.3. Ido</a>
+<ul>
+<li><a href="#org595b646">4.3.1. Bookmarks</a></li>
+</ul>
+</li>
+<li><a href="#org03a497b">4.4. Reloading config</a></li>
+<li><a href="#org207de63">4.5. Programming</a>
+<ul>
+<li><a href="#org71d841c">4.5.1. Opening Output</a></li>
+</ul>
+</li>
+<li><a href="#org05d3b47">4.6. Email</a></li>
+<li><a href="#org34b96cd">4.7. WM stuff</a>
+<ul>
+<li><a href="#org550c448">4.7.1. Notification bar replacement</a></li>
+<li><a href="#org6617137">4.7.2. dmenu</a></li>
+<li><a href="#org4f026e1">4.7.3. Other&#x2026;</a></li>
+</ul>
+</li>
+<li><a href="#org857146f">4.8. Other</a>
+<ul>
+<li><a href="#org68f2835">4.8.1. Xah Lee form feed</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org8e4a3e2">6. Keybindings</a>
+<li><a href="#orgdc59d9f">5. Major mode hooks and variables</a>
 <ul>
-<li><a href="#org1b6323d">6.1. Interaction with Emacs</a>
+<li><a href="#org61be0a9">5.1. Lilypond mode</a></li>
+<li><a href="#orge015d6a">5.2. Electric pairs</a></li>
+<li><a href="#orgea29dd1">5.3. Org Mode</a></li>
+<li><a href="#orgb8389bc">5.4. M-x compile hooks</a>
 <ul>
-<li><a href="#org02caff5">6.1.1. ido-bookmark-jump (custom function)</a></li>
-<li><a href="#org05f8e10">6.1.2. Terminal functionality</a></li>
-</ul>
-</li>
-<li><a href="#org1388eed">6.2. Config</a></li>
-<li><a href="#org8309e89">6.3. General WM stuff</a>
-<ul>
-<li><a href="#org7925e82">6.3.1. System information</a></li>
-<li><a href="#org49feab4">6.3.2. dmenu scripts</a></li>
-</ul>
-</li>
-<li><a href="#org68defe1">6.4. Programming/Typesetting</a></li>
-<li><a href="#orgf7991a3">6.5. Miscellaneous</a>
-<ul>
-<li><a href="#orga752276">6.5.1. Line numbers</a></li>
-<li><a href="#org2295b74">6.5.2. Spelling correction</a></li>
-<li><a href="#org67c249c">6.5.3. Line wrap</a></li>
-<li><a href="#org1f4e789">6.5.4. Mouse</a></li>
+<li><a href="#org91a8bf3">5.4.1. Groff</a></li>
+<li><a href="#org3305eed">5.4.2. C</a></li>
+<li><a href="#org4b90ef3">5.4.3. LiLyPond</a></li>
+<li><a href="#orga6371c4">5.4.4. LaTeX</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org5e4bf37">7. Mode-line</a></li>
-<li><a href="#org1f5ec76">8. Email</a></li>
+<li><a href="#orga466296">6. Keybindings</a>
+<ul>
+<li><a href="#org15f1681">6.1. Interaction with Emacs</a>
+<ul>
+<li><a href="#org515e3e8">6.1.1. ido-bookmark-jump (custom function)</a></li>
+<li><a href="#org29a7eaa">6.1.2. Terminal functionality</a></li>
+</ul>
+</li>
+<li><a href="#orge878a14">6.2. Config</a></li>
+<li><a href="#orgb8bd747">6.3. General WM stuff</a>
+<ul>
+<li><a href="#org239b45c">6.3.1. System information</a></li>
+<li><a href="#orga29b257">6.3.2. dmenu scripts</a></li>
+</ul>
+</li>
+<li><a href="#org5175039">6.4. Programming/Typesetting</a></li>
+<li><a href="#org11b62e7">6.5. Miscellaneous</a>
+<ul>
+<li><a href="#org429edb2">6.5.1. Line numbers</a></li>
+<li><a href="#org666980c">6.5.2. Spelling correction</a></li>
+<li><a href="#orga419471">6.5.3. Line wrap</a></li>
+<li><a href="#org79f20b9">6.5.4. Mouse</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgb33efb3">7. Mode-line</a></li>
+<li><a href="#orgf4cd31e">8. Email</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org01d70a2" class="outline-2">
-<h2 id="org01d70a2"><span class="section-number-2">1</span> Packages</h2>
+<div id="outline-container-org529cf31" class="outline-2">
+<h2 id="org529cf31"><span class="section-number-2">1</span> Packages</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgbd22d74" class="outline-3">
-<h3 id="orgbd22d74"><span class="section-number-3">1.1</span> Startup</h3>
+<div id="outline-container-org231aa16" class="outline-3">
+<h3 id="org231aa16"><span class="section-number-3">1.1</span> Startup</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-org0feea25" class="outline-4">
-<h4 id="org0feea25"><span class="section-number-4">1.1.1</span> Repositories and initialisation</h4>
+<div id="outline-container-org77ce021" class="outline-4">
+<h4 id="org77ce021"><span class="section-number-4">1.1.1</span> Repositories and initialisation</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 Enable melpa archive and making sure packages work
@@ -389,8 +389,8 @@ Enable melpa archive and making sure packages work
 </div>
 </div>
 
-<div id="outline-container-orgc2aa6c5" class="outline-4">
-<h4 id="orgc2aa6c5"><span class="section-number-4">1.1.2</span> Use-package</h4>
+<div id="outline-container-org6ea6e13" class="outline-4">
+<h4 id="org6ea6e13"><span class="section-number-4">1.1.2</span> Use-package</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <p>
 Install use-package if not installed
@@ -405,12 +405,12 @@ Install use-package if not installed
 </div>
 </div>
 
-<div id="outline-container-orgf32f209" class="outline-3">
-<h3 id="orgf32f209"><span class="section-number-3">1.2</span> Installed Packages</h3>
+<div id="outline-container-orgc0a79d8" class="outline-3">
+<h3 id="orgc0a79d8"><span class="section-number-3">1.2</span> Installed Packages</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-org8bacb19" class="outline-4">
-<h4 id="org8bacb19"><span class="section-number-4">1.2.1</span> Pinentry</h4>
+<div id="outline-container-orgc828d68" class="outline-4">
+<h4 id="orgc828d68"><span class="section-number-4">1.2.1</span> Pinentry</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
 This package lets emacs be used for gpg authentication
@@ -426,12 +426,12 @@ This package lets emacs be used for gpg authentication
 </div>
 </div>
 
-<div id="outline-container-org908e41e" class="outline-4">
-<h4 id="org908e41e"><span class="section-number-4">1.2.2</span> Org</h4>
+<div id="outline-container-orgfcd4247" class="outline-4">
+<h4 id="orgfcd4247"><span class="section-number-4">1.2.2</span> Org</h4>
 <div class="outline-text-4" id="text-1-2-2">
 </div>
 <ol class="org-ol">
-<li><a id="org47ddbdd"></a>Github markdown<br />
+<li><a id="org01dd90b"></a>Github markdown<br />
 <div class="outline-text-5" id="text-1-2-2-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">ox-gfm</span>
@@ -441,7 +441,7 @@ This package lets emacs be used for gpg authentication
 </div>
 </li>
 
-<li><a id="orgbb9cc5c"></a>Html export<br />
+<li><a id="orgecb9a6a"></a>Html export<br />
 <div class="outline-text-5" id="text-1-2-2-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">htmlize</span>
@@ -453,12 +453,12 @@ This package lets emacs be used for gpg authentication
 </ol>
 </div>
 
-<div id="outline-container-org52c7698" class="outline-4">
-<h4 id="org52c7698"><span class="section-number-4">1.2.3</span> Window management</h4>
+<div id="outline-container-org4add307" class="outline-4">
+<h4 id="org4add307"><span class="section-number-4">1.2.3</span> Window management</h4>
 <div class="outline-text-4" id="text-1-2-3">
 </div>
 <ol class="org-ol">
-<li><a id="org958e653"></a>EXWM - Emacs X Window Manager<br />
+<li><a id="org28a4914"></a>EXWM - Emacs X Window Manager<br />
 <div class="outline-text-5" id="text-1-2-3-1">
 <p>
 Manipulate X windows as emacs buffers.
@@ -474,7 +474,7 @@ Manipulate X windows as emacs buffers.
 </div>
 </li>
 
-<li><a id="org95a402a"></a>Golden ratio<br />
+<li><a id="orgbdccb57"></a>Golden ratio<br />
 <div class="outline-text-5" id="text-1-2-3-2">
 <p>
 This package resizes windows according to the golden ratio.  The
@@ -491,12 +491,12 @@ focused window is larger
 </ol>
 </div>
 
-<div id="outline-container-orge05c643" class="outline-4">
-<h4 id="orge05c643"><span class="section-number-4">1.2.4</span> Completion</h4>
+<div id="outline-container-org3adce09" class="outline-4">
+<h4 id="org3adce09"><span class="section-number-4">1.2.4</span> Completion</h4>
 <div class="outline-text-4" id="text-1-2-4">
 </div>
 <ol class="org-ol">
-<li><a id="orgd4c82f5"></a>Company<br />
+<li><a id="org6d18e03"></a>Company<br />
 <div class="outline-text-5" id="text-1-2-4-1">
 <p>
 A very good package for auto-completion
@@ -513,7 +513,7 @@ A very good package for auto-completion
 </div>
 </li>
 
-<li><a id="orga4497b6"></a>Geiser<br />
+<li><a id="orgd32fe68"></a>Geiser<br />
 <div class="outline-text-5" id="text-1-2-4-2">
 <p>
 A scheme backend
@@ -528,12 +528,12 @@ A scheme backend
 </ol>
 </div>
 
-<div id="outline-container-orgf4326bc" class="outline-4">
-<h4 id="orgf4326bc"><span class="section-number-4">1.2.5</span> "Applications"</h4>
+<div id="outline-container-org660e844" class="outline-4">
+<h4 id="org660e844"><span class="section-number-4">1.2.5</span> "Applications"</h4>
 <div class="outline-text-4" id="text-1-2-5">
 </div>
 <ol class="org-ol">
-<li><a id="orgf681b1e"></a>Mingus<br />
+<li><a id="org9a2a55c"></a>Mingus<br />
 <div class="outline-text-5" id="text-1-2-5-1">
 <p>
 A nice mpd front-end in emacs
@@ -547,7 +547,7 @@ A nice mpd front-end in emacs
 </div>
 </li>
 
-<li><a id="orge118a33"></a>Notmuch<br />
+<li><a id="org900af4c"></a>Notmuch<br />
 <div class="outline-text-5" id="text-1-2-5-2">
 <p>
 A simple email client, with emphasis on searching
@@ -561,7 +561,7 @@ A simple email client, with emphasis on searching
 </div>
 </li>
 
-<li><a id="org6bc0039"></a>Transmission<br />
+<li><a id="org10e492b"></a>Transmission<br />
 <div class="outline-text-5" id="text-1-2-5-3">
 <p>
 An emacs front-end for the transmission bittorrent daemon
@@ -574,7 +574,7 @@ An emacs front-end for the transmission bittorrent daemon
 </div>
 </li>
 
-<li><a id="org255d961"></a>Elfeed<br />
+<li><a id="org642fe88"></a>Elfeed<br />
 <div class="outline-text-5" id="text-1-2-5-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">elfeed</span>                                         
@@ -589,14 +589,14 @@ An emacs front-end for the transmission bittorrent daemon
 </ol>
 </div>
 
-<div id="outline-container-orgbcadd2c" class="outline-4">
-<h4 id="orgbcadd2c"><span class="section-number-4">1.2.6</span> Appearance</h4>
+<div id="outline-container-orga7a1c6c" class="outline-4">
+<h4 id="orga7a1c6c"><span class="section-number-4">1.2.6</span> Appearance</h4>
 <div class="outline-text-4" id="text-1-2-6">
 </div>
 <ol class="org-ol">
-<li><a id="org53f7d4b"></a>Theme<br />
+<li><a id="orgfabf3e3"></a>Theme<br />
 <ol class="org-ol">
-<li><a id="org90d22e4"></a>moe-theme<br />
+<li><a id="org2ce5e12"></a>moe-theme<br />
 <div class="outline-text-6" id="text-1-2-6-1-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">moe-theme</span>
@@ -610,7 +610,7 @@ An emacs front-end for the transmission bittorrent daemon
 </div>
 </li>
 
-<li><a id="orga9423ce"></a>base16<br />
+<li><a id="orgbc64372"></a>base16<br />
 <div class="outline-text-6" id="text-1-2-6-1-2">
 <p>
 Base16 is a nice theme framework, but moe-theme is my new best friend.
@@ -629,7 +629,7 @@ Base16 is a nice theme framework, but moe-theme is my new best friend.
 </ol>
 </li>
 
-<li><a id="orgef043a2"></a>Rainbow-mode<br />
+<li><a id="org5cd5a06"></a>Rainbow-mode<br />
 <div class="outline-text-5" id="text-1-2-6-2">
 <p>
 This package highlights hex colours
@@ -645,7 +645,7 @@ This package highlights hex colours
 </div>
 </li>
 
-<li><a id="orgdd70639"></a>xterm-color<br />
+<li><a id="org93f3378"></a>xterm-color<br />
 <div class="outline-text-5" id="text-1-2-6-3">
 <p>
 Allows a terminal emulator to use 256 colors
@@ -658,7 +658,7 @@ Allows a terminal emulator to use 256 colors
 </div>
 </li>
 
-<li><a id="org69180ec"></a>Rainbow-delimiters<br />
+<li><a id="org0a5002c"></a>Rainbow-delimiters<br />
 <div class="outline-text-5" id="text-1-2-6-4">
 <p>
 Minor mode that highlights parentheses well
@@ -675,29 +675,37 @@ Minor mode that highlights parentheses well
 </ol>
 </div>
 
-<div id="outline-container-orga146caf" class="outline-4">
-<h4 id="orga146caf"><span class="section-number-4">1.2.7</span> god-mode</h4>
+<div id="outline-container-org382a701" class="outline-4">
+<h4 id="org382a701"><span class="section-number-4">1.2.7</span> god-mode</h4>
 <div class="outline-text-4" id="text-1-2-7">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"> <span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">god-mode</span>
-   <span style="color: #d18aff;">:ensure</span> t
-   <span style="color: #d18aff;">:config</span>
-   <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> god-exempt-major-modes nil
-         god-exempt-predicates nil<span style="color: #5fafd7; font-weight: bold;">)</span>
-<span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"&lt;left&gt;"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'god-local-mode<span style="color: #5fafd7; font-weight: bold;">)</span>
-   <span style="color: #5fafd7; font-weight: bold;">(</span>global-set-key <span style="color: #a1db00; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"&lt;right&gt;"</span><span style="color: #a1db00; font-weight: bold;">)</span> 'god-local-mode<span style="color: #5fafd7; font-weight: bold;">)</span>
-   <span style="color: #5fafd7; font-weight: bold;">(</span>god-mode<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">god-mode</span>
+  <span style="color: #d18aff;">:ensure</span> t
+  <span style="color: #d18aff;">:bind</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3;">"&lt;left&gt;"</span> . 'god-mode-all<span style="color: #a1db00; font-weight: bold;">)</span>
+   <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3;">"&lt;right&gt;"</span> . 'god-mode-all<span style="color: #a1db00; font-weight: bold;">)</span>
+   <span style="color: #d18aff;">:map</span> god-local-mode-map
+   <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #ff4ea3;">"."</span> . 'repeat<span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #d18aff;">:init</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>add-hook 'god-mode-enabled-hook <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #ff4ea3; font-weight: bold;">()</span>
+                           <span style="color: #ff4ea3; font-weight: bold;">(</span>moe-theme-set-color 'purple<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>add-hook 'god-mode-disabled-hook <span style="color: #a1db00; font-weight: bold;">(</span><span style="color: #a1db00;">lambda</span> <span style="color: #ff4ea3; font-weight: bold;">()</span>
+                            <span style="color: #ff4ea3; font-weight: bold;">(</span>moe-theme-set-color 'green<span style="color: #ff4ea3; font-weight: bold;">)</span><span style="color: #a1db00; font-weight: bold;">)</span><span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #d18aff;">:config</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> god-exempt-major-modes nil
+        god-exempt-predicates nil<span style="color: #5fafd7; font-weight: bold;">)</span>
+  <span style="color: #5fafd7; font-weight: bold;">(</span>god-mode<span style="color: #5fafd7; font-weight: bold;">)</span><span style="color: #dd0000; font-weight: bold;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge69a5dd" class="outline-4">
-<h4 id="orge69a5dd"><span class="section-number-4">1.2.8</span> Quality of life</h4>
+<div id="outline-container-org2ecc055" class="outline-4">
+<h4 id="org2ecc055"><span class="section-number-4">1.2.8</span> Quality of life</h4>
 <div class="outline-text-4" id="text-1-2-8">
 </div>
 <ol class="org-ol">
-<li><a id="org3f51dd2"></a>Smex<br />
+<li><a id="org9b63e56"></a>Smex<br />
 <div class="outline-text-5" id="text-1-2-8-1">
 <p>
 smex integrates "M-x" with <code>ido</code>
@@ -713,7 +721,7 @@ smex integrates "M-x" with <code>ido</code>
 </div>
 </li>
 
-<li><a id="org20d431c"></a>Which-key<br />
+<li><a id="orgbd83bdc"></a>Which-key<br />
 <div class="outline-text-5" id="text-1-2-8-2">
 <p>
 Shows what your keys do
@@ -728,7 +736,7 @@ Shows what your keys do
 </div>
 </li>
 
-<li><a id="org14089e3"></a>Try<br />
+<li><a id="org056e18a"></a>Try<br />
 <div class="outline-text-5" id="text-1-2-8-3">
 <p>
 Allows you to try other packages without committing
@@ -743,12 +751,12 @@ Allows you to try other packages without committing
 </ol>
 </div>
 
-<div id="outline-container-org76a7782" class="outline-4">
-<h4 id="org76a7782"><span class="section-number-4">1.2.9</span> Not really useful</h4>
+<div id="outline-container-org72600ed" class="outline-4">
+<h4 id="org72600ed"><span class="section-number-4">1.2.9</span> Not really useful</h4>
 <div class="outline-text-4" id="text-1-2-9">
 </div>
 <ol class="org-ol">
-<li><a id="orgfa6b921"></a>Lorem Ipsum<br />
+<li><a id="org4a53bdc"></a>Lorem Ipsum<br />
 <div class="outline-text-5" id="text-1-2-9-1">
 <p>
 A 'Lorem ipsum' generator
@@ -763,12 +771,12 @@ A 'Lorem ipsum' generator
 </ol>
 </div>
 
-<div id="outline-container-org92f94a8" class="outline-4">
-<h4 id="org92f94a8"><span class="section-number-4">1.2.10</span> To be confirmed</h4>
+<div id="outline-container-orgafc8b7c" class="outline-4">
+<h4 id="orgafc8b7c"><span class="section-number-4">1.2.10</span> To be confirmed</h4>
 <div class="outline-text-4" id="text-1-2-10">
 </div>
 <ol class="org-ol">
-<li><a id="org2910298"></a>Elpher - gopher client<br />
+<li><a id="org1d2afc1"></a>Elpher - gopher client<br />
 <div class="outline-text-5" id="text-1-2-10-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">elpher</span>
@@ -778,7 +786,7 @@ A 'Lorem ipsum' generator
 </div>
 </li>
 
-<li><a id="org478f24d"></a>xclip - enable use of X11 clipboard in terminal<br />
+<li><a id="org2579773"></a>xclip - enable use of X11 clipboard in terminal<br />
 <div class="outline-text-5" id="text-1-2-10-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">use-package</span> <span style="color: #5fafd7;">xclip</span>
@@ -790,8 +798,8 @@ A 'Lorem ipsum' generator
 </ol>
 </div>
 
-<div id="outline-container-org3dad924" class="outline-4">
-<h4 id="org3dad924"><span class="section-number-4">1.2.11</span> PDF-tools</h4>
+<div id="outline-container-org0434149" class="outline-4">
+<h4 id="org0434149"><span class="section-number-4">1.2.11</span> PDF-tools</h4>
 <div class="outline-text-4" id="text-1-2-11">
 <p>
 Majorly increases performance when viewing pdfs as a file
@@ -808,12 +816,12 @@ Majorly increases performance when viewing pdfs as a file
 </div>
 </div>
 
-<div id="outline-container-org0a49637" class="outline-2">
-<h2 id="org0a49637"><span class="section-number-2">2</span> Stuff to do when loading</h2>
+<div id="outline-container-orgd473289" class="outline-2">
+<h2 id="orgd473289"><span class="section-number-2">2</span> Stuff to do when loading</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgd67f517" class="outline-3">
-<h3 id="orgd67f517"><span class="section-number-3">2.1</span> Environment Variables</h3>
+<div id="outline-container-org6459fde" class="outline-3">
+<h3 id="org6459fde"><span class="section-number-3">2.1</span> Environment Variables</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Setting path, email and password variables
@@ -829,16 +837,16 @@ Setting path, email and password variables
 </div>
 </div>
 
-<div id="outline-container-org4796f73" class="outline-2">
-<h2 id="org4796f73"><span class="section-number-2">3</span> Fixing defaults</h2>
+<div id="outline-container-orgc2ff2e6" class="outline-2">
+<h2 id="orgc2ff2e6"><span class="section-number-2">3</span> Fixing defaults</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgae30ef9" class="outline-3">
-<h3 id="orgae30ef9"><span class="section-number-3">3.1</span> Miscellaneous stuff</h3>
+<div id="outline-container-orge5049d0" class="outline-3">
+<h3 id="orge5049d0"><span class="section-number-3">3.1</span> Miscellaneous stuff</h3>
 <div class="outline-text-3" id="text-3-1">
 </div>
-<div id="outline-container-org5ef0356" class="outline-4">
-<h4 id="org5ef0356"><span class="section-number-4">3.1.1</span> No more pesky extra files, other basics</h4>
+<div id="outline-container-orgb839211" class="outline-4">
+<h4 id="orgb839211"><span class="section-number-4">3.1.1</span> No more pesky extra files, other basics</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defalias</span> '<span style="color: #ffd700;">yes-or-no-p</span> 'y-or-n-p<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -849,8 +857,8 @@ Setting path, email and password variables
 </div>
 </div>
 
-<div id="outline-container-org0e77721" class="outline-4">
-<h4 id="org0e77721"><span class="section-number-4">3.1.2</span> Enable all the features, because what's the point in having less?</h4>
+<div id="outline-container-orgc8c09db" class="outline-4">
+<h4 id="orgc8c09db"><span class="section-number-4">3.1.2</span> Enable all the features, because what's the point in having less?</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">setq</span> disabled-command-function nil<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -860,12 +868,12 @@ Setting path, email and password variables
 </div>
 </div>
 
-<div id="outline-container-org8d19bb9" class="outline-3">
-<h3 id="org8d19bb9"><span class="section-number-3">3.2</span> Aesthetic stuff</h3>
+<div id="outline-container-org150fe84" class="outline-3">
+<h3 id="org150fe84"><span class="section-number-3">3.2</span> Aesthetic stuff</h3>
 <div class="outline-text-3" id="text-3-2">
 </div>
-<div id="outline-container-org3f4c30c" class="outline-4">
-<h4 id="org3f4c30c"><span class="section-number-4">3.2.1</span> GUI ugliness</h4>
+<div id="outline-container-org729d01e" class="outline-4">
+<h4 id="org729d01e"><span class="section-number-4">3.2.1</span> GUI ugliness</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 Disable all the wasteful bars
@@ -882,8 +890,8 @@ Disable all the wasteful bars
 </div>
 </div>
 
-<div id="outline-container-org50f5a3f" class="outline-4">
-<h4 id="org50f5a3f"><span class="section-number-4">3.2.2</span> Font and cursor</h4>
+<div id="outline-container-orgd36ab3a" class="outline-4">
+<h4 id="orgd36ab3a"><span class="section-number-4">3.2.2</span> Font and cursor</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 Use system monospace font, red non-blinking cursor
@@ -897,8 +905,8 @@ Use system monospace font, red non-blinking cursor
 </div>
 </div>
 
-<div id="outline-container-org530c353" class="outline-3">
-<h3 id="org530c353"><span class="section-number-3">3.3</span> Tabs</h3>
+<div id="outline-container-org61baf22" class="outline-3">
+<h3 id="org61baf22"><span class="section-number-3">3.3</span> Tabs</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Tabs are 4 spaces wide
@@ -911,12 +919,12 @@ Tabs are 4 spaces wide
 </div>
 </div>
 
-<div id="outline-container-org43ca111" class="outline-3">
-<h3 id="org43ca111"><span class="section-number-3">3.4</span> Buffers/input</h3>
+<div id="outline-container-org94ca914" class="outline-3">
+<h3 id="org94ca914"><span class="section-number-3">3.4</span> Buffers/input</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-org3513335" class="outline-4">
-<h4 id="org3513335"><span class="section-number-4">3.4.1</span> ido-mode</h4>
+<div id="outline-container-org3b44dd2" class="outline-4">
+<h4 id="org3b44dd2"><span class="section-number-4">3.4.1</span> ido-mode</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <p>
 ido-mode is much better than the default for switching
@@ -932,8 +940,8 @@ buffers and going to files.
 </div>
 </div>
 
-<div id="outline-container-org1b1f2ff" class="outline-4">
-<h4 id="org1b1f2ff"><span class="section-number-4">3.4.2</span> ibuffer</h4>
+<div id="outline-container-orged3cec9" class="outline-4">
+<h4 id="orged3cec9"><span class="section-number-4">3.4.2</span> ibuffer</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <p>
 ibuffer is also a lot better than the default
@@ -947,8 +955,8 @@ ibuffer is also a lot better than the default
 </div>
 </div>
 
-<div id="outline-container-org6c51637" class="outline-3">
-<h3 id="org6c51637"><span class="section-number-3">3.5</span> desktop-save</h3>
+<div id="outline-container-orgfae95af" class="outline-3">
+<h3 id="orgfae95af"><span class="section-number-3">3.5</span> desktop-save</h3>
 <div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>desktop-save-mode t<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -958,12 +966,12 @@ ibuffer is also a lot better than the default
 </div>
 </div>
 
-<div id="outline-container-orgb591920" class="outline-2">
-<h2 id="orgb591920"><span class="section-number-2">4</span> Custom functions</h2>
+<div id="outline-container-org8ce7c7a" class="outline-2">
+<h2 id="org8ce7c7a"><span class="section-number-2">4</span> Custom functions</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgaac21de" class="outline-3">
-<h3 id="orgaac21de"><span class="section-number-3">4.1</span> Resizing windows</h3>
+<div id="outline-container-orgcb1e70a" class="outline-3">
+<h3 id="orgcb1e70a"><span class="section-number-3">4.1</span> Resizing windows</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">v-resize</span> <span style="color: #5fafd7; font-weight: bold;">(</span>key<span style="color: #5fafd7; font-weight: bold;">)</span>
@@ -989,8 +997,8 @@ ibuffer is also a lot better than the default
 </div>
 </div>
 
-<div id="outline-container-org10c1cc8" class="outline-3">
-<h3 id="org10c1cc8"><span class="section-number-3">4.2</span> Go to config file</h3>
+<div id="outline-container-org689a5cc" class="outline-3">
+<h3 id="org689a5cc"><span class="section-number-3">4.2</span> Go to config file</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Visit your config file. Bound to "C-c e" in <code>Keybindings</code> section.
@@ -1005,12 +1013,12 @@ Visit your config file. Bound to "C-c e" in <code>Keybindings</code> section.
 </div>
 </div>
 
-<div id="outline-container-orgce74cf1" class="outline-3">
-<h3 id="orgce74cf1"><span class="section-number-3">4.3</span> Ido</h3>
+<div id="outline-container-org6ca6572" class="outline-3">
+<h3 id="org6ca6572"><span class="section-number-3">4.3</span> Ido</h3>
 <div class="outline-text-3" id="text-4-3">
 </div>
-<div id="outline-container-org24bec92" class="outline-4">
-<h4 id="org24bec92"><span class="section-number-4">4.3.1</span> Bookmarks</h4>
+<div id="outline-container-org595b646" class="outline-4">
+<h4 id="org595b646"><span class="section-number-4">4.3.1</span> Bookmarks</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">ido-bookmark-jump</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1026,8 +1034,8 @@ Visit your config file. Bound to "C-c e" in <code>Keybindings</code> section.
 </div>
 </div>
 
-<div id="outline-container-orgb781037" class="outline-3">
-<h3 id="orgb781037"><span class="section-number-3">4.4</span> Reloading config</h3>
+<div id="outline-container-org03a497b" class="outline-3">
+<h3 id="org03a497b"><span class="section-number-3">4.4</span> Reloading config</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Reloads this config file. Bound to "C-c r" in Keybindings section.
@@ -1042,12 +1050,12 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 
-<div id="outline-container-org22a098e" class="outline-3">
-<h3 id="org22a098e"><span class="section-number-3">4.5</span> Programming</h3>
+<div id="outline-container-org207de63" class="outline-3">
+<h3 id="org207de63"><span class="section-number-3">4.5</span> Programming</h3>
 <div class="outline-text-3" id="text-4-5">
 </div>
-<div id="outline-container-org1796921" class="outline-4">
-<h4 id="org1796921"><span class="section-number-4">4.5.1</span> Opening Output</h4>
+<div id="outline-container-org71d841c" class="outline-4">
+<h4 id="org71d841c"><span class="section-number-4">4.5.1</span> Opening Output</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">opout</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1062,8 +1070,8 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 
-<div id="outline-container-orgae9f854" class="outline-3">
-<h3 id="orgae9f854"><span class="section-number-3">4.6</span> Email</h3>
+<div id="outline-container-org05d3b47" class="outline-3">
+<h3 id="org05d3b47"><span class="section-number-3">4.6</span> Email</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">mailsync</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1075,12 +1083,12 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 
-<div id="outline-container-orgc001a1b" class="outline-3">
-<h3 id="orgc001a1b"><span class="section-number-3">4.7</span> WM stuff</h3>
+<div id="outline-container-org34b96cd" class="outline-3">
+<h3 id="org34b96cd"><span class="section-number-3">4.7</span> WM stuff</h3>
 <div class="outline-text-3" id="text-4-7">
 </div>
-<div id="outline-container-orgfc2c754" class="outline-4">
-<h4 id="orgfc2c754"><span class="section-number-4">4.7.1</span> Notification bar replacement</h4>
+<div id="outline-container-org550c448" class="outline-4">
+<h4 id="org550c448"><span class="section-number-4">4.7.1</span> Notification bar replacement</h4>
 <div class="outline-text-4" id="text-4-7-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">notibar</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1099,12 +1107,12 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 
-<div id="outline-container-orgc77ded5" class="outline-4">
-<h4 id="orgc77ded5"><span class="section-number-4">4.7.2</span> dmenu</h4>
+<div id="outline-container-org6617137" class="outline-4">
+<h4 id="org6617137"><span class="section-number-4">4.7.2</span> dmenu</h4>
 <div class="outline-text-4" id="text-4-7-2">
 </div>
 <ol class="org-ol">
-<li><a id="orgb8083ac"></a>dmenu launcher<br />
+<li><a id="orgea29d79"></a>dmenu launcher<br />
 <div class="outline-text-5" id="text-4-7-2-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">dmenu_recency</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1116,7 +1124,7 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 </li>
-<li><a id="orgd5749d7"></a>dmenuhandler<br />
+<li><a id="orgd4b3a21"></a>dmenuhandler<br />
 <div class="outline-text-5" id="text-4-7-2-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">dmenuhandler</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1128,7 +1136,7 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 </li>
-<li><a id="org271cb4d"></a>pdf-opener<br />
+<li><a id="org48e768b"></a>pdf-opener<br />
 <div class="outline-text-5" id="text-4-7-2-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">pdf-opener</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1140,7 +1148,7 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 </li>
-<li><a id="org7f937f9"></a>video-opener<br />
+<li><a id="orgb9a3afa"></a>video-opener<br />
 <div class="outline-text-5" id="text-4-7-2-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">video-opener</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1154,12 +1162,12 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </li>
 </ol>
 </div>
-<div id="outline-container-org4ab21e3" class="outline-4">
-<h4 id="org4ab21e3"><span class="section-number-4">4.7.3</span> Other&#x2026;</h4>
+<div id="outline-container-org4f026e1" class="outline-4">
+<h4 id="org4f026e1"><span class="section-number-4">4.7.3</span> Other&#x2026;</h4>
 <div class="outline-text-4" id="text-4-7-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgc1e01e9"></a>Mouse<br />
+<li><a id="orgcc1f2c0"></a>Mouse<br />
 <div class="outline-text-5" id="text-4-7-3-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">mousetoggle</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1175,12 +1183,12 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 
-<div id="outline-container-org7fa9eb0" class="outline-3">
-<h3 id="org7fa9eb0"><span class="section-number-3">4.8</span> Other</h3>
+<div id="outline-container-org857146f" class="outline-3">
+<h3 id="org857146f"><span class="section-number-3">4.8</span> Other</h3>
 <div class="outline-text-3" id="text-4-8">
 </div>
-<div id="outline-container-org3e49ecd" class="outline-4">
-<h4 id="org3e49ecd"><span class="section-number-4">4.8.1</span> Xah Lee form feed</h4>
+<div id="outline-container-org68f2835" class="outline-4">
+<h4 id="org68f2835"><span class="section-number-4">4.8.1</span> Xah Lee form feed</h4>
 <div class="outline-text-4" id="text-4-8-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span><span style="color: #a1db00;">defun</span> <span style="color: #ffd700;">xah-show-formfeed-as-line</span> <span style="color: #5fafd7; font-weight: bold;">()</span>
@@ -1202,12 +1210,12 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 </div>
 </div>
 
-<div id="outline-container-orgf02725e" class="outline-2">
-<h2 id="orgf02725e"><span class="section-number-2">5</span> Major mode hooks and variables</h2>
+<div id="outline-container-orgdc59d9f" class="outline-2">
+<h2 id="orgdc59d9f"><span class="section-number-2">5</span> Major mode hooks and variables</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org700e8ae" class="outline-3">
-<h3 id="org700e8ae"><span class="section-number-3">5.1</span> Lilypond mode</h3>
+<div id="outline-container-org61be0a9" class="outline-3">
+<h3 id="org61be0a9"><span class="section-number-3">5.1</span> Lilypond mode</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Use lilypond mode for .ly files
@@ -1223,8 +1231,8 @@ Use lilypond mode for .ly files
 </div>
 </div>
 
-<div id="outline-container-orgcf69038" class="outline-3">
-<h3 id="orgcf69038"><span class="section-number-3">5.2</span> Electric pairs</h3>
+<div id="outline-container-orge015d6a" class="outline-3">
+<h3 id="orge015d6a"><span class="section-number-3">5.2</span> Electric pairs</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Auto-add parentheses
@@ -1242,8 +1250,8 @@ Auto-add parentheses
 </div>
 </div>
 
-<div id="outline-container-org86ed61d" class="outline-3">
-<h3 id="org86ed61d"><span class="section-number-3">5.3</span> Org Mode</h3>
+<div id="outline-container-orgea29dd1" class="outline-3">
+<h3 id="orgea29dd1"><span class="section-number-3">5.3</span> Org Mode</h3>
 <div class="outline-text-3" id="text-5-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'org-mode-hook 'org-indent-mode<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -1255,12 +1263,12 @@ Auto-add parentheses
 </div>
 </div>
 
-<div id="outline-container-org596f903" class="outline-3">
-<h3 id="org596f903"><span class="section-number-3">5.4</span> M-x compile hooks</h3>
+<div id="outline-container-orgb8389bc" class="outline-3">
+<h3 id="orgb8389bc"><span class="section-number-3">5.4</span> M-x compile hooks</h3>
 <div class="outline-text-3" id="text-5-4">
 </div>
-<div id="outline-container-orgc0e3289" class="outline-4">
-<h4 id="orgc0e3289"><span class="section-number-4">5.4.1</span> Groff</h4>
+<div id="outline-container-org91a8bf3" class="outline-4">
+<h4 id="org91a8bf3"><span class="section-number-4">5.4.1</span> Groff</h4>
 <div class="outline-text-4" id="text-5-4-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'nroff-mode-hook
@@ -1278,8 +1286,8 @@ Auto-add parentheses
 </div>
 </div>
 
-<div id="outline-container-orgc2d0bf0" class="outline-4">
-<h4 id="orgc2d0bf0"><span class="section-number-4">5.4.2</span> C</h4>
+<div id="outline-container-org3305eed" class="outline-4">
+<h4 id="org3305eed"><span class="section-number-4">5.4.2</span> C</h4>
 <div class="outline-text-4" id="text-5-4-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'c-mode-hook
@@ -1291,8 +1299,8 @@ Auto-add parentheses
 </div>
 </div>
 
-<div id="outline-container-orgb3f9522" class="outline-4">
-<h4 id="orgb3f9522"><span class="section-number-4">5.4.3</span> LiLyPond</h4>
+<div id="outline-container-org4b90ef3" class="outline-4">
+<h4 id="org4b90ef3"><span class="section-number-4">5.4.3</span> LiLyPond</h4>
 <div class="outline-text-4" id="text-5-4-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'LilyPond-mode-hook
@@ -1304,8 +1312,8 @@ Auto-add parentheses
 </div>
 </div>
 
-<div id="outline-container-orgdf764bc" class="outline-4">
-<h4 id="orgdf764bc"><span class="section-number-4">5.4.4</span> LaTeX</h4>
+<div id="outline-container-orga6371c4" class="outline-4">
+<h4 id="orga6371c4"><span class="section-number-4">5.4.4</span> LaTeX</h4>
 <div class="outline-text-4" id="text-5-4-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>add-hook 'latex-mode-hook
@@ -1330,16 +1338,16 @@ my compile key "C-c C-m".
 </div>
 </div>
 
-<div id="outline-container-org8e4a3e2" class="outline-2">
-<h2 id="org8e4a3e2"><span class="section-number-2">6</span> Keybindings</h2>
+<div id="outline-container-orga466296" class="outline-2">
+<h2 id="orga466296"><span class="section-number-2">6</span> Keybindings</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org1b6323d" class="outline-3">
-<h3 id="org1b6323d"><span class="section-number-3">6.1</span> Interaction with Emacs</h3>
+<div id="outline-container-org15f1681" class="outline-3">
+<h3 id="org15f1681"><span class="section-number-3">6.1</span> Interaction with Emacs</h3>
 <div class="outline-text-3" id="text-6-1">
 </div>
-<div id="outline-container-org02caff5" class="outline-4">
-<h4 id="org02caff5"><span class="section-number-4">6.1.1</span> ido-bookmark-jump (custom function)</h4>
+<div id="outline-container-org515e3e8" class="outline-4">
+<h4 id="org515e3e8"><span class="section-number-4">6.1.1</span> ido-bookmark-jump (custom function)</h4>
 <div class="outline-text-4" id="text-6-1-1">
 <p>
 Open a bookmark with the default keybinding <code>C-x r b</code>, but with ido
@@ -1352,8 +1360,8 @@ Open a bookmark with the default keybinding <code>C-x r b</code>, but with ido
 </div>
 </div>
 
-<div id="outline-container-org05f8e10" class="outline-4">
-<h4 id="org05f8e10"><span class="section-number-4">6.1.2</span> Terminal functionality</h4>
+<div id="outline-container-org29a7eaa" class="outline-4">
+<h4 id="org29a7eaa"><span class="section-number-4">6.1.2</span> Terminal functionality</h4>
 <div class="outline-text-4" id="text-6-1-2">
 <p>
 Rebinding some useful keys that can't be used in a terminal.
@@ -1371,8 +1379,8 @@ Rebinding some useful keys that can't be used in a terminal.
 </div>
 </div>
 
-<div id="outline-container-org1388eed" class="outline-3">
-<h3 id="org1388eed"><span class="section-number-3">6.2</span> Config</h3>
+<div id="outline-container-orge878a14" class="outline-3">
+<h3 id="orge878a14"><span class="section-number-3">6.2</span> Config</h3>
 <div class="outline-text-3" id="text-6-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c r"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'config-reload<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -1381,12 +1389,12 @@ Rebinding some useful keys that can't be used in a terminal.
 </div>
 </div>
 
-<div id="outline-container-org8309e89" class="outline-3">
-<h3 id="org8309e89"><span class="section-number-3">6.3</span> General WM stuff</h3>
+<div id="outline-container-orgb8bd747" class="outline-3">
+<h3 id="orgb8bd747"><span class="section-number-3">6.3</span> General WM stuff</h3>
 <div class="outline-text-3" id="text-6-3">
 </div>
-<div id="outline-container-org7925e82" class="outline-4">
-<h4 id="org7925e82"><span class="section-number-4">6.3.1</span> System information</h4>
+<div id="outline-container-org239b45c" class="outline-4">
+<h4 id="org239b45c"><span class="section-number-4">6.3.1</span> System information</h4>
 <div class="outline-text-4" id="text-6-3-1">
 <p>
 Built-in battery function with <code>s-t b</code>.
@@ -1401,8 +1409,8 @@ Custom notification script with <code>s-t s-b</code>.
 </div>
 </div>
 
-<div id="outline-container-org49feab4" class="outline-4">
-<h4 id="org49feab4"><span class="section-number-4">6.3.2</span> dmenu scripts</h4>
+<div id="outline-container-orga29b257" class="outline-4">
+<h4 id="orga29b257"><span class="section-number-4">6.3.2</span> dmenu scripts</h4>
 <div class="outline-text-4" id="text-6-3-2">
 <p>
 I still have some use for dmenu, despite only using emacs&#x2026;
@@ -1450,8 +1458,8 @@ All commands are prefixed with <code>s-t</code>
 </div>
 </div>
 
-<div id="outline-container-org68defe1" class="outline-3">
-<h3 id="org68defe1"><span class="section-number-3">6.4</span> Programming/Typesetting</h3>
+<div id="outline-container-org5175039" class="outline-3">
+<h3 id="org5175039"><span class="section-number-3">6.4</span> Programming/Typesetting</h3>
 <div class="outline-text-3" id="text-6-4">
 <p>
 Bind emacs compile to <code>C-c C-m</code>. This allows 2 rapid presses of <code>C-m</code>
@@ -1471,12 +1479,12 @@ LilyPond).
 </div>
 </div>
 
-<div id="outline-container-orgf7991a3" class="outline-3">
-<h3 id="orgf7991a3"><span class="section-number-3">6.5</span> Miscellaneous</h3>
+<div id="outline-container-org11b62e7" class="outline-3">
+<h3 id="org11b62e7"><span class="section-number-3">6.5</span> Miscellaneous</h3>
 <div class="outline-text-3" id="text-6-5">
 </div>
-<div id="outline-container-orga752276" class="outline-4">
-<h4 id="orga752276"><span class="section-number-4">6.5.1</span> Line numbers</h4>
+<div id="outline-container-org429edb2" class="outline-4">
+<h4 id="org429edb2"><span class="section-number-4">6.5.1</span> Line numbers</h4>
 <div class="outline-text-4" id="text-6-5-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c n"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'display-line-numbers-mode<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -1485,8 +1493,8 @@ LilyPond).
 </div>
 </div>
 
-<div id="outline-container-org2295b74" class="outline-4">
-<h4 id="org2295b74"><span class="section-number-4">6.5.2</span> Spelling correction</h4>
+<div id="outline-container-org666980c" class="outline-4">
+<h4 id="org666980c"><span class="section-number-4">6.5.2</span> Spelling correction</h4>
 <div class="outline-text-4" id="text-6-5-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c s"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'flyspell-mode<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -1495,8 +1503,8 @@ LilyPond).
 </div>
 </div>
 
-<div id="outline-container-org67c249c" class="outline-4">
-<h4 id="org67c249c"><span class="section-number-4">6.5.3</span> Line wrap</h4>
+<div id="outline-container-orga419471" class="outline-4">
+<h4 id="orga419471"><span class="section-number-4">6.5.3</span> Line wrap</h4>
 <div class="outline-text-4" id="text-6-5-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"C-c l"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'toggle-truncate-lines<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -1505,8 +1513,8 @@ LilyPond).
 </div>
 </div>
 
-<div id="outline-container-org1f4e789" class="outline-4">
-<h4 id="org1f4e789"><span class="section-number-4">6.5.4</span> Mouse</h4>
+<div id="outline-container-org79f20b9" class="outline-4">
+<h4 id="org79f20b9"><span class="section-number-4">6.5.4</span> Mouse</h4>
 <div class="outline-text-4" id="text-6-5-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #dd0000; font-weight: bold;">(</span>global-set-key <span style="color: #5fafd7; font-weight: bold;">(</span>kbd <span style="color: #ff4ea3;">"s-t \\"</span><span style="color: #5fafd7; font-weight: bold;">)</span> 'mousetoggle<span style="color: #dd0000; font-weight: bold;">)</span>
@@ -1517,8 +1525,8 @@ LilyPond).
 </div>
 </div>
 
-<div id="outline-container-org5e4bf37" class="outline-2">
-<h2 id="org5e4bf37"><span class="section-number-2">7</span> Mode-line</h2>
+<div id="outline-container-orgb33efb3" class="outline-2">
+<h2 id="orgb33efb3"><span class="section-number-2">7</span> Mode-line</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Just some basic extra stuff in the mode-line.
@@ -1533,8 +1541,8 @@ I don't want anything fancy.
 </div>
 </div>
 
-<div id="outline-container-org1f5ec76" class="outline-2">
-<h2 id="org1f5ec76"><span class="section-number-2">8</span> Email</h2>
+<div id="outline-container-orgf4cd31e" class="outline-2">
+<h2 id="orgf4cd31e"><span class="section-number-2">8</span> Email</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 email settings
@@ -1552,7 +1560,7 @@ email settings
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unknown</p>
-<p class="date">Created: 2019-10-25 Fri 20:36</p>
+<p class="date">Created: 2019-10-25 Fri 23:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
