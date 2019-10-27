@@ -145,6 +145,7 @@ An emacs front-end for the transmission bittorrent daemon
     :ensure t
     :config
     (require 'moe-theme-switcher)
+    (setq moe-theme-highlight-buffer-id nil)
     (setq moe-theme-switch-by-sunrise-and-sunset t)
     (moe-theme-set-color 'purple))
 #+END_SRC
@@ -196,15 +197,17 @@ Minor mode that highlights parentheses well
   (use-package god-mode
     :ensure t
     :bind
-    (("<left>" . 'god-mode-all)
+    (("<pause>" . 'god-mode-all)
      ("<right>" . 'god-mode-all)
      :map god-local-mode-map
      ("." . 'repeat))
     :init
-    (add-hook 'god-mode-enabled-hook (lambda ()
-                             (moe-theme-set-color 'purple)))
-    (add-hook 'god-mode-disabled-hook (lambda ()
-                              (moe-theme-set-color 'green)))
+    (add-hook 'god-mode-enabled-hook
+              (lambda ()
+                (moe-theme-set-color 'purple)))
+    (add-hook 'god-mode-disabled-hook
+              (lambda ()
+                (moe-theme-set-color 'green)))
     :config
     (setq god-exempt-major-modes nil
           god-exempt-predicates nil)
@@ -272,10 +275,8 @@ A 'Lorem ipsum' generator
 
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package pdf-tools
-  ;;   :ensure t
-  ;;   :init
-  ;;   (pdf-tools-install))
+  (use-package pdf-tools
+    :ensure t)
 #+END_SRC
 
 * Stuff to do when loading
