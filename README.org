@@ -9,7 +9,7 @@ Enable melpa archive and making sure packages work
   (require 'package)
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/")
+               '("melpa" . "https://melpa.org-/packages/")
                '("gnu" . "https://elpa.gnu.org/packages/"))
   (package-initialize)
 #+END_SRC
@@ -52,9 +52,7 @@ This package lets emacs be used for gpg authentication
     :ensure t)
 #+END_SRC
 
-*** Window management
-
-**** EXWM - Emacs X Window Manager
+*** EXWM - Emacs X Window Manager
 
 Manipulate X windows as emacs buffers.
 #+BEGIN_SRC emacs-lisp
@@ -65,14 +63,12 @@ Manipulate X windows as emacs buffers.
     (exwm-config-default))
 #+END_SRC
 
-**** Golden ratio
+*** Desktop-environment (useful with EXWM)
 
-This package resizes windows according to the golden ratio.  The
-focused window is larger
 #+BEGIN_SRC emacs-lisp
-  (use-package golden-ratio
+  (use-package desktop-environment
     :ensure t
-    :config (golden-ratio-mode))
+    :config (desktop-environment-mode))
 #+END_SRC
 
 *** Completion
@@ -98,6 +94,13 @@ A scheme backend
 #+END_SRC
 
 *** "Applications"
+
+**** vterm
+
+#+BEGIN_SRC emacs-lisp
+  (use-package vterm
+    :load-path "~/.emacs.d/emacs-libvterm")
+#+END_SRC
 
 **** Mingus
 
@@ -141,13 +144,13 @@ An emacs front-end for the transmission bittorrent daemon
 ***** moe-theme
 
 #+BEGIN_SRC emacs-lisp
-  (use-package moe-theme
-    :ensure t
-    :config
-    (require 'moe-theme-switcher)
-    (setq moe-theme-highlight-buffer-id nil)
-    (setq moe-theme-switch-by-sunrise-and-sunset t)
-    (moe-theme-set-color 'purple))
+    (use-package moe-theme
+      :ensure t
+      :init
+      (setq moe-theme-highlight-buffer-id nil)
+      :config
+      (moe-theme-set-color 'purple)
+      (moe-dark))
 #+END_SRC
 
 ***** base16
@@ -197,7 +200,7 @@ Minor mode that highlights parentheses well
   (use-package god-mode
     :ensure t
     :bind
-    (("<pause>" . 'god-mode-all)
+    (("<f8>" . 'god-mode-all)
      ("<right>" . 'god-mode-all)
      :map god-local-mode-map
      ("." . 'repeat))
@@ -279,6 +282,21 @@ Majorly increases performance when viewing pdfs as a file
     :ensure t)
 #+END_SRC
 
+*** Mine
+
+**** Toggle-touchpad
+
+A simple package I wrote to toggle the touchpad/trackpoint on my
+ThinkPad
+
+#+BEGIN_SRC emacs-lisp
+  (use-package toggle-touchpad
+    :load-path "~/.emacs.d/"
+    :bind
+    (("<XF86TouchpadToggle>" . 'toggle-touchpad)
+     ("C-z \\" . 'toggle-touchpad)))
+#+END_SRC
+
 * Stuff to do when loading
 
 ** Environment Variables
@@ -293,23 +311,21 @@ Setting path, email and password variables
 
 * Fixing defaults
 
-** Miscellaneous stuff
+** Miscellaneous
 
-*** No more pesky extra files, other basics
+*** Swap yes/no prompt with y/n
 
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
-  (setq make-backup-files nil)
-  (setq auto-save-default nil)
 #+END_SRC
 
-*** Enable all the features, because what's the point in having less?
+*** Enable all the features
 
 #+BEGIN_SRC emacs-lisp
   (setq disabled-command-function nil)
 #+END_SRC
 
-** Aesthetic stuff
+** Aesthetics
 
 *** GUI ugliness
 
@@ -327,8 +343,17 @@ Disable all the wasteful bars
 
 Use system monospace font, red non-blinking cursor
 #+BEGIN_SRC emacs-lisp
+  (set-face-font 'default "Monospace 8") 
+  (set-face-font 'fixed-pitch-serif "Monospace Italic")
+  (set-face-font 'variable-pitch "Sans 10")
   (set-cursor-color "red")
   (blink-cursor-mode -1)
+#+END_SRC
+
+*** Disable audible and visual bell
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
 #+END_SRC
 
 ** Tabs
@@ -364,6 +389,14 @@ ibuffer is also a lot better than the default
 
 #+BEGIN_SRC emacs-lisp
   (desktop-save-mode t)
+#+END_SRC
+
+** Help
+
+Use a keybinding for viewing manpages
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-h C-m") 'woman)
 #+END_SRC
 
 * Custom functions
@@ -476,15 +509,16 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
     (start-process "dmenu_recency" nil
                    "dmenu_recency"))
 #+END_SRC
+
 **** dmenuhandler
 
 #+BEGIN_SRC emacs-lisp
   (defun dmenuhandler ()
     "Choose how to handle the url in X11 clipboard"
     (interactive)
-    (start-process "dmenuhandler" nil
-                   "dmenuhandler"))
+    (shell-command (concat "dmenuhandler " (car kill-ring) " &")))
 #+END_SRC
+
 **** pdf-opener
 
 #+BEGIN_SRC emacs-lisp
@@ -494,6 +528,7 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
     (start-process "pdf-opener" nil
                    "pdf-opener"))
 #+END_SRC
+
 **** video-opener
 
 #+BEGIN_SRC emacs-lisp
@@ -503,34 +538,48 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
     (start-process "video-opener" nil
                    "video-opener"))
 #+END_SRC
-*** Other...
-
-**** Mouse
-
-#+BEGIN_SRC emacs-lisp
-  (defun mousetoggle ()
-    "Toggles touchpad on my laptop"
-    (interactive)
-    (shell-command "mousetoggle")
-    (message "touchpad input toggled"))
-#+END_SRC
 
 ** Other
 *** Xah Lee form feed
 
 #+BEGIN_SRC emacs-lisp
-(defun xah-show-formfeed-as-line ()
-  "Display the formfeed ^L char as line.
-URL `http://ergoemacs.org/emacs/emacs_form_feed_section_paging.html'
-Version 2018-08-30"
-  (interactive)
-  ;; 2016-10-11 thanks to Steve Purcell's page-break-lines.el
-  (progn
-    (when (not buffer-display-table)
-      (setq buffer-display-table (make-display-table)))
-    (aset buffer-display-table ?\^L
-          (vconcat (make-list 70 (make-glyph-code ?─ 'font-lock-comment-face))))
-    (redraw-frame)))
+  (defun xah-show-formfeed-as-line ()
+    "Display the formfeed ^L char as line.
+  URL `http://ergoemacs.org/emacs/emacs_form_feed_section_paging.html'
+  Version 2018-08-30"
+    (interactive)
+    ;; 2016-10-11 thanks to Steve Purcell's page-break-lines.el
+    (progn
+      (when (not buffer-display-table)
+        (setq buffer-display-table (make-display-table)))
+      (aset buffer-display-table ?\^L
+            (vconcat (make-list 70 (make-glyph-code ?─ 'font-lock-comment-face))))
+      (redraw-frame)))
+#+END_SRC
+
+** Fixing packages
+
+#+BEGIN_SRC emacs-lisp
+
+  (defun transmission ()
+    "Open a `transmission-mode' buffer."
+    (interactive)
+    (let* ((name "*transmission*")
+           (buffer (or (get-buffer name)
+                       (generate-new-buffer name))))
+      (transmission-turtle-poll)
+      (unless (eq buffer (current-buffer))
+        (with-current-buffer buffer
+          (unless (eq major-mode 'transmission-mode)
+            (condition-case e
+                (progn
+                  (transmission-mode)
+                  (transmission-draw)
+                  (goto-char (point-min)))
+              (error
+               (kill-buffer buffer)
+               (signal (car e) (cdr e))))))
+        (switch-to-buffer buffer))))
 #+END_SRC
 
 * Major mode hooks and variables
@@ -540,9 +589,11 @@ Version 2018-08-30"
 Use lilypond mode for .ly files
 (taken from lilypond.org)
 #+BEGIN_SRC emacs-lisp
-  (autoload 'LilyPond-mode "lilypond-mode")
+  (defalias 'lilypond-mode 'LilyPond-mode)
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp")
+  (load-file "/usr/share/emacs/site-lisp/lilypond-init.el")
   (setq auto-mode-alist
-        (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+        (cons '("\\.ly$" . lilypond-mode) auto-mode-alist))
   (setq LilyPond-pdf-command "zathura")
 #+END_SRC
 
@@ -621,6 +672,11 @@ my compile key "C-c C-m".
 
 * Keybindings
 
+** Remove =C-z=
+
+#+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-z"))
+#+END_SRC
 ** Interaction with Emacs
 
 *** ido-bookmark-jump (custom function)
@@ -643,6 +699,12 @@ Rebinding some useful keys that can't be used in a terminal.
     (global-set-key (kbd "C-c \\") 'indent-region))
 #+END_SRC
 
+*** bury-buffer and kill-buffer-and-window
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-z C-z") 'bury-buffer)
+  (global-set-key (kbd "C-z z") 'kill-buffer-and-window)
+#+END_SRC
 ** Config
 
 #+BEGIN_SRC emacs-lisp
@@ -653,28 +715,28 @@ Rebinding some useful keys that can't be used in a terminal.
 
 *** System information
 
-Built-in battery function with =s-t b=.
-Custom notification script with =s-t s-b=. 
+Built-in battery function with =C-z b=.
+Custom notification script with =C-z C-b=. 
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-t b") 'battery)
-  (global-set-key (kbd "s-t s-b") 'notibar)
+  (global-set-key (kbd "C-z b") 'battery)
+  (global-set-key (kbd "C-z C-b") 'notibar)
 #+END_SRC
 
 *** dmenu scripts
 
 I still have some use for dmenu, despite only using emacs...
-All commands are prefixed with =s-t=
+All commands are prefixed with =C-z=
 | d | enter commands into dmenu       |
 | P | select a pdf to open with emacs |
 | V | select a video to open with mpv |
 | D | choose what to do with a URL    |
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-t d") 'dmenu_recency)
-  (global-set-key (kbd "s-t P") 'pdf-opener)
-  (global-set-key (kbd "s-t V") 'video-opener)
-  (global-set-key (kbd "s-t D") 'dmenuhandler)
+  (global-set-key (kbd "C-z d") 'dmenu_recency)
+  (global-set-key (kbd "C-z P") 'pdf-opener)
+  (global-set-key (kbd "C-z V") 'video-opener)
+  (global-set-key (kbd "C-z D") 'dmenuhandler)
 #+END_SRC
 
 ** Programming/Typesetting
@@ -710,12 +772,6 @@ LilyPond).
   (global-set-key (kbd "C-c l") 'toggle-truncate-lines)
 #+END_SRC
 
-*** Mouse
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "s-t \\") 'mousetoggle)
-#+END_SRC
-
 * Mode-line
 
 Just some basic extra stuff in the mode-line.
@@ -736,4 +792,6 @@ email settings
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+END_SRC
+
+
 
