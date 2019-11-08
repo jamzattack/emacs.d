@@ -12,17 +12,18 @@
 (autoload 'god-local-mode "god-mode" "\
 Minor mode for running commands.
 
+If called interactively, enable God-Local mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'god-mode "god-mode" "\
-Toggle global God mode.
-
-\(fn)" t nil)
+Toggle global God mode." t nil)
 
 (autoload 'god-mode-all "god-mode" "\
-Toggle God mode in all buffers.
-
-\(fn)" t nil)
+Toggle God mode in all buffers." t nil)
 
 (autoload 'god-mode-maybe-activate "god-mode" "\
 Activate God mode locally on individual buffers when appropriate.

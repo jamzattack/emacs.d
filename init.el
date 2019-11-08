@@ -6,10 +6,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#eeeeee" "#bcbcbc" "#8700af" "#d70087" "#d75f00" "#005faf" "#d75f00" "#878787"])
+ '(ansi-term-color-vector
+   [unspecified "#eeeeee" "#bcbcbc" "#8700af" "#d70087" "#d75f00" "#005faf" "#d75f00" "#878787"] t)
  '(browse-url-browser-function 'eww-browse-url)
- '(custom-enabled-themes '(moe-dark))
+ '(custom-safe-themes
+   '("5a39d2a29906ab273f7900a2ae843e9aa29ed5d205873e1199af4c9ec921aaab" default))
  '(dired-listing-switches "-alh")
  '(exwm-input-prefix-keys
    '("" "" "" ""
@@ -32,14 +35,14 @@
      (:name "all mail" :query "*" :key "a")
      (:name "university" :query "university")))
  '(package-selected-packages
-   '(vterm desktop-environment moe-theme haskell-mode auto-complete auto-comp htmlize ox-gfm geiser powerline flycheck-lilypond flycheck pdf-tools xelb exwm xterm-color xclip which-key use-package try transmission switch-window smex rainbow-mode rainbow-delimiters pinentry notmuch mingus lorem-ipsum ido-vertical-mode elpher elfeed counsel company base16-theme))
+   '(god-mode slime vterm desktop-environment haskell-mode auto-complete auto-comp htmlize ox-gfm geiser powerline flycheck-lilypond flycheck pdf-tools xelb exwm xterm-color xclip which-key use-package try transmission switch-window smex rainbow-mode rainbow-delimiters pinentry notmuch mingus lorem-ipsum ido-vertical-mode elpher counsel company base16-theme))
  '(show-paren-mode t))
 
-
-(provide 'init)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(fixed-pitch-serif ((t (:foundry "    " :family "Go Mono")))))
+
+(provide 'init)

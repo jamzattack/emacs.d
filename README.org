@@ -6,11 +6,11 @@
 
 Enable melpa archive and making sure packages work
 #+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lisp")
   (require 'package)
   (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org-/packages/")
-               '("gnu" . "https://elpa.gnu.org/packages/"))
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.org/packages/")))
   (package-initialize)
 #+END_SRC
 
@@ -71,6 +71,21 @@ Manipulate X windows as emacs buffers.
     :config (desktop-environment-mode))
 #+END_SRC
 
+*** Programming
+**** Geiser
+
+#+BEGIN_SRC emacs-lisp
+  (use-package geiser
+    :ensure t)
+#+END_SRC
+
+**** SLIME
+
+#+BEGIN_SRC emacs-lisp
+  (use-package slime
+    :ensure t)
+#+END_SRC
+
 *** Completion
 
 **** Company
@@ -83,14 +98,6 @@ A very good package for auto-completion
     (global-company-mode)
     :config
     (setq company-idle-delay 0))
-#+END_SRC
-
-**** Geiser
-
-A scheme backend
-#+BEGIN_SRC emacs-lisp
-  (use-package geiser
-    :ensure t)
 #+END_SRC
 
 *** "Applications"
@@ -128,30 +135,8 @@ An emacs front-end for the transmission bittorrent daemon
     :ensure t)
 #+END_SRC
 
-**** Elfeed
-
-#+BEGIN_SRC emacs-lisp
-  (use-package elfeed                                         
-    :ensure t                                                 
-    :config                                                   
-    (if (file-exists-p "~/.emacs.d/feeds.el")                 
-        (load-file (expand-file-name "~/.emacs.d/feeds.el"))))
-#+END_SRC
-
 *** Appearance
 **** Theme
-
-***** moe-theme
-
-#+BEGIN_SRC emacs-lisp
-    (use-package moe-theme
-      :ensure t
-      :init
-      (setq moe-theme-highlight-buffer-id nil)
-      :config
-      (moe-theme-set-color 'purple)
-      (moe-dark))
-#+END_SRC
 
 ***** base16
 
@@ -162,7 +147,7 @@ Base16 is a nice theme framework, but moe-theme is my new best friend.
     (package-install 'base16-theme))
   (setq base16-distinct-fringe-background nil)
   (setq base16-theme-256-color-source "colors")
-  ;; (load-theme 'base16-bright t)
+;  (load-theme 'base16-bright t)
 #+END_SRC
 
 **** Rainbow-mode
@@ -205,12 +190,9 @@ Minor mode that highlights parentheses well
      :map god-local-mode-map
      ("." . 'repeat))
     :init
-    (add-hook 'god-mode-enabled-hook
-              (lambda ()
-                (moe-theme-set-color 'purple)))
-    (add-hook 'god-mode-disabled-hook
-              (lambda ()
-                (moe-theme-set-color 'green)))
+    (require 'my-mode-line)
+    (add-hook 'god-mode-enabled-hook 'mode-line-purple)
+    (add-hook 'god-mode-disabled-hook 'mode-line-green)
     :config
     (setq god-exempt-major-modes nil
           god-exempt-predicates nil)
@@ -291,7 +273,8 @@ ThinkPad
 
 #+BEGIN_SRC emacs-lisp
   (use-package toggle-touchpad
-    :load-path "~/.emacs.d/"
+    :load-path "~/.emacs.d/lisp/"
+    :after init
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
      ("C-z \\" . 'toggle-touchpad)))
@@ -343,9 +326,8 @@ Disable all the wasteful bars
 
 Use system monospace font, red non-blinking cursor
 #+BEGIN_SRC emacs-lisp
-  (set-face-font 'default "Monospace 8") 
-  (set-face-font 'fixed-pitch-serif "Monospace Italic")
-  (set-face-font 'variable-pitch "Sans 10")
+  (set-face-font 'default "Input Mono Light 8")
+;  (set-face-font 'fixed-pitch-serif "Go Mono")
   (set-cursor-color "red")
   (blink-cursor-mode -1)
 #+END_SRC
@@ -354,6 +336,12 @@ Use system monospace font, red non-blinking cursor
 
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
+#+END_SRC
+
+*** Form-feed (^L  )
+
+#+BEGIN_SRC emacs-lisp
+;  (show-formfeed-as-pilcrow)
 #+END_SRC
 
 ** Tabs
@@ -396,7 +384,7 @@ ibuffer is also a lot better than the default
 Use a keybinding for viewing manpages
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-h C-m") 'woman)
+  (global-set-key (kbd "C-h C-m") 'man)
 #+END_SRC
 
 * Custom functions
@@ -543,17 +531,14 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 *** Xah Lee form feed
 
 #+BEGIN_SRC emacs-lisp
-  (defun xah-show-formfeed-as-line ()
-    "Display the formfeed ^L char as line.
-  URL `http://ergoemacs.org/emacs/emacs_form_feed_section_paging.html'
-  Version 2018-08-30"
+  (defun show-formfeed-as-pilcrow ()
+    "Display the formfeed ^L char as pilcrow (¶)."
     (interactive)
-    ;; 2016-10-11 thanks to Steve Purcell's page-break-lines.el
     (progn
       (when (not buffer-display-table)
         (setq buffer-display-table (make-display-table)))
       (aset buffer-display-table ?\^L
-            (vconcat (make-list 70 (make-glyph-code ?─ 'font-lock-comment-face))))
+            (vconcat (make-list 1 (make-glyph-code ?¶ 'font-lock-comment-face))))
       (redraw-frame)))
 #+END_SRC
 
@@ -589,12 +574,14 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 Use lilypond mode for .ly files
 (taken from lilypond.org)
 #+BEGIN_SRC emacs-lisp
-  (defalias 'lilypond-mode 'LilyPond-mode)
   (add-to-list 'load-path "/usr/share/emacs/site-lisp")
-  (load-file "/usr/share/emacs/site-lisp/lilypond-init.el")
-  (setq auto-mode-alist
-        (cons '("\\.ly$" . lilypond-mode) auto-mode-alist))
-  (setq LilyPond-pdf-command "zathura")
+  (require 'lilypond-mode)
+  (add-to-list 'load-path "~/.emacs.d/lisp/sane-lilypond")
+  (require 'sane-lilypond-mode)
+  (add-hook 'LilyPond-mode-hook
+            (lambda () (interactive)
+              (local-set-key (kbd "C-i") 'sane-lilypond-indent)
+              (local-set-key (kbd "<S-iso-lefttab>") 'sane-lilypond-deindent)))
 #+END_SRC
 
 ** Electric pairs
@@ -615,7 +602,7 @@ Auto-add parentheses
   (add-hook 'org-mode-hook 'org-indent-mode)
   (setq org-src-window-setup 'current-window)
   (setq org-src-tab-acts-natively t)
-  (setq org-ellipsis " ")
+  (setq org-ellipsis nil)
 #+END_SRC
 
 ** M-x compile hooks
@@ -644,7 +631,7 @@ Auto-add parentheses
                    (format "compiler %s" buffer-file-name))))
 #+END_SRC
 
-*** LiLyPond
+*** LilyPond
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'LilyPond-mode-hook
@@ -670,6 +657,12 @@ my compile key "C-c C-m".
               (local-unset-key (kbd "C-c C-m"))))
 #+END_SRC
 
+** Info-mode
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'Info-mode-hook 'variable-pitch-mode)
+#+END_SRC
+
 * Keybindings
 
 ** Remove =C-z=
@@ -687,6 +680,10 @@ Open a bookmark with the default keybinding =C-x r b=, but with ido
   (global-set-key (kbd "C-x r b") 'ido-bookmark-jump)
 #+END_SRC
 
+*** eww-list-bookmarks
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x r e") 'eww-list-bookmarks)
+#+END_SRC
 *** Terminal functionality
 
 Rebinding some useful keys that can't be used in a terminal.
@@ -792,6 +789,10 @@ email settings
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+END_SRC
+
+
+
+
 
 
 
