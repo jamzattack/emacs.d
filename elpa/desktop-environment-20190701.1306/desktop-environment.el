@@ -358,7 +358,7 @@ the screen."
   "Lock the screen, preventing anyone without a password from using the system."
   (interactive)
   ;; Run command asynchronously so that Emacs does not wait in the background.
-  (start-process-shell-command "lock" nil desktop-environment-screenlock-command))
+  (start-process "lockscreen" nil desktop-environment-screenlock-command))
 
 
 ;;; Commands - wifi
