@@ -32,7 +32,7 @@ This package lets emacs be used for gpg authentication
   (use-package pinentry
     :ensure t
     :init
-    (setq epa-pinentry-mode 'loopback)
+    (setq epg-pinentry-mode 'loopback)
     (pinentry-start))
 #+END_SRC
 
@@ -60,7 +60,8 @@ Manipulate X windows as emacs buffers.
     :ensure t
     :config
     (require 'exwm-config)
-    (exwm-config-default))
+    (exwm-config-default)
+    (setq exwm-workspace-number 4))
 #+END_SRC
 
 *** Desktop-environment (useful with EXWM)
@@ -69,6 +70,29 @@ Manipulate X windows as emacs buffers.
   (use-package desktop-environment
     :ensure t
     :config (desktop-environment-mode))
+#+END_SRC
+
+*** openwith
+
+Open files using external program. I only use it for videos.
+
+#+BEGIN_SRC emacs-lisp
+(use-package openwith
+  :ensure t
+  :config
+  (openwith-mode nil)
+  (setq openwith-associations
+        '(("\\.\\(?:mpe?g\\|avi\\|mp4\\|webm\\|mkv\\|wmv\\)\\'" "mpv"
+           (file)))))
+#+END_SRC
+
+*** dwm-mode
+Manipulate emacs windows similarly to suckless' dwm.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dwm
+    :load-path "~/.emacs.d/lisp/"
+    :config (setq dwm-mode-emulate-keybindings t))
 #+END_SRC
 
 *** Programming
@@ -124,7 +148,9 @@ A simple email client, with emphasis on searching
 #+BEGIN_SRC emacs-lisp
   (use-package notmuch
     :ensure t
-    :config (setq notmuch-archive-tags '("-unread" "-inbox")))
+    :config
+    (setq notmuch-archive-tags '("-unread" "-inbox")
+          notmuch-search-oldest-first nil))
 #+END_SRC
 
 **** Transmission
@@ -147,7 +173,7 @@ Base16 is a nice theme framework, but moe-theme is my new best friend.
     (package-install 'base16-theme))
   (setq base16-distinct-fringe-background nil)
   (setq base16-theme-256-color-source "colors")
-;  (load-theme 'base16-bright t)
+                                          ;  (load-theme 'base16-bright t)
 #+END_SRC
 
 **** Rainbow-mode
@@ -215,12 +241,12 @@ smex integrates "M-x" with =ido=
 **** Which-key
 
 Shows what your keys do
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    :ensure t
-    :init (which-key-mode)
-    :config (which-key-enable-god-mode-support))
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+#   (use-package which-key
+#     :ensure t
+#     :init (which-key-mode)
+#     :config (which-key-enable-god-mode-support))
+# #+END_SRC
 
 **** Try
 
@@ -286,10 +312,10 @@ ThinkPad
 
 Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
-  (setenv "NOTMUCH_CONFIG"
-          (expand-file-name "~/.config/notmuch-config"))
-  (setenv "PASSWORD_STORE_DIR"
-          (expand-file-name "~/.local/share/password-store/"))
+  ;  (setenv "NOTMUCH_CONFIG"
+  ;          (expand-file-name "~/.config/notmuch-config"))
+  ;  (setenv "PASSWORD_STORE_DIR"
+  ;          (expand-file-name "~/.local/share/password-store/"))
 #+END_SRC
 
 * Fixing defaults
@@ -310,6 +336,13 @@ Setting path, email and password variables
 
 ** Aesthetics
 
+*** Colours
+
+#+BEGIN_SRC emacs-lisp
+  (set-background-color "#ffffd0")
+  (set-cursor-color "red")
+#+END_SRC
+
 *** GUI ugliness
 
 Disable all the wasteful bars
@@ -322,14 +355,11 @@ Disable all the wasteful bars
 
 #+END_SRC
 
-*** Font and cursor
+*** Fonts
 
-Use system monospace font, red non-blinking cursor
+This section has been moved to a different file: =./config/fonts.el=
 #+BEGIN_SRC emacs-lisp
-  (set-face-font 'default "Input Mono Light 8")
-;  (set-face-font 'fixed-pitch-serif "Go Mono")
-  (set-cursor-color "red")
-  (blink-cursor-mode -1)
+;  (load-file (concat default-directory config/fonts.el))
 #+END_SRC
 
 *** Disable audible and visual bell
@@ -341,7 +371,7 @@ Use system monospace font, red non-blinking cursor
 *** Form-feed (^L  )
 
 #+BEGIN_SRC emacs-lisp
-;  (show-formfeed-as-pilcrow)
+                                          ;  (show-formfeed-as-pilcrow)
 #+END_SRC
 
 ** Tabs
@@ -509,22 +539,41 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 
 **** pdf-opener
 
+This used to just call an external shell script, but I replaced it
+with a more emacsy version.
+
 #+BEGIN_SRC emacs-lisp
-  (defun pdf-opener ()
-    "Select a .pdf or .ps file to view in zathura"
-    (interactive)
-    (start-process "pdf-opener" nil
-                   "pdf-opener"))
+  (defun list-documents (&optional dir)
+    "Using `find-dired', list all the postscript and pdf files a
+  specified directory.  If called interactively, prompt for
+  Directory. Else, DIR will default to ~/Documents/."
+    (interactive (list (read-directory-name "Find videos where: " "~/Documents/")))
+    (unless dir
+      (setq dir "~/Documents/"))
+    (find-dired dir
+                "\\( -iname \\*.ps -o -iname \\*.pdf \\)")
+    (dired-hide-details-mode t)
+    (setq truncate-lines t))
 #+END_SRC
 
 **** video-opener
 
+This used to just call an external shell script, but I replaced it
+with a more emacsy version. In order to open videos externally,
+=openwith= must be installed as above.
+
 #+BEGIN_SRC emacs-lisp
-  (defun video-opener ()
-    "Select a downloaded video to watch via dmenu and mpv"
-    (interactive)
-    (start-process "video-opener" nil
-                   "video-opener"))
+(defun list-videos (&optional dir)
+  "Using `find-dired', list all the videos a specified directory.
+If called interactively, prompt for Directory. Else, DIR will
+default to ~/Downloads/."
+  (interactive (list (read-directory-name "Find videos where: " "~/Downloads/")))
+  (unless dir
+    (setq dir "~/Downloads/"))
+  (find-dired dir
+              "\\( -iname \\*.mkv -o -iname \\*.avi -o -iname \\*.mp4 -o -iname \\*.webm \\)")
+  (dired-hide-details-mode t)
+  (setq truncate-lines t))
 #+END_SRC
 
 ** Other
@@ -660,10 +709,16 @@ my compile key "C-c C-m".
 ** Info-mode
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'Info-mode-hook 'variable-pitch-mode)
+  (add-hook 'Info-mode-hook 'variable-pitch-mode)
 #+END_SRC
 
 * Keybindings
+
+** Alias <menu> to C-x
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "<menu>") ctl-x-map)
+#+END_SRC
 
 ** Remove =C-z=
 
@@ -725,14 +780,14 @@ Custom notification script with =C-z C-b=.
 I still have some use for dmenu, despite only using emacs...
 All commands are prefixed with =C-z=
 | d | enter commands into dmenu       |
-| P | select a pdf to open with emacs |
-| V | select a video to open with mpv |
+| p | select a pdf to open with emacs |
+| v | select a video to open with mpv |
 | D | choose what to do with a URL    |
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-z d") 'dmenu_recency)
-  (global-set-key (kbd "C-z P") 'pdf-opener)
-  (global-set-key (kbd "C-z V") 'video-opener)
+  (global-set-key (kbd "C-z p") 'list-documents)
+  (global-set-key (kbd "C-z v") 'list-videos)
   (global-set-key (kbd "C-z D") 'dmenuhandler)
 #+END_SRC
 
@@ -789,6 +844,11 @@ email settings
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+END_SRC
+
+
+
+
+
 
 
 
