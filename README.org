@@ -56,12 +56,15 @@ This package lets emacs be used for gpg authentication
 
 Manipulate X windows as emacs buffers.
 #+BEGIN_SRC emacs-lisp
-  (use-package exwm
-    :ensure t
-    :config
-    (require 'exwm-config)
-    (exwm-config-default)
-    (setq exwm-workspace-number 4))
+    (use-package exwm
+      :ensure t
+      :hook
+      (exwm-init . (lambda nil (load-file "~/.emacs.d/config/fonts.el")))
+      (exwm-init . (lambda nil (set-background-color "#ffffd0")))
+      :config
+      (require 'exwm-config)
+      (exwm-config-default)
+      (setq exwm-workspace-number 4))
 #+END_SRC
 
 *** Desktop-environment (useful with EXWM)
