@@ -30,7 +30,6 @@ Install use-package if not installed
 This package lets emacs be used for gpg authentication
 #+BEGIN_SRC emacs-lisp
   (use-package pinentry
-    :ensure t
     :init
     (setq epg-pinentry-mode 'loopback)
     (pinentry-start))
@@ -41,38 +40,43 @@ This package lets emacs be used for gpg authentication
 **** Github markdown
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ox-gfm
-    :ensure t)
+  (use-package ox-gfm)
 #+END_SRC
 
 **** Html export
 
 #+BEGIN_SRC emacs-lisp
-  (use-package htmlize
-    :ensure t)
+  (use-package htmlize)
 #+END_SRC
 
 *** EXWM - Emacs X Window Manager
 
 Manipulate X windows as emacs buffers.
 #+BEGIN_SRC emacs-lisp
-    (use-package exwm
-      :ensure t
-      :hook
-      (exwm-init . (lambda nil (load-file "~/.emacs.d/config/fonts.el")))
-      (exwm-init . (lambda nil (set-background-color "#ffffd0")))
-      :config
-      (require 'exwm-config)
-      (exwm-config-default)
-      (setq exwm-workspace-number 4))
+  (use-package exwm
+    :ensure t
+    :init
+    (add-hook 'exwm-init-hook 'set-up-fonts-please)
+    :config
+    (require 'exwm-config)
+    (exwm-config-default)
+    (exwm-init)
+    (setq exwm-workspace-number 1))
 #+END_SRC
 
 *** Desktop-environment (useful with EXWM)
 
 #+BEGIN_SRC emacs-lisp
+  (require 'my-brightness)
   (use-package desktop-environment
-    :ensure t
-    :config (desktop-environment-mode))
+    :config
+    (setq desktop-environment-screenlock-command
+          "i3lock -c ffffd0 -n")
+    (desktop-environment-mode)
+    (define-key desktop-environment-mode-map
+      (kbd "<XF86MonBrightnessDown>") 'get-brightness)
+    (define-key desktop-environment-mode-map
+      (kbd "<XF86MonBrightnessUp>") 'get-brightness))
 #+END_SRC
 
 *** openwith
@@ -80,13 +84,12 @@ Manipulate X windows as emacs buffers.
 Open files using external program. I only use it for videos.
 
 #+BEGIN_SRC emacs-lisp
-(use-package openwith
-  :ensure t
-  :config
-  (openwith-mode nil)
-  (setq openwith-associations
-        '(("\\.\\(?:mpe?g\\|avi\\|mp4\\|webm\\|mkv\\|wmv\\)\\'" "mpv"
-           (file)))))
+  (use-package openwith
+    :config
+    (openwith-mode nil)
+    (setq openwith-associations
+          '(("\\.\\(?:mpe?g\\|avi\\|mp4\\|webm\\|mkv\\|wmv\\)\\'" "mpv"
+             (file)))))
 #+END_SRC
 
 *** dwm-mode
@@ -102,15 +105,13 @@ Manipulate emacs windows similarly to suckless' dwm.
 **** Geiser
 
 #+BEGIN_SRC emacs-lisp
-  (use-package geiser
-    :ensure t)
+  (use-package geiser)
 #+END_SRC
 
 **** SLIME
 
 #+BEGIN_SRC emacs-lisp
-  (use-package slime
-    :ensure t)
+  (use-package slime)
 #+END_SRC
 
 *** Completion
@@ -120,11 +121,9 @@ Manipulate emacs windows similarly to suckless' dwm.
 A very good package for auto-completion
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :ensure t
-    :init
-    (global-company-mode)
     :config
     (setq company-idle-delay 0))
+  (global-company-mode 'no-thank-you)
 #+END_SRC
 
 *** "Applications"
@@ -141,8 +140,7 @@ A very good package for auto-completion
 A nice mpd front-end in emacs
 (I couldn't get EMMS working with mopidy)
 #+BEGIN_SRC emacs-lisp
-  (use-package mingus
-    :ensure t)
+  (use-package mingus)
 #+END_SRC
 
 **** Notmuch
@@ -150,7 +148,6 @@ A nice mpd front-end in emacs
 A simple email client, with emphasis on searching
 #+BEGIN_SRC emacs-lisp
   (use-package notmuch
-    :ensure t
     :config
     (setq notmuch-archive-tags '("-unread" "-inbox")
           notmuch-search-oldest-first nil))
@@ -160,8 +157,7 @@ A simple email client, with emphasis on searching
 
 An emacs front-end for the transmission bittorrent daemon
 #+BEGIN_SRC emacs-lisp
-  (use-package transmission
-    :ensure t)
+  (use-package transmission)
 #+END_SRC
 
 *** Appearance
@@ -171,12 +167,7 @@ An emacs front-end for the transmission bittorrent daemon
 
 Base16 is a nice theme framework, but moe-theme is my new best friend.
 #+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'base16-theme)
-    (package-refresh-contents)
-    (package-install 'base16-theme))
-  (setq base16-distinct-fringe-background nil)
-  (setq base16-theme-256-color-source "colors")
-                                          ;  (load-theme 'base16-bright t)
+                                          ;  (use-package base16-theme)
 #+END_SRC
 
 **** Rainbow-mode
@@ -185,7 +176,6 @@ This package highlights hex colours
 (also install xterm-color to use in a terminal emulator)
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
-    :ensure t
     :config
     (global-set-key (kbd "C-c h") 'rainbow-mode))
 #+END_SRC
@@ -194,8 +184,7 @@ This package highlights hex colours
 
 Allows a terminal emulator to use 256 colors
 #+BEGIN_SRC emacs-lisp
-  (use-package xterm-color
-    :ensure t)
+  (use-package xterm-color)
 #+END_SRC
 
 **** Rainbow-delimiters
@@ -203,7 +192,6 @@ Allows a terminal emulator to use 256 colors
 Minor mode that highlights parentheses well
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
-    :ensure t
     :init
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
@@ -235,28 +223,16 @@ Minor mode that highlights parentheses well
 smex integrates "M-x" with =ido=
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-    :ensure t
     :init (smex-initialize)
     :bind
     ("M-x" . smex))
 #+END_SRC
 
-**** Which-key
-
-Shows what your keys do
-# #+BEGIN_SRC emacs-lisp
-#   (use-package which-key
-#     :ensure t
-#     :init (which-key-mode)
-#     :config (which-key-enable-god-mode-support))
-# #+END_SRC
-
 **** Try
 
 Allows you to try other packages without committing
 #+BEGIN_SRC emacs-lisp
-  (use-package try
-    :ensure t)
+  (use-package try)
 #+END_SRC
 
 *** Not really useful
@@ -265,8 +241,7 @@ Allows you to try other packages without committing
 
 A 'Lorem ipsum' generator
 #+BEGIN_SRC emacs-lisp
-  (use-package lorem-ipsum
-    :ensure t)
+  (use-package lorem-ipsum)
 #+END_SRC
 
 *** To be confirmed
@@ -274,15 +249,14 @@ A 'Lorem ipsum' generator
 **** Elpher - gopher client
 
 #+BEGIN_SRC emacs-lisp
-  (use-package elpher
-    :ensure t)
+  (use-package elpher)
 #+END_SRC
 
 **** xclip - enable use of X11 clipboard in terminal
 
 #+BEGIN_SRC emacs-lisp
   (use-package xclip
-    :ensure t)
+    )
 #+END_SRC
 
 *** PDF-tools
@@ -290,7 +264,7 @@ A 'Lorem ipsum' generator
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
-    :ensure t)
+    :config (require 'pdf-occur))
 #+END_SRC
 
 *** Mine
@@ -315,10 +289,7 @@ ThinkPad
 
 Setting path, email and password variables
 #+BEGIN_SRC emacs-lisp
-  ;  (setenv "NOTMUCH_CONFIG"
-  ;          (expand-file-name "~/.config/notmuch-config"))
-  ;  (setenv "PASSWORD_STORE_DIR"
-  ;          (expand-file-name "~/.local/share/password-store/"))
+
 #+END_SRC
 
 * Fixing defaults
@@ -342,6 +313,10 @@ Setting path, email and password variables
 *** Colours
 
 #+BEGIN_SRC emacs-lisp
+  (defun set-up-background-colour-please ()
+    "Sets background colour to #ffffd0"
+    (set-background-color "#ffffd0"))
+
   (set-background-color "#ffffd0")
   (set-cursor-color "red")
 #+END_SRC
@@ -350,31 +325,28 @@ Setting path, email and password variables
 
 Disable all the wasteful bars
 #+BEGIN_SRC emacs-lisp
-  (when (window-system)
-    (scroll-bar-mode -1)
-    (fringe-mode 1))
+  (scroll-bar-mode -1)
+  (fringe-mode 1)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
-
 #+END_SRC
 
 *** Fonts
 
 This section has been moved to a different file: =./config/fonts.el=
 #+BEGIN_SRC emacs-lisp
-;  (load-file (concat default-directory config/fonts.el))
+  (defun set-up-fonts-please ()
+    (interactive)
+    (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
+
+  (add-hook 'after-make-frame-functions
+            (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
 #+END_SRC
 
 *** Disable audible and visual bell
 
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
-#+END_SRC
-
-*** Form-feed (^L  )
-
-#+BEGIN_SRC emacs-lisp
-                                          ;  (show-formfeed-as-pilcrow)
 #+END_SRC
 
 ** Tabs
@@ -417,6 +389,7 @@ ibuffer is also a lot better than the default
 Use a keybinding for viewing manpages
 
 #+BEGIN_SRC emacs-lisp
+  (setq Man-width 80)
   (global-set-key (kbd "C-h C-m") 'man)
 #+END_SRC
 
@@ -466,7 +439,9 @@ Visit your config file. Bound to "C-c e" in =Keybindings= section.
     (interactive)
     (bookmark-maybe-load-default-file)
     (bookmark-jump
-     (ido-completing-read "Bookmark: " bookmark-alist)))
+     (ido-completing-read "Open bookmark: "
+                          (mapcar (lambda (x) (car x)) bookmark-alist))))
+
 #+END_SRC
 
 ** Reloading config
@@ -566,17 +541,17 @@ with a more emacsy version. In order to open videos externally,
 =openwith= must be installed as above.
 
 #+BEGIN_SRC emacs-lisp
-(defun list-videos (&optional dir)
-  "Using `find-dired', list all the videos a specified directory.
-If called interactively, prompt for Directory. Else, DIR will
-default to ~/Downloads/."
-  (interactive (list (read-directory-name "Find videos where: " "~/Downloads/")))
-  (unless dir
-    (setq dir "~/Downloads/"))
-  (find-dired dir
-              "\\( -iname \\*.mkv -o -iname \\*.avi -o -iname \\*.mp4 -o -iname \\*.webm \\)")
-  (dired-hide-details-mode t)
-  (setq truncate-lines t))
+  (defun list-videos (&optional dir)
+    "Using `find-dired', list all the videos a specified directory.
+  If called interactively, prompt for Directory. Else, DIR will
+  default to ~/Downloads/."
+    (interactive (list (read-directory-name "Find videos where: " "~/Downloads/")))
+    (unless dir
+      (setq dir "~/Downloads/"))
+    (find-dired dir
+                "\\( -iname \\*.mkv -o -iname \\*.avi -o -iname \\*.mp4 -o -iname \\*.webm -o -iname \\*.m4v \\)")
+    (dired-hide-details-mode t)
+    (setq truncate-lines t))
 #+END_SRC
 
 ** Other
@@ -627,7 +602,7 @@ Use lilypond mode for .ly files
 (taken from lilypond.org)
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "/usr/share/emacs/site-lisp")
-  (require 'lilypond-mode)
+                                          ;  (require 'lilypond-mode)
   (add-to-list 'load-path "~/.emacs.d/lisp/sane-lilypond")
   (require 'sane-lilypond-mode)
   (add-hook 'LilyPond-mode-hook
@@ -709,12 +684,6 @@ my compile key "C-c C-m".
               (local-unset-key (kbd "C-c C-m"))))
 #+END_SRC
 
-** Info-mode
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'Info-mode-hook 'variable-pitch-mode)
-#+END_SRC
-
 * Keybindings
 
 ** Alias <menu> to C-x
@@ -728,6 +697,7 @@ my compile key "C-c C-m".
 #+BEGIN_SRC emacs-lisp
   (global-unset-key (kbd "C-z"))
 #+END_SRC
+
 ** Interaction with Emacs
 
 *** ido-bookmark-jump (custom function)
@@ -739,9 +709,11 @@ Open a bookmark with the default keybinding =C-x r b=, but with ido
 #+END_SRC
 
 *** eww-list-bookmarks
+
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x r e") 'eww-list-bookmarks)
 #+END_SRC
+
 *** Terminal functionality
 
 Rebinding some useful keys that can't be used in a terminal.
@@ -760,6 +732,7 @@ Rebinding some useful keys that can't be used in a terminal.
   (global-set-key (kbd "C-z C-z") 'bury-buffer)
   (global-set-key (kbd "C-z z") 'kill-buffer-and-window)
 #+END_SRC
+
 ** Config
 
 #+BEGIN_SRC emacs-lisp
@@ -782,10 +755,13 @@ Custom notification script with =C-z C-b=.
 
 I still have some use for dmenu, despite only using emacs...
 All commands are prefixed with =C-z=
+|---+---------------------------------|
 | d | enter commands into dmenu       |
 | p | select a pdf to open with emacs |
 | v | select a video to open with mpv |
 | D | choose what to do with a URL    |
+|---+---------------------------------|
+
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-z d") 'dmenu_recency)
@@ -847,15 +823,3 @@ email settings
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+END_SRC
-
-
-
-
-
-
-
-
-
-
-
-
