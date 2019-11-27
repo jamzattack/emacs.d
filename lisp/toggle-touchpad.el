@@ -41,7 +41,7 @@ touchpad is disabled.")
   (message "Mouse input enabled"))
 
 (defun toggle-touchpad ()
-  "Toggles the touchpad. If the valiable `touchpad-disabled-p' is
+  "Toggles the touchpad. If the variable `touchpad-disabled-p' is
 nil, enable it. Otherwise, enable it."
   (interactive)
   (if touchpad-disabled-p

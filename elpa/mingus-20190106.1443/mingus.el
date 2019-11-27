@@ -2219,14 +2219,21 @@ Argument OVERRIDE defines whether to treat the situation as new."
   (define-fringe-bitmap 'mingus-NP-fringe
     [128 192 224 240 248 252 248 240 224 192 128]))
 
+;; (defvar
+;;   *mingus-playing-string*
+;;   (if window-system
+;;       (propertize
+;;        ">> "
+;;        'display
+;;        '(left-fringe mingus-NP-fringe))
+;;     (propertize ">> " 'face 'mingus-playing-face)))
+
 (defvar
   *mingus-playing-string*
-  (if window-system
-      (propertize
-       ">> "
-       'display
-       '(left-fringe mingus-NP-fringe))
-    (propertize ">> " 'face 'mingus-playing-face)))
+  (propertize
+   ">> "
+   'display
+   '(left-fringe mingus-NP-fringe)))
 
 ;; 1 0 0 0 0 0 0 0
 ;; 1 1 0 0 0 0 0 0
