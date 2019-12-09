@@ -25,6 +25,24 @@ Install use-package if not installed
 
 ** Installed Packages
 
+*** HELM
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure t
+    :init (setq helm-completion-style 'emacs)
+    :config (helm-mode t)
+    :bind (("M-x" . 'helm-M-x)
+           ("M-s o" . 'helm-occur)
+           ("C-x C-f" . 'helm-find-files)
+           ("C-x r b" . 'helm-filtered-bookmarks)
+           :map helm-map
+           ("C-z" . 'helm-select-action)
+           ("C-i" . 'helm-execute-persistent-action)
+           ("C-h c" . 'describe-key-briefly)
+           ("C-c c" . 'helm-customize-group)))
+#+END_SRC
+
 *** Pinentry
 
 This package lets emacs be used for gpg authentication
@@ -120,10 +138,9 @@ Manipulate emacs windows similarly to suckless' dwm.
 
 A very good package for auto-completion
 #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :config
-    (setq company-idle-delay 0))
-  (global-company-mode 'no-thank-you)
+  ;; (use-package company
+  ;;   :config
+  ;;   (setq company-idle-delay 0))
 #+END_SRC
 
 *** "Applications"
@@ -150,16 +167,43 @@ A simple email client, with emphasis on searching
   (use-package notmuch
     :config
     (setq notmuch-archive-tags '("-unread" "-inbox")
-          notmuch-search-oldest-first nil))
+          notmuch-search-oldest-first nil)
+    :bind
+    (:map notmuch-show-mode-map
+          ("u" . 'eww-follow-link)))
 #+END_SRC
 
 **** Transmission
 
 An emacs front-end for the transmission bittorrent daemon
 #+BEGIN_SRC emacs-lisp
-  (use-package transmission)
+  (use-package transmission
+    :config
+    (defun transmission-add-url-at-point (url)
+      "Adds torrent if point is on a magnet link"
+      (interactive (list (shr-url-at-point current-prefix-arg)))
+      (transmission-add url)))
 #+END_SRC
 
+**** EWW (bultin)
+#+BEGIN_SRC emacs-lisp
+  (defun f22 (url)
+    "Plays video with mpv, provided URL is supported by
+        youtube-dl."
+    (interactive (list
+                  (if current-prefix-arg
+                      (read-file-name "file or url: ")
+                    (shr-url-at-point current-prefix-arg))))
+    (shell-command
+     (concat "f22 " url " &")))
+                                          ;
+  (use-package eww
+    :bind
+    (("C-x r e" . 'eww-list-bookmarks)
+     (:map eww-mode-map
+           ("m" . 'transmission-add-url-at-point)
+           ("f" . 'f22))))
+#+END_SRC
 *** Appearance
 **** Theme
 
@@ -174,26 +218,57 @@ Base16 is a nice theme framework, but moe-theme is my new best friend.
 
 This package highlights hex colours
 (also install xterm-color to use in a terminal emulator)
+
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
-    :config
-    (global-set-key (kbd "C-c h") 'rainbow-mode))
-#+END_SRC
-
-**** xterm-color
-
-Allows a terminal emulator to use 256 colors
-#+BEGIN_SRC emacs-lisp
-  (use-package xterm-color)
+    :bind (("C-c h" . 'rainbow-mode)))
 #+END_SRC
 
 **** Rainbow-delimiters
 
 Minor mode that highlights parentheses well
+
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :init
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+#+END_SRC
+
+**** Dim (unclutter mode-line)
+
+From Alezost, remove clutter in the mode-line.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dim
+    :config
+    (dim-major-names
+     '((lisp-interaction-mode "eλ")
+       (emacs-lisp-mode    "el")
+       (lisp-mode          "cl")
+       (scheme-mode        "scm")
+       (org-mode           "org")
+       (Info-mode          "info")
+       (LilyPond-mode      "ly")
+       (ibuffer-mode        "ibu")
+       (lilypond-mode      "ly")
+       (help-mode          "?")))
+    (dim-minor-names
+     '((auto-fill-function " ")
+       (isearch-mode       " ")
+       (helm-mode          "")
+       (org-src-mode       " *" org)
+       (desktop-environment-mode "" desktop-environment)
+       (eldoc-mode         ""    eldoc))))
+#+END_SRC
+
+**** Dimmer (dim inactive buffers)
+
+Dims inactive buffers, so that you can more clearly see which window
+you're in (sometimes the mode-line just doesn't cut it).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dimmer
+    :config (setq dimmer-fraction 0.2))
 #+END_SRC
 
 *** god-mode
@@ -221,12 +296,10 @@ Minor mode that highlights parentheses well
 **** Smex
 
 smex integrates "M-x" with =ido=
-#+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :init (smex-initialize)
-    :bind
-    ("M-x" . smex))
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+#   (use-package smex
+#     :init (smex-initialize))
+# #+END_SRC
 
 **** Try
 
@@ -264,7 +337,9 @@ A 'Lorem ipsum' generator
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
-    :config (require 'pdf-occur))
+    :defer t
+    :config
+    (pdf-tools-install)) 
 #+END_SRC
 
 *** Mine
@@ -277,7 +352,7 @@ ThinkPad
 #+BEGIN_SRC emacs-lisp
   (use-package toggle-touchpad
     :load-path "~/.emacs.d/lisp/"
-    :after init
+    :defer t
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
      ("C-z \\" . 'toggle-touchpad)))
@@ -287,9 +362,9 @@ ThinkPad
 
 ** Environment Variables
 
-Setting path, email and password variables
+Change $EDITOR to use the graphical emacs instance
 #+BEGIN_SRC emacs-lisp
-
+  (setenv "EDITOR" "emacsclient")
 #+END_SRC
 
 * Fixing defaults
@@ -318,7 +393,7 @@ Setting path, email and password variables
     (set-background-color "#ffffd0"))
 
   (set-background-color "#ffffd0")
-  (set-cursor-color "red")
+  (set-cursor-color "black")
 #+END_SRC
 
 *** GUI ugliness
@@ -363,19 +438,18 @@ Tabs are 4 spaces wide
 
 ido-mode is much better than the default for switching
 buffers and going to files.
-#+BEGIN_SRC emacs-lisp
-  (setq ido-enable-flex-matching nil)
-  (setq ido-create-new-buffer 'always)
-  (setq ido-everywhere t)
-  (ido-mode 1)
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+#   (setq ido-enable-flex-matching nil)
+#   (setq ido-create-new-buffer 'always)
+#   (ido-everywhere t)
+# #+END_SRC
 
 *** ibuffer
 
 ibuffer is also a lot better than the default
 (plus it has colours)
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (bind-key "C-x C-b" 'ibuffer)
 #+END_SRC
 
 ** desktop-save
@@ -384,13 +458,17 @@ ibuffer is also a lot better than the default
   (desktop-save-mode t)
 #+END_SRC
 
+** dired
+#+BEGIN_SRC emacs-lisp
+  (setq dired-listing-switches "-lah --group-directories-first")
+#+END_SRC
 ** Help
 
 Use a keybinding for viewing manpages
 
 #+BEGIN_SRC emacs-lisp
   (setq Man-width 80)
-  (global-set-key (kbd "C-h C-m") 'man)
+  (bind-key "C-h C-m" 'man)
 #+END_SRC
 
 * Custom functions
@@ -415,7 +493,7 @@ Use a keybinding for viewing manpages
       (enlarge-window-horizontally 1)            
       (call-interactively 'v-resize)) 
      (t (push key unread-command-events))))
-  (global-set-key (kbd "C-c +") 'v-resize)
+  (bind-key "C-c +" 'v-resize)
 #+END_SRC
 
 ** Go to config file
@@ -433,6 +511,8 @@ Visit your config file. Bound to "C-c e" in =Keybindings= section.
 *** Bookmarks
 
 #+BEGIN_SRC emacs-lisp
+  (require 'bookmark)
+
   (defun ido-bookmark-jump ()
     "An ido wrapper for `bookmark-jump'. Designed for interactive
   use, so just use `bookmark-jump' in elisp."
@@ -601,14 +681,14 @@ with a more emacsy version. In order to open videos externally,
 Use lilypond mode for .ly files
 (taken from lilypond.org)
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "/usr/share/emacs/site-lisp")
-                                          ;  (require 'lilypond-mode)
-  (add-to-list 'load-path "~/.emacs.d/lisp/sane-lilypond")
-  (require 'sane-lilypond-mode)
+  (require 'lilypond-mode)
+  ;; (require 'sane-lilypond-mode)
+  (setq auto-mode-alist
+        (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+
   (add-hook 'LilyPond-mode-hook
             (lambda () (interactive)
-              (local-set-key (kbd "C-i") 'sane-lilypond-indent)
-              (local-set-key (kbd "<S-iso-lefttab>") 'sane-lilypond-deindent)))
+              (set-comment-column 0)))
 #+END_SRC
 
 ** Electric pairs
@@ -689,7 +769,7 @@ my compile key "C-c C-m".
 ** Alias <menu> to C-x
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<menu>") ctl-x-map)
+  (bind-key "<menu>" ctl-x-map)
 #+END_SRC
 
 ** Remove =C-z=
@@ -705,13 +785,7 @@ my compile key "C-c C-m".
 Open a bookmark with the default keybinding =C-x r b=, but with ido
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x r b") 'ido-bookmark-jump)
-#+END_SRC
-
-*** eww-list-bookmarks
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x r e") 'eww-list-bookmarks)
+  ;; (bind-key "C-x r b" 'ido-bookmark-jump)
 #+END_SRC
 
 *** Terminal functionality
@@ -721,22 +795,22 @@ Rebinding some useful keys that can't be used in a terminal.
 #+BEGIN_SRC emacs-lisp
   (unless (window-system)
     ;; Comments -- C-x C-;
-    (global-set-key (kbd "C-c ;") 'comment-line)
+    (bind-key "C-c ;" 'comment-line)
     ;; Indentation -- C-M-\"
-    (global-set-key (kbd "C-c \\") 'indent-region))
+    (bind-key "C-c \\" 'indent-region))
 #+END_SRC
 
 *** bury-buffer and kill-buffer-and-window
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-z C-z") 'bury-buffer)
-  (global-set-key (kbd "C-z z") 'kill-buffer-and-window)
+  (bind-key "C-z C-z" 'bury-buffer)
+  (bind-key "C-z z" 'kill-buffer-and-window)
 #+END_SRC
 
 ** Config
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c r") 'config-reload)
+  (bind-key "C-c r" 'config-reload)
 #+END_SRC
 
 ** General WM stuff
@@ -747,8 +821,8 @@ Built-in battery function with =C-z b=.
 Custom notification script with =C-z C-b=. 
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-z b") 'battery)
-  (global-set-key (kbd "C-z C-b") 'notibar)
+  (bind-key "C-z b" 'battery)
+  (bind-key "C-z C-b" 'notibar)
 #+END_SRC
 
 *** dmenu scripts
@@ -764,10 +838,11 @@ All commands are prefixed with =C-z=
 
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-z d") 'dmenu_recency)
-  (global-set-key (kbd "C-z p") 'list-documents)
-  (global-set-key (kbd "C-z v") 'list-videos)
-  (global-set-key (kbd "C-z D") 'dmenuhandler)
+  (bind-keys 
+   ("C-z d" . dmenu_recency)
+   ("C-z p" . list-documents)
+   ("C-z v" . list-videos)
+   ("C-z D" . dmenuhandler))
 #+END_SRC
 
 ** Programming/Typesetting
@@ -779,8 +854,9 @@ or =RET= to skip the prompt.
 LilyPond).
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c C-m") 'compile)
-  (global-set-key (kbd "C-c p") 'opout)
+  (bind-keys
+   ("C-c C-m" . compile)
+   ("C-c p" . opout))
 #+END_SRC
 
 ** Miscellaneous
@@ -788,19 +864,19 @@ LilyPond).
 *** Line numbers
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c n") 'display-line-numbers-mode)
+  (bind-key "C-c n" 'display-line-numbers-mode)
 #+END_SRC
 
 *** Spelling correction
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c s") 'flyspell-mode)
+  (bind-key "C-c s" 'flyspell-mode)
 #+END_SRC
 
 *** Line wrap
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c l") 'toggle-truncate-lines)
+  (bind-key "C-c l" 'toggle-truncate-lines)
 #+END_SRC
 
 * Mode-line
