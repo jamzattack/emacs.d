@@ -1,18 +1,20 @@
 ;; This is my font configuration file. It sets up cjk fonts that can be
-;; difficult, and uses Input Mono & Sans at the right sizes.
+;; difficult, and uses Linux Libertine at the right sizes.
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
+(setq my-default-font "Linux Libertine Mono O")
+
 (set-face-attribute 'default nil
-                    :font "Input Mono Light 8")
+                    :font (concat my-default-font " 8"))
 (set-face-attribute 'variable-pitch nil
-                    :font "Input Sans"
-                    :height 1.0)
+                    :font "Linux Libertine O"
+                    :height 1.1)
 (set-face-attribute 'fixed-pitch-serif nil
-                    :font "Go Mono"
+                    :font "Noto Sans Mono"
                     :height 1.0)
 
 ;; Latin
-(set-fontset-font t 'latin "Noto Sans")
+(set-fontset-font t 'latin "Linux Libertine Mono O")
 
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
 ;;
@@ -24,8 +26,9 @@
 (set-fontset-font t 'cjk-misc "Noto Sans CJK KR Bold")
 
 (set-fontset-font t 'unicode "Symbola" nil 'append)
+(set-fontset-font t 'unicode "Noto Emoji" nil 'append)
 
-(set-fontset-font t 'cyrillic "Input Mono")
+(set-fontset-font t 'cyrillic my-default-font)
 
 ;; South East Asia: ជំរាបសួរ, ສະບາຍດີ, မင်္ဂလာပါ, สวัสดีครับ
 (set-fontset-font t 'khmer "Noto Serif Khmer Medium")
@@ -37,8 +40,12 @@
 (set-fontset-font t 'ethiopic "Noto Sans Ethiopic Medium")
 
 ;; Middle/Near East: שלום, السّلام عليكم
-(set-fontset-font t 'hebrew "Noto Sans Hebrew Medium")
+(set-fontset-font t 'hebrew "Noto Serif Hebrew Medium")
 (set-fontset-font t 'arabic "Noto Sans Arabic Medium")
+
+;; (set-fontset-font t 'hebrew my-default-font)
+;; (set-fontset-font t 'arabic my-default-font)
+
 
 ;;  South Asia: નમસ્તે, नमस्ते, ನಮಸ್ಕಾರ, നമസ്കാരം, ଶୁଣିବେ,
 ;;              ආයුබෝවන්, வணக்கம், నమస్కారం, བཀྲ་ཤིས་བདེ་ལེགས༎
