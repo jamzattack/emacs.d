@@ -3,7 +3,8 @@
   (interactive)
   (set-face-attribute 'mode-line nil
                       :background "#afdf77"
-                      :foreground "black")
+                      :foreground "black"
+                      :reverse-video nil)
   (set-face-attribute 'header-line nil
                       :background "#afdf77"
                       :foreground "black")
@@ -18,7 +19,8 @@
   (interactive)
   (set-face-attribute 'mode-line nil
                       :background "#e6a8df"
-                      :foreground "black")
+                      :foreground "black"
+                      :reverse-video nil)
   (set-face-attribute 'header-line nil
                       :background "#e6a8df"
                       :foreground "black")

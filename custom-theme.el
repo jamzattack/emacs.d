@@ -15,11 +15,8 @@
    `(border-color ((,class (:inherit 'default))))
    `(line-number-current-line ((,class (:inherit 'secondary-selection))))
    `(secondary-selection ((,class (:background "khaki1" :extend t))))
-   `(helm-selection-line ((,class (:inherit 'cursor))))
    `(helm-source-header ((,class (:inherit 'bold))))
-   `(secondary-selection ((,class (:background "khaki1" :extend t))))
-   `(secondary-selection ((,class (:background "khaki1" :extend t))))
-   `(secondary-selection ((,class (:background "khaki1" :extend t)))))
+   `(helm-selection-line ((,class (:inherit 'hl-line)))))
   (setq pdf-view-midnight-colors '("white" . "black")))
 
 (provide-theme 'custom)

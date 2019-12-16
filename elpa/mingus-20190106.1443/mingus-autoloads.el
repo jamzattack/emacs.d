@@ -10,9 +10,7 @@
 ;;; Generated autoloads from mingus.el
 
 (autoload 'mingus-help "mingus" "\
-Help screen for `mingus'.
-
-\(fn)" t nil)
+Help screen for `mingus'." t nil)
 
 (autoload 'mingus "mingus" "\
 MPD Interface by Niels Giesen, Useful and Simple.
@@ -22,11 +20,9 @@ Actually it is just named after that great bass player.
 \(fn &optional SET-VARIABLES)" t nil)
 
 (autoload 'mingus-browse "mingus" "\
-Switch to buffer *Mingus Browser* and start the Mingus browsing experience.
+Switch to buffer *Mingus Browser* and start the Mingus browsing experience." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "mingus" '("mingus-" "_mingus-" "*mingus-")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "mingus" '("*mingus-" "_mingus-" "mingus-")))
 
 ;;;***
 
@@ -34,7 +30,7 @@ Switch to buffer *Mingus Browser* and start the Mingus browsing experience.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from mingus-stays-home.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "mingus-stays-home" '("mingus-" "*mingus-b-session*")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "mingus-stays-home" '("*mingus-b-session*" "mingus-")))
 
 ;;;***
 

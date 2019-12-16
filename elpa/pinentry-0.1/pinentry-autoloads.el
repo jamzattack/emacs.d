@@ -13,9 +13,7 @@
 Start a Pinentry service.
 
 Once the environment is properly set, subsequent invocations of
-the gpg command will interact with Emacs for passphrase input.
-
-\(fn)" t nil)
+the gpg command will interact with Emacs for passphrase input." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pinentry" '("pinentry-")))
 

@@ -16,11 +16,9 @@ When called with a prefix, prompt for DIRECTORY.
 \(fn TORRENT &optional DIRECTORY)" t nil)
 
 (autoload 'transmission "transmission" "\
-Open a `transmission-mode' buffer.
+Open a `transmission-mode' buffer." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "transmission" '("transmission-" "eta>=?" "ratio>?" "percent-done>?" "size" "upload>?" "define-transmission-predicate" "download>?")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "transmission" '("define-transmission-predicate" "download>?" "eta>=?" "percent-done>?" "ratio>?" "size" "transmission-" "upload>?")))
 
 ;;;***
 

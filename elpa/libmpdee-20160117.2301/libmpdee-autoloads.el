@@ -273,11 +273,9 @@ Use connection CONN to disable mpd output ID.
 \(fn CONN ID)" t nil)
 
 (autoload 'mpd-libmpdee-submit-bug-report "libmpdee" "\
-Interactively submit a bug report about `libmpdee'.
+Interactively submit a bug report about `libmpdee'." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "libmpdee" '("mpd-" "widget-mpd-format-handler" "with-mpd-" "libmpdee-version")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "libmpdee" '("libmpdee-version" "mpd-" "widget-mpd-format-handler" "with-mpd-")))
 
 ;;;***
 

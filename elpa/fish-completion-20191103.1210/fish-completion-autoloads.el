@@ -13,11 +13,6 @@
 (autoload 'fish-completion-mode "fish-completion" "\
 Turn on/off fish shell completion in all future shells or Eshells.
 
-If called interactively, enable Fish-Completion mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
-
 In `shell', completion is replaced by fish completion.
 In `eshell', fish completion is only used when `pcomplete' fails.
 
