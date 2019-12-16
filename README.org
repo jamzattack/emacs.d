@@ -23,34 +23,157 @@ Install use-package if not installed
     (package-install 'use-package))
 #+END_SRC
 
-** Installed Packages
+*** Fonts
 
-*** HELM
+This section has been moved to a different file: =./config/fonts.el=
+#+BEGIN_SRC emacs-lisp
+  (defun set-up-fonts-please ()
+    (interactive)
+    (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
+
+  (add-hook 'after-make-frame-functions
+            (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
+#+END_SRC
+
+** Built-in
+*** EWW 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eww
+    :custom (browse-url-browser-function 'eww-browse-url)
+    :bind
+    (("C-x r e" . 'eww-list-bookmarks)
+     (:map eww-mode-map
+           ("m" . 'transmission-add-url-at-point)
+           ("f" . 'dmenu-handler-stream))))
+#+END_SRC
+
+*** recentf
+
+#+BEGIN_SRC emacs-lisp
+  (use-package recentf
+  :init (recentf-load-list))
+#+END_SRC
+
+*** ido 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ido
+    :init (require 'ido-bookmark-jump)
+    :bind ("C-x r b" . ido-bookmark-jump)
+    :init (ido-everywhere t)
+    :custom (max-mini-window-height 1))
+#+END_SRC
+
+** My packages
+
+*** Toggle-touchpad
+
+A simple package I wrote to toggle the touchpad/trackpoint on my
+ThinkPad
+
+#+BEGIN_SRC emacs-lisp
+  (use-package toggle-touchpad
+    :load-path "~/.emacs.d/lisp/"
+    :defer t
+    :bind
+    (("<XF86TouchpadToggle>" . 'toggle-touchpad)
+     ("C-z \\" . 'toggle-touchpad)))
+#+END_SRC
+
+*** dmenu-handler
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dmenu-handler
+    :load-path "~/.emacs.d/lisp/dmenu"
+    :bind
+    (("C-z D" . 'dmenu-handler)))
+#+END_SRC
+
+*** dwm-mode
+Manipulate emacs windows similarly to suckless' dwm.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dwm
+    :load-path "~/.emacs.d/lisp/"
+    :config (setq dwm-mode-emulate-keybindings t))
+#+END_SRC
+
+*** search-query
+
+#+BEGIN_SRC emacs-lisp
+  (use-package search-query
+    :bind (("C-z t" . torrentz2-search)
+           ("C-z y" . youtube-search)
+           ("C-z w" . wikipedia-search)))
+#+END_SRC
+
+** ELPA Packages
+
+*** COMMENT HELM
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
-    :init (setq helm-completion-style 'emacs)
-    :config (helm-mode t)
+    :custom (helm-completion-style 'emacs)
+    :config
+    (require 'helm-config)
+    (ido-mode -1)
+    (helm-mode t)
     :bind (("M-x" . 'helm-M-x)
            ("M-s o" . 'helm-occur)
+           ("C-x b" . 'helm-mini)
            ("C-x C-f" . 'helm-find-files)
            ("C-x r b" . 'helm-filtered-bookmarks)
+           ("C-x r i" . 'helm-register)
+           ("M-y" . 'helm-show-kill-ring)
            :map helm-map
-           ("C-z" . 'helm-select-action)
-           ("C-i" . 'helm-execute-persistent-action)
-           ("C-h c" . 'describe-key-briefly)
-           ("C-c c" . 'helm-customize-group)))
+           ("C-h c" . 'describe-key-briefly)))
 #+END_SRC
 
+**** Helm system packages
+
+Provides an abstraction layer for viewing and installing system
+packages.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-system-packages
+    :after helm)
+#+END_SRC
+
+**** Helm notmuch
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-notmuch
+    :after (helm notmuch))
+#+END_SRC
+
+**** Helm man
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-man
+    :after (helm man woman)
+    :custom (man-width 80)
+    :bind ("C-h C-m" . 'helm-man-woman))
+#+END_SRC
 *** Pinentry
 
 This package lets emacs be used for gpg authentication
 #+BEGIN_SRC emacs-lisp
   (use-package pinentry
+    :custom (epg-pinentry-mode 'loopback)
     :init
-    (setq epg-pinentry-mode 'loopback)
     (pinentry-start))
+#+END_SRC
+
+*** Helpful
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :bind (([remap describe-function] . helpful-function)
+           ([remap describe-variable] . helpful-variable)
+           ([remap describe-key] . helpful-key)
+           ("C-h SPC" . helpful-at-point)))
 #+END_SRC
 
 *** Org
@@ -73,50 +196,24 @@ Manipulate X windows as emacs buffers.
 #+BEGIN_SRC emacs-lisp
   (use-package exwm
     :ensure t
+    :custom (exwm-workspace-number 1)
     :init
     (add-hook 'exwm-init-hook 'set-up-fonts-please)
     :config
     (require 'exwm-config)
     (exwm-config-default)
-    (exwm-init)
-    (setq exwm-workspace-number 1))
+    (exwm-init))
 #+END_SRC
 
-*** Desktop-environment (useful with EXWM)
+**** Desktop-environment (useful with EXWM)
 
 #+BEGIN_SRC emacs-lisp
-  (require 'my-brightness)
   (use-package desktop-environment
-    :config
-    (setq desktop-environment-screenlock-command
-          "i3lock -c ffffd0 -n")
-    (desktop-environment-mode)
-    (define-key desktop-environment-mode-map
-      (kbd "<XF86MonBrightnessDown>") 'get-brightness)
-    (define-key desktop-environment-mode-map
-      (kbd "<XF86MonBrightnessUp>") 'get-brightness))
-#+END_SRC
-
-*** openwith
-
-Open files using external program. I only use it for videos.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package openwith
-    :config
-    (openwith-mode nil)
-    (setq openwith-associations
-          '(("\\.\\(?:mpe?g\\|avi\\|mp4\\|webm\\|mkv\\|wmv\\)\\'" "mpv"
-             (file)))))
-#+END_SRC
-
-*** dwm-mode
-Manipulate emacs windows similarly to suckless' dwm.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package dwm
-    :load-path "~/.emacs.d/lisp/"
-    :config (setq dwm-mode-emulate-keybindings t))
+    :custom
+    (desktop-environment-screenlock-command
+     "i3lock -c ffffd0 -n")
+    :init
+    (desktop-environment-mode))
 #+END_SRC
 
 *** Programming
@@ -130,17 +227,6 @@ Manipulate emacs windows similarly to suckless' dwm.
 
 #+BEGIN_SRC emacs-lisp
   (use-package slime)
-#+END_SRC
-
-*** Completion
-
-**** Company
-
-A very good package for auto-completion
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package company
-  ;;   :config
-  ;;   (setq company-idle-delay 0))
 #+END_SRC
 
 *** "Applications"
@@ -185,33 +271,14 @@ An emacs front-end for the transmission bittorrent daemon
       (transmission-add url)))
 #+END_SRC
 
-**** EWW (bultin)
-#+BEGIN_SRC emacs-lisp
-  (defun f22 (url)
-    "Plays video with mpv, provided URL is supported by
-        youtube-dl."
-    (interactive (list
-                  (if current-prefix-arg
-                      (read-file-name "file or url: ")
-                    (shr-url-at-point current-prefix-arg))))
-    (shell-command
-     (concat "f22 " url " &")))
-                                          ;
-  (use-package eww
-    :bind
-    (("C-x r e" . 'eww-list-bookmarks)
-     (:map eww-mode-map
-           ("m" . 'transmission-add-url-at-point)
-           ("f" . 'f22))))
-#+END_SRC
 *** Appearance
 **** Theme
 
-***** base16
+***** COMMENT base16
 
 Base16 is a nice theme framework, but moe-theme is my new best friend.
 #+BEGIN_SRC emacs-lisp
-                                          ;  (use-package base16-theme)
+  (use-package base16-theme)
 #+END_SRC
 
 **** Rainbow-mode
@@ -256,6 +323,7 @@ From Alezost, remove clutter in the mode-line.
      '((auto-fill-function " ")
        (isearch-mode       " ")
        (helm-mode          "")
+       (god-local-mode     " ∞")
        (org-src-mode       " *" org)
        (desktop-environment-mode "" desktop-environment)
        (eldoc-mode         ""    eldoc))))
@@ -268,7 +336,7 @@ you're in (sometimes the mode-line just doesn't cut it).
 
 #+BEGIN_SRC emacs-lisp
   (use-package dimmer
-    :config (setq dimmer-fraction 0.2))
+    :custom (dimmer-fraction 0.2))
 #+END_SRC
 
 *** god-mode
@@ -276,6 +344,9 @@ you're in (sometimes the mode-line just doesn't cut it).
 #+BEGIN_SRC emacs-lisp
   (use-package god-mode
     :ensure t
+    :custom
+    ((god-exempt-major-modes nil)
+     (god-exempt-predicates nil))
     :bind
     (("<f8>" . 'god-mode-all)
      ("<right>" . 'god-mode-all)
@@ -284,11 +355,7 @@ you're in (sometimes the mode-line just doesn't cut it).
     :init
     (require 'my-mode-line)
     (add-hook 'god-mode-enabled-hook 'mode-line-purple)
-    (add-hook 'god-mode-disabled-hook 'mode-line-green)
-    :config
-    (setq god-exempt-major-modes nil
-          god-exempt-predicates nil)
-    (god-mode))
+    (add-hook 'god-mode-disabled-hook 'mode-line-green))
 #+END_SRC
 
 *** Quality of life
@@ -296,10 +363,11 @@ you're in (sometimes the mode-line just doesn't cut it).
 **** Smex
 
 smex integrates "M-x" with =ido=
-# #+BEGIN_SRC emacs-lisp
-#   (use-package smex
-#     :init (smex-initialize))
-# #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :init (smex-initialize)
+    :bind ("M-x" . smex ))
+#+END_SRC
 
 **** Try
 
@@ -337,25 +405,8 @@ A 'Lorem ipsum' generator
 Majorly increases performance when viewing pdfs as a file
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
-    :defer t
     :config
-    (pdf-tools-install)) 
-#+END_SRC
-
-*** Mine
-
-**** Toggle-touchpad
-
-A simple package I wrote to toggle the touchpad/trackpoint on my
-ThinkPad
-
-#+BEGIN_SRC emacs-lisp
-  (use-package toggle-touchpad
-    :load-path "~/.emacs.d/lisp/"
-    :defer t
-    :bind
-    (("<XF86TouchpadToggle>" . 'toggle-touchpad)
-     ("C-z \\" . 'toggle-touchpad)))
+    (pdf-tools-install))
 #+END_SRC
 
 * Stuff to do when loading
@@ -406,18 +457,6 @@ Disable all the wasteful bars
   (tool-bar-mode -1)
 #+END_SRC
 
-*** Fonts
-
-This section has been moved to a different file: =./config/fonts.el=
-#+BEGIN_SRC emacs-lisp
-  (defun set-up-fonts-please ()
-    (interactive)
-    (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
-
-  (add-hook 'after-make-frame-functions
-            (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
-#+END_SRC
-
 *** Disable audible and visual bell
 
 #+BEGIN_SRC emacs-lisp
@@ -462,15 +501,6 @@ ibuffer is also a lot better than the default
 #+BEGIN_SRC emacs-lisp
   (setq dired-listing-switches "-lah --group-directories-first")
 #+END_SRC
-** Help
-
-Use a keybinding for viewing manpages
-
-#+BEGIN_SRC emacs-lisp
-  (setq Man-width 80)
-  (bind-key "C-h C-m" 'man)
-#+END_SRC
-
 * Custom functions
 
 ** Resizing windows
@@ -504,24 +534,6 @@ Visit your config file. Bound to "C-c e" in =Keybindings= section.
     "Go to your config.org"
     (interactive)
     (find-file "~/.emacs.d/config.org"))
-#+END_SRC
-
-** Ido
-
-*** Bookmarks
-
-#+BEGIN_SRC emacs-lisp
-  (require 'bookmark)
-
-  (defun ido-bookmark-jump ()
-    "An ido wrapper for `bookmark-jump'. Designed for interactive
-  use, so just use `bookmark-jump' in elisp."
-    (interactive)
-    (bookmark-maybe-load-default-file)
-    (bookmark-jump
-     (ido-completing-read "Open bookmark: "
-                          (mapcar (lambda (x) (car x)) bookmark-alist))))
-
 #+END_SRC
 
 ** Reloading config
@@ -586,15 +598,6 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
                    "dmenu_recency"))
 #+END_SRC
 
-**** dmenuhandler
-
-#+BEGIN_SRC emacs-lisp
-  (defun dmenuhandler ()
-    "Choose how to handle the url in X11 clipboard"
-    (interactive)
-    (shell-command (concat "dmenuhandler " (car kill-ring) " &")))
-#+END_SRC
-
 **** pdf-opener
 
 This used to just call an external shell script, but I replaced it
@@ -613,6 +616,7 @@ with a more emacsy version.
     (dired-hide-details-mode t)
     (setq truncate-lines t))
 #+END_SRC
+
 
 **** video-opener
 
@@ -780,14 +784,6 @@ my compile key "C-c C-m".
 
 ** Interaction with Emacs
 
-*** ido-bookmark-jump (custom function)
-
-Open a bookmark with the default keybinding =C-x r b=, but with ido
-
-#+BEGIN_SRC emacs-lisp
-  ;; (bind-key "C-x r b" 'ido-bookmark-jump)
-#+END_SRC
-
 *** Terminal functionality
 
 Rebinding some useful keys that can't be used in a terminal.
@@ -825,24 +821,14 @@ Custom notification script with =C-z C-b=.
   (bind-key "C-z C-b" 'notibar)
 #+END_SRC
 
-*** dmenu scripts
+*** dmenu-ish scripts
 
-I still have some use for dmenu, despite only using emacs...
-All commands are prefixed with =C-z=
-|---+---------------------------------|
-| d | enter commands into dmenu       |
-| p | select a pdf to open with emacs |
-| v | select a video to open with mpv |
-| D | choose what to do with a URL    |
-|---+---------------------------------|
-
+A couple of things I used to do with dmenu, now made emacsy.
 
 #+BEGIN_SRC emacs-lisp
   (bind-keys 
-   ("C-z d" . dmenu_recency)
    ("C-z p" . list-documents)
-   ("C-z v" . list-videos)
-   ("C-z D" . dmenuhandler))
+   ("C-z v" . list-videos))
 #+END_SRC
 
 ** Programming/Typesetting
