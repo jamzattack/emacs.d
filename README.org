@@ -1,3 +1,12 @@
+* Remove =C-z=
+
+Unbind =C-z= before anything else, so that I can use it as a prefix
+key.
+
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-z"))
+#+end_src
+
 * Packages
 
 ** Startup
@@ -5,65 +14,91 @@
 *** Repositories and initialisation
 
 Enable melpa archive and making sure packages work
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (add-to-list 'load-path "~/.emacs.d/lisp")
   (require 'package)
   (setq package-enable-at-startup nil)
   (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                            ("melpa" . "http://melpa.org/packages/")))
   (package-initialize)
-#+END_SRC
+#+end_src
 
 *** Use-package
 
 Install use-package if not installed
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-#+END_SRC
+#+end_src
 
 *** Fonts
 
 This section has been moved to a different file: =./config/fonts.el=
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (defun set-up-fonts-please ()
     (interactive)
     (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
-
   (add-hook 'after-make-frame-functions
             (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
-#+END_SRC
+#+end_src
 
 ** Built-in
+
+*** Org Mode
+
+Open source blocks and stuff in the current window. Use tab from the
+language's major mode inside source blocks.
+
+#+begin_src emacs-lisp
+  (use-package org
+    :custom ((org-src-window-setup 'current-window)
+             (org-src-tab-acts-natively t))
+    :hook (org-mode-hook . org-indent-mode)
+    :config (require 'org-tempo))
+#+end_src
+
 *** EWW 
 
-#+BEGIN_SRC emacs-lisp
+A browser written in elisp!  I need to load this after everything
+else, so that I can bind a couple of functions.
+
+#+begin_src emacs-lisp
   (use-package eww
     :custom (browse-url-browser-function 'eww-browse-url)
+    :after (init)
     :bind
     (("C-x r e" . 'eww-list-bookmarks)
      (:map eww-mode-map
            ("m" . 'transmission-add-url-at-point)
            ("f" . 'dmenu-handler-stream))))
-#+END_SRC
+#+end_src
 
 *** recentf
 
-#+BEGIN_SRC emacs-lisp
+I don't really understand recentf, but this loads it in case I need
+it.
+
+#+begin_src emacs-lisp
   (use-package recentf
-  :init (recentf-load-list))
-#+END_SRC
+    :config (recentf-load-list))
+#+end_src
 
-*** ido 
+*** COMMENT ido 
 
-#+BEGIN_SRC emacs-lisp
+I've switched to helm now, but this is a comment for the times when
+I'd prefer to use ido.
+
+#+begin_src emacs-lisp
   (use-package ido
-    :init (require 'ido-bookmark-jump)
+    :after (require 'ido-bookmark-jump)
     :bind ("C-x r b" . ido-bookmark-jump)
-    :init (ido-everywhere t)
+    :config (ido-everywhere t)
     :custom (max-mini-window-height 1))
-#+END_SRC
+#+end_src
 
 ** My packages
 
@@ -72,47 +107,112 @@ This section has been moved to a different file: =./config/fonts.el=
 A simple package I wrote to toggle the touchpad/trackpoint on my
 ThinkPad
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package toggle-touchpad
     :load-path "~/.emacs.d/lisp/"
+    :after (init)
     :defer t
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
      ("C-z \\" . 'toggle-touchpad)))
-#+END_SRC
+#+end_src
 
 *** dmenu-handler
 
-#+BEGIN_SRC emacs-lisp
+A way to open URLs the way I want. I bind it to =C-z d=
+
+#+begin_src emacs-lisp
   (use-package dmenu-handler
     :load-path "~/.emacs.d/lisp/dmenu"
     :bind
-    (("C-z D" . 'dmenu-handler)))
-#+END_SRC
+    (("C-z d" . 'dmenu-handler)))
+#+end_src
 
 *** dwm-mode
+
 Manipulate emacs windows similarly to suckless' dwm.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package dwm
     :load-path "~/.emacs.d/lisp/"
     :config (setq dwm-mode-emulate-keybindings t))
-#+END_SRC
+#+end_src
 
+*** library-genesis
+
+#+begin_src emacs-lisp
+  (use-package library-genesis
+    :bind (("C-z l" . library-genesis-search)))
+
+#+end_src
 *** search-query
 
-#+BEGIN_SRC emacs-lisp
+My own search-query package. It simply provides a few functions so
+that I don't need to use DuckDuckGo's bangs, and for websites that
+don't have a bang.
+
+#+begin_src emacs-lisp
   (use-package search-query
     :bind (("C-z t" . torrentz2-search)
            ("C-z y" . youtube-search)
            ("C-z w" . wikipedia-search)))
-#+END_SRC
+#+end_src
+
+*** lilypond-mode
+
+I copied lilypond-mode into my custom directory for the machines that
+don't have lilypond installed.
+
+#+begin_src emacs-lisp
+  (use-package lilypond-mode
+    :load-path "lisp/lilypond-mode"
+    :defer 20
+    :init (add-to-list 'auto-mode-alist
+                       '("\\.ly$" . LilyPond-mode))
+    :hook (LilyPond-mode-hook
+           . (lambda () (interactive)
+               (set-comment-column 0))))
+#+end_src
 
 ** ELPA Packages
 
-*** COMMENT HELM
+*** god-mode
 
-#+BEGIN_SRC emacs-lisp
+God-mode is kinda like modal editing using the default keybindings.
+It essentially acts as an emacs-only sticky-key.
+
+I bind it to <right> for when I'm using termux, and <f8> for my proper
+keyboard (which uses the same key for Control and f8).
+
+I also set it up so that my mode-line is purple when it is active, and
+green otherwise.
+
+#+begin_src emacs-lisp
+  (use-package god-mode
+    :ensure t
+    :custom
+    ((god-exempt-major-modes nil)
+     (god-exempt-predicates nil))
+    :bind
+    (("<f8>" . 'god-mode-all)
+     ("<right>" . 'god-mode-all)
+     :map god-local-mode-map
+     ("." . 'repeat))
+    :init
+    (require 'my-mode-line)
+    (add-hook 'god-mode-enabled-hook 'mode-line-purple)
+    (add-hook 'god-mode-disabled-hook 'mode-line-green))
+#+end_src
+
+*** HELM
+
+Rebind a few keys in order to make use of helm's features. Stuff like
+find-files and switch-to-buffer.
+
+I also bind M-C-y to helm-show-kill-ring. I tried to use this to
+replace yank-pop but the latter is too engrained in my fingers.
+
+#+begin_src emacs-lisp
   (use-package helm
     :ensure t
     :custom (helm-completion-style 'emacs)
@@ -126,74 +226,98 @@ Manipulate emacs windows similarly to suckless' dwm.
            ("C-x C-f" . 'helm-find-files)
            ("C-x r b" . 'helm-filtered-bookmarks)
            ("C-x r i" . 'helm-register)
-           ("M-y" . 'helm-show-kill-ring)
+           ("M-C-y" . 'helm-show-kill-ring)
            :map helm-map
            ("C-h c" . 'describe-key-briefly)))
-#+END_SRC
+#+end_src
 
 **** Helm system packages
 
 Provides an abstraction layer for viewing and installing system
 packages.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package helm-system-packages
     :after helm)
-#+END_SRC
+#+end_src
 
 **** Helm notmuch
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package helm-notmuch
     :after (helm notmuch))
-#+END_SRC
+#+end_src
 
 **** Helm man
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package helm-man
-    :after (helm man woman)
+    :after (helm)
     :custom (man-width 80)
-    :bind ("C-h C-m" . 'helm-man-woman))
-#+END_SRC
+    :bind ("C-h RET" . 'helm-man-woman))
+#+end_src
+
 *** Pinentry
 
 This package lets emacs be used for gpg authentication
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package pinentry
     :custom (epg-pinentry-mode 'loopback)
-    :init
+    :config
     (pinentry-start))
-#+END_SRC
+#+end_src
 
 *** Helpful
 
-#+BEGIN_SRC emacs-lisp
+Helpful gives a whole lot more information than describe-*. I also
+bind =C-h SPC= to helpful-at-point, just to save a keypress here and
+there.
+
+#+begin_src emacs-lisp
   (use-package helpful
     :bind (([remap describe-function] . helpful-function)
            ([remap describe-variable] . helpful-variable)
            ([remap describe-key] . helpful-key)
            ("C-h SPC" . helpful-at-point)))
-#+END_SRC
+#+end_src
+
+*** Major Modes
+
+**** Nov.el - epub in emacs
+
+Read epub files in emacs. I set this up as the default mode for epubs.
+
+#+begin_src emacs-lisp
+  (use-package nov
+    :init
+    (add-to-list 'auto-mode-alist
+                 '("\\.epub$" . nov-mode)))
+#+end_src
 
 *** Org
 
 **** Github markdown
 
-#+BEGIN_SRC emacs-lisp
+Export to markdown.
+
+#+begin_src emacs-lisp
   (use-package ox-gfm)
-#+END_SRC
+#+end_src
 
 **** Html export
 
-#+BEGIN_SRC emacs-lisp
+Export to html.
+
+#+begin_src emacs-lisp
   (use-package htmlize)
-#+END_SRC
+#+end_src
 
 *** EXWM - Emacs X Window Manager
 
 Manipulate X windows as emacs buffers.
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package exwm
     :ensure t
     :custom (exwm-workspace-number 1)
@@ -203,53 +327,71 @@ Manipulate X windows as emacs buffers.
     (require 'exwm-config)
     (exwm-config-default)
     (exwm-init))
-#+END_SRC
+#+end_src
 
 **** Desktop-environment (useful with EXWM)
 
-#+BEGIN_SRC emacs-lisp
+This package sets up volume keys, brightness keys, and a screen
+locker. I like i3lock, and want it to use my theme's background
+colour.
+
+#+begin_src emacs-lisp
   (use-package desktop-environment
     :custom
     (desktop-environment-screenlock-command
      "i3lock -c ffffd0 -n")
     :init
     (desktop-environment-mode))
-#+END_SRC
+#+end_src
 
 *** Programming
+
 **** Geiser
 
-#+BEGIN_SRC emacs-lisp
-  (use-package geiser)
-#+END_SRC
+Interact with scheme in a powerful and emacsy way. I set guile as the
+default scheme program.
+
+#+begin_src emacs-lisp
+  (use-package geiser
+    :custom ((scheme-program-name "guile")))
+#+end_src
 
 **** SLIME
 
-#+BEGIN_SRC emacs-lisp
-  (use-package slime)
-#+END_SRC
+Interact with common lisp in a powerful and emacsy way. I set sbcl as
+the default lisp program.
+
+#+begin_src emacs-lisp
+  (use-package slime
+    :custom ((inferior-lisp-program "sbcl")))
+#+end_src
 
 *** "Applications"
 
 **** vterm
 
-#+BEGIN_SRC emacs-lisp
+A performant terminal emulator in emacs. unfortunately, it still
+doesn't play nice with complicated things such as nethack.
+
+#+begin_src emacs-lisp
   (use-package vterm
     :load-path "~/.emacs.d/emacs-libvterm")
-#+END_SRC
+#+end_src
 
 **** Mingus
 
 A nice mpd front-end in emacs
 (I couldn't get EMMS working with mopidy)
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package mingus)
-#+END_SRC
+#+end_src
 
 **** Notmuch
 
 A simple email client, with emphasis on searching
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package notmuch
     :config
     (setq notmuch-archive-tags '("-unread" "-inbox")
@@ -257,55 +399,58 @@ A simple email client, with emphasis on searching
     :bind
     (:map notmuch-show-mode-map
           ("u" . 'eww-follow-link)))
-#+END_SRC
+#+end_src
 
 **** Transmission
 
 An emacs front-end for the transmission bittorrent daemon
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package transmission
     :config
     (defun transmission-add-url-at-point (url)
       "Adds torrent if point is on a magnet link"
       (interactive (list (shr-url-at-point current-prefix-arg)))
       (transmission-add url)))
-#+END_SRC
+#+end_src
 
 *** Appearance
+
 **** Theme
 
 ***** COMMENT base16
 
 Base16 is a nice theme framework, but moe-theme is my new best friend.
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package base16-theme)
-#+END_SRC
+#+end_src
 
 **** Rainbow-mode
 
 This package highlights hex colours
 (also install xterm-color to use in a terminal emulator)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package rainbow-mode
     :bind (("C-c h" . 'rainbow-mode)))
-#+END_SRC
+#+end_src
 
 **** Rainbow-delimiters
 
 Minor mode that highlights parentheses well
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :init
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-#+END_SRC
+#+end_src
 
 **** Dim (unclutter mode-line)
 
 From Alezost, remove clutter in the mode-line.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package dim
     :config
     (dim-major-names
@@ -327,96 +472,91 @@ From Alezost, remove clutter in the mode-line.
        (org-src-mode       " *" org)
        (desktop-environment-mode "" desktop-environment)
        (eldoc-mode         ""    eldoc))))
-#+END_SRC
+#+end_src
 
 **** Dimmer (dim inactive buffers)
 
 Dims inactive buffers, so that you can more clearly see which window
 you're in (sometimes the mode-line just doesn't cut it).
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package dimmer
-    :custom (dimmer-fraction 0.2))
-#+END_SRC
+    :custom (dimmer-fraction 0.3)
+    :config (dimmer-mode t))
+#+end_src
 
-*** god-mode
+*** PDF-tools
 
-#+BEGIN_SRC emacs-lisp
-  (use-package god-mode
-    :ensure t
-    :custom
-    ((god-exempt-major-modes nil)
-     (god-exempt-predicates nil))
-    :bind
-    (("<f8>" . 'god-mode-all)
-     ("<right>" . 'god-mode-all)
-     :map god-local-mode-map
-     ("." . 'repeat))
-    :init
-    (require 'my-mode-line)
-    (add-hook 'god-mode-enabled-hook 'mode-line-purple)
-    (add-hook 'god-mode-disabled-hook 'mode-line-green))
-#+END_SRC
+Majorly increases performance when viewing pdfs as a file
+
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :config
+    (pdf-tools-install))
+#+end_src
 
 *** Quality of life
 
-**** Smex
+**** COMMENT Smex
 
-smex integrates "M-x" with =ido=
-#+BEGIN_SRC emacs-lisp
+smex integrates "M-x" with =ido=.
+
+Note: I have abandoned ido in favour of helm, but left this as a
+comment in case I want to switch back..
+
+#+begin_src emacs-lisp
   (use-package smex
     :init (smex-initialize)
     :bind ("M-x" . smex ))
-#+END_SRC
+#+end_src
 
 **** Try
 
 Allows you to try other packages without committing
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package try)
-#+END_SRC
+#+end_src
 
 *** Not really useful
 
 **** Lorem Ipsum
 
 A 'Lorem ipsum' generator
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (use-package lorem-ipsum)
-#+END_SRC
+#+end_src
 
 *** To be confirmed
 
-**** Elpher - gopher client
+**** Elpher
 
-#+BEGIN_SRC emacs-lisp
+A gopher:// client written in elisp.
+
+#+begin_src emacs-lisp
   (use-package elpher)
-#+END_SRC
+#+end_src
 
-**** xclip - enable use of X11 clipboard in terminal
+**** xclip
 
-#+BEGIN_SRC emacs-lisp
-  (use-package xclip
-    )
-#+END_SRC
+xclip allows the use of X11 clipboard in a terminal. I never use it
+because the only terminal I use is a tty, and that's just for starting
+emacs...
 
-*** PDF-tools
-
-Majorly increases performance when viewing pdfs as a file
-#+BEGIN_SRC emacs-lisp
-  (use-package pdf-tools
-    :config
-    (pdf-tools-install))
-#+END_SRC
+#+begin_src emacs-lisp
+  (use-package xclip)
+#+end_src
 
 * Stuff to do when loading
 
 ** Environment Variables
 
 Change $EDITOR to use the graphical emacs instance
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (setenv "EDITOR" "emacsclient")
-#+END_SRC
+#+end_src
 
 * Fixing defaults
 
@@ -424,52 +564,53 @@ Change $EDITOR to use the graphical emacs instance
 
 *** Swap yes/no prompt with y/n
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
+#+end_src
 
 *** Enable all the features
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq disabled-command-function nil)
-#+END_SRC
+#+end_src
 
 ** Aesthetics
 
 *** Colours
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun set-up-background-colour-please ()
     "Sets background colour to #ffffd0"
     (set-background-color "#ffffd0"))
-
   (set-background-color "#ffffd0")
   (set-cursor-color "black")
-#+END_SRC
+#+end_src
 
 *** GUI ugliness
 
 Disable all the wasteful bars
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (scroll-bar-mode -1)
   (fringe-mode 1)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
-#+END_SRC
+#+end_src
 
 *** Disable audible and visual bell
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq ring-bell-function 'ignore)
-#+END_SRC
+#+end_src
 
 ** Tabs
 
 Tabs are 4 spaces wide
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (setq-default indent-tabs-mode nil)
   (setq tab-width 4)
-#+END_SRC
+#+end_src
 
 ** Buffers/input
 
@@ -477,35 +618,38 @@ Tabs are 4 spaces wide
 
 ido-mode is much better than the default for switching
 buffers and going to files.
-# #+BEGIN_SRC emacs-lisp
+# #+begin_src emacs-lisp
 #   (setq ido-enable-flex-matching nil)
 #   (setq ido-create-new-buffer 'always)
 #   (ido-everywhere t)
-# #+END_SRC
+# #+end_src
 
 *** ibuffer
 
 ibuffer is also a lot better than the default
 (plus it has colours)
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (bind-key "C-x C-b" 'ibuffer)
-#+END_SRC
+#+end_src
 
 ** desktop-save
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (desktop-save-mode t)
-#+END_SRC
+#+end_src
 
 ** dired
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (setq dired-listing-switches "-lah --group-directories-first")
-#+END_SRC
+#+end_src
+
 * Custom functions
 
 ** Resizing windows
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun v-resize (key)
     "interactively resize the window"  
     (interactive "cHit p/n/b/f to resize") 
@@ -524,55 +668,57 @@ ibuffer is also a lot better than the default
       (call-interactively 'v-resize)) 
      (t (push key unread-command-events))))
   (bind-key "C-c +" 'v-resize)
-#+END_SRC
+#+end_src
 
 ** Go to config file
 
 Visit your config file. Bound to "C-c e" in =Keybindings= section.
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (defun config-visit ()
     "Go to your config.org"
     (interactive)
     (find-file "~/.emacs.d/config.org"))
-#+END_SRC
+#+end_src
 
 ** Reloading config
 
 Reloads this config file. Bound to "C-c r" in Keybindings section.
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (defun config-reload ()
     "Reloads ~/.emacs.d/config.org at runtime"
     (interactive)
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
-#+END_SRC
+#+end_src
 
 ** Programming
 
 *** Opening Output
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun opout ()
     "Opens a pdf file of the same name as the current file"
     (interactive)
     (find-file-other-window (concat
                              (file-name-sans-extension buffer-file-name)
                              ".pdf")))
-#+END_SRC
+#+end_src
 
 ** Email
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun mailsync ()
     "Downloads new mail and adds it to the notmuch database"
     (interactive)
     (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
-#+END_SRC
+#+end_src
 
 ** WM stuff
 
 *** Notification bar replacement
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun notibar ()
     "Brings up a notification with the following information:
   Date
@@ -584,26 +730,26 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
   Battery level"
     (interactive)
     (call-process "notibar"))
-#+END_SRC
+#+end_src
 
 *** dmenu
 
 **** dmenu launcher
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun dmenu_recency ()
     "Launch a program with dmenu"
     (interactive)
     (start-process "dmenu_recency" nil
                    "dmenu_recency"))
-#+END_SRC
+#+end_src
 
 **** pdf-opener
 
 This used to just call an external shell script, but I replaced it
 with a more emacsy version.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun list-documents (&optional dir)
     "Using `find-dired', list all the postscript and pdf files a
   specified directory.  If called interactively, prompt for
@@ -615,8 +761,7 @@ with a more emacsy version.
                 "\\( -iname \\*.ps -o -iname \\*.pdf \\)")
     (dired-hide-details-mode t)
     (setq truncate-lines t))
-#+END_SRC
-
+#+end_src
 
 **** video-opener
 
@@ -624,7 +769,7 @@ This used to just call an external shell script, but I replaced it
 with a more emacsy version. In order to open videos externally,
 =openwith= must be installed as above.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun list-videos (&optional dir)
     "Using `find-dired', list all the videos a specified directory.
   If called interactively, prompt for Directory. Else, DIR will
@@ -636,12 +781,13 @@ with a more emacsy version. In order to open videos externally,
                 "\\( -iname \\*.mkv -o -iname \\*.avi -o -iname \\*.mp4 -o -iname \\*.webm -o -iname \\*.m4v \\)")
     (dired-hide-details-mode t)
     (setq truncate-lines t))
-#+END_SRC
+#+end_src
 
 ** Other
+
 *** Xah Lee form feed
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun show-formfeed-as-pilcrow ()
     "Display the formfeed ^L char as pilcrow (¶)."
     (interactive)
@@ -651,12 +797,11 @@ with a more emacsy version. In order to open videos externally,
       (aset buffer-display-table ?\^L
             (vconcat (make-list 1 (make-glyph-code ?¶ 'font-lock-comment-face))))
       (redraw-frame)))
-#+END_SRC
+#+end_src
 
 ** Fixing packages
 
-#+BEGIN_SRC emacs-lisp
-
+#+begin_src emacs-lisp
   (defun transmission ()
     "Open a `transmission-mode' buffer."
     (interactive)
@@ -676,51 +821,44 @@ with a more emacsy version. In order to open videos externally,
                (kill-buffer buffer)
                (signal (car e) (cdr e))))))
         (switch-to-buffer buffer))))
-#+END_SRC
+#+end_src
 
 * Major mode hooks and variables
 
-** Lilypond mode
+** COMMENT Lilypond mode
 
 Use lilypond mode for .ly files
 (taken from lilypond.org)
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (require 'lilypond-mode)
   ;; (require 'sane-lilypond-mode)
   (setq auto-mode-alist
         (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-
   (add-hook 'LilyPond-mode-hook
             (lambda () (interactive)
               (set-comment-column 0)))
-#+END_SRC
+#+end_src
 
 ** Electric pairs
 
 Auto-add parentheses
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (setq electric-pair-pairs '(
                               (?\( . ?\))
                               ))
-#+END_SRC
-#+BEGIN_SRC emacs-lisp
+#+end_src
+
+#+begin_src emacs-lisp
   (add-hook 'prog-mode-hook (electric-pair-mode t))
-#+END_SRC
-
-** Org Mode
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook 'org-indent-mode)
-  (setq org-src-window-setup 'current-window)
-  (setq org-src-tab-acts-natively t)
-  (setq org-ellipsis nil)
-#+END_SRC
+#+end_src
 
 ** M-x compile hooks
 
 *** Groff
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'nroff-mode-hook
             (lambda ()
               (set (make-local-variable 'compile-command)
@@ -729,58 +867,50 @@ Auto-add parentheses
                            (concat (file-name-sans-extension
                                     (shell-quote-argument
                                      buffer-file-name)) ".pdf")))))
-
-
-#+END_SRC
+#+end_src
 
 *** C
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'c-mode-hook
             (lambda ()
               (set (make-local-variable 'compile-command)
                    (format "compiler %s" buffer-file-name))))
-#+END_SRC
+#+end_src
 
 *** LilyPond
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'LilyPond-mode-hook
             (lambda ()
               (set (make-local-variable 'compile-command)
                    (format "lilypond %s" buffer-file-name))))
-#+END_SRC
+#+end_src
 
 *** LaTeX
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'latex-mode-hook
             (lambda ()
               (set (make-local-variable 'compile-command)
                    (format "pdflatex %s" buffer-file-name))))
-#+END_SRC
-
+#+end_src
 Somewhat related, overrides latex-mode keybinding that interferes with
 my compile key "C-c C-m".
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (add-hook 'latex-mode-hook
             (lambda ()
               (local-unset-key (kbd "C-c C-m"))))
-#+END_SRC
+#+end_src
 
 * Keybindings
 
 ** Alias <menu> to C-x
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "<menu>" ctl-x-map)
-#+END_SRC
-
-** Remove =C-z=
-
-#+BEGIN_SRC emacs-lisp
-  (global-unset-key (kbd "C-z"))
-#+END_SRC
+#+end_src
 
 ** Interaction with Emacs
 
@@ -788,26 +918,26 @@ my compile key "C-c C-m".
 
 Rebinding some useful keys that can't be used in a terminal.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (unless (window-system)
     ;; Comments -- C-x C-;
     (bind-key "C-c ;" 'comment-line)
     ;; Indentation -- C-M-\"
     (bind-key "C-c \\" 'indent-region))
-#+END_SRC
+#+end_src
 
 *** bury-buffer and kill-buffer-and-window
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-z C-z" 'bury-buffer)
   (bind-key "C-z z" 'kill-buffer-and-window)
-#+END_SRC
+#+end_src
 
 ** Config
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c r" 'config-reload)
-#+END_SRC
+#+end_src
 
 ** General WM stuff
 
@@ -816,72 +946,74 @@ Rebinding some useful keys that can't be used in a terminal.
 Built-in battery function with =C-z b=.
 Custom notification script with =C-z C-b=. 
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-z b" 'battery)
   (bind-key "C-z C-b" 'notibar)
-#+END_SRC
+#+end_src
 
 *** dmenu-ish scripts
 
 A couple of things I used to do with dmenu, now made emacsy.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-keys 
    ("C-z p" . list-documents)
    ("C-z v" . list-videos))
-#+END_SRC
+#+end_src
 
 ** Programming/Typesetting
 
 Bind emacs compile to =C-c C-m=. This allows 2 rapid presses of =C-m=
 or =RET= to skip the prompt.
-
 "opout" is a script to open the output of a file (e.g. TeX,
 LilyPond).
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-keys
    ("C-c C-m" . compile)
    ("C-c p" . opout))
-#+END_SRC
+#+end_src
 
 ** Miscellaneous
 
 *** Line numbers
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c n" 'display-line-numbers-mode)
-#+END_SRC
+#+end_src
 
 *** Spelling correction
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c s" 'flyspell-mode)
-#+END_SRC
+#+end_src
 
 *** Line wrap
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c l" 'toggle-truncate-lines)
-#+END_SRC
+#+end_src
 
 * Mode-line
 
 Just some basic extra stuff in the mode-line.
 I don't want anything fancy.
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (column-number-mode t)
   (display-time-mode t)
   (setq display-time-24hr-format 1)
-#+END_SRC
+#+end_src
 
 * Email
 
 email settings
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
   (setq send-mail-function 'sendmail-send-it
         sendmail-program "/usr/bin/msmtp"
         mail-specify-envelope-from t
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
-#+END_SRC
+
+#+end_src
