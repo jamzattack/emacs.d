@@ -63,6 +63,15 @@ language's major mode inside source blocks.
     :config (require 'org-tempo))
 #+end_src
 
+**** Org Capture
+
+#+begin_src emacs-lisp
+(use-package org-capture
+  :custom (org-default-notes-file (concat org-directory
+					  "/notes.org"))
+  :bind (("C-x M-r" . org-capture)))
+#+end_src
+
 *** EWW
 
 A browser written in elisp!  I need to load this after everything
