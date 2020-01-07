@@ -1,16 +1,58 @@
+(defvar dmenu-handler-audio-directory "~/Music"
+  "The directory in which to download files using
+`dmenu-handler'")
+
+(defvar dmenu-handler-video-directory "~/Downloads/youtube"
+  "The directory in which to download files using
+`dmenu-handler'")
+
 (defun dmenu-handler-stream (url)
   "Plays video with mpv, provided URL is supported by
-         youtube-dl."
+youtube-dl."
   (interactive (list
                 (if current-prefix-arg
                     (read-file-name "file or url: ")
-                  (shr-url-at-point current-prefix-arg))))
-  (start-process-shell-command
+                  (shr-url-at-point nil))))
+  (start-process-shell-command 
    "mpv stream" " *mpv stream*"
-   "youtube-dl -o - "
-   "--all-subs -f 22"
-   url
-   "| mpv -"))
+   "mpv"
+   "--ytdl-format=22,best"
+   ;; "--ytdl-raw-options=all-subs="
+   url)
+  (message "%s is being streamed" url))
+
+(defun dmenu-handler-download-video (url)
+  "Downloads the audio of URL using youtube-dl."
+  (interactive (list
+                (if current-prefix-arg
+                    (read-file-name "file or url: ")
+                  (shr-url-at-point nil))))
+  (let ((default-directory dmenu-handler-video-directory))
+    (start-process-shell-command 
+     "youtube-dl download" " *youtube-dl download*"
+     "youtube-dl"
+     "--all-subs"
+     "--format=22"
+     "--add-metadata"
+     "--output='%(title)s.%(ext)s'"
+     url))
+  (message "%s downloaded in %s" url dmenu-handler-video-directory))
+
+(defun dmenu-handler-audio (url)
+  "Downloads the audio of URL using youtube-dl."
+  (interactive (list
+                (if current-prefix-arg
+                    (read-file-name "file or url: ")
+                  (shr-url-at-point nil))))
+  (let ((default-directory dmenu-handler-audio-directory))
+    (start-process-shell-command 
+     "youtube-dl audio" " *youtube-dl audio*"
+     "youtube-dl"
+     "--extract-audio"
+     "--add-metadata"
+     "--output='%(title)s.%(ext)s'"
+     url))
+  (message "%s downloaded in %s" url dmenu-handler-audio-directory))
 
 (defun dmenu-handler-save-to-register (url)
   "Copies the last URL into a register."
@@ -42,6 +84,7 @@
                      "external browser"
                      "View as image"
                      "Stream"
+		     "Download video"
                      "Download audio"
                      "View as pdf")))
 
@@ -68,8 +111,10 @@
      ((equal "View as pdf" choice)
       (dmenu-handler-pdf url))
      ((equal "Stream" choice)
-      (dmenu-handler-stream))
+      (dmenu-handler-stream url))
+     ((equal "Download video" choice)
+      (dmenu-handler-download-video url))
      ((equal "Download audio" choice)
-      (message "not implemented")))))
+      (dmenu-handler-audio url)))))
 
 (provide 'dmenu-handler)
