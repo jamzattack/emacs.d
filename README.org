@@ -66,10 +66,16 @@ language's major mode inside source blocks.
 **** Org Capture
 
 #+begin_src emacs-lisp
-(use-package org-capture
-  :custom (org-default-notes-file (concat org-directory
-					  "/notes.org"))
-  :bind (("C-x M-r" . org-capture)))
+  (use-package org-capture
+    :custom ((org-default-notes-file (concat org-directory
+                                             "/notes.org"))
+             (org-capture-templates
+              '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+                 "* TODO %?\n  %i\n  %a")
+                ("n" "Notes" entry (file+datetree "~/org/notes.org")
+                 "* %?\nEntered on %U\n  %i\n  %a")))
+             (org-capture-bookmark nil))
+    :bind (("C-x M-r" . org-capture)))
 #+end_src
 
 *** EWW
@@ -79,7 +85,8 @@ else, so that I can bind a couple of functions.
 
 #+begin_src emacs-lisp
   (use-package eww
-    :custom (browse-url-browser-function 'eww-browse-url)
+    :custom ((browse-url-browser-function 'eww-browse-url)
+             (shr-width 80))
     :after (transmission dmenu-handler init)
     :bind
     (("C-x r e" . 'eww-list-bookmarks)
@@ -90,6 +97,8 @@ else, so that I can bind a couple of functions.
 #+end_src
 
 *** ERC
+
+The only reason for this to be here is to set my nick.
 
 #+begin_src emacs-lisp
   (use-package erc
@@ -163,7 +172,7 @@ ThinkPad
 
 *** dmenu-handler
 
-A way to open URLs the way I want. I bind it to =C-z d=
+A way to open URLs the way I want. I bind it to =C-z d=.
 
 #+begin_src emacs-lisp
   (use-package dmenu-handler
@@ -341,10 +350,12 @@ there.
 
 **** Nov.el - epub in emacs
 
-Read epub files in emacs. I set this up as the default mode for epubs.
+Read epub files in emacs. I set this up as the default mode for epubs,
+and set the default width to 80C.
 
 #+begin_src emacs-lisp
   (use-package nov
+    :custom (nov-text-width 80)
     :init
     (add-to-list 'auto-mode-alist
                  '("\\.epub$" . nov-mode)))
@@ -462,8 +473,8 @@ A more flexible mpd client than mingus.
 #+begin_src emacs-lisp
   (use-package mpdel
     :after (init)
-    :bind (("s-m" . mpdel-core-map)
-           ("s-a" . #'mpdel-core-open-albums)))
+    :bind-keymap (("s-m" . mpdel-core-map))
+    :bind (("s-a" . mpdel-core-open-albums)))
 #+end_src
 
 **** Mingus
@@ -635,7 +646,7 @@ Disable all the wasteful bars
 
 #+begin_src emacs-lisp
   (scroll-bar-mode -1)
-  (fringe-mode 1)n
+  (fringe-mode 1)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
 #+end_src
@@ -676,7 +687,7 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
   (defun config-reload ()
     "Reloads (but does not tangle) config file"
     (interactive)
-    (load-file (concat user-emacs-directory "config.org")))
+    (load-file (concat user-emacs-directory "config.el")))
 #+end_src
 
 ** Typesetting
@@ -963,3 +974,4 @@ email settings
         mail-envelope-from 'header)
 
 #+end_src
+
