@@ -17,7 +17,7 @@ key.
 Enable melpa archive and making sure packages work
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/lisp")
+  (add-to-list 'load-path (concat user-emacs-directory "lisp"))
   (require 'package)
   (setq package-enable-at-startup nil)
   (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -40,11 +40,14 @@ Install use-package if not installed
 This section has been moved to a different file: =./config/fonts.el=
 
 #+begin_src emacs-lisp
+  (defvar fonts-file (concat user-emacs-directory "config/fonts.el")
+    "This is the file to load custom font settings from")
+
   (defun set-up-fonts-please ()
     (interactive)
-    (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
-  (add-hook 'after-make-frame-functions
-            (load-file (expand-file-name "~/.emacs.d/config/fonts.el")))
+    (load fonts-file))
+
+  (set-up-fonts-please)
 #+end_src
 
 ** Built-in
@@ -67,12 +70,17 @@ language's major mode inside source blocks.
 
 #+begin_src emacs-lisp
   (use-package org-capture
-    :custom ((org-default-notes-file (concat org-directory
-                                             "/notes.org"))
+    :after (org)
+    :custom ((org-default-notes-file "~/org/notes.org")
              (org-capture-templates
-              '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+              `(("t" "Todo" entry (file+headline ,(concat org-directory
+                                                          "/todo.org") "Tasks")
                  "* TODO %?\n  %i\n  %a")
-                ("n" "Notes" entry (file+datetree "~/org/notes.org")
+                ("n" "Notes" entry (file+datetree ,(concat org-directory
+                                                           "/notes.org"))
+                 "* %?\nEntered on %U\n  %i\n  %a")
+                ("d" "Diary" entry (file+datetree ,(concat org-directory
+                                                           "/diary.org"))
                  "* %?\nEntered on %U\n  %i\n  %a")))
              (org-capture-bookmark nil))
     :bind (("C-x M-r" . org-capture)))
@@ -87,13 +95,9 @@ else, so that I can bind a couple of functions.
   (use-package eww
     :custom ((browse-url-browser-function 'eww-browse-url)
              (shr-width 80))
-    :after (transmission dmenu-handler init)
+    :after (init)
     :bind
-    (("C-x r e" . 'eww-list-bookmarks)
-     (:map eww-mode-map
-           ("m" . 'transmission-add-url-at-point)
-           ("f" . 'dmenu-handler-stream)
-           ("A" . 'dmenu-handler-audio))))
+    (("C-x r e" . 'eww-list-bookmarks)))
 #+end_src
 
 *** ERC
@@ -153,6 +157,14 @@ I'd prefer to use ido.
     :custom (max-mini-window-height 1))
 #+end_src
 
+*** scroll bar
+
+#+begin_src emacs-lisp
+  (use-package scroll-bar
+    :custom ((scroll-bar-mode 'right)
+             (scroll-bar-width 6 t)))
+#+end_src
+
 ** My packages
 
 *** Toggle-touchpad
@@ -162,7 +174,7 @@ ThinkPad
 
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
-    :load-path "~/.emacs.d/lisp/"
+    :load-path "lisp"
     :after (init)
     :defer t
     :bind
@@ -176,10 +188,14 @@ A way to open URLs the way I want. I bind it to =C-z d=.
 
 #+begin_src emacs-lisp
   (use-package dmenu-handler
-    :load-path "~/.emacs.d/lisp/dmenu"
+    :load-path "lisp/dmenu"
     :after (init)
     :bind
-    (("C-z d" . 'dmenu-handler)))
+    (("C-z d" . 'dmenu-handler)
+     (:map eww-mode-map
+           ("f" . 'dmenu-handler-stream)
+           ("D" . 'dmenu-handler-download-video)
+           ("A" . 'dmenu-handler-audio))))
 #+end_src
 
 *** dwm-mode
@@ -188,7 +204,7 @@ Manipulate emacs windows similarly to suckless' dwm.
 
 #+begin_src emacs-lisp
   (use-package dwm
-    :load-path "~/.emacs.d/lisp/"
+    :load-path "lisp"
     :config (setq dwm-mode-emulate-keybindings t))
 #+end_src
 
@@ -463,7 +479,7 @@ doesn't play nice with complicated things such as nethack.
 
 #+begin_src emacs-lisp
   (use-package vterm
-    :load-path "~/.emacs.d/emacs-libvterm")
+    :load-path "lisp/libvterm")
 #+end_src
 
 **** MPDel
@@ -645,7 +661,6 @@ Change $EDITOR to use the graphical emacs instance
 Disable all the wasteful bars
 
 #+begin_src emacs-lisp
-  (scroll-bar-mode -1)
   (fringe-mode 1)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
@@ -675,6 +690,12 @@ Tabs are 4 spaces wide
 
 #+begin_src emacs-lisp
   (setq dired-listing-switches "-lah --group-directories-first")
+#+end_src
+
+** show-paren
+
+#+begin_src emacs-lisp
+  (show-paren-mode t)
 #+end_src
 
 * Custom functions
@@ -972,6 +993,5 @@ email settings
         mail-specify-envelope-from t
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
-
 #+end_src
 
