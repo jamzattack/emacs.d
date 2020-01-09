@@ -68,6 +68,9 @@ language's major mode inside source blocks.
 
 **** Org Capture
 
+Take notes in org-mode with specific templates and write them to a
+file. Similar to remember.
+
 #+begin_src emacs-lisp
   (use-package org-capture
     :after (org)
@@ -123,6 +126,9 @@ it.
 
 *** prolog
 
+Major mode for editing prolog files. Files ending in ~.pl~ open in
+prolog-mode.
+
 #+begin_src emacs-lisp
   (use-package prolog
     :after (init)
@@ -131,6 +137,9 @@ it.
 #+end_src
 
 *** ibuffer
+
+Ibuffer is an interface similar to dired, but for editing your open
+buffers.
 
 #+begin_src emacs-lisp
   (defun ibuffer-filter-helm ()
@@ -158,6 +167,9 @@ I'd prefer to use ido.
 #+end_src
 
 *** scroll bar
+
+I've started to use scroll-bar-mode. It's not so bad if the width is
+small enough.
 
 #+begin_src emacs-lisp
   (use-package scroll-bar
@@ -210,10 +222,12 @@ Manipulate emacs windows similarly to suckless' dwm.
 
 *** library-genesis
 
+My custom package for searching library genesis. I bind ~C-z l~ to a
+search.
+
 #+begin_src emacs-lisp
   (use-package library-genesis
     :bind (("C-z l" . library-genesis-search)))
-
 #+end_src
 
 *** search-query
@@ -312,6 +326,7 @@ packages.
 
 #+begin_src emacs-lisp
   (use-package helm-system-packages
+    :ensure t
     :after helm)
 #+end_src
 
@@ -322,6 +337,7 @@ course).
 
 #+begin_src emacs-lisp
   (use-package helm-notmuch
+    :ensure t
     :after (helm notmuch))
 #+end_src
 
@@ -337,7 +353,7 @@ manpages.
     :bind ("C-h C-m" . 'helm-man-woman))
 #+end_src
 
-*** Pinentry
+*** COMMENT Pinentry
 
 This package lets emacs be used for gpg authentication
 
@@ -356,6 +372,7 @@ there.
 
 #+begin_src emacs-lisp
   (use-package helpful
+    :ensure t
     :bind (([remap describe-function] . helpful-callable)
            ([remap describe-variable] . helpful-variable)
            ([remap describe-key] . helpful-key)
@@ -371,6 +388,7 @@ and set the default width to 80C.
 
 #+begin_src emacs-lisp
   (use-package nov
+    :ensure t
     :custom (nov-text-width 80)
     :init
     (add-to-list 'auto-mode-alist
@@ -383,6 +401,7 @@ Majorly increases performance when viewing pdfs as a file
 
 #+begin_src emacs-lisp
   (use-package pdf-tools
+    :ensure t
     :config
     (pdf-tools-install))
 #+end_src
@@ -396,6 +415,7 @@ default scheme program.
 
 #+begin_src emacs-lisp
   (use-package geiser
+    :ensure t
     :custom ((scheme-program-name "guile")))
 #+end_src
 
@@ -406,6 +426,7 @@ the default lisp program.
 
 #+begin_src emacs-lisp
   (use-package slime
+    :ensure t
     :custom ((inferior-lisp-program "sbcl")))
 #+end_src
 
@@ -416,7 +437,8 @@ the default lisp program.
 Export to markdown.
 
 #+begin_src emacs-lisp
-  (use-package ox-gfm)
+  (use-package ox-gfm
+    :ensure t)
 #+end_src
 
 **** Html export
@@ -424,7 +446,8 @@ Export to markdown.
 Export to html.
 
 #+begin_src emacs-lisp
-  (use-package htmlize)
+  (use-package htmlize
+    :ensure t)
 #+end_src
 
 *** EXWM - Emacs X Window Manager
@@ -463,6 +486,7 @@ colour.
                       (buffer-string))))))
 
   (use-package desktop-environment
+    :ensure t
     :init
     (defadvice desktop-environment-lock-screen
         (before change-bg-color activate)
@@ -479,7 +503,7 @@ doesn't play nice with complicated things such as nethack.
 
 #+begin_src emacs-lisp
   (use-package vterm
-    :load-path "lisp/libvterm")
+    :ensure t)
 #+end_src
 
 **** MPDel
@@ -488,6 +512,7 @@ A more flexible mpd client than mingus.
 
 #+begin_src emacs-lisp
   (use-package mpdel
+    :ensure t
     :after (init)
     :bind-keymap (("s-m" . mpdel-core-map))
     :bind (("s-a" . mpdel-core-open-albums)))
@@ -500,6 +525,7 @@ A nice mpd front-end in emacs
 
 #+begin_src emacs-lisp
   (use-package mingus
+    :ensure t
     :defer 20)
 #+end_src
 
@@ -510,6 +536,7 @@ A simple email client, with emphasis on searching
 #+begin_src emacs-lisp
   (use-package notmuch
     :after (init)
+    :ensure t
     :config
     (setq notmuch-archive-tags '("-unread" "-inbox")
           notmuch-search-oldest-first nil)
@@ -525,11 +552,14 @@ An emacs front-end for the transmission bittorrent daemon
 #+begin_src emacs-lisp
   (use-package transmission
     :after (init)
+    :ensure t
     :config
     (defun transmission-add-url-at-point (url)
       "Adds torrent if point is on a magnet link"
       (interactive (list (shr-url-at-point nil)))
-      (transmission-add url)))
+      (transmission-add url))
+    :bind (:map eww-mode-map
+                ("m" . transmission-add-url-at-point)))
 #+end_src
 
 **** 
@@ -543,6 +573,7 @@ This package highlights hex colours
 
 #+begin_src emacs-lisp
   (use-package rainbow-mode
+    :ensure t
     :bind (("C-c h" . 'rainbow-mode)))
 #+end_src
 
@@ -552,8 +583,9 @@ Minor mode that highlights parentheses well
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
-    :init
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    :ensure t
+    :hook (prog-mode . rainbow-delimiters-mode))
+
 #+end_src
 
 **** Dim (unclutter mode-line)
@@ -562,6 +594,7 @@ From Alezost, remove clutter in the mode-line.
 
 #+begin_src emacs-lisp
   (use-package dim
+    :ensure t
     :config
     (dim-major-names
      '((lisp-interaction-mode "eλ")
@@ -591,6 +624,7 @@ you're in (sometimes the mode-line just doesn't cut it).
 
 #+begin_src emacs-lisp
   (use-package dimmer
+    :ensure t
     :custom (dimmer-fraction 0.3)
     :config (dimmer-mode t))
 #+end_src
@@ -615,7 +649,8 @@ comment in case I want to switch back..
 Allows you to try other packages without committing
 
 #+begin_src emacs-lisp
-  (use-package try)
+  (use-package try
+    :ensure t)
 #+end_src
 
 *** Not really useful
@@ -625,7 +660,8 @@ Allows you to try other packages without committing
 A 'Lorem ipsum' generator
 
 #+begin_src emacs-lisp
-  (use-package lorem-ipsum)
+  (use-package lorem-ipsum
+    :ensure t)
 #+end_src
 
 * Stuff to do when loading
@@ -645,7 +681,7 @@ Change $EDITOR to use the graphical emacs instance
 *** Swap yes/no prompt with y/n
 
 #+begin_src emacs-lisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
+  (defalias 'yes-or-no-p y-or-n-p)
 #+end_src
 
 *** Enable all the features
