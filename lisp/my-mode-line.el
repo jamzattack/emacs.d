@@ -10,7 +10,8 @@
                       :foreground "black")
   (set-face-attribute 'mode-line-buffer-id nil
                       :background nil
-                      :foreground nil))
+                      :foreground nil
+		      :weight 'extra-bold))
 
 
 
@@ -26,6 +27,7 @@
                       :foreground "black")
   (set-face-attribute 'mode-line-buffer-id nil
                       :background nil
-                      :foreground nil))
+                      :foreground nil
+		      :weight 'extra-bold))
 
 (provide 'my-mode-line)
