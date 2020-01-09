@@ -32,7 +32,7 @@ youtube-dl."
      "youtube-dl download" " *youtube-dl download*"
      "youtube-dl"
      "--all-subs"
-     "--format=22"
+     "--format=22,best"
      "--add-metadata"
      "--output='%(title)s.%(ext)s'"
      url))
