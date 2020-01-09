@@ -1,0 +1,2 @@
+;;; Generated package description from /home/jdb/.emacs.d/elpa/desktop-environment-20191114.441/desktop-environment.el  -*- no-byte-compile: t -*-
+(define-package "desktop-environment" "20191114.441" "Helps you control your GNU/Linux computer" '((emacs "25.1")) :commit "57de5e018baa1c7667230cae657c80ca765ae912" :authors '(("Damien Cassou <damien@cassou.me>, Nicolas Petton" . "nicolas@petton.fr")) :maintainer '("Damien Cassou <damien@cassou.me>, Nicolas Petton" . "nicolas@petton.fr") :url "https://gitlab.petton.fr/DamienCassou/desktop-environment")
