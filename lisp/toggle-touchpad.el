@@ -28,7 +28,7 @@ touchpad is disabled.")
   "Disables the touchpad."
   (interactive)
   (shell-command
-   "xinput disable 12; xinput disable 11")
+   "xinput disable 10; xinput disable 11")
   (setq touchpad-disabled-p t)
   (message "Mouse input disabled"))
 
@@ -36,7 +36,7 @@ touchpad is disabled.")
   "Enables the touchpad."
   (interactive)
   (shell-command
-   "xinput enable 12; xinput enable 11")
+   "xinput enable 10; xinput enable 11")
   (setq touchpad-disabled-p nil)
   (message "Mouse input enabled"))
 
