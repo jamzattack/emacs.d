@@ -11,6 +11,8 @@
 (defun wikipedia-search (query)
   (interactive (list (read-string "Wikipedia: ")))
   (browse-url
-   (concat "https://wikipedia.org/wiki/" query)))
+   (concat "https://en.wikipedia.org/wiki/Special:Search?search=" query)))
+
+
 
 (provide 'search-query)
