@@ -228,6 +228,7 @@ A way to open URLs the way I want. I bind it to =C-z d=.
     :after (init)
     :bind
     (("C-z d" . 'dmenu-handler)
+     ("C-z C-d" . 'dmenu-handler)
      (:map eww-mode-map
            ("f" . 'dmenu-handler-stream)
            ("D" . 'dmenu-handler-download-video)
@@ -263,8 +264,11 @@ don't have a bang.
 #+begin_src emacs-lisp
   (use-package search-query
     :bind (("C-z t" . torrentz2-search)
-           ("C-z y" . youtube-search)
-           ("C-z w" . wikipedia-search)))
+           ("C-z C-t" . torrentz2-search)
+           ("C-z y" . youtube-search)	 
+           ("C-z C-y" . youtube-search)
+           ("C-z w" . wikipedia-search)
+           ("C-z C-w" . wikipedia-search)))
 #+end_src
 
 *** lilypond-mode
@@ -327,7 +331,9 @@ replace yank-pop but the latter is too engrained in my fingers.
 #+begin_src emacs-lisp
   (use-package helm
     :ensure t
-    :custom (helm-completion-style 'emacs)
+    :custom ((helm-completion-style 'emacs)
+             (helm-describe-variable-function 'helpful-variable)
+             (helm-describe-function-function 'helpful-callable))
     :config
     (require 'helm-config)
     (helm-mode t)
@@ -707,7 +713,8 @@ your choice.
 #+begin_src emacs-lisp
   (use-package scratch
     :ensure t
-    :bind ("C-z s" . scratch))
+    :bind (("C-z s" . scratch)
+           ("C-z C-s" . scratch)))
 #+end_src
 
 *** Not really useful
