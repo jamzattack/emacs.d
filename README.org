@@ -191,6 +191,16 @@ small enough.
     (setenv "EDITOR" "emacsclient"))
 #+end_src
 
+*** compile
+
+Bind =C-z RET= and =f9= to compile.
+
+#+begin_src emacs-lisp
+  (use-package compile
+    :bind (("C-z C-m" . compile)
+           ("<f9>" . compile)))
+#+end_src
+
 ** My packages
 
 *** Toggle-touchpad
@@ -957,17 +967,13 @@ A couple of things I used to do with dmenu, now made emacsy.
    ("C-z v" . list-videos))
 #+end_src
 
-** Programming/Typesetting
+** Typesetting
 
-Bind emacs compile to =C-c C-m=. This allows 2 rapid presses of =C-m=
-or =RET= to skip the prompt.
 "opout" is a script to open the output of a file (e.g. TeX,
 LilyPond).
 
 #+begin_src emacs-lisp
-  (bind-keys
-   ("C-c C-m" . compile)
-   ("C-c p" . opout))
+  (bind-key "C-c p"  'opout)
 #+end_src
 
 ** Miscellaneous
