@@ -3,7 +3,7 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-                    :font "Noto Sans Mono 8")
+                    :font "DejaVu Sans Mono 8")
 (set-face-attribute 'variable-pitch nil
                     :font "Noto Serif"
                     :height 1.1)
