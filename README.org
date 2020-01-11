@@ -1,11 +1,18 @@
 #+PROPERTY: header-args:emacs-lisp :tangle config.el :comments org
-* Remove =C-z=
+* Prefix keys
+** Remove =C-z=
 
 Unbind =C-z= before anything else, so that I can use it as a prefix
 key.
 
 #+begin_src emacs-lisp
   (global-unset-key (kbd "C-z"))
+#+end_src
+
+** Alias <menu> to C-x
+
+#+begin_src emacs-lisp
+  (bind-key "<menu>" ctl-x-map)
 #+end_src
 
 * Packages
@@ -439,7 +446,7 @@ the default lisp program.
 
 **** paredit
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp 
   (use-package paredit
     :ensure t
     :hook ((emacs-lisp-mode . paredit-mode)
@@ -468,18 +475,6 @@ Export to html.
 #+begin_src emacs-lisp
   (use-package htmlize
     :ensure t)
-#+end_src
-
-**** Poly-org
-
-Poly-org is a package that uses polymode to allow the use of specific
-major modes for org source blocks.
-
-#+begin_src emacs-lisp
-  (use-package poly-org
-    :ensure t
-    :after (org)
-    :hook (org-mode . poly-org-mode))
 #+end_src
 
 *** EXWM - Emacs X Window Manager
@@ -723,7 +718,7 @@ A 'Lorem ipsum' generator
 *** Swap yes/no prompt with y/n
 
 #+begin_src emacs-lisp
-  (defalias 'yes-or-no-p y-or-n-p)
+  (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
 *** Enable all the features
@@ -912,12 +907,6 @@ with a more emacsy version. In order to open videos externally,
 #+end_src
 
 * Keybindings
-
-** Alias <menu> to C-x
-
-#+begin_src emacs-lisp
-  (bind-key "<menu>" ctl-x-map)
-#+end_src
 
 ** Interaction with Emacs
 
