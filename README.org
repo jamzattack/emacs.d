@@ -563,8 +563,8 @@ A more flexible mpd client than mingus.
 
 **** Mingus
 
-A nice mpd front-end in emacs
-(I couldn't get EMMS working with mopidy)
+A nice mpd front-end in emacs (I couldn't get EMMS working with
+mopidy)
 
 #+begin_src emacs-lisp
   (use-package mingus
@@ -612,8 +612,6 @@ An emacs front-end for the transmission bittorrent daemon
                 ("m" . transmission-add-url-at-point)))
 #+end_src
 
-**** 
-
 *** Appearance
 
 **** Rainbow-mode
@@ -653,8 +651,8 @@ From Alezost, remove clutter in the mode-line.
        (scheme-mode        "scm")
        (org-mode           "org")
        (Info-mode          "info")
-       (LilyPond-mode      "ly")
        (ibuffer-mode       "ibu")
+       (LilyPond-mode      "ly")
        (lilypond-mode      "ly")
        (help-mode          "?")))
     (dim-minor-names
