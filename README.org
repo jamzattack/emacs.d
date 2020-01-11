@@ -470,6 +470,18 @@ Export to html.
     :ensure t)
 #+end_src
 
+**** Poly-org
+
+Poly-org is a package that uses polymode to allow the use of specific
+major modes for org source blocks.
+
+#+begin_src emacs-lisp
+  (use-package poly-org
+    :ensure t
+    :after (org)
+    :hook (org-mode . poly-org-mode))
+#+end_src
+
 *** EXWM - Emacs X Window Manager
 
 Manipulate X windows as emacs buffers.
