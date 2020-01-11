@@ -3,12 +3,15 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-                    :font "DejaVu Sans Mono 8")
+                    :font "DejaVu Sans Mono"
+		    :height 80)
+
 (set-face-attribute 'variable-pitch nil
                     :font "Noto Serif"
                     :height 1.1)
+
 (set-face-attribute 'fixed-pitch-serif nil
-                    :font "Linux Libertine Mono O"
+                    :font "Linux Libertine Mono"
                     :height 1.0)
 
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
@@ -21,9 +24,6 @@
 (set-fontset-font t 'cjk-misc "Noto Sans Mono CJK KR Bold")
 
 (set-fontset-font t 'unicode "Noto Color Emoji" nil 'append)
-(set-fontset-font t 'latin "Noto Sans Mono" nil)
-
-(set-fontset-font t 'cyrillic "Noto Sans Mono")
 
 ;; South East Asia: ជំរាបសួរ, ສະບາຍດີ, မင်္ဂလာပါ, สวัสดีครับ
 (set-fontset-font t 'khmer "Noto Sans Khmer")
