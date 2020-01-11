@@ -681,6 +681,18 @@ Allows you to try other packages without committing
     :ensure t)
 #+end_src
 
+**** scratch
+
+scratch allows you to create a scratch buffer - either in the major
+mode of the current buffer, or (with prefix arg) in the major mode of
+your choice.
+
+#+begin_src emacs-lisp
+  (use-package scratch
+    :ensure t
+    :bind ("C-z s" . scratch))
+#+end_src
+
 *** Not really useful
 
 **** Lorem Ipsum
