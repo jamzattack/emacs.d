@@ -861,30 +861,6 @@ with a more emacsy version. In order to open videos externally,
     (setq truncate-lines t))
 #+end_src
 
-** Fixing packages
-
-#+begin_src emacs-lisp
-  (defun transmission ()
-    "Open a `transmission-mode' buffer."
-    (interactive)
-    (let* ((name "*transmission*")
-           (buffer (or (get-buffer name)
-                       (generate-new-buffer name))))
-      (transmission-turtle-poll)
-      (unless (eq buffer (current-buffer))
-        (with-current-buffer buffer
-          (unless (eq major-mode 'transmission-mode)
-            (condition-case e
-                (progn
-                  (transmission-mode)
-                  (transmission-draw)
-                  (goto-char (point-min)))
-              (error
-               (kill-buffer buffer)
-               (signal (car e) (cdr e))))))
-        (switch-to-buffer buffer))))
-#+end_src
-
 * Major mode hooks and variables
 
 ** M-x compile hooks
