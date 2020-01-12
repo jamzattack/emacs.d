@@ -235,14 +235,17 @@ A way to open URLs the way I want. I bind it to =C-z d=.
            ("A" . 'dmenu-handler-audio))))
 #+end_src
 
-*** dwm-mode
+*** super-edwina
 
-Manipulate emacs windows similarly to suckless' dwm.
+My (very minimal) fork of edwina, with an extra function to emulate
+dwm keybindings with the super key. Located [[http://github.com/jamzattack/edwina][here]].
 
 #+begin_src emacs-lisp
-  (use-package dwm
-    :load-path "lisp"
-    :config (setq dwm-mode-emulate-keybindings t))
+   (use-package edwina
+     :load-path "lisp/super-edwina"
+     :config
+     (edwina-setup-dwm-super-keys)
+     (edwina-mode 0))
 #+end_src
 
 *** library-genesis
