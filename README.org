@@ -122,7 +122,6 @@ else, so that I can bind a couple of functions.
   (use-package eww
     :custom ((browse-url-browser-function 'eww-browse-url)
              (shr-width 80))
-    :after (init)
     :bind
     (("C-x r e" . 'eww-list-bookmarks)))
 #+end_src
@@ -183,7 +182,7 @@ I'd prefer to use ido.
 
 #+begin_src emacs-lisp
   (use-package ido
-    :after (require 'ido-bookmark-jump)
+    :init (require 'ido-bookmark-jump)
     :bind ("C-x r b" . ido-bookmark-jump)
     :config (ido-everywhere t)
     :custom (max-mini-window-height 1))
@@ -258,11 +257,11 @@ My (very minimal) fork of edwina, with an extra function to emulate
 dwm keybindings with the super key. Located [[http://github.com/jamzattack/edwina][here]].
 
 #+begin_src emacs-lisp
-   (use-package edwina
-     :load-path "lisp/super-edwina"
-     :config
-     (edwina-setup-dwm-super-keys)
-     (edwina-mode 0))
+  (use-package edwina
+    :load-path "lisp/super-edwina"
+    :config
+    (edwina-setup-dwm-super-keys)
+    (edwina-mode 0))
 #+end_src
 
 *** library-genesis
@@ -622,6 +621,7 @@ An emacs front-end for the transmission bittorrent daemon
 #+begin_src emacs-lisp
   (use-package transmission
     :ensure t
+    :after (eww)
     :config
     (defun transmission-add-url-at-point (url)
       "Adds torrent if point is on a magnet link"
