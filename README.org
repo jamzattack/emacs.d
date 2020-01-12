@@ -286,7 +286,7 @@ don't have lilypond installed.
   (use-package lilypond-mode
     :load-path "lisp/lilypond-mode"
     :defer 20
-    :mode "\\.ly\\'"
+    :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
 
@@ -876,15 +876,6 @@ with a more emacsy version. In order to open videos externally,
                            (concat (file-name-sans-extension
                                     (shell-quote-argument
                                      buffer-file-name)) ".pdf")))))
-#+end_src
-
-*** C
-
-#+begin_src emacs-lisp
-  (add-hook 'c-mode-hook
-            (lambda ()
-              (set (make-local-variable 'compile-command)
-                   (format "compiler %s" buffer-file-name))))
 #+end_src
 
 *** LaTeX
