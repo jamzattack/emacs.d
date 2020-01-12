@@ -1,6 +1,3 @@
-;; clear C-z to use it as a prefix
-(global-unset-key (kbd "C-z"))
-
 ;; Move custom settings to another file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
