@@ -476,7 +476,8 @@ the default lisp program.
 #+begin_src emacs-lisp
   (use-package slime
     :ensure t
-    :custom ((inferior-lisp-program "sbcl")))
+    :custom ((inferior-lisp-program "sbcl")
+             (slime-contribs '(slime-fancy))))
 #+end_src
 
 **** paredit
