@@ -1,4 +1,21 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Jamie Beardslee <beardsleejamie@gmail.com>
 #+PROPERTY: header-args:emacs-lisp :tangle config.el :comments org
+
+This is my emacs config file. It is written in org-mode so that I can
+brag about how dope org-mode is. [[file:README.org][This file]] contains my main
+configuration, which is tangled to [[file:config.el][config.el]].  [[file:init.el][init.el]] sets the
+variable =custom-file= to [[file:custom.el][custom.el]], loads [[file:config.el][config.el]], and then loads
+[[file:custom.el][custom.el]].
+
+Note: [[file:custom.el][custom.el]] should not be edited manually, as it is used by emacs
+for settings changed using the customisation interface.
+
+My own packages and other things that I need to =require= are housed
+in [[file:lisp][lisp/]]. I have added the [[file:elpa][elpa/]] directory for convenience, but it
+would be wise to remove it and recompile everything by evaluating
+[[file:config.el][config.el]].
+
 * Prefix keys
 ** Remove =C-z=
 
@@ -662,7 +679,7 @@ From Alezost, remove clutter in the mode-line.
        (isearch-mode       " ")
        (helm-mode          "" helm)
        (paredit-mode       "" paredit)
-       (god-local-mode     " ∞" god)
+       (god-local-mode     " ∞")
        (org-src-mode       " *" org)
        (desktop-environment-mode "" desktop-environment)
        (eldoc-mode         ""    eldoc))))
@@ -751,7 +768,7 @@ A 'Lorem ipsum' generator
 Disable all the wasteful bars
 
 #+begin_src emacs-lisp
-  (fringe-mode 1)
+  (fringe-mode)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
 #+end_src
