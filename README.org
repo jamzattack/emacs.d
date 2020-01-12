@@ -601,7 +601,6 @@ An emacs front-end for the transmission bittorrent daemon
 
 #+begin_src emacs-lisp
   (use-package transmission
-    :after (init)
     :ensure t
     :config
     (defun transmission-add-url-at-point (url)
