@@ -312,6 +312,13 @@ don't have lilypond installed.
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
 
+*** Arch Linux settings
+
+#+begin_src emacs-lisp
+  (use-package arch-linux-settings
+    :load-path "lisp")
+#+end_src
+
 ** ELPA Packages
 
 *** god-mode
