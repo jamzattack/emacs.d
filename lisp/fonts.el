@@ -4,7 +4,7 @@
 
 (set-face-attribute 'default nil
                     :font "DejaVu Sans Mono"
-		    :height 80)
+					:height 80)
 
 (set-face-attribute 'variable-pitch nil
                     :font "Noto Serif"
