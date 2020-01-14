@@ -350,6 +350,22 @@ pacman files.
     :load-path "lisp")
 #+end_src
 
+*** Custom EXWM config
+
+My custom settings for EXWM - not much different from the
+=exwm-config-default=, but doesn't get in my way as much.
+
+Located [[file:lisp/custom-exwm-config.el][here.]]
+
+#+begin_src emacs-lisp
+  (use-package custom-exwm-config
+    :load-path "lisp"
+    :after (exwm)
+    :config
+    (custom-exwm-config)
+    (exwm-init))
+#+end_src
+
 ** ELPA Packages
 
 This is where the packages installed within emacs are located. All of
@@ -566,12 +582,7 @@ Manipulate X windows as emacs buffers.
 #+begin_src emacs-lisp
   (use-package exwm
     :ensure t
-    :init
-    (add-hook 'exwm-init-hook 'set-up-fonts-please)
-    :config
-    (require 'custom-exwm-config)
-    (custom-exwm-config)
-    (exwm-init))
+    :hook (exwm-init . set-up-fonts-please))
 #+end_src
 
 **** Desktop-environment (useful with EXWM)
