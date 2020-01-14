@@ -231,6 +231,17 @@ this if you use a different version.
     :custom (dired-listing-switches "-lah --group-directories-first"))
 #+end_src
 
+*** Desktop
+
+Save list of buffers and some variables when exiting emacs.
+
+#+begin_src emacs-lisp
+  (use-package desktop
+    :config
+    (add-to-list 'desktop-globals-to-save 'helm-ff-history)
+    (add-to-list 'desktop-globals-to-save 'extended-command-history)
+    (desktop-save-mode t))
+#+end_src
 
 ** My packages
 
@@ -367,8 +378,6 @@ replace yank-pop but the latter is too engrained in my fingers.
              (helm-describe-function-function 'helpful-callable))
     :config
     (require 'helm-config)
-    (add-to-list 'desktop-globals-to-save 'helm-ff-history)
-    (add-to-list 'desktop-globals-to-save 'extended-command-history)
     (helm-mode t)
     :bind (("M-x" . 'helm-M-x)
            ("<menu><menu>" . 'helm-M-x)
@@ -821,14 +830,6 @@ Tabs are 4 spaces wide
 
 #+begin_src emacs-lisp
   (setq-default tab-width 4)
-#+end_src
-
-** desktop-save
-
-Save list of buffers and some variables when exiting emacs.
-
-#+begin_src emacs-lisp
-  (desktop-save-mode t)
 #+end_src
 
 ** show-paren
