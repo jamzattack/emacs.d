@@ -61,10 +61,10 @@ Install use-package if not installed
 
 *** Fonts
 
-This section has been moved to a different file: =./config/fonts.el=
+This section has been moved to [[file:lisp/fonts.el][its own file]]
 
 #+begin_src emacs-lisp
-  (defvar fonts-file (concat user-emacs-directory "config/fonts.el")
+  (defvar fonts-file (concat user-emacs-directory "lisp/fonts.el")
     "This is the file to load custom font settings from")
 
   (defun set-up-fonts-please ()
