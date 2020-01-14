@@ -251,16 +251,19 @@ A way to open URLs the way I want. I bind it to =C-z d=.
            ("A" . 'dmenu-handler-audio))))
 #+end_src
 
-*** super-edwina
+*** edwina
 
 My (very minimal) fork of edwina, with an extra function to emulate
 dwm keybindings with the super key. Located [[http://github.com/jamzattack/edwina][here]].
 
+Note: my pull request has been merged, but the MELPA package has not
+been updated yet, so clone [[https://github.com/ajgrf/edwina][this]] to get the new function.
+
 #+begin_src emacs-lisp
   (use-package edwina
-    :load-path "lisp/super-edwina"
+    :load-path "lisp/edwina"
     :config
-    (edwina-setup-dwm-super-keys)
+    (edwina-setup-dwm-keys 'super)
     (edwina-mode 0))
 #+end_src
 
@@ -550,7 +553,7 @@ colour.
 
   (use-package desktop-environment
     :ensure t
-    :init
+    :config
     (defadvice desktop-environment-lock-screen
         (before change-bg-color activate)
       (custom-screenlock-command))
