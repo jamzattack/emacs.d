@@ -561,8 +561,7 @@ the default lisp program.
 
 #+begin_src emacs-lisp
   (use-package slime
-    :ensure t
-    :custom ((inferior-lisp-program "sbcl")
+    :ensure custom ((inferior-lisp-program "sbcl")
              (slime-contribs '(slime-fancy))))
 #+end_src
 
@@ -605,6 +604,7 @@ Manipulate X windows as emacs buffers.
 
 #+begin_src emacs-lisp
   (use-package exwm
+    :defer t
     :ensure t
     :hook (exwm-init . set-up-fonts-please))
 #+end_src
