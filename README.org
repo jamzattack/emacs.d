@@ -358,6 +358,8 @@ replace yank-pop but the latter is too engrained in my fingers.
              (helm-describe-function-function 'helpful-callable))
     :config
     (require 'helm-config)
+    (add-to-list 'desktop-globals-to-save 'helm-ff-history)
+    (add-to-list 'desktop-globals-to-save 'extended-command-history)
     (helm-mode t)
     :bind (("M-x" . 'helm-M-x)
            ("<menu><menu>" . 'helm-M-x)
