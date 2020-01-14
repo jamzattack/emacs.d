@@ -6,11 +6,11 @@
   (custom-theme-set-faces
    'custom
    `(default ((,class (:background ,almost-white :foreground "black"))))
-   `(border-color ((,class (:inherit 'default))))
-   `(fringe ((,class (:inherit 'default))))
    `(line-number-current-line ((,class (:inherit 'secondary-selection))))
    `(secondary-selection ((,class (:background "khaki1" :extend t))))
+   `(helm-source-header ((,class (:inherit 'bold))))
+   `(tooltip ((,class (:inherit 'default))))
    `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
-   `(helm-source-header ((,class (:inherit 'bold))))))
+   `(fringe ((,class (:inherit 'default))))))
 
 (provide-theme 'custom)
