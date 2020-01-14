@@ -6,6 +6,10 @@
                     :font "DejaVu Sans Mono"
 					:height 80)
 
+(set-face-attribute 'italic nil
+					:underline nil
+                    :slant 'italic)
+
 (set-face-attribute 'variable-pitch nil
                     :font "Noto Serif"
                     :height 1.1)
