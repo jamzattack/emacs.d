@@ -16,8 +16,16 @@ in [[file:lisp][lisp/]]. I have added the [[file:elpa][elpa/]] directory for con
 would be wise to remove it and recompile everything by evaluating
 [[file:config.el][config.el]].
 
-* Prefix keys
-** Remove =C-z=
+* Startup
+
+Some things to do before everything else.
+
+** Prefix keys
+
+A couple of prefix keys. It's useful to set these up early, so that
+you don't get any errors i.e "C-z is not a valid prefix key".
+
+*** Remove =C-z=
 
 Unbind =C-z= before anything else, so that I can use it as a prefix
 key.
@@ -26,19 +34,17 @@ key.
   (global-unset-key (kbd "C-z"))
 #+end_src
 
-** Alias <menu> to C-x
+*** Alias <menu> to C-x
+
+Make the menu key do the same as C-x.
 
 #+begin_src emacs-lisp
   (bind-key "<menu>" ctl-x-map)
 #+end_src
 
-* Packages
+** Repositories and initialisation
 
-** Startup
-
-*** Repositories and initialisation
-
-Enable melpa archive and making sure packages work
+Enable melpa archive and making sure packages work.
 
 #+begin_src emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp"))
@@ -49,9 +55,9 @@ Enable melpa archive and making sure packages work
   (package-initialize)
 #+end_src
 
-*** Use-package
+** Use-package
 
-Install use-package if not installed
+Install use-package if not installed.
 
 #+begin_src emacs-lisp
   (unless (package-installed-p 'use-package)
@@ -59,7 +65,7 @@ Install use-package if not installed
     (package-install 'use-package))
 #+end_src
 
-*** Fonts
+** Fonts
 
 This section has been moved to [[file:lisp/fonts.el][its own file]]
 
@@ -74,7 +80,16 @@ This section has been moved to [[file:lisp/fonts.el][its own file]]
   (set-up-fonts-please)
 #+end_src
 
+* Packages
+
+The biggest section of this file. This is where almost everything
+goes. Use-package is not only useful for configuring ELPA packages,
+but anything that can be (require)d.
+
 ** Built-in
+
+This is the section for built-in packages. A lot of these are just
+minor things such as setting a single variable.
 
 *** Org Mode
 
@@ -245,6 +260,9 @@ Save list of buffers and some variables when exiting emacs.
 
 ** My packages
 
+Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
+directory.
+
 *** Toggle-touchpad
 
 A simple package I wrote to toggle the touchpad/trackpoint on my
@@ -333,6 +351,10 @@ pacman files.
 #+end_src
 
 ** ELPA Packages
+
+This is where the packages installed within emacs are located. All of
+these use the =:ensure= keyword, so that they are downloaded if they
+aren't already.
 
 *** god-mode
 
@@ -770,7 +792,6 @@ My PR has been merged! I can now use the MELPA package.
     (edwina-setup-dwm-keys 'super)
     (edwina-mode 0))
 #+end_src
-
 
 *** Not really useful
 
