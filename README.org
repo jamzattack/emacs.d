@@ -201,6 +201,10 @@ small enough.
 
 *** environment variables
 
+Set the $EDITOR to emacsclient. Because I (almost) only use other
+programs from within Emacs, this works. If you don't use EXWM it would
+be advisable to set this in your xinitrc.
+
 #+begin_src emacs-lisp
   (use-package env
     :config
@@ -216,6 +220,17 @@ Bind =C-z RET= and =f9= to compile.
     :bind (("C-z C-m" . compile)
            ("<f9>" . compile)))
 #+end_src
+
+*** dired
+
+Group directories first. This works only with GNU ls, so don't use
+this if you use a different version.
+
+#+begin_src emacs-lisp
+  (use-package dired
+    :custom (dired-listing-switches "-lah --group-directories-first"))
+#+end_src
+
 
 ** My packages
 
@@ -313,6 +328,9 @@ don't have lilypond installed.
 #+end_src
 
 *** Arch Linux settings
+
+This file just adds a few auto-mode-alist entries for systemd and
+pacman files.
 
 #+begin_src emacs-lisp
   (use-package arch-linux-settings
@@ -458,7 +476,8 @@ and set the default width to 80C.
 
 **** PDF-tools
 
-Majorly increases performance when viewing pdfs as a file
+Majorly increases performance when viewing pdfs within Emacs, and
+provides some note-taking facilities.
 
 #+begin_src emacs-lisp
   (use-package pdf-tools
@@ -764,11 +783,16 @@ A 'Lorem ipsum' generator
 
 *** Swap yes/no prompt with y/n
 
+Typing yes/no is an inconvenience that can be avoided. Alias it to y/n
+
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
 *** Enable all the features
+
+Disable the annoying "This is an advanced feature" thing.  It seems so
+dumb that this feature exists.
 
 #+begin_src emacs-lisp
   (setq disabled-command-function nil)
@@ -778,15 +802,17 @@ A 'Lorem ipsum' generator
 
 *** GUI ugliness
 
-Disable all the wasteful bars
+Disable all the wasteful bars.  I've actually started liking the
+scroll bar (with-x-toolkit=no), so just the menu bar and tool bar.
 
 #+begin_src emacs-lisp
-  (fringe-mode)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
 #+end_src
 
 *** Disable audible and visual bell
+
+Don't ring the damn bell.
 
 #+begin_src emacs-lisp
   (setq ring-bell-function 'ignore)
@@ -797,22 +823,20 @@ Disable all the wasteful bars
 Tabs are 4 spaces wide
 
 #+begin_src emacs-lisp
-  (setq tab-width 4)
+  (setq-default tab-width 4)
 #+end_src
 
 ** desktop-save
+
+Save list of buffers and some variables when exiting emacs.
 
 #+begin_src emacs-lisp
   (desktop-save-mode t)
 #+end_src
 
-** dired
-
-#+begin_src emacs-lisp
-  (setq dired-listing-switches "-lah --group-directories-first")
-#+end_src
-
 ** show-paren
+
+Highlight matching parentheses.
 
 #+begin_src emacs-lisp
   (show-paren-mode t)
@@ -835,6 +859,8 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 
 *** Opening Output
 
+Kinda useful when working with lilypond or LaTeX.x
+
 #+begin_src emacs-lisp
   (defun opout ()
     "Opens a pdf file of the same name as the current file"
@@ -845,6 +871,8 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
 #+end_src
 
 ** Email
+
+Update locally stored mail with isync and then index it with notmuch.
 
 #+begin_src emacs-lisp
   (defun mailsync ()
@@ -900,24 +928,29 @@ with a more emacsy version. In order to open videos externally,
 
 *** Groff
 
+I usually use the ms macros when writing something, but I usually just
+use org-mode anyway.
+
 #+begin_src emacs-lisp
   (add-hook 'nroff-mode-hook
             (lambda ()
-              (set (make-local-variable 'compile-command)
-                   (format "groff -ms -Tpdf %s > %s"
-                           (shell-quote-argument buffer-file-name)
-                           (concat (file-name-sans-extension
-                                    (shell-quote-argument
-                                     buffer-file-name)) ".pdf")))))
+              (setq-local compile-command
+                          (format "groff -ms -Tpdf %s > %s"
+                                  (shell-quote-argument buffer-file-name)
+                                  (concat (file-name-sans-extension
+                                           (shell-quote-argument
+                                            buffer-file-name)) ".pdf")))))
 #+end_src
 
 *** LaTeX
 
+Compile latex files with pdflatex.
+
 #+begin_src emacs-lisp
   (add-hook 'latex-mode-hook
             (lambda ()
-              (set (make-local-variable 'compile-command)
-                   (format "pdflatex %s" buffer-file-name))))
+              (setq-local compile-command
+                          (format "pdflatex %s" buffer-file-name))))
 #+end_src
 
 * Keybindings
@@ -938,12 +971,17 @@ Rebinding some useful keys that can't be used in a terminal.
 
 *** bury-buffer and kill-buffer-and-window
 
+These functions are both quite useful, so I bound them to similar
+keys.
+
 #+begin_src emacs-lisp
   (bind-key "C-z C-z" 'bury-buffer)
   (bind-key "C-z z" 'kill-buffer-and-window)
 #+end_src
 
 ** Config
+
+Reload [[file:config.el][config file]]
 
 #+begin_src emacs-lisp
   (bind-key "C-c r" 'config-reload)
@@ -984,17 +1022,16 @@ LilyPond).
 
 *** Line numbers
 
+Display line numbers. I prefer to just use the mode-line because it
+doesn't slow down emacs as much.
+
 #+begin_src emacs-lisp
   (bind-key "C-c n" 'display-line-numbers-mode)
 #+end_src
 
-*** Spelling correction
-
-#+begin_src emacs-lisp
-  (bind-key "C-c s" 'flyspell-mode)
-#+end_src
-
 *** Line wrap
+
+Simple keybinding to wrap/unwrap lines.
 
 #+begin_src emacs-lisp
   (bind-key "C-c l" 'toggle-truncate-lines)
