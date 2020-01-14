@@ -151,6 +151,18 @@ The only reason for this to be here is to set my nick.
     :custom (erc-nick "jamzattack"))
 #+end_src
 
+*** shell
+
+I don't want the shell buffer to open a new window, so add an entry in
+=display-buffer-alist=.
+
+#+begin_src emacs-lisp
+  (use-package shell
+    :config
+    (add-to-list 'display-buffer-alist
+                 '("^\\*shell\\*$" . (display-buffer-same-window))))
+#+end_src
+
 *** recentf
 
 I don't really understand recentf, but this loads it in case I need
