@@ -255,6 +255,7 @@ this if you use a different version.
 
 #+begin_src emacs-lisp
   (use-package dired
+    :defer t
     :custom (dired-listing-switches "-lah --group-directories-first"))
 #+end_src
 
@@ -377,17 +378,14 @@ Located [[file:lisp/arch-linux-settings.el][here.]]
 *** Custom EXWM config
 
 My custom settings for EXWM - not much different from the
-=exwm-config-default=, but doesn't get in my way as much.
+=exwm-config-default=, but doesn't get in my way as much. It provides
+the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
 
 Located [[file:lisp/custom-exwm-config.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
-    :load-path "lisp"
-    :after (exwm)
-    :config
-    (custom-exwm-config)
-    (exwm-init))
+    :load-path "lisp")
 #+end_src
 
 ** ELPA Packages
@@ -561,7 +559,8 @@ the default lisp program.
 
 #+begin_src emacs-lisp
   (use-package slime
-    :ensure custom ((inferior-lisp-program "sbcl")
+    :ensure t
+    :custom ((inferior-lisp-program "sbcl")
              (slime-contribs '(slime-fancy))))
 #+end_src
 
@@ -604,9 +603,12 @@ Manipulate X windows as emacs buffers.
 
 #+begin_src emacs-lisp
   (use-package exwm
-    :defer t
+    :after (custom-exwm-config)
     :ensure t
-    :hook (exwm-init . set-up-fonts-please))
+    :hook (exwm-init . set-up-fonts-please)
+    :config
+    (custom-exwm-config)
+    (exwm-init))
 #+end_src
 
 **** Desktop-environment (useful with EXWM)
