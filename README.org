@@ -236,7 +236,8 @@ be advisable to set this in your xinitrc.
 #+begin_src emacs-lisp
   (use-package env
     :config
-    (setenv "EDITOR" "emacsclient"))
+    (setenv "EDITOR" "emacsclient")
+    (setenv "PAGER" "cat"))
 #+end_src
 
 *** compile
