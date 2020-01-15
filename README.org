@@ -148,7 +148,8 @@ The only reason for this to be here is to set my nick.
 #+begin_src emacs-lisp
   (use-package erc
     :after (init)
-    :custom (erc-nick "jamzattack"))
+    :custom (erc-nick "jamzattack")
+    :config (erc-track-mode))
 #+end_src
 
 *** shell
