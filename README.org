@@ -140,6 +140,13 @@ prolog-mode.
     :mode ("\\.pl\\'" . prolog-mode))
 #+end_src
 
+**** cc-mode
+
+#+begin_src emacs-lisp
+  (use-package cc-mode
+    :custom ((c-file-style "bsd")))
+#+end_src
+
 *** EWW
 
 A browser written in elisp!  I need to load this after everything
@@ -899,14 +906,6 @@ Don't ring the damn bell.
 
 #+begin_src emacs-lisp
   (setq ring-bell-function 'ignore)
-#+end_src
-
-** Tabs
-
-Tabs are 4 spaces wide
-
-#+begin_src emacs-lisp
-  (setq-default tab-width 4)
 #+end_src
 
 ** show-paren
