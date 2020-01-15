@@ -563,7 +563,8 @@ default scheme program.
 #+begin_src emacs-lisp
   (use-package geiser
     :ensure t
-    :custom ((scheme-program-name "guile")))
+    :custom ((scheme-program-name "guile")
+             (geiser-default-implementation 'guile)))
 #+end_src
 
 **** SLIME
@@ -666,6 +667,15 @@ doesn't play nice with complicated things such as nethack.
     :ensure t)
 #+end_src
 
+**** libmpdee
+
+An mpd library. I use it only for random/shuffle.
+
+#+begin_src emacs-lisp
+  (use-package libmpdee
+    :ensure t)
+#+end_src
+
 **** MPDel
 
 A more flexible mpd client than mingus.
@@ -673,27 +683,12 @@ A more flexible mpd client than mingus.
 #+begin_src emacs-lisp
   (use-package mpdel
     :ensure t
-    :after (init)
+    :after (init libmpdee)
     :bind-keymap (("s-m" . mpdel-core-map))
-    :bind (("s-a" . mpdel-core-open-albums)))
-#+end_src
-
-**** Mingus
-
-A nice mpd front-end in emacs (I couldn't get EMMS working with
-mopidy)
-
-#+begin_src emacs-lisp
-  (use-package mingus
-    :ensure t
-    :defer 20
-    :bind (:map mingus-playlist-map
-                ("C-x r b" . 'helm-filtered-bookmarks)
-                ("C-x r m" . 'bookmark-set)
-                ("r" . nil)
-                ("r m" . 'mingus-bookmark-set)
-                ("r b" . 'mingus-bookmark-jump)
-                ("r d" . 'mingus-bookmark-delete)))
+    :bind (("s-a" . mpdel-core-open-albums)
+           (:map mpdel-core-map
+                 ("Z" . mpd-shuffle-playlist)
+                 ("z" . mpd-toggle-random))))
 #+end_src
 
 **** Notmuch
