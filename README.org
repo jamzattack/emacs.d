@@ -142,9 +142,16 @@ prolog-mode.
 
 **** cc-mode
 
+Set the c style to bsd, which uses tabs. Use java/awk indentation
+for java/awk files.
+
 #+begin_src emacs-lisp
   (use-package cc-mode
-    :custom ((c-file-style "bsd")))
+    :custom
+    ((c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "bsd")))))
+
 #+end_src
 
 *** EWW
