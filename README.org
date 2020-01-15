@@ -91,7 +91,8 @@ but anything that can be (require)d.
 This is the section for built-in packages. A lot of these are just
 minor things such as setting a single variable.
 
-*** Org Mode
+*** Major editing modes
+**** Org Mode
 
 Open source blocks and stuff in the current window. Use tab from the
 language's major mode inside source blocks.
@@ -126,6 +127,17 @@ file. Similar to remember.
                  "* %?\nEntered on %U\n  %i\n  %a")))
              (org-capture-bookmark nil))
     :bind (("C-x M-r" . org-capture)))
+#+end_src
+
+**** prolog
+
+Major mode for editing prolog files. Files ending in ~.pl~ open in
+prolog-mode.
+
+#+begin_src emacs-lisp
+  (use-package prolog
+    :after (init)
+    :mode ("\\.pl\\'" . prolog-mode))
 #+end_src
 
 *** EWW
@@ -173,17 +185,6 @@ it.
   (use-package recentf
     :after (init)
     :config (recentf-load-list))
-#+end_src
-
-*** prolog
-
-Major mode for editing prolog files. Files ending in ~.pl~ open in
-prolog-mode.
-
-#+begin_src emacs-lisp
-  (use-package prolog
-    :after (init)
-    :mode ("\\.pl\\'" . prolog-mode))
 #+end_src
 
 *** ibuffer
@@ -271,18 +272,6 @@ Save list of buffers and some variables when exiting emacs.
     (add-to-list 'desktop-globals-to-save 'helm-ff-history)
     (add-to-list 'desktop-globals-to-save 'extended-command-history)
     (desktop-save-mode t))
-#+end_src
-
-*** fish completion
-
-fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
-completion. fish must be installed.
-
-#+begin_src emacs-lisp
-  (use-package fish-completion
-    :ensure t
-    :config
-    (global-fish-completion-mode))
 #+end_src
 
 ** My packages
@@ -846,6 +835,18 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]]
 #+begin_src emacs-lisp
   (use-package 0x0
     :ensure t)
+#+end_src
+
+*** fish completion
+
+fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
+completion. fish must be installed.
+
+#+begin_src emacs-lisp
+  (use-package fish-completion
+    :ensure t
+    :config
+    (global-fish-completion-mode))
 #+end_src
 
 *** Not really useful
