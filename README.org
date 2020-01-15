@@ -272,6 +272,18 @@ Save list of buffers and some variables when exiting emacs.
     (desktop-save-mode t))
 #+end_src
 
+*** fish completion
+
+fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
+completion. fish must be installed.
+
+#+begin_src emacs-lisp
+  (use-package fish-completion
+    :ensure t
+    :config
+    (global-fish-completion-mode))
+#+end_src
+
 ** My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
