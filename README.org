@@ -273,7 +273,8 @@ this if you use a different version.
 #+begin_src emacs-lisp
   (use-package dired
     :defer t
-    :custom (dired-listing-switches "-lah --group-directories-first"))
+    :custom ((dired-listing-switches "-lah --group-directories-first")
+             (delete-by-moving-to-trash t)))
 #+end_src
 
 *** Desktop
