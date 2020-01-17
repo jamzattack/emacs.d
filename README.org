@@ -624,7 +624,6 @@ Manipulate X windows as emacs buffers.
   (use-package exwm
     :after (custom-exwm-config)
     :ensure t
-    :hook (exwm-init . set-up-fonts-please)
     :config
     (custom-exwm-config)
     (exwm-init))
