@@ -156,15 +156,13 @@ for java/awk files.
 
 *** EWW
 
-A browser written in elisp!  I need to load this after everything
-else, so that I can bind a couple of functions.
+Elisp web browser - I just set some variables to make eww the default
+browser, and change the width to 80 columns.
 
 #+begin_src emacs-lisp
   (use-package eww
     :custom ((browse-url-browser-function 'eww-browse-url)
-             (shr-width 80))
-    :bind
-    (("C-x r e" . 'eww-list-bookmarks)))
+             (shr-width 80)))      
 #+end_src
 
 *** ERC
@@ -503,6 +501,22 @@ manpages.
     :after (helm)
     :custom (man-width 80)
     :bind ("C-h C-m" . 'helm-man-woman))
+#+end_src
+
+**** Helm eww
+
+Some helm functions for eww. I replace all the default functions with
+the helm alternatives.
+
+#+begin_src emacs-lisp
+  (use-package helm-eww
+    :ensure t
+    :after (eww helm)
+    :bind (("C-x r e" . helm-eww-bookmarks)
+           (:map eww-mode-map
+                 ("B" . helm-eww-bookmarks)
+                 ("H" . helm-eww-history)
+                 ("S" . helm-eww-buffers))))
 #+end_src
 
 *** COMMENT Pinentry
