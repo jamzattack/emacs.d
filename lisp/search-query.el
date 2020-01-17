@@ -13,6 +13,9 @@
   (browse-url
    (concat "https://en.wikipedia.org/wiki/Special:Search?search=" query)))
 
-
+(defun wiktionary-word (word)
+  (interactive (list (thing-at-point 'word t)))
+  (browse-url
+   (concat "https://en.wiktionary.org/wiki/" word)))
 
 (provide 'search-query)
