@@ -39,7 +39,7 @@ key.
 Make the menu key do the same as C-x.
 
 #+begin_src emacs-lisp
-  (bind-key "<menu>" ctl-x-map)
+  (global-set-key (kbd "<menu>") ctl-x-map)
 #+end_src
 
 ** Repositories and initialisation
