@@ -475,7 +475,8 @@ packages.
 #+begin_src emacs-lisp
   (use-package helm-system-packages
     :ensure t
-    :after helm)
+    :after helm
+    :bind (("C-h C-p" . helm-system-packages)))
 #+end_src
 
 **** Helm notmuch
