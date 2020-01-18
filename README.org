@@ -154,6 +154,14 @@ for java/awk files.
 
 #+end_src
 
+*** Auto-insert
+
+#+begin_src emacs-lisp
+  (use-package autoinsert
+    :defer t
+    :config (auto-insert-mode t))
+#+end_src
+
 *** EWW
 
 Elisp web browser - I just set some variables to make eww the default
@@ -390,14 +398,24 @@ Located [[file:lisp/lilypond-mode][here.]]
       "\\composer \"\"\n\n"
 
       "global = {\n"
-      _ "\n}\n\n")
+      _ "\n}\n\n"
 
+      "\\score {
+    \\new Staff \\with {
+
+    } { \\instrument }
+    \\layout { }
+    \\midi { }
+  }")
     (defun custom-lilypond-setup ()
       "Sets the buffer's comile command and comment-column."
       (setq-local compile-command
                   (format "lilypond %s" buffer-file-name))
       (setq-local comment-column 0))
     :defer 20
+    :config (add-to-list 'auto-insert-alist
+                         '(("\\.ly\\'" . "Lilypond file")
+                           . lilypond-auto-insert))
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
