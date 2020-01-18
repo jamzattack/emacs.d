@@ -173,7 +173,10 @@ The only reason for this to be here is to set my nick.
   (use-package erc
     :after (init)
     :custom (erc-nick "jamzattack")
-    :config (erc-track-mode))
+    :config
+    (add-to-list 'erc-modules 'notifications)
+    (erc-track-mode)
+    (erc-notifications-enable))
 #+end_src
 
 *** shell
