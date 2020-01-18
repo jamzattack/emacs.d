@@ -379,14 +379,24 @@ don't have lilypond installed.
 Located [[file:lisp/lilypond-mode][here.]]
 
 #+begin_src emacs-lisp
-  (defun custom-lilypond-setup ()
-    "Sets the buffer's comile command and comment-column."
-    (setq-local compile-command
-                (format "lilypond %s" buffer-file-name))
-    (setq-local comment-column 0))
-
   (use-package lilypond-mode
     :load-path "lisp/lilypond-mode"
+    :init
+    (define-skeleton lilypond-auto-insert
+      "insert version an global settings" nil
+
+      "\\version \"2.19\"\n"
+      "\\title \"\"\n"
+      "\\composer \"\"\n\n"
+
+      "global = {\n"
+      _ "\n}\n\n")
+
+    (defun custom-lilypond-setup ()
+      "Sets the buffer's comile command and comment-column."
+      (setq-local compile-command
+                  (format "lilypond %s" buffer-file-name))
+      (setq-local comment-column 0))
     :defer 20
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
@@ -1171,4 +1181,5 @@ email settings
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+end_src
+
 
