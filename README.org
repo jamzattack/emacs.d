@@ -285,7 +285,8 @@ this if you use a different version.
   (use-package dired
     :defer t
     :custom ((dired-listing-switches "-lah --group-directories-first")
-             (delete-by-moving-to-trash t)))
+             (delete-by-moving-to-trash t))
+    :bind ([remap list-directory] . dired-jump))
 #+end_src
 
 **** dired-async
