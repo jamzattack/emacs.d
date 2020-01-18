@@ -229,19 +229,6 @@ buffers.
     :hook (ibuffer . ibuffer-filter-helm))
 #+end_src
 
-*** COMMENT ido
-
-I've switched to helm now, but this is a comment for the times when
-I'd prefer to use ido.
-
-#+begin_src emacs-lisp
-  (use-package ido
-    :init (require 'ido-bookmark-jump)
-    :bind ("C-x r b" . ido-bookmark-jump)
-    :config (ido-everywhere t)
-    :custom (max-mini-window-height 1))
-#+end_src
-
 *** scroll bar
 
 I've started to use scroll-bar-mode. It's not so bad if the width is
@@ -844,19 +831,6 @@ you're in (sometimes the mode-line just doesn't cut it).
 #+end_src
 
 *** Quality of life
-
-**** COMMENT Smex
-
-smex integrates "M-x" with =ido=.
-
-Note: I have abandoned ido in favour of helm, but left this as a
-comment in case I want to switch back..
-
-#+begin_src emacs-lisp
-  (use-package smex
-    :init (smex-initialize)
-    :bind ("M-x" . smex ))
-#+end_src
 
 **** Try
 
