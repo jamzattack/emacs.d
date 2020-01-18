@@ -563,17 +563,6 @@ the helm alternatives.
                  ("S" . helm-eww-buffers))))
 #+end_src
 
-*** COMMENT Pinentry
-
-This package lets emacs be used for gpg authentication
-
-#+begin_src emacs-lisp
-  (use-package pinentry
-    :custom (epg-pinentry-mode 'loopback)
-    :config
-    (pinentry-start))
-#+end_src
-
 *** Helpful
 
 Helpful gives a whole lot more information than describe-*. I also
