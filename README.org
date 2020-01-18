@@ -176,7 +176,8 @@ The only reason for this to be here is to set my nick.
     :config
     (add-to-list 'erc-modules 'notifications)
     (erc-track-mode)
-    (erc-notifications-enable))
+    (when (executable-find "dunst")
+      (erc-notifications-enable)))
 #+end_src
 
 *** shell
@@ -276,6 +277,15 @@ this if you use a different version.
     :defer t
     :custom ((dired-listing-switches "-lah --group-directories-first")
              (delete-by-moving-to-trash t)))
+#+end_src
+
+**** dired-async
+
+Make dired run actions in the background.
+
+#+begin_src emacs-lisp
+  (use-package dired-async
+    :config (dired-async-mode))
 #+end_src
 
 *** Desktop
