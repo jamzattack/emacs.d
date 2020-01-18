@@ -185,7 +185,8 @@ The only reason for this to be here is to set my nick.
     (add-to-list 'erc-modules 'notifications)
     (erc-track-mode)
     (when (executable-find "dunst")
-      (erc-notifications-enable)))
+      (require 'erc-notify)
+      (erc-notify-enable)))
 #+end_src
 
 *** shell
