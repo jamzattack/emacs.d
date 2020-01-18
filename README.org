@@ -717,6 +717,9 @@ A more flexible mpd client than mingus.
     :after (init libmpdee)
     :bind-keymap (("s-m" . mpdel-core-map))
     :bind (("s-a" . mpdel-core-open-albums)
+           ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
+           ("<XF86AudioPrev>" . libmpdel-playback-previous)
+           ("<XF86AudioNext>" . libmpdel-playback-next)
            (:map mpdel-core-map
                  ("Z" . mpd-shuffle-playlist)
                  ("z" . mpd-toggle-random))))
