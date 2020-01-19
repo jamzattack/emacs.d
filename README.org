@@ -1,6 +1,6 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Jamie Beardslee <beardsleejamie@gmail.com>
-s#+PROPERTY: header-args:emacs-lisp :tangle config.el :comments org
+#+PROPERTY: header-args:emacs-lisp :tangle config.el :comments org
 
 This is my emacs config file. It is written in org-mode so that I can
 brag about how dope org-mode is. [[file:README.org][This file]] contains my main
@@ -439,7 +439,7 @@ This is where the packages installed within emacs are located. All of
 these use the =:ensure= keyword, so that they are downloaded if they
 aren't already.
 
-*** god-mode
+*** COMMENT god-mode
 
 God-mode is kinda like modal editing using the default keybindings.
 It essentially acts as an emacs-only sticky-key.
