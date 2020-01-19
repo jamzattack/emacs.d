@@ -378,34 +378,24 @@ Located [[file:lisp/lilypond-mode][here.]]
   (use-package lilypond-mode
     :load-path "lisp/lilypond-mode"
     :init
-    (define-skeleton lilypond-auto-insert
-      "insert version an global settings" nil
-
-      "\\version \"2.19\"\n"
-      "\\title \"\"\n"
-      "\\composer \"\"\n\n"
-
-      "global = {\n"
-      _ "\n}\n\n"
-
-      "\\score {
-    \\new Staff \\with {
-
-    } { \\instrument }
-    \\layout { }
-    \\midi { }
-  }")
     (defun custom-lilypond-setup ()
       "Sets the buffer's comile command and comment-column."
       (setq-local compile-command
                   (format "lilypond %s" buffer-file-name))
       (setq-local comment-column 0))
     :defer 20
-    :config (add-to-list 'auto-insert-alist
-                         '(("\\.ly\\'" . "Lilypond file")
-                           . lilypond-auto-insert))
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
+#+end_src
+
+**** lilypond-skel
+
+My small package that provides an auto-insert skeleton for lilypond.
+
+#+begin_src emacs-lisp
+  (use-package lilypond-skel
+    :load-path "lisp/skeletons/"
+    :after (lilypond-mode auto-insert))
 #+end_src
 
 *** Arch Linux settings
