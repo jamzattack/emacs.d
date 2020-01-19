@@ -1,6 +1,6 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Jamie Beardslee <beardsleejamie@gmail.com>
-#+PROPERTY: header-args:emacs-lisp :tangle config.el :comments org
+s#+PROPERTY: header-args:emacs-lisp :tangle config.el :comments org
 
 This is my emacs config file. It is written in org-mode so that I can
 brag about how dope org-mode is. [[file:README.org][This file]] contains my main
@@ -158,7 +158,6 @@ for java/awk files.
 
 #+begin_src emacs-lisp
   (use-package autoinsert
-    :defer t
     :config (auto-insert-mode t))
 #+end_src
 
@@ -614,7 +613,9 @@ the default lisp program.
   (use-package slime
     :ensure t
     :custom ((inferior-lisp-program "sbcl")
-             (slime-contribs '(slime-fancy))))
+             (slime-contribs '(slime-fancy))
+             (slime-completion-at-point-functions
+              '(slime-simple-completion-at-point))))
 #+end_src
 
 **** paredit
