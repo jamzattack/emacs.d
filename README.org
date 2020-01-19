@@ -170,7 +170,7 @@ browser, and change the width to 80 columns.
 #+begin_src emacs-lisp
   (use-package eww
     :custom ((browse-url-browser-function 'eww-browse-url)
-             (shr-width 80)))      
+             (shr-width 80)))
 #+end_src
 
 *** ERC
@@ -362,7 +362,7 @@ Located [[file:lisp/search-query.el][here.]]
   (use-package search-query
     :bind (("C-z t" . torrentz2-search)
            ("C-z C-t" . torrentz2-search)
-           ("C-z y" . youtube-search)	 
+           ("C-z y" . youtube-search)
            ("C-z C-y" . youtube-search)
            ("C-z w" . wikipedia-search)
            ("C-z C-w" . wiktionary-word)))
@@ -619,7 +619,7 @@ the default lisp program.
 
 **** paredit
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
   (use-package paredit
     :ensure t
     :hook ((emacs-lisp-mode . paredit-mode)
