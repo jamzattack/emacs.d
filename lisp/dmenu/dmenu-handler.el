@@ -21,13 +21,14 @@ youtube-dl."
    url)
   (message "%s is being streamed" url))
 
-(defun dmenu-handler-download-video (url)
+(defun dmenu-handler-download-video (url &optional directory)
   "Downloads the audio of URL using youtube-dl."
   (interactive (list
-                (if current-prefix-arg
-                    (read-file-name "file or url: ")
-                  (shr-url-at-point nil))))
-  (let ((default-directory dmenu-handler-video-directory))
+                (shr-url-at-point nil)
+		(when current-prefix-arg
+		  (read-directory-name "Download video where? "
+				       dmenu-handler-video-directory))))
+  (let ((default-directory (or directory dmenu-handler-video-directory)))
     (start-process-shell-command 
      "youtube-dl download" " *youtube-dl download*"
      "youtube-dl"
@@ -36,15 +37,16 @@ youtube-dl."
      "--add-metadata"
      "--output='%(title)s.%(ext)s'"
      url))
-  (message "%s downloaded in %s" url dmenu-handler-video-directory))
+  (message "%s downloaded in %s" url (or directory dmenu-handler-video-directory)))
 
-(defun dmenu-handler-audio (url)
+(defun dmenu-handler-audio (url &optional directory)
   "Downloads the audio of URL using youtube-dl."
   (interactive (list
-                (if current-prefix-arg
-                    (read-file-name "file or url: ")
-                  (shr-url-at-point nil))))
-  (let ((default-directory dmenu-handler-audio-directory))
+                (shr-url-at-point nil)
+		(when current-prefix-arg
+		  (read-directory-name "Download audio where? "
+				       dmenu-handler-audio-directory))))
+  (let ((default-directory (or directory dmenu-handler-audio-directory)))
     (start-process-shell-command 
      "youtube-dl audio" " *youtube-dl audio*"
      "youtube-dl"
@@ -52,7 +54,7 @@ youtube-dl."
      "--add-metadata"
      "--output='%(title)s.%(ext)s'"
      url))
-  (message "%s downloaded in %s" url dmenu-handler-audio-directory))
+  (message "%s downloaded in %s" url (or directory dmenu-handler-audio-directory)))
 
 (defun dmenu-handler-save-to-register (url)
   "Copies the last URL into a register."
