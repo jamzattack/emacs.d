@@ -423,6 +423,19 @@ Located [[file:lisp/custom-exwm-config.el][here.]]
     :load-path "lisp")
 #+end_src
 
+*** reddit-browse
+
+This is a very minimal package to ease the use of reddit within eww.
+It uses the old reddit mobile site, which works well with eww.
+
+#+begin_src emacs-lisp
+  (use-package reddit-browse
+    :custom (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
+                                     "vxjunkies" "linux" "nethack"
+                                     "cello" "throwers"))
+    :bind ("C-z r" . reddit-goto-subreddit))
+#+end_src
+
 ** ELPA Packages
 
 This is where the packages installed within emacs are located. All of
