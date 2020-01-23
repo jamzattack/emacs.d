@@ -11,6 +11,7 @@
    `(helm-source-header ((,class (:inherit 'bold))))
    `(tooltip ((,class (:inherit 'default))))
    `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
-   `(fringe ((,class (:inherit 'default))))))
+   `(fringe ((,class (:inherit 'default))))
+   `(mode-line ((,class (:background "sky blue"))))))
 
 (provide-theme 'custom)
