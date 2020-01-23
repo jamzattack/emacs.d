@@ -12,6 +12,7 @@
    `(line-number-current-line ((,class (:inherit 'secondary-selection))))
    `(secondary-selection ((,class (:background "gray9" :extend t))))
    `(scroll-bar ((,class (:foreground ,almost-white :background "black"))))
+   `(mode-line ((,class (:foreground "black" :background "sky blue"))))
    `(helm-source-header ((,class (:inherit 'bold))))))
 
 (provide-theme 'custom-dark)
