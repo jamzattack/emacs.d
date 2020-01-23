@@ -27,7 +27,7 @@ output."
   "Sets up prefix keys for exwm."
   (custom-set-variables
    '(exwm-input-prefix-keys
-     '([XF86AudioMute]
+     `([XF86AudioMute]
        [XF86AudioLowerVolume]
        [XF86AudioRaiseVolume]
        [XF86Back]
@@ -44,35 +44,39 @@ output."
        [?\s-m]
        [?\s-a]
        [menu]
-       [f8]))))
+       [f8]
+       
+       ;; For edwina-mode
+       ,(kbd "s-j")
+       ,(kbd "s-k")
+       ,(kbd "s-S-j")
+       ,(kbd "s-J")
+       ,(kbd "s-S-k")
+       ,(kbd "s-K")
+       ,(kbd "s-h")
+       ,(kbd "s-l")
+       ,(kbd "s-d")
+       ,(kbd "s-i")
+       ,(kbd "s-S-c")
+       ,(kbd "s-C")
+       ,(kbd "<s-RET>")
+       ,(kbd "<s-return>")
+       ,(kbd "<s-S-RET>")
+       ,(kbd "<s-S-return>")))))
+
+
+
 
 ;; Global keybindings.
 (defun custom-exwm-input-global-keys ()
   (custom-set-variables
-   `(exwm-input-global-keys
-     '(
-       ;; (,(kbd "s-j") . edwina-select-next-window)
-       ;; (,(kbd "s-k") . edwina-select-previous-window)
-       ;; (,(kbd "s-S-j") . edwina-swap-next-window)
-       ;; (,(kbd "s-J") . edwina-swap-next-window)
-       ;; (,(kbd "s-S-k") . edwina-swap-previous-window)
-       ;; (,(kbd "s-K") . edwina-swap-previous-window)
-       ;; (,(kbd "s-h") . edwina-dec-mfact)
-       ;; (,(kbd "s-l") . edwina-inc-mfact)
-       ;; (,(kbd "s-d") . edwina-dec-nmaster)
-       ;; (,(kbd "s-i") . edwina-inc-nmaster)
-       ;; (,(kbd "s-S-c") . edwina-delete-window)
-       ;; (,(kbd "s-C") . edwina-delete-window)
-       ;; (,(kbd "<s-RET>") . edwina-zoom)
-       ;; (,(kbd "<s-return>") . edwina-zoom)
-       ;; (,(kbd "<s-S-RET>") . edwina-clone-window)
-       ;; (,(kbd "<s-S-return>") . edwina-clone-window)
-       ;; ;; 's-r': Reset (to line-mode).
-       ([?\s-r] . exwm-reset)
+   '(exwm-input-global-keys
+     `(;; 's-r': Reset (to line-mode).
+       ([?\s-r] . #'exwm-reset)
        ;; 's-w': Switch workspace.
-       ([?\s-w] . exwm-workspace-switch)
+       ([?\s-w] . #'exwm-workspace-switch)
        ;; 's-&': Launch application.
-       ([?\s-&] . exwm-shell-command)
+       ([?\s-&] . #'exwm-shell-command)
        ;; 's-N': Switch to certain workspace.
        ,@(mapcar (lambda (i)
                    `(,(kbd (format "s-%d" i)) .
