@@ -19,10 +19,13 @@ output."
   (add-hook 'exwm-update-class-hook
             (lambda ()
               (exwm-workspace-rename-buffer exwm-class-name)))
-  (add-hook 'exwm-update-title-hook
+  (remove-hook 'exwm-update-title-hook
             (lambda ()
               (exwm-workspace-rename-buffer exwm-title))))
 
+
+
+;; Prefix keys
 (defun custom-exwm-prefix-keys ()
   "Sets up prefix keys for exwm."
   (custom-set-variables
@@ -47,6 +50,7 @@ output."
        [f8]
        
        ;; For edwina-mode
+       ,(kbd "s-r")
        ,(kbd "s-j")
        ,(kbd "s-k")
        ,(kbd "s-S-j")
@@ -65,18 +69,16 @@ output."
        ,(kbd "<s-S-return>")))))
 
 
-
-
 ;; Global keybindings.
 (defun custom-exwm-input-global-keys ()
   (custom-set-variables
    '(exwm-input-global-keys
-     `(;; 's-r': Reset (to line-mode).
-       ([?\s-r] . #'exwm-reset)
+     `(;; 's-g': Reset to line-mode. similar to C-g
+       ([?\s-g] . exwm-reset)
        ;; 's-w': Switch workspace.
-       ([?\s-w] . #'exwm-workspace-switch)
+       ([?\s-w] . exwm-workspace-switch)
        ;; 's-&': Launch application.
-       ([?\s-&] . #'exwm-shell-command)
+       ([?\s-&] . exwm-shell-command)
        ;; 's-N': Switch to certain workspace.
        ,@(mapcar (lambda (i)
                    `(,(kbd (format "s-%d" i)) .
@@ -84,6 +86,7 @@ output."
                        (interactive)
                        (exwm-workspace-switch-create ,i))))
                  (number-sequence 0 4))))))
+
 
 ;; Line-editing shortcuts
 (defun custom-exwm-input-simulation-keys ()
@@ -114,6 +117,8 @@ output."
        ([?\C-w] . [C-x])
        ([?\M-w] . [C-c])
        ([?\C-y] . [C-v])))))
+
+
 
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
