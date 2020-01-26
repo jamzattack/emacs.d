@@ -13,15 +13,16 @@ output."
   (interactive (list (read-shell-command "$ ")))
   (start-process-shell-command command nil command))
 
-;; Make class name the buffer name
+;; Change buffer name to "title <class>"
 (defun custom-exwm-buffer-name ()
   "Rename exwm buffers the window class name."
   (add-hook 'exwm-update-class-hook
             (lambda ()
               (exwm-workspace-rename-buffer exwm-class-name)))
-  (remove-hook 'exwm-update-title-hook
+  (add-hook 'exwm-update-title-hook
             (lambda ()
-              (exwm-workspace-rename-buffer exwm-title))))
+              (exwm-workspace-rename-buffer
+	       (format "%s <%s>" exwm-title exwm-class-name)))))
 
 
 
