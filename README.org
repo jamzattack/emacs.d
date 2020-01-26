@@ -987,7 +987,7 @@ Update locally stored mail with isync and then index it with notmuch.
   (defun mailsync ()
     "Downloads new mail and adds it to the notmuch database"
     (interactive)
-    (shell-command "mbsync -a && notmuch new &" "*mailsync*"))
+    (shell-command "mbsync -a ;notmuch new &" "*mailsync*"))
 #+end_src
 
 ** Finding files
