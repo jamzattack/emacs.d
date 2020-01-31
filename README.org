@@ -310,6 +310,39 @@ Rebind M-p and M-n to move by paragraphs. By default M-n runs
                 ("M-n" . forward-paragraph)))
 #+end_src
 
+*** time
+
+Display the current time in the mode-line, and make it use 24-hour
+time.
+
+#+begin_src emacs-lisp
+  (use-package time
+    :custom (display-time-24hr-format t)
+    :config (display-time-mode t))
+#+end_src
+
+*** window
+
+These functions are both quite useful, so I bound them to similar
+keys.
+
+#+begin_src emacs-lisp
+  (use-package window
+    :bind (("C-z C-z" . bury-buffer)
+           ("C-z z" . kill-buffer-and-window)))
+#+end_src
+
+*** battery
+
+Show battery information with =C-z b=, and show percentage in the
+mode-line.
+
+#+begin_src emacs-lisp
+  (use-package battery
+    :bind (("C-z b" . battery))
+    :config (display-battery-mode t))
+#+end_src
+
 ** My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
@@ -1089,58 +1122,12 @@ Compile latex files with pdflatex.
 
 * Keybindings
 
-** Interaction with Emacs
-
-*** Terminal functionality
-
-Rebinding some useful keys that can't be used in a terminal.
-
-#+begin_src emacs-lisp
-  (unless (window-system)
-    ;; Comments -- C-x C-;
-    (bind-key "C-c ;" 'comment-line)
-    ;; Indentation -- C-M-\"
-    (bind-key "C-c \\" 'indent-region))
-#+end_src
-
-*** bury-buffer and kill-buffer-and-window
-
-These functions are both quite useful, so I bound them to similar
-keys.
-
-#+begin_src emacs-lisp
-  (bind-key "C-z C-z" 'bury-buffer)
-  (bind-key "C-z z" 'kill-buffer-and-window)
-#+end_src
-
 ** Config
 
 Reload [[file:config.el][config file]]
 
 #+begin_src emacs-lisp
   (bind-key "C-c r" 'config-reload)
-#+end_src
-
-** General WM stuff
-
-*** System information
-
-Built-in battery function with =C-z b=.
-Custom notification script with =C-z C-b=.
-
-#+begin_src emacs-lisp
-  (bind-key "C-z b" 'battery)
-  (bind-key "C-z C-b" 'notibar)
-#+end_src
-
-*** dmenu-ish scripts
-
-A couple of things I used to do with dmenu, now made emacsy.
-
-#+begin_src emacs-lisp
-  (bind-keys
-   ("C-z p" . list-documents)
-   ("C-z v" . list-videos))
 #+end_src
 
 ** Typesetting
@@ -1178,8 +1165,6 @@ I don't want anything fancy.
 
 #+begin_src emacs-lisp
   (column-number-mode t)
-  (display-time-mode t)
-  (setq display-time-24hr-format 1)
 #+end_src
 
 * Email
