@@ -2,7 +2,7 @@
   "The directory in which to download files using
 `dmenu-handler'")
 
-(defvar dmenu-handler-video-directory "~/Downloads/youtube"
+(defvar dmenu-handler-video-directory "~/Videos"
   "The directory in which to download files using
 `dmenu-handler'")
 
