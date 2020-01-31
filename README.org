@@ -92,6 +92,10 @@ This is the section for built-in packages. A lot of these are just
 minor things such as setting a single variable.
 
 *** Major editing modes
+
+Major modes for text editing. For non-editing major modes, see
+[[Applications]]
+
 **** Org Mode
 
 Open source blocks and stuff in the current window. Use tab from the
@@ -106,7 +110,7 @@ language's major mode inside source blocks.
     :config (require 'org-tempo))
 #+end_src
 
-**** Org Capture
+***** Org Capture
 
 Take notes in org-mode with specific templates and write them to a
 file. Similar to remember.
@@ -154,13 +158,27 @@ for java/awk files.
 
 #+end_src
 
-*** Auto-insert
+*** Minor modes for programming
+
+Minor modes that help with writing programs.
+
+**** Auto-insert
 
 Insert boilerplate code/comments automatically.
 
 #+begin_src emacs-lisp
   (use-package autoinsert
     :config (auto-insert-mode t))
+#+end_src
+
+**** compile
+
+Bind =C-z RET= and =f9= to compile.
+
+#+begin_src emacs-lisp
+  (use-package compile
+    :bind (("C-z C-m" . compile)
+           ("<f9>" . compile)))
 #+end_src
 
 *** Applications
@@ -272,10 +290,15 @@ tiny.
     :custom (eshell-history-size 1000))
 #+end_src
 
-*** recentf
+*** Saving the state of emacs
 
-I don't really understand recentf, but this loads it in case I need
-it.
+Packages that save where you were - recentf saves a list of edited
+files, and desktop saves a list of variables and current buffers.
+
+**** recentf
+
+This package saves a list of recently visited files. I've had some
+problems with helm not loading the recentf list, so it is done here.
 
 #+begin_src emacs-lisp
   (use-package recentf
@@ -283,7 +306,34 @@ it.
     :config (recentf-load-list))
 #+end_src
 
-*** scroll bar
+**** Desktop
+
+Save list of buffers and some variables when exiting emacs.
+
+#+begin_src emacs-lisp
+  (use-package desktop
+    :config
+    (add-to-list 'desktop-globals-to-save 'helm-ff-history)
+    (add-to-list 'desktop-globals-to-save 'extended-command-history)
+    (desktop-save-mode t))
+#+end_src
+
+*** Interface tweaks
+
+Some settings for the UI of emacs - mode-line, scroll-bar, etc
+
+**** time
+
+Display the current time in the mode-line, and make it use 24-hour
+time.
+
+#+begin_src emacs-lisp
+  (use-package time
+    :custom (display-time-24hr-format t)
+    :config (display-time-mode t))
+#+end_src
+
+**** scroll bar
 
 I've started to use scroll-bar-mode. It's not so bad if the width is
 small enough.
@@ -292,6 +342,17 @@ small enough.
   (use-package scroll-bar
     :custom ((scroll-bar-mode 'right)
              (scroll-bar-width 6 t)))
+#+end_src
+
+**** battery
+
+Show battery information with =C-z b=, and show percentage in the
+mode-line.
+
+#+begin_src emacs-lisp
+  (use-package battery
+    :bind (("C-z b" . battery))
+    :config (display-battery-mode t))
 #+end_src
 
 *** environment variables
@@ -307,39 +368,6 @@ be advisable to set this in your xinitrc.
     (setenv "PAGER" "cat"))
 #+end_src
 
-*** compile
-
-Bind =C-z RET= and =f9= to compile.
-
-#+begin_src emacs-lisp
-  (use-package compile
-    :bind (("C-z C-m" . compile)
-           ("<f9>" . compile)))
-#+end_src
-
-*** Desktop
-
-Save list of buffers and some variables when exiting emacs.
-
-#+begin_src emacs-lisp
-  (use-package desktop
-    :config
-    (add-to-list 'desktop-globals-to-save 'helm-ff-history)
-    (add-to-list 'desktop-globals-to-save 'extended-command-history)
-    (desktop-save-mode t))
-#+end_src
-
-*** time
-
-Display the current time in the mode-line, and make it use 24-hour
-time.
-
-#+begin_src emacs-lisp
-  (use-package time
-    :custom (display-time-24hr-format t)
-    :config (display-time-mode t))
-#+end_src
-
 *** window
 
 These functions are both quite useful, so I bound them to similar
@@ -351,40 +379,17 @@ keys.
            ("C-z z" . kill-buffer-and-window)))
 #+end_src
 
-*** battery
-
-Show battery information with =C-z b=, and show percentage in the
-mode-line.
-
-#+begin_src emacs-lisp
-  (use-package battery
-    :bind (("C-z b" . battery))
-    :config (display-battery-mode t))
-#+end_src
-
 ** My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
 directory.
 
-*** Toggle-touchpad
+*** Internet
 
-A simple package I wrote to toggle the touchpad/trackpoint on my
-ThinkPad
+A selection of packages to facilitate searching and browsing the web
+within emacs.
 
-Located [[file:lisp/toggle-touchpad.el][here.]]
-
-#+begin_src emacs-lisp
-  (use-package toggle-touchpad
-    :load-path "lisp"
-    :after (init)
-    :defer t
-    :bind
-    (("<XF86TouchpadToggle>" . 'toggle-touchpad)
-     ("C-z \\" . 'toggle-touchpad)))
-#+end_src
-
-*** dmenu-handler
+**** dmenu-handler
 
 A way to open URLs the way I want. I bind it to =C-z d=.
 
@@ -403,7 +408,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
            ("A" . 'dmenu-handler-audio))))
 #+end_src
 
-*** library-genesis
+**** library-genesis
 
 My custom package for searching library genesis. I bind ~C-z l~ to a
 search.
@@ -415,7 +420,7 @@ Located [[file:lisp/library-genesis.el][here.]]
     :bind (("C-z l" . library-genesis-search)))
 #+end_src
 
-*** search-query
+**** search-query
 
 My own search-query package. It simply provides a few functions so
 that I don't need to use DuckDuckGo's bangs, and for websites that
@@ -431,6 +436,36 @@ Located [[file:lisp/search-query.el][here.]]
            ("C-z C-y" . youtube-search)
            ("C-z w" . wikipedia-search)
            ("C-z C-w" . wiktionary-word)))
+#+end_src
+
+**** reddit-browse
+
+This is a very minimal package to ease the use of reddit within eww.
+It uses the old reddit mobile site, which works well with eww.
+
+#+begin_src emacs-lisp
+  (use-package reddit-browse
+    :custom (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
+                                     "vxjunkies" "linux" "nethack"
+                                     "cello" "throwers"))
+    :bind ("C-z r" . reddit-goto-subreddit))
+#+end_src
+
+*** Toggle-touchpad
+
+A simple package I wrote to toggle the touchpad/trackpoint on my
+ThinkPad
+
+Located [[file:lisp/toggle-touchpad.el][here.]]
+
+#+begin_src emacs-lisp
+  (use-package toggle-touchpad
+    :load-path "lisp"
+    :after (init)
+    :defer t
+    :bind
+    (("<XF86TouchpadToggle>" . 'toggle-touchpad)
+     ("C-z \\" . 'toggle-touchpad)))
 #+end_src
 
 *** lilypond-mode
@@ -495,19 +530,6 @@ Located [[file:lisp/custom-exwm-config.el][here.]]
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
     :load-path "lisp")
-#+end_src
-
-*** reddit-browse
-
-This is a very minimal package to ease the use of reddit within eww.
-It uses the old reddit mobile site, which works well with eww.
-
-#+begin_src emacs-lisp
-  (use-package reddit-browse
-    :custom (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
-                                     "vxjunkies" "linux" "nethack"
-                                     "cello" "throwers"))
-    :bind ("C-z r" . reddit-goto-subreddit))
 #+end_src
 
 ** ELPA Packages
