@@ -55,14 +55,15 @@ Enable melpa archive and making sure packages work.
   (package-initialize)
 #+end_src
 
-** Use-package
+** Use-package and bind-key
 
-Install use-package if not installed.
+Install use-package and bind-key if not installed. bind-key is only
+needed when byte-compiling for some reason.
 
 #+begin_src emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
-    (package-install 'use-package))
+    (package-install 'use-package 'bind-key))
 #+end_src
 
 ** Fonts
