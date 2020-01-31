@@ -1,20 +1,28 @@
 (defun torrentz2-search (query)
+  "Search torrentz2.eu. Called interactively, prompt for a
+QUERY."
   (interactive (list (read-string "Torrent: ")))
   (browse-url
    (concat "https://torrentz2.eu/search?f=" query)))
 
 (defun youtube-search (query)
+  "Search youtube. Called interactively, prompt for a QUERY."
   (interactive (list (read-string "Youtube: ")))
   (browse-url
    (concat "https://m.youtube.com/search?q=" query)))
 
 (defun wikipedia-search (query)
+  "Search wikipedia. Called interactively, prompt for a QUERY."
   (interactive (list (read-string "Wikipedia: ")))
   (browse-url
    (concat "https://en.wikipedia.org/wiki/Special:Search?search=" query)))
 
 (defun wiktionary-word (word)
-  (interactive (list (thing-at-point 'word t)))
+  "Search wiktionary for a word. With a prefix arg, prompt for a
+word, otherwise use the word at point."
+  (interactive (list (if current-prefix-arg
+			 (read-string "Wiktionary: ")
+		       (thing-at-point 'word t))))
   (browse-url
    (concat "https://en.wiktionary.org/wiki/" word)))
 
