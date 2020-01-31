@@ -27,10 +27,18 @@
 ;;; Code:
 
 
+(defvar ed-use-prompt t
+  "If t, change the prompt to \"> \". This will only work with
+posix-compliant implementations of ed. Set this to nil if you
+use busybox.")
+
+
 (defun ed-find-file (file)
   "Open a file with ed, the standard editor. See ed(1) for usage."
   (interactive "F")
-  (let ((args `("--prompt=> " ,file))
+  (let ((args `(,(when ed-use-prompt
+		   "-p> ")
+		,file))
 	(basename (file-name-base file)))
     (comint-run "ed" args)
     (cd (file-name-directory file))
