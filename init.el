@@ -2,7 +2,8 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
 ;; Load my real config, then the custom file
-(load-file (concat user-emacs-directory "config.el"))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(require 'config.el)
 (load custom-file)
 
 ;; Theme
