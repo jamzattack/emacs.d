@@ -156,6 +156,8 @@ for java/awk files.
 
 *** Auto-insert
 
+Insert boilerplate code/comments automatically.
+
 #+begin_src emacs-lisp
   (use-package autoinsert
     :config (auto-insert-mode t))
@@ -642,6 +644,9 @@ the default lisp program.
 #+end_src
 
 **** paredit
+
+Efficient and clever editing commands for working with
+s-expressions. Enabled for lisp modes only.
 
 #+begin_src emacs-lisp
   (use-package paredit
