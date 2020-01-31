@@ -296,6 +296,18 @@ Save list of buffers and some variables when exiting emacs.
     (desktop-save-mode t))
 #+end_src
 
+*** Info
+
+Rebind M-p and M-n to move by paragraphs. By default M-n runs
+=clone-buffer=, which I find to be completely useless.
+
+#+begin_src emacs-lisp
+  (use-package info
+    :bind (:map Info-mode-map
+                ("M-p" . backward-paragraph)
+                ("M-n" . forward-paragraph)))
+#+end_src
+
 ** My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
