@@ -378,6 +378,16 @@ keys.
            ("C-z z" . kill-buffer-and-window)))
 #+end_src
 
+*** view-mode
+
+I like using view-mode and scroll-lock-mode is kind-of useless, so I
+rebind Scroll_Lock to toggle view-mode.
+
+#+begin_src emacs-lisp
+  (use-package view
+    :bind (("<Scroll_Lock>" . view-mode)))
+#+end_src
+
 ** My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
