@@ -163,7 +163,12 @@ Insert boilerplate code/comments automatically.
     :config (auto-insert-mode t))
 #+end_src
 
-*** EWW
+*** Applications
+
+This section is for elisp programs that have an interface of their
+own, rather than being just a major/minor mode.
+
+**** EWW
 
 Elisp web browser - I just set some variables to make eww the default
 browser, and change the width to 80 columns.
@@ -174,7 +179,7 @@ browser, and change the width to 80 columns.
              (shr-width 80)))
 #+end_src
 
-*** ERC
+**** ERC
 
 The only reason for this to be here is to set my nick.
 
@@ -190,30 +195,19 @@ The only reason for this to be here is to set my nick.
       (erc-notify-enable)))
 #+end_src
 
-*** shell
+**** Info
 
-I don't want the shell buffer to open a new window, so add an entry in
-=display-buffer-alist=.
-
-#+begin_src emacs-lisp
-  (use-package shell
-    :config
-    (add-to-list 'display-buffer-alist
-                 '("^\\*shell\\*$" . (display-buffer-same-window))))
-#+end_src
-
-*** recentf
-
-I don't really understand recentf, but this loads it in case I need
-it.
+Rebind M-p and M-n to move by paragraphs. By default M-n runs
+=clone-buffer=, which I find to be completely useless.
 
 #+begin_src emacs-lisp
-  (use-package recentf
-    :after (init)
-    :config (recentf-load-list))
+  (use-package info
+    :bind (:map Info-mode-map
+                ("M-p" . backward-paragraph)
+                ("M-n" . forward-paragraph)))
 #+end_src
 
-*** ibuffer
+**** ibuffer
 
 Ibuffer is an interface similar to dired, but for editing your open
 buffers.
@@ -228,6 +222,65 @@ buffers.
     :after (init)
     :bind ("C-x C-b" . ibuffer)
     :hook (ibuffer . ibuffer-filter-helm))
+#+end_src
+
+**** dired
+
+Group directories first. This works only with GNU ls, so don't use
+this if you use a different version.
+
+#+begin_src emacs-lisp
+  (use-package dired
+    :defer t
+    :custom ((dired-listing-switches "-lah --group-directories-first")
+             (delete-by-moving-to-trash t))
+    :bind ([remap list-directory] . dired-jump))
+#+end_src
+
+***** dired-async
+
+Make dired run actions in the background.
+
+#+begin_src emacs-lisp
+  (use-package dired-async
+    :config (dired-async-mode))
+#+end_src
+
+*** Shells
+
+Shells in emacs - both shell and eshell settings are here.
+
+**** shell
+
+I don't want the shell buffer to open a new window, so add an entry in
+=display-buffer-alist=.
+
+#+begin_src emacs-lisp
+  (use-package shell
+    :config
+    (add-to-list 'display-buffer-alist
+                 '("^\\*shell\\*$" . (display-buffer-same-window))))
+#+end_src
+
+**** eshell
+
+Just changing the history size to 1000, because the default of 128 is
+tiny.
+
+#+begin_src emacs-lisp
+  (use-package eshell
+    :custom (eshell-history-size 1000))
+#+end_src
+
+*** recentf
+
+I don't really understand recentf, but this loads it in case I need
+it.
+
+#+begin_src emacs-lisp
+  (use-package recentf
+    :after (init)
+    :config (recentf-load-list))
 #+end_src
 
 *** scroll bar
@@ -264,28 +317,6 @@ Bind =C-z RET= and =f9= to compile.
            ("<f9>" . compile)))
 #+end_src
 
-*** dired
-
-Group directories first. This works only with GNU ls, so don't use
-this if you use a different version.
-
-#+begin_src emacs-lisp
-  (use-package dired
-    :defer t
-    :custom ((dired-listing-switches "-lah --group-directories-first")
-             (delete-by-moving-to-trash t))
-    :bind ([remap list-directory] . dired-jump))
-#+end_src
-
-**** dired-async
-
-Make dired run actions in the background.
-
-#+begin_src emacs-lisp
-  (use-package dired-async
-    :config (dired-async-mode))
-#+end_src
-
 *** Desktop
 
 Save list of buffers and some variables when exiting emacs.
@@ -296,18 +327,6 @@ Save list of buffers and some variables when exiting emacs.
     (add-to-list 'desktop-globals-to-save 'helm-ff-history)
     (add-to-list 'desktop-globals-to-save 'extended-command-history)
     (desktop-save-mode t))
-#+end_src
-
-*** Info
-
-Rebind M-p and M-n to move by paragraphs. By default M-n runs
-=clone-buffer=, which I find to be completely useless.
-
-#+begin_src emacs-lisp
-  (use-package info
-    :bind (:map Info-mode-map
-                ("M-p" . backward-paragraph)
-                ("M-n" . forward-paragraph)))
 #+end_src
 
 *** time
