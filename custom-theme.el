@@ -12,6 +12,7 @@
    `(tooltip ((,class (:inherit 'default))))
    `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
    `(fringe ((,class (:inherit 'default))))
-   `(mode-line ((,class (:background "sky blue"))))))
+   `(mode-line ((,class (:background "sky blue"))))
+   `(dired-async-mode-message ((,class (:foreground "darkred"))))))
 
 (provide-theme 'custom)
