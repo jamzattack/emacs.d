@@ -5,7 +5,7 @@
       (almost-white "#FFFFD0"))
   (custom-theme-set-faces
    'custom
-   `(default ((,class (:background ,almost-white :foreground "black"))))
+   `(default ((,class (:background ,almost-white :foreground "black" :weight normal))))
    `(line-number-current-line ((,class (:inherit 'secondary-selection))))
    `(secondary-selection ((,class (:background "khaki1" :extend t))))
    `(helm-source-header ((,class (:inherit 'bold))))
