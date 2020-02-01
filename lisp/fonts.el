@@ -3,11 +3,12 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-                    :font "DejaVu Sans Mono"
-					:height 80)
+                    :font "Source Code Pro"
+		    :weight 'semibold
+		    :height 80)
 
 (set-face-attribute 'italic nil
-					:underline nil
+		    :underline nil
                     :slant 'italic)
 
 (set-face-attribute 'variable-pitch nil
