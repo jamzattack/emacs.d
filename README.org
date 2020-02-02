@@ -63,7 +63,7 @@ needed when byte-compiling for some reason.
 #+begin_src emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
-    (package-install 'use-package 'bind-key))
+    (package-install 'use-package 'bind-key 'diminish))
 #+end_src
 
 ** Fonts
