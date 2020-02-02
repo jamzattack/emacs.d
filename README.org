@@ -105,6 +105,8 @@ language's major mode inside source blocks.
 #+begin_src emacs-lisp
   (use-package org
     :after (init)
+    :diminish (org-indent-mode
+               (org-src-mode . "*"))
     :custom ((org-src-window-setup 'current-window)
              (org-src-tab-acts-natively t))
     :hook (org-mode . org-indent-mode)
@@ -189,6 +191,7 @@ turn on hi-lock-mode which enables the =C-x w= prefix.
 
 #+begin_src emacs-lisp
   (use-package hi-lock
+    :diminish
     :config (global-hi-lock-mode))
 #+end_src
 
@@ -601,6 +604,7 @@ replace yank-pop but the latter is too engrained in my fingers.
 #+begin_src emacs-lisp
   (use-package helm
     :ensure t
+    :diminish
     :custom ((helm-completion-style 'emacs)
              (helm-describe-variable-function 'helpful-variable)
              (helm-describe-function-function 'helpful-callable))
@@ -749,6 +753,7 @@ s-expressions. Enabled for lisp modes only.
 #+begin_src emacs-lisp
   (use-package paredit
     :ensure t
+    :diminish
     :hook ((emacs-lisp-mode . paredit-mode)
            (lisp-interaction-mode . paredit-mode)
            (ielm-mode . paredit-mode)
@@ -812,6 +817,7 @@ colour.
 
   (use-package desktop-environment
     :ensure t
+    :diminish
     :config
     (defadvice desktop-environment-lock-screen
         (before change-bg-color activate)
@@ -915,7 +921,7 @@ Minor mode that highlights parentheses well
 
 #+end_src
 
-**** Dim (unclutter mode-line)
+**** COMMENT Dim (unclutter mode-line)
 
 From Alezost, remove clutter in the mode-line.
 
