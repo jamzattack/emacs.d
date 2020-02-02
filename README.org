@@ -1232,8 +1232,13 @@ email settings
         message-sendmail-envelope-from 'header
         mail-envelope-from 'header)
 #+end_src
+
 * Making this requirable
 
+This file can be loaded with (require 'config.el) if it is in the
+load-path. This is better than explicitly loading config.el because it
+will use the byte-compiled version.
+
 #+begin_src emacs-lisp
-(provide 'config.el)
+  (provide 'config.el)
 #+end_src
