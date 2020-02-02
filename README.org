@@ -181,6 +181,17 @@ Bind =C-z RET= and =f9= to compile.
            ("<f9>" . compile)))
 #+end_src
 
+**** hi-lock
+
+I often use =M-s h .= to see where variables, functions, etc. are
+used. However, paredit remaps =M-s= to =paredit-splice-sexp=, so I
+turn on hi-lock-mode which enables the =C-x w= prefix.
+
+#+begin_src emacs-lisp
+  (use-package hi-lock
+    :config (global-hi-lock-mode))
+#+end_src
+
 *** Applications
 
 This section is for elisp programs that have an interface of their
