@@ -193,6 +193,9 @@ browser, and change the width to 80 columns.
 
 #+begin_src emacs-lisp
   (use-package eww
+    :bind (:map eww-mode-map
+                ("M-n" . forward-paragraph)
+                ("M-p" . backward-paragraph))
     :custom ((browse-url-browser-function 'eww-browse-url)
              (shr-width 80)))
 #+end_src
