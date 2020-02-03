@@ -4,8 +4,8 @@
 
 This is my emacs config file. It is written in org-mode so that I can
 brag about how dope org-mode is. [[file:README.org][This file]] contains my main
-configuration, which is tangled to [[file:config.el][config.el]].  [[file:init.el][init.el]] sets the
-variable =custom-file= to [[file:custom.el][custom.el]], loads [[file:config.el][config.el]], and then loads
+configuration, which is tangled to [[file:lisp/config.el][config.el]].  [[file:init.el][init.el]] sets the
+variable =custom-file= to [[file:custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
 [[file:custom.el][custom.el]].
 
 Note: [[file:custom.el][custom.el]] should not be edited manually, as it is used by emacs
@@ -106,7 +106,6 @@ language's major mode inside source blocks.
 
 #+begin_src emacs-lisp
   (use-package org
-    :after (init)
     :custom ((org-src-window-setup 'current-window)
              (org-src-tab-acts-natively t))
     :config (require 'org-tempo))
@@ -133,6 +132,16 @@ file. Similar to remember.
                  "* %?\nEntered on %U\n  %i\n  %a")))
              (org-capture-bookmark nil))
     :bind (("C-x M-r" . org-capture)))
+#+end_src
+
+***** org indent
+
+Better layout for org-mode.
+
+#+begin_src emacs-lisp
+  (use-package org-indent
+    :after (org)
+    :hook org-mode)
 #+end_src
 
 **** prolog
@@ -851,7 +860,7 @@ A more flexible mpd client than mingus.
 #+begin_src emacs-lisp
   (use-package mpdel
     :ensure t
-    :after (init libmpdee)
+    :after libmpdee
     :bind-keymap (("s-m" . mpdel-core-map))
     :bind (("s-a" . mpdel-core-open-albums)
            ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
