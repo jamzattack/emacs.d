@@ -142,7 +142,7 @@ Better layout for org-mode.
   (use-package org-indent
     :after (org)
     :diminish
-    :hook org-mode)
+    :hook (org-mode . org-indent-mode))
 #+end_src
 
 **** prolog
