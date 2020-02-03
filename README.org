@@ -230,7 +230,6 @@ The only reason for this to be here is to set my nick.
 
 #+begin_src emacs-lisp
   (use-package erc
-    :after (init)
     :custom (erc-nick "jamzattack")
     :config
     (add-to-list 'erc-modules 'notifications)
@@ -264,7 +263,6 @@ buffers.
       (ibuffer-do-kill-lines)))
 
   (use-package ibuffer
-    :after (init)
     :bind ("C-x C-b" . ibuffer)
     :hook (ibuffer . ibuffer-filter-helm))
 #+end_src
@@ -329,7 +327,6 @@ problems with helm not loading the recentf list, so it is done here.
 
 #+begin_src emacs-lisp
   (use-package recentf
-    :after (init)
     :config (recentf-load-list))
 #+end_src
 
@@ -435,7 +432,6 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 #+begin_src emacs-lisp
   (use-package dmenu-handler
     :load-path "lisp/dmenu"
-    :after (init)
     :bind
     (("C-z d" . 'dmenu-handler)
      ("C-z C-d" . 'dmenu-handler)
