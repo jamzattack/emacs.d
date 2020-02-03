@@ -63,7 +63,9 @@ needed when byte-compiling for some reason.
 #+begin_src emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
-    (package-install 'use-package 'bind-key 'diminish))
+    (package-install 'use-package)
+    (package-install 'bind-key)
+    (package-install 'diminish))
 #+end_src
 
 ** Fonts
@@ -105,11 +107,8 @@ language's major mode inside source blocks.
 #+begin_src emacs-lisp
   (use-package org
     :after (init)
-    :diminish (org-indent-mode
-               (org-src-mode . "*"))
     :custom ((org-src-window-setup 'current-window)
              (org-src-tab-acts-natively t))
-    :hook (org-mode . org-indent-mode)
     :config (require 'org-tempo))
 #+end_src
 
@@ -207,6 +206,7 @@ browser, and change the width to 80 columns.
 
 #+begin_src emacs-lisp
   (use-package eww
+    :defer nil
     :bind (:map eww-mode-map
                 ("M-n" . forward-paragraph)
                 ("M-p" . backward-paragraph))
@@ -488,7 +488,6 @@ Located [[file:lisp/toggle-touchpad.el][here.]]
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
     :load-path "lisp"
-    :after (init)
     :defer t
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
@@ -668,7 +667,6 @@ the helm alternatives.
 #+begin_src emacs-lisp
   (use-package helm-eww
     :ensure t
-    :after (eww helm)
     :bind (("C-x r e" . helm-eww-bookmarks)
            (:map eww-mode-map
                  ("B" . helm-eww-bookmarks)
@@ -870,7 +868,6 @@ A simple email client, with emphasis on searching
 
 #+begin_src emacs-lisp
   (use-package notmuch
-    :after (init)
     :ensure t
     :config
     (setq notmuch-archive-tags '("-unread" "-inbox")
@@ -1090,7 +1087,7 @@ Reloads this config file. Bound to "C-c r" in Keybindings section.
   (defun config-reload ()
     "Reloads (but does not tangle) config file"
     (interactive)
-    (load-file (concat user-emacs-directory "config.el")))
+    (require 'config.el))
 #+end_src
 
 ** Typesetting
