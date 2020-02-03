@@ -497,7 +497,6 @@ Located [[file:lisp/toggle-touchpad.el][here.]]
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
     :load-path "lisp"
-    :defer t
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
      ("C-z \\" . 'toggle-touchpad)))
