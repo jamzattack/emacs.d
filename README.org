@@ -876,7 +876,8 @@ A more flexible mpd client than mingus.
            ("<XF86AudioNext>" . libmpdel-playback-next)
            (:map mpdel-core-map
                  ("Z" . mpd-shuffle-playlist)
-                 ("z" . mpd-toggle-random))))
+                 ("z" . mpd-toggle-random)
+                 ("C-d" . mpdel-core-open-directories))))
 #+end_src
 
 **** Notmuch
