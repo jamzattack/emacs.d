@@ -15,3 +15,6 @@ custom.el
 
 helm-adaptive-history
 nov-places
+
+lisp/*/*.elc
+lisp/*.elc
