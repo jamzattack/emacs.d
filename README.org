@@ -443,6 +443,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 #+begin_src emacs-lisp
   (use-package dmenu-handler
     :load-path "lisp/dmenu"
+    :after eww
     :bind
     (("C-z d" . 'dmenu-handler)
      ("C-z C-d" . 'dmenu-handler)
