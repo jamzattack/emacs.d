@@ -885,6 +885,7 @@ A simple email client, with emphasis on searching
 #+begin_src emacs-lisp
   (use-package notmuch
     :ensure t
+    :after eww
     :config
     (setq notmuch-archive-tags '("-unread" "-inbox")
           notmuch-search-oldest-first nil)
