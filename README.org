@@ -141,6 +141,7 @@ Better layout for org-mode.
 #+begin_src emacs-lisp
   (use-package org-indent
     :after (org)
+    :diminish
     :hook org-mode)
 #+end_src
 
