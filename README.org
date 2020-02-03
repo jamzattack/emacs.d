@@ -233,9 +233,20 @@ The only reason for this to be here is to set my nick.
     :custom (erc-nick "jamzattack")
     :config
     (add-to-list 'erc-modules 'notifications)
-    (erc-track-mode)
+    (erc-track-mode))
+#+end_src
+
+***** erc notifications
+
+erc-notify enables notifications for erc conversations. I only enable
+it if the executable "dunst" is found, because it will crash emacs
+unless a notification daemon is active.
+
+#+begin_src emacs-lisp
+  (use-package erc-notify
+    :after erc
+    :config
     (when (executable-find "dunst")
-      (require 'erc-notify)
       (erc-notify-enable)))
 #+end_src
 
