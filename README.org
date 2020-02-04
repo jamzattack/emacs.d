@@ -318,12 +318,22 @@ I don't want the shell buffer to open a new window, so add an entry in
 
 **** eshell
 
-Just changing the history size to 1000, because the default of 128 is
-tiny.
+Change the history size to 1000, custom keybinding to either
+delete-char or kill-buffer like a "normal" shell.
 
 #+begin_src emacs-lisp
   (use-package eshell
-    :custom (eshell-history-size 1000))
+    :custom (eshell-history-size 1000)
+    :init
+    (defun eshell-delete-or-quit (arg)
+      "If point is at the end of the buffer, kill the buffer. Just
+  like giving EOF to a normal shell."
+      (interactive "p")
+      (if (equal (point) (point-max))
+          (kill-this-buffer)
+        (delete-char arg)))
+    :bind (:map eshell-mode-map
+                ([remap delete-char] . eshell-delete-or-quit)))
 #+end_src
 
 *** Saving the state of emacs
