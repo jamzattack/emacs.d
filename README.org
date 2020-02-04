@@ -991,15 +991,6 @@ you're in (sometimes the mode-line just doesn't cut it).
 
 *** Quality of life
 
-**** Try
-
-Allows you to try other packages without committing
-
-#+begin_src emacs-lisp
-  (use-package try
-    :ensure t)
-#+end_src
-
 **** scratch
 
 scratch allows you to create a scratch buffer - either in the major
