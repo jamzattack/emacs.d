@@ -1037,6 +1037,16 @@ completion. fish must be installed.
     (global-fish-completion-mode))
 #+end_src
 
+*** system-packages
+
+system-packages allows updating, installing, and removing programs
+installed with your system's package manager.
+
+#+begin_src emacs-lisp
+  (use-package system-packages
+    :ensure t)
+#+end_src
+
 *** Not really useful
 
 **** Lorem Ipsum
