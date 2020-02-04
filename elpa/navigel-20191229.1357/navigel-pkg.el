@@ -1,2 +1,0 @@
-;;; Generated package description from /home/jdb/.emacs.d/elpa/navigel-20191229.1357/navigel.el  -*- no-byte-compile: t -*-
-(define-package "navigel" "20191229.1357" "Facilitate the creation of tabulated-list based UIs" '((emacs "25.1") (tablist "1.0")) :commit "2695f1df2260398930319095cf6b6a49ba98d6a5" :authors '(("Damien Cassou" . "damien@cassou.me")) :maintainer '("Damien Cassou" . "damien@cassou.me") :url "https://gitlab.petton.fr/DamienCassou/navigel")
