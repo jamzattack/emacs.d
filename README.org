@@ -1111,17 +1111,6 @@ Highlight matching parentheses.
 
 * Custom functions
 
-** Reloading config
-
-Reloads this config file. Bound to "C-c r" in Keybindings section.
-
-#+begin_src emacs-lisp
-  (defun config-reload ()
-    "Reloads (but does not tangle) config file"
-    (interactive)
-    (require 'config.el))
-#+end_src
-
 ** Typesetting
 
 *** Opening Output
