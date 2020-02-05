@@ -64,8 +64,9 @@ needed when byte-compiling for some reason.
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package)
-    (package-install 'bind-key)
     (package-install 'diminish))
+
+  (setq personal-keybindings nil)
 #+end_src
 
 ** Fonts
@@ -905,7 +906,7 @@ A simple email client, with emphasis on searching
           notmuch-search-oldest-first nil)
     :bind
     (:map notmuch-show-mode-map
-          ("u" . 'eww-follow-link)))
+          ("u" . eww-follow-link)))
 #+end_src
 
 **** Transmission
