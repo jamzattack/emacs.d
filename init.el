@@ -13,8 +13,9 @@
 If config.elc exists, load it. 
 If config.el exists, load it, then compile it.
 If config.org exists, tangle it, load it, compile it.
-If arg RECOMPILE is non-nil, or if called interactively, do the last one"
-  (interactive '(t))
+If prefix arg RECOMPILE is non-nil, delete config.elc and
+config.el, then repeat."
+  (interactive "P")
   (let* ((dir (expand-file-name "lisp/" user-emacs-directory))
 	 (el (expand-file-name "config.el" dir))
 	 (elc (expand-file-name "config.elc" dir))
