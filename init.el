@@ -7,8 +7,21 @@
 ;; Move custom settings to another file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
-;; Load my real config, then the custom file
-(require 'config.el)
+;; Define a function that loads my config file
+(defun config-load ()
+  (interactive)
+  (let* ((dir (expand-file-name "lisp/" user-emacs-directory))
+	 (el (expand-file-name "config.el" dir))
+	 (elc (expand-file-name "config.elc" dir))
+	 (org (expand-file-name "config.org" user-emacs-directory)))
+    (cond ((file-exists-p elc) (load-file elc))
+	  ((file-exists-p el) (load-file el))
+	  ((file-exists-p org)
+	   (progn (org-babel-tangle-file org)
+		  (config-load))))))
+
+(config-load)
+
 (load custom-file)
 
 ;; Theme
