@@ -753,7 +753,9 @@ default scheme program.
 #+begin_src emacs-lisp
   (use-package geiser
     :ensure t
-    :custom ((scheme-program-name "guile")
+    :custom ((scheme-program-name (if (executable-find "guile3.0")
+                                      "guile3.0"
+                                    "guile"))
              (geiser-default-implementation 'guile)))
 #+end_src
 
