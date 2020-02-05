@@ -1213,10 +1213,10 @@ Compile latex files with pdflatex.
 
 ** Config
 
-Reload [[file:config.el][config file]]
+Reload [[file:lisp/config.el][config file]] 
 
 #+begin_src emacs-lisp
-  (bind-key "C-c r" 'config-reload)
+  (bind-key "C-c r" 'config-load)
 #+end_src
 
 ** Typesetting
