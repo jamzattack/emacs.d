@@ -759,7 +759,8 @@ default scheme program.
 **** SLIME
 
 Interact with common lisp in a powerful and emacsy way. I set sbcl as
-the default lisp program.
+the default lisp program, add some fancier stuff such as a nicer REPl,
+and move the history file out of $HOME.
 
 #+begin_src emacs-lisp
   (use-package slime
@@ -767,7 +768,8 @@ the default lisp program.
     :custom ((inferior-lisp-program "sbcl")
              (slime-contribs '(slime-fancy))
              (slime-completion-at-point-functions
-              '(slime-simple-completion-at-point))))
+              '(slime-simple-completion-at-point))
+             (slime-repl-history "~/.cache/slime/history")))
 #+end_src
 
 **** paredit
