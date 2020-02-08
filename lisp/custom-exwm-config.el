@@ -7,6 +7,15 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
+;; Toggle fullscreen
+(defun exwm-fullscreen-or-reset ()
+  "Toggle EXWM fullscreen layout"
+  (interactive)
+  (if (exwm-layout--fullscreen-p)
+      (exwm-reset)
+    (exwm-layout-set-fullscreen)))
+
+;; Start a program without creating a buffer
 (defun exwm-shell-command (command)
   "Executes a shell command, but doesn't create a buffer for the
 output."
@@ -71,11 +80,12 @@ output."
 
 
 ;; Global keybindings.
+
 (defun custom-exwm-input-global-keys ()
   (custom-set-variables
    '(exwm-input-global-keys
-     `(;; 's-g': Reset to line-mode. similar to C-g
-       ([?\s-g] . exwm-reset)
+     `(;; 's-f': Toggle fullscreen.
+       ([?\s-f] . exwm-fullscreen-or-reset)
        ;; 's-w': Switch workspace.
        ([?\s-w] . exwm-workspace-switch)
        ;; 's-&': Launch application.
