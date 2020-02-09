@@ -670,9 +670,7 @@ course).
 #+begin_src emacs-lisp
   (use-package helm-notmuch
     :ensure t
-    :after (helm notmuch)
-    :bind (:map ctl-x-map
-                ("m" . helm-notmuch)))
+    :after (helm notmuch))
 #+end_src
 
 **** Helm man
