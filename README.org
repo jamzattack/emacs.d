@@ -770,7 +770,7 @@ and move the history file out of $HOME.
              (slime-contribs '(slime-fancy))
              (slime-completion-at-point-functions
               '(slime-simple-completion-at-point))
-             (slime-repl-history "~/.cache/slime/history")))
+             (slime-repl-history-file "~/.cache/slime/history")))
 #+end_src
 
 **** paredit
