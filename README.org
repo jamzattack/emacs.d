@@ -222,7 +222,8 @@ browser, and change the width to 80 columns.
                 ("M-n" . forward-paragraph)
                 ("M-p" . backward-paragraph))
     :custom ((browse-url-browser-function 'eww-browse-url)
-             (shr-width 80)))
+             (shr-width 80)
+             (shr-use-colors nil)))
 #+end_src
 
 **** ERC
