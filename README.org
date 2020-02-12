@@ -788,6 +788,7 @@ s-expressions. Enabled for lisp modes only.
            (ielm-mode . paredit-mode)
            (eval-expression-minibuffer-setup . paredit-mode)
            (lisp-mode . paredit-mode)
+           (slime-repl-mode . paredit-mode)
            (scheme-mode . paredit-mode)))
 #+end_src
 
