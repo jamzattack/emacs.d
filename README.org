@@ -951,7 +951,7 @@ Minor mode that highlights parentheses well
 
 #+end_src
 
-**** COMMENT Dim (unclutter mode-line)
+**** Dim (unclutter mode-line)
 
 From Alezost, remove clutter in the mode-line.
 
