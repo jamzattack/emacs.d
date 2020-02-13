@@ -1,0 +1,2 @@
+;;; Generated package description from /home/jdb/.config/emacs/elpa/dim-20160818.949/dim.el  -*- no-byte-compile: t -*-
+(define-package "dim" "20160818.949" "Change mode-line names of major/minor modes" '((emacs "24.4")) :commit "5515f2e8657ef14adcc34aa5b05383a2684328ae" :keywords '("convenience") :authors '(("Alex Kost" . "alezost@gmail.com")) :maintainer '("Alex Kost" . "alezost@gmail.com") :url "https://github.com/alezost/dim.el")

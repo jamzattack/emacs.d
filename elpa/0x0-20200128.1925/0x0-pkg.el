@@ -1,2 +1,0 @@
-;;; Generated package description from /home/jdb/.config/emacs/elpa/0x0-20200128.1925/0x0.el  -*- no-byte-compile: t -*-
-(define-package "0x0" "20200128.1925" "Upload to 0x0.st" '((emacs "24.1")) :commit "2254b919f001ca84453552be8ea86f517050e357" :keywords '("comm") :authors '(("Philip K." . "philip@warpmail.net")) :maintainer '("Philip K." . "philip@warpmail.net") :url "https://git.sr.ht/~zge/nullpointer-emacs")
