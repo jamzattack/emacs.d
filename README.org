@@ -771,7 +771,9 @@ and move the history file out of $HOME.
              (slime-contribs '(slime-fancy))
              (slime-completion-at-point-functions
               '(slime-simple-completion-at-point))
-             (slime-repl-history-file "~/.cache/slime/history"))
+             (slime-repl-history-file "~/.cache/slime/history")
+             (common-lisp-hyperspec-root (when (file-exists-p "/usr/share/doc/HyperSpec/")
+                                             "file:///usr/share/doc/HyperSpec/")))
     :config
     (defun slime-repl-or-run-slime ()
       (interactive)
