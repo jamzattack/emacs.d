@@ -7,6 +7,15 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
+
+;; quit EXWM, but keep the server going.
+(defun exwm-quit ()
+  "quit EXWM, but keep the server going."
+  (interactive)
+  (exwm-exit)
+  (delete-frame)
+  (shell-command "pkill Xorg"))
+
 ;; Toggle fullscreen
 (defun exwm-fullscreen-or-reset ()
   "Toggle EXWM fullscreen layout"
