@@ -19,8 +19,8 @@ nov-places
 lisp/*/*.elc
 lisp/*.elc
 
-elpa/archives/
-elpa/archives/
-elpa/archives/
+elpa/archives
+
+eaf
 
 elpa/vterm*
