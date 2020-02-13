@@ -822,15 +822,16 @@ Export to html.
 
 *** EXWM - Emacs X Window Manager
 
-Manipulate X windows as emacs buffers.
+Manipulate X windows as emacs buffers.  I don't use (exwm-init) here,
+in case I decide to use another wm.  Eval '(exwm-init)' when starting
+the EXWM frame. i.e. in ~.xinitrc
 
 #+begin_src emacs-lisp
   (use-package exwm
     :after (custom-exwm-config)
     :ensure t
     :config
-    (custom-exwm-config)
-    (exwm-init))
+    (custom-exwm-config))
 #+end_src
 
 **** Desktop-environment (useful with EXWM)
