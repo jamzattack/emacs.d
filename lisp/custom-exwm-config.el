@@ -7,7 +7,6 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
-
 ;; quit EXWM, but keep the server going.
 (defun exwm-quit ()
   "quit EXWM, but keep the server going."
@@ -94,6 +93,7 @@ output."
   (custom-set-variables
    '(exwm-input-global-keys
      `(;; 's-f': Toggle fullscreen.
+       ("" . exwm-quit)
        ([?\s-f] . exwm-fullscreen-or-reset)
        ;; 's-w': Switch workspace.
        ([?\s-w] . exwm-workspace-switch)
