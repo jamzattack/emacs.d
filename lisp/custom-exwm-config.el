@@ -148,7 +148,6 @@ output."
   (custom-exwm-prefix-keys)
   (custom-exwm-buffer-name)
   (custom-exwm-window-setup)
-  (global-set-key (kbd "C-x C-c") #'save-buffers-kill-emacs)
   ;; Enable EXWM
   (exwm-enable))
 
