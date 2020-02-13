@@ -771,7 +771,15 @@ and move the history file out of $HOME.
              (slime-contribs '(slime-fancy))
              (slime-completion-at-point-functions
               '(slime-simple-completion-at-point))
-             (slime-repl-history-file "~/.cache/slime/history")))
+             (slime-repl-history-file "~/.cache/slime/history"))
+    :config
+    (defun slime-repl-or-run-slime ()
+      (interactive)
+      (if (slime-connected-p)
+          (slime-switch-to-output-buffer)
+        (slime)))
+    :bind (:map slime-mode-map
+                ([remap slime-switch-to-output-buffer] . slime-repl-or-run-slime)))
 #+end_src
 
 **** paredit
