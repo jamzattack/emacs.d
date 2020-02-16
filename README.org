@@ -109,7 +109,8 @@ language's major mode inside source blocks.
   (use-package org
     :custom ((org-src-window-setup 'current-window)
              (org-src-tab-acts-natively t))
-    :config (require 'org-tempo))
+    :config (when (featurep 'org-tempo)
+              (require 'org-tempo)))
 #+end_src
 
 ***** Org Capture
@@ -1048,6 +1049,7 @@ completion. fish must be installed.
 
 #+begin_src emacs-lisp
   (use-package fish-completion
+    :after eshell
     :ensure t
     :config
     (global-fish-completion-mode))
