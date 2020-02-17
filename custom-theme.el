@@ -11,6 +11,7 @@
    `(helm-source-header ((,class (:inherit 'bold))))
    `(tooltip ((,class (:inherit 'default))))
    `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
+   `(region ((,class (:background "lightgoldenrod2"))))
    `(fringe ((,class (:inherit 'default))))
    `(mode-line ((,class (:background "sky blue"))))
    `(dired-async-mode-message ((,class (:foreground "darkred"))))))
