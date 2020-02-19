@@ -432,9 +432,12 @@ keys.
 I like using view-mode and scroll-lock-mode is kind-of useless, so I
 rebind Scroll_Lock to toggle view-mode.
 
+Also enable view-mode if a buffer is read-only.
+
 #+begin_src emacs-lisp
   (use-package view
-    :bind (("<Scroll_Lock>" . view-mode)))
+    :bind (("<Scroll_Lock>" . view-mode))
+    :custom (view-read-only t))
 #+end_src
 
 ** My packages
