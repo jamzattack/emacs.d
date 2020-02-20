@@ -784,8 +784,8 @@ and move the history file out of $HOME.
       (if (slime-connected-p)
           (slime-switch-to-output-buffer)
         (slime)))
-    :bind (:map lisp-mode-map
-                ([remap slime-switch-to-output-buffer] . slime-repl-or-run-slime)))
+    :bind (:map slime-mode-map
+                ("C-c C-z" . slime-repl-or-run-slime)))
 #+end_src
 
 **** paredit
