@@ -2,7 +2,7 @@
 
 ;; Author: Philip K. <philip@warpmail.net>
 ;; Version: 0.2.0
-;; Package-Version: 20200208.2247
+;; Package-Version: 20200220.1853
 ;; Keywords: comm
 ;; Package-Requires: ((emacs "24.1"))
 ;; URL: https://git.sr.ht/~zge/nullpointer-emacs
@@ -222,7 +222,9 @@ If START and END are not specified, upload entire buffer."
                      (if (use-region-p) (region-end) (point-max))
                      (0x0--choose-service)))
   (let ((0x0--current-host service)
-        (0x0--server (cdr (assq service 0x0-services))))
+        (0x0--server (cdr (assq service 0x0-services)))
+        (0x0--filename (if (bound-and-true-p 0x0--filename)
+						   0x0--filename (buffer-name))))
     (unless 0x0--server
       (error "Service %s unknown." service))
     (unless (plist-get 0x0--server :host)
