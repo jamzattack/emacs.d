@@ -136,7 +136,7 @@ file. Similar to remember.
     :bind (("C-x M-r" . org-capture)))
 #+end_src
 
-***** org indent
+***** Org indent
 
 Better layout for org-mode.
 
@@ -145,6 +145,16 @@ Better layout for org-mode.
     :after (org)
     :diminish
     :hook (org-mode . org-indent-mode))
+#+end_src
+
+***** Org-babel lilypond
+
+ob-lilypond is required to evaluate lilypond within org-mode. It isn't
+loaded by default, so load it here.
+
+#+begin_src emacs-lisp
+  (when (executable-find "lilypond")
+    (use-package ob-lilypond))
 #+end_src
 
 **** prolog
