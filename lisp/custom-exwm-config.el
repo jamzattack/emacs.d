@@ -12,8 +12,7 @@
   "quit EXWM, but keep the server going."
   (interactive)
   (exwm-exit)
-  (delete-frame)
-  (shell-command "pkill Xorg"))
+  (delete-frame))
 
 ;; Toggle fullscreen
 (defun exwm-fullscreen-or-reset ()
