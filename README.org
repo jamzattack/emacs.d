@@ -756,6 +756,17 @@ provides some note-taking facilities.
     (pdf-tools-install))
 #+end_src
 
+**** Markdown
+
+A very featureful major mode for markdown files.  I only really use it
+for looking at READMEs though, so I add view-mode to the hook.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :hook (markdown-mode . view-mode))
+#+end_src
+
 *** Programming
 
 **** Geiser
