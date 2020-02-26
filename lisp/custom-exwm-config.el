@@ -9,10 +9,11 @@
 
 ;; quit EXWM, but keep the server going.
 (defun exwm-quit ()
-  "quit EXWM, but keep the server going."
+  "quit EXWM, but keep the server going. Then start twm."
   (interactive)
   (exwm-exit)
-  (delete-frame))
+  (delete-frame)
+  (start-process-shell-command "twm" nil "DISPLAY=:0 twm"))
 
 ;; Toggle fullscreen
 (defun exwm-fullscreen-or-reset ()
