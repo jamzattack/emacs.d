@@ -366,10 +366,13 @@ problems with helm not loading the recentf list, so it is done here.
 
 **** Desktop
 
-Save list of buffers and some variables when exiting emacs.
+Save list of buffers and some variables when exiting emacs.  Don't
+save a list of frames, that just ends up spamming me with extra frames
+everywhere.
 
 #+begin_src emacs-lisp
   (use-package desktop
+    :custom (desktop-restore-frames nil)
     :config
     (add-to-list 'desktop-globals-to-save 'helm-ff-history)
     (add-to-list 'desktop-globals-to-save 'extended-command-history)
@@ -397,9 +400,10 @@ I've started to use scroll-bar-mode. It's not so bad if the width is
 small enough.
 
 #+begin_src emacs-lisp
-  (use-package scroll-bar
-    :custom ((scroll-bar-mode 'right)
-             (scroll-bar-width 6 t)))
+    (use-package scroll-bar
+      :custom ((scroll-bar-mode 'right)
+               (scroll-bar-width 6 t))
+      :config (scroll-bar-mode -1))
 #+end_src
 
 **** battery
