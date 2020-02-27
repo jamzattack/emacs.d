@@ -3,7 +3,7 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-                    :font "DejaVu Sans Mono"
+                    :font "Go Mono"
 		    :weight 'normal
 		    :height 80)
 
@@ -16,7 +16,7 @@
                     :height 1.1)
 
 (set-face-attribute 'fixed-pitch-serif nil
-                    :font "Linux Libertine Mono"
+                    :font "DejaVu Sans Mono"
                     :height 1.0)
 
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
