@@ -343,7 +343,7 @@ delete-char or kill-buffer like a "normal" shell.
   like giving EOF to a normal shell."
       (interactive "p")
       (if (equal (point) (point-max))
-          (kill-this-buffer)
+          (kill-buffer (current-buffer))
         (delete-char arg)))
     :bind (:map eshell-mode-map
                 ([remap delete-char] . eshell-delete-or-quit)))
