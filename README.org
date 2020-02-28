@@ -339,10 +339,15 @@ delete-char or kill-buffer like a "normal" shell.
     :custom (eshell-history-size 1000)
     :config
     (defun eshell-delete-or-quit (arg)
-      "If point is at the end of the buffer, kill the buffer. Just
-  like giving EOF to a normal shell."
+      "If point is at the end of the buffer and input is empty,
+  kill the buffer. Just like giving EOF to a normal shell."
       (interactive "p")
-      (if (equal (point) (point-max))
+      (if (=
+           (save-excursion
+             (eshell-bol)
+             (point))
+           (point)
+           (point-max))
           (kill-buffer (current-buffer))
         (delete-char arg)))
     :bind (:map eshell-mode-map
