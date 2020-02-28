@@ -850,6 +850,17 @@ s-expressions. Enabled for lisp modes only.
            (scheme-mode . paredit-mode)))
 #+end_src
 
+**** elf-mode
+
+Major mode for viewing ELF files (compiled binaries).  I don't use it
+often, but it's nice to be able to see what a program does sometimes.
+
+#+begin_src emacs-lisp
+  (use-package elf-mode
+    :ensure t
+    :config (elf-setup-default))
+#+end_src
+
 *** Org
 
 **** Github markdown
