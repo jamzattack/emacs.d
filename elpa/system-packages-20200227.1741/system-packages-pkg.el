@@ -1,0 +1,2 @@
+;;; Generated package description from /home/jdb/.config/emacs/elpa/system-packages-20200227.1741/system-packages.el  -*- no-byte-compile: t -*-
+(define-package "system-packages" "20200227.1741" "functions to manage system packages" '((emacs "24.3")) :commit "c6fa6650202300265fbeb82db7d2223ab98951bc" :authors '(("J. Alexander Branham" . "alex.branham@gmail.com")) :maintainer '("J. Alexander Branham" . "alex.branham@gmail.com") :url "https://gitlab.com/jabranham/system-packages")

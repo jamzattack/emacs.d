@@ -5,7 +5,7 @@
 ;; Author: J. Alexander Branham <alex.branham@gmail.com>
 ;; Maintainer: J. Alexander Branham <alex.branham@gmail.com>
 ;; URL: https://gitlab.com/jabranham/system-packages
-;; Package-Version: 20190614.1320
+;; Package-Version: 20200227.1741
 ;; Package-Requires: ((emacs "24.3"))
 ;; Version: 1.0.11
 
@@ -136,7 +136,7 @@
              (log . "cat /var/log/pacman.log")
              (get-info . "pacman -Qi")
              (get-info-remote . "pacman -Si")
-             (list-files-provided-by . "pacman -Ql")
+             (list-files-provided-by . "pacman -qQl")
              (verify-all-packages . "pacman -Qkk")
              (verify-all-dependencies . "pacman -Dk")
              (remove-orphaned . "pacman -Rns $(pacman -Qtdq)")
@@ -294,8 +294,8 @@ The key is the package manager and values (usually) commands.")
             (setq managers nil)
           (setq manager nil))))
     (car manager))
-  "Symbol containing the package manager to use.
-See `system-packages-supported-package-managers' for a list of
+  "Symbol naming the package manager to use.
+See `system-packages-supported-package-managers' for the list of
 supported software.  Tries to be smart about selecting the
 default.  If you change this value, you may also want to change
 `system-packages-use-sudo'."
@@ -408,7 +408,7 @@ package manager."
 Uses the package manager named in
 `system-packages-package-manager' to uninstall PACK.  You may use
 ARGS to pass options to the package manager."
-  (interactive "sWhat package to uninstall: ")
+  (interactive "sPackage to uninstall: ")
   (system-packages--run-command 'uninstall pack args))
 
 ;;;###autoload
@@ -416,7 +416,7 @@ ARGS to pass options to the package manager."
   "List the dependencies of PACK.
 
 You may use ARGS to pass options to the package manager."
-  (interactive "sWhat package to list dependencies of: ")
+  (interactive "sPackage to list dependencies of: ")
   (system-packages--run-command 'list-dependencies-of pack args))
 
 ;;;###autoload
@@ -425,7 +425,7 @@ You may use ARGS to pass options to the package manager."
 
 With a prefix argument, display remote package information.  You
 may use ARGS to pass options to the package manager."
-  (interactive "sWhat package to list info for: ")
+  (interactive "sPackage to list info for: ")
   (if current-prefix-arg
       (system-packages--run-command 'get-info-remote pack args)
     (system-packages--run-command 'get-info pack args)))
@@ -435,7 +435,7 @@ may use ARGS to pass options to the package manager."
   "List the files provided by PACK.
 
 You may use ARGS to pass options to the package manager."
-  (interactive "sWhat package to list provided files of: ")
+  (interactive "sPackage to list provided files of: ")
   (system-packages--run-command 'list-files-provided-by pack args))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
