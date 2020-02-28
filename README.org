@@ -400,10 +400,10 @@ I've started to use scroll-bar-mode. It's not so bad if the width is
 small enough.
 
 #+begin_src emacs-lisp
-    (use-package scroll-bar
-      :custom ((scroll-bar-mode 'right)
-               (scroll-bar-width 6 t))
-      :config (scroll-bar-mode -1))
+  (use-package scroll-bar
+    :custom ((scroll-bar-mode 'right)
+             (scroll-bar-width 6 t))
+    :config (scroll-bar-mode -1))
 #+end_src
 
 **** battery
@@ -808,7 +808,7 @@ and move the history file out of $HOME.
               '(slime-simple-completion-at-point))
              (slime-repl-history-file "~/.cache/slime/history")
              (common-lisp-hyperspec-root (when (file-exists-p "/usr/share/doc/HyperSpec/")
-                                             "file:///usr/share/doc/HyperSpec/")))
+                                           "file:///usr/share/doc/HyperSpec/")))
     :config
     (defun slime-repl-or-run-slime ()
       (interactive)
