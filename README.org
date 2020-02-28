@@ -725,6 +725,19 @@ the helm alternatives.
                  ("S" . helm-eww-buffers))))
 #+end_src
 
+**** Helm org
+
+=C-c M-o= in org-mode runs the function =helm-org-in-buffer-headings=.
+Similar to =occur=, but only shows headings.
+
+#+begin_src emacs-lisp
+  (use-package helm-org
+    :ensure t
+    :after helm
+    :bind (:map org-mode-map
+                ("C-c M-o" . helm-org-in-buffer-headings)))
+#+end_src
+
 *** Helpful
 
 Helpful gives a whole lot more information than describe-*. I also
@@ -1108,19 +1121,6 @@ A 'Lorem ipsum' generator
 #+begin_src emacs-lisp
   (use-package lorem-ipsum
     :ensure t)
-#+end_src
-
-**** Helm org
-
-=C-c M-o= in org-mode runs the function =helm-org-in-buffer-headings=.
-Similar to =occur=, but only shows headings.
-
-#+begin_src emacs-lisp
-  (use-package helm-org
-    :ensure t
-    :after helm
-    :bind (:map org-mode-map
-                ("C-c M-o" . helm-org-in-buffer-headings)))
 #+end_src
 
 * Fixing defaults
