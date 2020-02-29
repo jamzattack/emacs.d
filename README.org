@@ -350,8 +350,17 @@ delete-char or kill-buffer like a "normal" shell.
            (point-max))
           (kill-buffer (current-buffer))
         (delete-char arg)))
+    (defun eshell/clear-please ()
+      "Similar to `eshell/clear', but keeps the current input."
+      (interactive)
+      (save-excursion
+        (eshell-bol)
+        (previous-line)
+        (end-of-line)
+        (insert (make-string (window-height) ?\n))))
     :bind (:map eshell-mode-map
-                ([remap delete-char] . eshell-delete-or-quit)))
+                ("C-d" . eshell-delete-or-quit)
+                ("C-c M-l" . eshell/clear-please)))
 #+end_src
 
 *** Saving the state of emacs
