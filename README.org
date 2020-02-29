@@ -355,7 +355,7 @@ delete-char or kill-buffer like a "normal" shell.
       (interactive)
       (save-excursion
         (eshell-bol)
-        (previous-line)
+        (forward-line -1)
         (end-of-line)
         (insert (make-string (window-height) ?\n))))
     :bind (:map eshell-mode-map
