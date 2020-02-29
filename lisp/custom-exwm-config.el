@@ -13,7 +13,7 @@
   (interactive)
   (exwm-exit)
   (delete-frame)
-  (start-process-shell-command "twm" nil "DISPLAY=:0 twm"))
+  (start-process-shell-command "twm" nil "sleep 1; DISPLAY=:0 twm"))
 
 ;; Toggle fullscreen
 (defun exwm-fullscreen-or-reset ()
