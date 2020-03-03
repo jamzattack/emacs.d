@@ -632,6 +632,21 @@ Located [[file:lisp/custom-exwm-config.el][here.]]
     :load-path "lisp")
 #+end_src
 
+*** Miscellaneous functions
+
+A number of functions that don't necessarily have a proper home.  Bind
+=C-c p= to open the pdf output of a typesetting program, and =C-h M-a=
+to run the external "apropos" command (not to be confused with elisp
+apropos).
+
+Located [[file:lisp/my-misc-defuns][here]].
+
+#+begin_src emacs-lisp
+  (use-package my-misc-defuns
+    :bind (("C-h M-a" . system-apropos)
+           ("C-c p" . open-pdf-of-current-file)))
+#+end_src
+
 ** ELPA Packages
 
 This is where the packages installed within emacs are located. All of
