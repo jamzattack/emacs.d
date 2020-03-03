@@ -14,3 +14,5 @@ optional arguments ARGS."
       (insert
        (shell-command-to-string (concat command " " args " " search))))
     (switch-to-buffer buffer)))
+
+(provide 'my-misc-defuns)
