@@ -653,33 +653,6 @@ This is where the packages installed within emacs are located. All of
 these use the =:ensure= keyword, so that they are downloaded if they
 aren't already.
 
-*** COMMENT god-mode
-
-God-mode is kinda like modal editing using the default keybindings.
-It essentially acts as an emacs-only sticky-key.
-
-I bind it to escape (note the use of "<escape>" rather than "ESC"). I
-recommend using the same key for escape and control.
-
-I also set it up so that my mode-line is purple when it is active, and
-green otherwise.
-
-#+begin_src emacs-lisp
-  (use-package god-mode
-    :ensure t
-    :custom
-    ((god-exempt-major-modes nil)
-     (god-exempt-predicates nil))
-    :bind
-    (("<escape>" . 'god-mode-all)
-     :map god-local-mode-map
-     ("." . 'repeat))
-    :init
-    (require 'my-mode-line)
-    (add-hook 'god-mode-enabled-hook 'mode-line-purple)
-    (add-hook 'god-mode-disabled-hook 'mode-line-green))
-#+end_src
-
 *** HELM
 
 Rebind a few keys in order to make use of helm's features. Stuff like
