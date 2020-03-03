@@ -1235,75 +1235,6 @@ Highlight matching parentheses.
   (show-paren-mode t)
 #+end_src
 
-* Custom functions
-
-** Typesetting
-
-*** Opening Output
-
-Kinda useful when working with lilypond or LaTeX.x
-
-#+begin_src emacs-lisp
-  (defun opout ()
-    "Opens a pdf file of the same name as the current file"
-    (interactive)
-    (find-file-other-window (concat
-                             (file-name-sans-extension buffer-file-name)
-                             ".pdf")))
-#+end_src
-
-** Email
-
-Update locally stored mail with isync and then index it with notmuch.
-
-#+begin_src emacs-lisp
-  (defun mailsync ()
-    "Downloads new mail and adds it to the notmuch database"
-    (interactive)
-    (shell-command "mbsync -a ;notmuch new &" "*mailsync*"))
-#+end_src
-
-** Finding files
-
-*** List Documents
-
-This used to just call an external shell script, but I replaced it
-with a more emacsy version.
-
-#+begin_src emacs-lisp
-  (defun list-documents (&optional dir)
-    "Using `find-dired', list all the postscript and pdf files a
-  specified directory.  If called interactively, prompt for
-  Directory. Else, DIR will default to ~/Documents/."
-    (interactive (list (read-directory-name "Find videos where: " "~/Documents/")))
-    (unless dir
-      (setq dir "~/Documents/"))
-    (find-dired dir
-                "\\( -iname \\*.ps -o -iname \\*.pdf \\)")
-    (dired-hide-details-mode t)
-    (setq truncate-lines t))
-#+end_src
-
-*** List Videos
-
-This used to just call an external shell script, but I replaced it
-with a more emacsy version. In order to open videos externally,
-=openwith= must be installed as above.
-
-#+begin_src emacs-lisp
-  (defun list-videos (&optional dir)
-    "Using `find-dired', list all the videos a specified directory.
-  If called interactively, prompt for Directory. Else, DIR will
-  default to ~/Downloads/."
-    (interactive (list (read-directory-name "Find videos where: " "~/Downloads/")))
-    (unless dir
-      (setq dir "~/Downloads/"))
-    (find-dired dir
-                "\\( -iname \\*.mkv -o -iname \\*.avi -o -iname \\*.mp4 -o -iname \\*.webm -o -iname \\*.m4v \\)")
-    (dired-hide-details-mode t)
-    (setq truncate-lines t))
-#+end_src
-
 * Major mode hooks and variables
 
 ** M-x compile hooks
@@ -1343,15 +1274,6 @@ Reload [[file:lisp/config.el][config file]]
 
 #+begin_src emacs-lisp
   (bind-key "C-c r" 'config-load)
-#+end_src
-
-** Typesetting
-
-"opout" is a script to open the output of a file (e.g. TeX,
-LilyPond).
-
-#+begin_src emacs-lisp
-  (bind-key "C-c p"  'opout)
 #+end_src
 
 ** Miscellaneous
