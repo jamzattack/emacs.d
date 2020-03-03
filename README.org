@@ -1016,22 +1016,6 @@ A more flexible mpd client than mingus.
                  ("C-d" . mpdel-core-open-directories))))
 #+end_src
 
-**** EMMS
-
-I'm trying to get into EMMS.  I will keep [[MPDel]] for a while, until I
-get used to it.
-
-#+begin_src emacs-lisp
-  (use-package emms-player-mpd
-    :ensure emms
-    :custom ((emms-player-list '(emms-player-mpd))
-             (emms-info-functions '(emms-info-mpd))
-             (emms-source-file-default-directory (expand-file-name "~/Music/")))
-    :config
-    (require 'emms-setup)
-    (emms-all))
-#+end_src
-
 **** Notmuch
 
 A simple email client, with emphasis on searching
