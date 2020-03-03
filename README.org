@@ -1109,8 +1109,8 @@ From Alezost, remove clutter in the mode-line.
        (lilypond-mode      "ly")
        (help-mode          "?")))
     (dim-minor-names
-     '((auto-fill-function " ")
-       (isearch-mode       " ")
+     '((auto-fill-function " ^M")
+       (isearch-mode       " ^S")
        (helm-mode          "" helm)
        (paredit-mode       "" paredit)
        (god-local-mode     " ∞")
