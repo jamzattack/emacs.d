@@ -181,6 +181,19 @@ for java/awk files.
                         (other . "bsd")))))
 #+end_src
 
+**** Emacs lisp mode
+
+Define a couple of slime-like keys, make the scratch buffer use
+emacs-lisp-mode.
+
+#+begin_src emacs-lisp
+(use-package elisp-mode
+  :custom (initial-major-mode 'emacs-lisp-mode)
+  :bind (:map emacs-lisp-mode-map
+	      ("C-c C-c" . eval-defun)
+	      ("C-c C-m" . pp-macroexpand-last-sexp)))
+#+end_src
+
 *** Minor modes for programming
 
 Minor modes that help with writing programs.
