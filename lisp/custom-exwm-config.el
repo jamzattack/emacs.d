@@ -147,9 +147,7 @@ output."
   (custom-exwm-input-simulation-keys)
   (custom-exwm-prefix-keys)
   (custom-exwm-buffer-name)
-  (custom-exwm-window-setup)
-  ;; Enable EXWM
-  (exwm-enable))
+  (custom-exwm-window-setup))
 
 
 
