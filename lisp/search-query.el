@@ -5,6 +5,12 @@ QUERY."
   (browse-url
    (concat "https://torrentz2.eu/search?f=" query)))
 
+(defun tpd-search (query)
+  "Search thepiratebay.org for QUERY."
+  (interactive (list (read-string "Torrent: ")))
+  (browse-url
+   (format "https://thepiratebay.org/search/%s/0/99/0" query)))
+
 (defun youtube-search (query)
   "Search youtube. Called interactively, prompt for a QUERY."
   (interactive (list (read-string "Youtube: ")))
