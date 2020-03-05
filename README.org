@@ -532,8 +532,8 @@ Located [[file:lisp/search-query.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package search-query
-    :bind (("C-z t" . torrentz2-search)
-           ("C-z C-t" . torrentz2-search)
+    :bind (("C-z t" . tpd-search)
+           ("C-z C-t" . tpd-search)
            ("C-z y" . youtube-search)
            ("C-z C-y" . youtube-search)
            ("C-z w" . wikipedia-search)
