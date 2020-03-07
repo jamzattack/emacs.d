@@ -56,6 +56,15 @@ optional arguments ARGS."
                            (file-name-sans-extension buffer-file-name)
                            ".pdf")))
 
+;;; Similar to `open-pdf-of-current-file' - but open an html file in
+;;; eww.  Useful for writing in org-mode and exporting to html.
+(defun eww-open-html-of-current-file ()
+  "Opens a pdf file of the same name as the current file"
+  (interactive)
+  (eww-open-file (concat
+                  (file-name-sans-extension buffer-file-name)
+                  ".html")))
+
 
 ;;; Update locally stored mail with isync and then index it with notmuch.
 (defun mailsync ()
