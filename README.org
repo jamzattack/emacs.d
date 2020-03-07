@@ -792,6 +792,7 @@ provides some note-taking facilities.
 #+begin_src emacs-lisp
   (use-package pdf-tools
     :ensure t
+    :hook (pdf-view-mode . auto-revert-mode)
     :config
     (pdf-tools-install))
 #+end_src
