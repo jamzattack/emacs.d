@@ -644,7 +644,9 @@ Located [[file:lisp/my-misc-defuns][here]].
 #+begin_src emacs-lisp
   (use-package my-misc-defuns
     :bind (("C-h M-a" . system-apropos)
-           ("C-c p" . open-pdf-of-current-file)))
+           ("C-c p" . open-pdf-of-current-file)
+           (:map org-mode-map
+                 ("C-c e" . eww-open-html-of-current-file))))
 #+end_src
 
 ** ELPA Packages
