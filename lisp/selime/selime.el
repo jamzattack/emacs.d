@@ -1,4 +1,4 @@
-;;; selime-mode.el --- A better version of elisp-slime-nav  -*- lexical-binding: t; -*-
+;;; selime.el --- A better version of elisp-slime-nav  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  
 
