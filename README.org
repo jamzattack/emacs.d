@@ -183,15 +183,12 @@ for java/awk files.
 
 **** Emacs lisp mode
 
-Define a couple of slime-like keys, make the scratch buffer use
-emacs-lisp-mode.
+Make the scratch buffer use emacs-lisp-mode.  Note: Most of my elisp
+keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
 
 #+begin_src emacs-lisp
   (use-package elisp-mode
-    :custom (initial-major-mode 'emacs-lisp-mode)
-    :bind (:map emacs-lisp-mode-map
-                ("C-c C-c" . compile-defun)
-                ("C-c C-m" . pp-macroexpand-last-sexp)))
+    :custom (initial-major-mode 'emacs-lisp-mode))
 #+end_src
 
 *** Minor modes for programming
@@ -649,6 +646,19 @@ Located [[file:lisp/my-misc-defuns][here]].
            (:map org-mode-map
                  ("C-c e" . eww-open-html-of-current-file))))
 #+end_src
+
+*** Selime
+
+This is my package to make elisp evaluation and documentation lookup a
+bit more like slime.  It's often not necessary, but sometimes I find
+myself using =C-c C-d C-f= to describe an elisp function, etc.
+
+#+begin_src emacs-lisp
+  (use-package selime
+    :load-path "lisp/selime"
+    :hook (emacs-lisp-mode . selime-mode))
+#+end_src
+
 
 ** ELPA Packages
 
