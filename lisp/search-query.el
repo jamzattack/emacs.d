@@ -26,9 +26,8 @@ QUERY."
 (defun wiktionary-word (word)
   "Search wiktionary for a word. With a prefix arg, prompt for a
 word, otherwise use the word at point."
-  (interactive (list (if current-prefix-arg
-			 (read-string "Wiktionary: ")
-		       (thing-at-point 'word t))))
+  (interactive (list (read-string "Wiktionary: " 
+				  (thing-at-point 'word t))))
   (browse-url
    (concat "https://en.wiktionary.org/wiki/" word)))
 
