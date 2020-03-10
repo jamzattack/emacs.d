@@ -659,7 +659,6 @@ myself using =C-c C-d C-f= to describe an elisp function, etc.
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
-
 ** ELPA Packages
 
 This is where the packages installed within emacs are located. All of
