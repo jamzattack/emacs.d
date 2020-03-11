@@ -56,7 +56,8 @@ for a function to disassemble."
   (interactive (list (let ((fun (symbol-at-point)))
 		       (if (functionp fun)
 			   fun
-			 (completing-read "Disassemble function: " obarray 'fboundp t nil nil )))))
+			 (intern
+			  (completing-read "Disassemble function: " obarray 'fboundp t nil nil ))))))
   (disassemble function))
 
 (defvar selime-mode-map
