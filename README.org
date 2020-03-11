@@ -1010,12 +1010,12 @@ A simple email client, with emphasis on searching
   (use-package notmuch
     :ensure t
     :after eww
-    :config
-    (setq notmuch-archive-tags '("-unread" "-inbox")
-          notmuch-search-oldest-first nil)
-    :bind
-    (:map notmuch-show-mode-map
-          ("u" . eww-follow-link)))
+    :custom ((notmuch-archive-tags '("-unread" "-inbox"))
+             (notmuch-search-oldest-first nil))
+    :bind ((:map notmuch-show-mode-map
+                 ("u" . eww-follow-link))
+           (:map notmuch-message-mode-map
+                 ("C-x C-s" . ignore))))
 #+end_src
 
 **** Transmission
