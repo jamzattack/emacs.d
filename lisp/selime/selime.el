@@ -54,7 +54,7 @@ otherwise call `describe-symbol' on the symbol at point"
   "If point is on a function, disassemble it.  Otherwise prompt
 for a function to disassemble."
   (interactive (list (let ((fun (symbol-at-point)))
-		       (if (functionp fun)
+		       (if (fboundp fun)
 			   fun
 			 (intern
 			  (completing-read "Disassemble function: " obarray 'fboundp t nil nil ))))))
