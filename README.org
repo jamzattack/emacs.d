@@ -529,6 +529,7 @@ Located [[file:lisp/search-query.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package search-query
+    :custom (tpb-mirror "lepiratebay.org")
     :bind (("C-z t" . tpb-search)
            ("C-z C-t" . tpb-search)
            ("C-z y" . youtube-search)
