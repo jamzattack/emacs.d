@@ -1,8 +1,8 @@
 ;;; 0x0.el --- Upload to 0x0.st -*- lexical-binding: t -*-
 
 ;; Author: Philip K. <philip@warpmail.net>
-;; Version: 0.2.0
-;; Package-Version: 20200222.948
+;; Version: 0.3.0
+;; Package-Version: 20200313.1542
 ;; Keywords: comm
 ;; Package-Requires: ((emacs "24.1"))
 ;; URL: https://git.sr.ht/~zge/nullpointer-emacs
@@ -20,10 +20,15 @@
 ;; This package defines three main functions: `0x0-upload',
 ;; `0x0-upload-file' and `0x0-upload-string', which respectively upload
 ;; (parts of) the current buffer, a file on your disk and a string from
-;; the minibuffer to a 0x0.st-like or pomf-lie servers.
+;; the minibuffer to a 0x0.st comparable server.
+;;
+;; Besides the built-in `url' library, this package has no dependencies,
+;; especially no external ones, such as curl.
+;;
+;; See https://0x0.st/ for more details, and consider donating to
+;; https://liberapay.com/lachs0r/donate if you like the service.
 
 (require 'url)
-(require 'json)
 (require 'ert)
 
 ;;; Code:
@@ -45,41 +50,7 @@
      :query "file"
      :min-age 30
      :max-age 365
-     :max-size ,(* 1024 1024 256))
-    (ix
-     :host "ix.io"
-     :query "f:1"
-     :no-tls t)
-    (w1r3
-     :host "w1r3.net"
-     :query "upload")
-    (sprunge
-     :host "sprunge.us"
-     :query "sprunge"
-     :no-tls t)
-    (you-die-if-you-work
-     :host "youdieifyou.work"
-     :path "upload.php"
-     :query "files[]"
-     :pomf t
-     :no-tls t)
-    (fiery
-     :host "safe.fiery.me"
-     :path "api/upload"
-     :query "files[]"
-     :pomf t)
-    (dmca-gripe
-     :host "dmca.gripe"
-     :path "api/upload"
-     :query "files[]"
-     :pomf t)
-    (uguu
-     :host "uguu.se"
-     :path "api.php?d=upload-tool"
-     :query "file"
-     :min-age 1
-     :max-age 1
-     :max-size ,(* 1024 1024 100)))
+     :max-size ,(* 1024 1024 256)))
   "Alist of different 0x0-like services.
 
 The car is a symbol identifying the service, the cdr a plist,
@@ -96,7 +67,6 @@ with the following keys:
     :max-age	- on 0x0-like servers, maximal number of days
 				  a file is kept online (number, optional)
     :max-size	- file limit for this server (number, optional)
-    :pomf		- is pomf clone (bool, optional)
 
 This variable only describes servers, but doesn't set anything.
 See `0x0-default-host' if you want to change the server you use."
@@ -157,9 +127,7 @@ Operate on region between START and END."
           `(("Content-Type" . ,(concat "multipart/form-data; boundary=" boundary))))
          (url-request-data
           (let ((source (current-buffer))
-                (filename (if (boundp '0x0--filename)
-                              0x0--filename
-                            (buffer-name))))
+                (filename (or 0x0--filename (buffer-name))))
             (with-temp-buffer
               (insert "--" boundary "\r\n")
               (insert "Content-Disposition: form-data; ")
@@ -191,24 +159,6 @@ Operate on region between START and END."
                                0x0-default-service))
     0x0-default-service))
 
-(defun 0x0--parse-plain ()
-  (save-match-data
-    (unless (search-forward-regexp "^https?://.*$" nil t)
-      (error "Failed to upload/parse. See %s for more details"
-             (buffer-name)))
-    (match-string 0)))
-
-(defun 0x0--parse-pomf ()
-  (let ((data (json-read)))
-    (unless data
-      (error "Empty response. See %s for more details"
-             (buffer-name)))
-    (unless (eq t (cdr (assq 'success data)))
-      (error "Failed to upload (%d): \"%s\""
-             (cdr (assq 'errorcode data))
-             (cdr (assq 'description data))))
-    (cdr (assq 'url (aref (cdr (assq 'files data)) 0)))))
-
 ;;;###autoload
 (defun 0x0-upload (start end service)
   "Upload current buffer to `0x0-url' from START to END.
@@ -234,14 +184,21 @@ If START and END are not specified, upload entire buffer."
           (timeout (0x0--calculate-timeout (- end start))))
       (with-current-buffer resp
         (goto-char (point-min))
-        (let ((result (cond ((plist-get 0x0--server :pomf)
-                             (0x0--parse-pomf))
-                            (t (0x0--parse-plain)))))
-          (kill-new result)
-          (message (concat (format "Yanked `%s' into kill ring." result)
+        (save-match-data
+          (unless (search-forward-regexp
+                   (concat "^"
+                           (regexp-opt '("http" "https"))
+                           "://"
+                           (regexp-quote (plist-get 0x0--server :host))
+                           ".*$")
+                   nil t)
+            (error "Failed to upload/parse. See %s for more details"
+                   (buffer-name resp)))
+          (kill-new (match-string 0))
+          (message (concat (format "Yanked `%s' into kill ring." (match-string 0) )
                            (and timeout (format " Should last ~%g days." timeout))))
-          (kill-buffer resp)
-          result)))))
+          (prog1 (match-string 0)
+            (kill-buffer resp)))))))
 
 ;;;###autoload
 (defun 0x0-upload-file (file service)
