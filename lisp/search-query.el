@@ -5,11 +5,14 @@ QUERY."
   (browse-url
    (concat "https://torrentz2.eu/search?f=" query)))
 
-(defun tpd-search (query)
-  "Search thepiratebay.org for QUERY."
+(defvar tpb-mirror "thepiratebay.org" "The Pirate Bay URL")
+
+(defun tpb-search (query)
+  "Search The Pirate Bay for QUERY.  Uses `tpb-mirror' as the
+host."
   (interactive (list (read-string "Torrent: ")))
   (browse-url
-   (format "https://thepiratebay.org/search/%s/0/99/0" query)))
+   (format "https://%s/search/%s/0/99/0" tpb-mirror query)))
 
 (defun youtube-search (query)
   "Search youtube. Called interactively, prompt for a QUERY."
