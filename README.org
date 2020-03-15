@@ -40,12 +40,12 @@ Install use-package if not installed.  Also set the variable
 byte-compiling.
 
 #+begin_src emacs-lisp
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package)
-      (package-install 'diminish))
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package)
+    (package-install 'diminish))
 
-    (setq personal-keybindings nil)
+  (setq personal-keybindings nil)
 #+end_src
 
 ** Fonts
@@ -608,12 +608,11 @@ Tweak some default behaviour that pisses me off.
 *** Swap yes/no prompt with y/n
 
 Typing yes/no is an inconvenience that can be avoided.  Alias it to
-y/n
+y/n.  This would be wrapped in =(use-package subr ...)= but that isn't
+requirable.
 
 #+begin_src emacs-lisp
-  (use-package subr
-    :config
-    (defalias 'yes-or-no-p 'y-or-n-p))
+  (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
 *** Enable all the features
@@ -629,10 +628,11 @@ dumb that this feature exists.
 
 *** Disable audible and visual bell
 
-Don't ring the damn bell.
+Don't ring the damn bell.  Although the package name is =multi-tty=,
+the file is actually =terminal.c=.
 
 #+begin_src emacs-lisp
-  (use-package terminal
+  (use-package multi-tty
     :custom (ring-bell-function 'ignore))
 #+end_src
 
@@ -1279,7 +1279,6 @@ From Alezost, remove clutter in the mode-line.
        (isearch-mode       " ^S")
        (helm-mode          "" helm)
        (paredit-mode       "" paredit)
-       (god-local-mode     " ∞")
        (org-src-mode       " *" org)
        (desktop-environment-mode "" desktop-environment)
        (eldoc-mode         ""    eldoc))))
