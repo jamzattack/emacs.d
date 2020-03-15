@@ -20,28 +20,6 @@ would be wise to remove it and recompile everything by evaluating
 
 Some things to do before everything else.
 
-** Prefix keys
-
-A couple of prefix keys. It's useful to set these up early, so that
-you don't get any errors i.e "C-z is not a valid prefix key".
-
-*** Remove =C-z=
-
-Unbind =C-z= before anything else, so that I can use it as a prefix
-key.
-
-#+begin_src emacs-lisp
-  (global-unset-key (kbd "C-z"))
-#+end_src
-
-*** Alias <menu> to C-x
-
-Make the menu key do the same as C-x.
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "<menu>") ctl-x-map)
-#+end_src
-
 ** Repositories and initialisation
 
 Enable melpa archive and making sure packages work.
@@ -57,16 +35,17 @@ Enable melpa archive and making sure packages work.
 
 ** Use-package and bind-key
 
-Install use-package and bind-key if not installed. bind-key is only
-needed when byte-compiling for some reason.
+Install use-package if not installed.  Also set the variable
+=personal-keybindings= to nil, so that bind-key doesn't freak out when
+byte-compiling.
 
 #+begin_src emacs-lisp
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package)
-    (package-install 'diminish))
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package)
+      (package-install 'diminish))
 
-  (setq personal-keybindings nil)
+    (setq personal-keybindings nil)
 #+end_src
 
 ** Fonts
@@ -84,23 +63,50 @@ This section has been moved to [[file:lisp/fonts.el][its own file]]
   (add-hook 'server-after-make-frame-hook 'set-up-fonts-please)
 #+end_src
 
-* Packages
+** Keybindings
 
-The biggest section of this file. This is where almost everything
-goes. Use-package is not only useful for configuring ELPA packages,
-but anything that can be (require)d.
+*** Prefix keys
 
-** Built-in
+A couple of prefix keys.  It's useful to set these up early, so that
+you don't get any errors i.e "C-z is not a valid prefix key".
+
+**** Remove =C-z=
+
+Unbind =C-z= before anything else, so that I can use it as a prefix
+key.
+
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-z"))
+#+end_src
+
+**** Alias <menu> to C-x
+
+Make the menu key do the same as =C-x=.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<menu>") ctl-x-map)
+#+end_src
+
+*** Reloading config file
+
+Reload [[file:lisp/config.el][config file]].  This is done with =bind-key= so that it is
+recorded in the variable =personal-keybindings=.
+
+#+begin_src emacs-lisp
+  (bind-key "C-c r" 'config-load)
+#+end_src
+
+* Built-in packages
 
 This is the section for built-in packages. A lot of these are just
 minor things such as setting a single variable.
 
-*** Major editing modes
+** Major editing modes
 
 Major modes for text editing. For non-editing major modes, see
 [[Applications]]
 
-**** Org Mode
+*** Org Mode
 
 Open source blocks and stuff in the current window. Use tab from the
 language's major mode inside source blocks.
@@ -113,7 +119,7 @@ language's major mode inside source blocks.
               (require 'org-tempo)))
 #+end_src
 
-***** Org Capture
+**** Org Capture
 
 Take notes in org-mode with specific templates and write them to a
 file. Similar to remember.
@@ -136,7 +142,7 @@ file. Similar to remember.
     :bind (("C-x M-r" . org-capture)))
 #+end_src
 
-***** Org indent
+**** Org indent
 
 Better layout for org-mode.
 
@@ -147,7 +153,7 @@ Better layout for org-mode.
     :hook (org-mode . org-indent-mode))
 #+end_src
 
-***** Org-babel lilypond
+**** Org-babel lilypond
 
 ob-lilypond is required to evaluate lilypond within org-mode. It isn't
 loaded by default, so load it here.
@@ -157,7 +163,7 @@ loaded by default, so load it here.
     (use-package ob-lilypond))
 #+end_src
 
-**** prolog
+*** Prolog
 
 Major mode for editing prolog files. Files ending in ~.pl~ open in
 prolog-mode.
@@ -168,7 +174,7 @@ prolog-mode.
     :mode ("\\.pl\\'" . prolog-mode))
 #+end_src
 
-**** cc-mode
+*** cc-mode
 
 Set the c style to bsd, which uses tabs. Use java/awk indentation
 for java/awk files.
@@ -181,7 +187,7 @@ for java/awk files.
                         (other . "bsd")))))
 #+end_src
 
-**** Emacs lisp mode
+*** Emacs lisp mode
 
 Make the scratch buffer use emacs-lisp-mode.  Note: Most of my elisp
 keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
@@ -191,9 +197,9 @@ keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
     :custom (initial-major-mode 'emacs-lisp-mode))
 #+end_src
 
-**** Typesetting
+*** Typesetting
 
-***** Nroff-mode
+**** Nroff-mode
 
 Set a compile-command hook for nroff files.  I usually use the ms
 macros when writing something, but I usually just use org-mode anyway.
@@ -203,7 +209,7 @@ macros when writing something, but I usually just use org-mode anyway.
     :defer t
     :init
     (defun nroff-mode-compile ()
-    "Set the compile command for nroff files. (using the ms
+      "Set the compile command for nroff files. (using the ms
   macros)"
       (let* ((in (buffer-file-name))
              (out (concat (file-name-sans-extension in)
@@ -216,7 +222,7 @@ macros when writing something, but I usually just use org-mode anyway.
     :hook (nroff-mode . nroff-mode-compile))
 #+end_src
 
-***** LaTeX
+**** LaTeX
 
 Set a compile-command hook for latex files.  I prefer to write in
 org-mode, but compiling latex on its own is sometimes useful.
@@ -232,11 +238,11 @@ org-mode, but compiling latex on its own is sometimes useful.
     :hook (latex-mode . latex-compile-command))
 #+end_src
 
-*** Minor modes for programming
+** Minor modes for programming
 
 Minor modes that help with writing programs.
 
-**** Auto-insert
+*** Auto-insert
 
 Insert boilerplate code/comments automatically.
 
@@ -245,7 +251,7 @@ Insert boilerplate code/comments automatically.
     :config (auto-insert-mode t))
 #+end_src
 
-**** compile
+*** Compile
 
 Bind =C-z RET= and =f9= to compile.
 
@@ -255,7 +261,7 @@ Bind =C-z RET= and =f9= to compile.
            ("<f9>" . compile)))
 #+end_src
 
-**** hi-lock
+*** hi-lock
 
 I often use =M-s h .= to see where variables, functions, etc. are
 used. However, paredit remaps =M-s= to =paredit-splice-sexp=, so I
@@ -267,12 +273,21 @@ turn on hi-lock-mode which enables the =C-x w= prefix.
     :config (global-hi-lock-mode))
 #+end_src
 
-*** Applications
+*** Parens
+
+Highlight matching parens everywhere.
+
+#+begin_src emacs-lisp
+  (use-package paren
+    :config (show-paren-mode t))
+#+end_src
+
+** Applications
 
 This section is for elisp programs that have an interface of their
 own, rather than being just a major/minor mode.
 
-**** EWW
+*** EWW
 
 Elisp web browser - I just set some variables to make eww the default
 browser, and change the width to 80 columns.
@@ -296,7 +311,7 @@ browser, and change the width to 80 columns.
              (shr-use-colors nil)))
 #+end_src
 
-**** ERC
+*** ERC
 
 The only reason for this to be here is to set my nick.
 
@@ -308,7 +323,7 @@ The only reason for this to be here is to set my nick.
     (erc-track-mode))
 #+end_src
 
-***** erc notifications
+**** erc notifications
 
 erc-notify enables notifications for erc conversations. I only enable
 it if the executable "dunst" is found, because it will crash emacs
@@ -322,7 +337,7 @@ unless a notification daemon is active.
       (erc-notify-enable)))
 #+end_src
 
-**** Info
+*** Info
 
 Rebind M-p and M-n to move by paragraphs. By default M-n runs
 =clone-buffer=, which I find to be completely useless.
@@ -334,7 +349,7 @@ Rebind M-p and M-n to move by paragraphs. By default M-n runs
                 ("M-n" . forward-paragraph)))
 #+end_src
 
-**** ibuffer
+*** ibuffer
 
 Ibuffer is an interface similar to dired, but for editing your open
 buffers.
@@ -350,7 +365,7 @@ buffers.
     :hook (ibuffer . ibuffer-filter-helm))
 #+end_src
 
-**** dired
+*** dired
 
 Group directories first. This works only with GNU ls, so don't use
 this if you use a different version.
@@ -363,7 +378,7 @@ this if you use a different version.
     :bind ([remap list-directory] . dired-jump))
 #+end_src
 
-***** dired-async
+**** dired-async
 
 Make dired run actions in the background.
 
@@ -372,11 +387,11 @@ Make dired run actions in the background.
     :config (dired-async-mode))
 #+end_src
 
-*** Shells
+** Shells
 
 Shells in emacs - both shell and eshell settings are here.
 
-**** shell
+*** shell
 
 I don't want the shell buffer to open a new window, so add an entry in
 =display-buffer-alist=.
@@ -388,7 +403,7 @@ I don't want the shell buffer to open a new window, so add an entry in
                  '("^\\*shell\\*$" . (display-buffer-same-window))))
 #+end_src
 
-**** eshell
+*** eshell
 
 Change the history size to 1000, custom keybinding to either
 delete-char or kill-buffer like a "normal" shell.
@@ -422,12 +437,12 @@ delete-char or kill-buffer like a "normal" shell.
                 ("C-c M-l" . eshell/clear-please)))
 #+end_src
 
-*** Saving the state of emacs
+** Saving the state of emacs
 
 Packages that save where you were - recentf saves a list of edited
 files, and desktop saves a list of variables and current buffers.
 
-**** recentf
+*** recentf
 
 This package saves a list of recently visited files. I've had some
 problems with helm not loading the recentf list, so it is done here.
@@ -437,7 +452,7 @@ problems with helm not loading the recentf list, so it is done here.
     :config (recentf-load-list))
 #+end_src
 
-**** Desktop
+*** Desktop
 
 Save list of buffers and some variables when exiting emacs.  Don't
 save a list of frames, that just ends up spamming me with extra frames
@@ -452,22 +467,16 @@ everywhere.
     (desktop-save-mode t))
 #+end_src
 
-*** Interface tweaks
+** Interface tweaks
 
 Some settings for the UI of emacs - mode-line, scroll-bar, etc
 
-**** time
+*** Extraneous bars
 
-Display the current time in the mode-line, and make it use 24-hour
-time.
+Section for the three wasteful bars -- tool bar, menu bar, and scroll
+bar.
 
-#+begin_src emacs-lisp
-  (use-package time
-    :custom (display-time-24hr-format t)
-    :config (display-time-mode t))
-#+end_src
-
-**** scroll bar
+**** Scroll bar
 
 I've started to use scroll-bar-mode. It's not so bad if the width is
 small enough.
@@ -479,7 +488,38 @@ small enough.
     :config (scroll-bar-mode -1))
 #+end_src
 
-**** battery
+**** Menu bar
+
+Disable the menu bar.
+
+#+begin_src emacs-lisp
+  (use-package menu-bar
+    :config (menu-bar-mode -1))
+#+end_src
+
+**** Tool bar
+
+Disable the tool bar.
+
+#+begin_src emacs-lisp
+  (use-package tool-bar
+    :config (tool-bar-mode -1))
+#+end_src
+
+*** Mode-line
+
+**** Time
+
+Display the current time in the mode-line, and make it use 24-hour
+time.
+
+#+begin_src emacs-lisp
+  (use-package time
+    :custom (display-time-24hr-format t)
+    :config (display-time-mode t))
+#+end_src
+
+**** Battery
 
 Show battery information with =C-z b=, and show percentage in the
 mode-line.
@@ -490,7 +530,7 @@ mode-line.
     :config (display-battery-mode t))
 #+end_src
 
-**** Display column in mode-line
+**** Show the column
 
 Show the current column in the mode-line.  This is provided by the
 =simple= package.
@@ -500,7 +540,31 @@ Show the current column in the mode-line.  This is provided by the
     :config (column-number-mode t))
 #+end_src
 
-*** environment variables
+*** Keybindings
+
+A couple of keybindings to change the way lines are displayed.
+
+**** line wrapping
+
+Simple keybinding to wrap/unwrap lines.  This feature is also provided
+by =simple=.
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :bind ("C-c l" . toggle-truncate-lines))
+#+end_src
+
+**** Line numbers
+
+Display line numbers. I prefer to just use the mode-line because it
+doesn't slow down emacs as much.
+
+#+begin_src emacs-lisp
+  (use-package display-line-numbers
+    :bind ("C-c n" . display-line-numbers-mode))
+#+end_src
+
+** Environment variables
 
 Set the $EDITOR to emacsclient. Because I (almost) only use other
 programs from within Emacs, this works. If you don't use EXWM it would
@@ -513,7 +577,7 @@ be advisable to set this in your xinitrc.
     (setenv "PAGER" "cat"))
 #+end_src
 
-*** window
+** Window
 
 These functions are both quite useful, so I bound them to similar
 keys.
@@ -524,7 +588,7 @@ keys.
            ("C-z z" . kill-buffer-and-window)))
 #+end_src
 
-*** view-mode
+** View-mode
 
 I like using view-mode and scroll-lock-mode is kind-of useless, so I
 rebind Scroll_Lock to toggle view-mode.
@@ -537,17 +601,52 @@ Also enable view-mode if a buffer is read-only.
     :custom (view-read-only t))
 #+end_src
 
-** My packages
+** Fixing some default behaviour
+
+Tweak some default behaviour that pisses me off.
+
+*** Swap yes/no prompt with y/n
+
+Typing yes/no is an inconvenience that can be avoided.  Alias it to
+y/n
+
+#+begin_src emacs-lisp
+  (use-package subr
+    :config
+    (defalias 'yes-or-no-p 'y-or-n-p))
+#+end_src
+
+*** Enable all the features
+
+Disable the annoying "This is an advanced feature" thing.  It seems so
+dumb that this feature exists.
+
+#+begin_src emacs-lisp
+  (use-package novice
+    :custom
+    (disabled-command-function nil))
+#+end_src
+
+*** Disable audible and visual bell
+
+Don't ring the damn bell.
+
+#+begin_src emacs-lisp
+  (use-package terminal
+    :custom (ring-bell-function 'ignore))
+#+end_src
+
+* My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
 directory.
 
-*** Internet
+** Internet
 
 A selection of packages to facilitate searching and browsing the web
 within emacs.
 
-**** dmenu-handler
+*** dmenu-handler
 
 A way to open URLs the way I want. I bind it to =C-z d=.
 
@@ -566,7 +665,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
            ("A" . 'dmenu-handler-audio))))
 #+end_src
 
-**** library-genesis
+*** library-genesis
 
 My custom package for searching library genesis. I bind ~C-z l~ to a
 search.
@@ -578,7 +677,7 @@ Located [[file:lisp/library-genesis.el][here.]]
     :bind (("C-z l" . library-genesis-search)))
 #+end_src
 
-**** search-query
+*** search-query
 
 My own search-query package. It simply provides a few functions so
 that I don't need to use DuckDuckGo's bangs, and for websites that
@@ -597,7 +696,7 @@ Located [[file:lisp/search-query.el][here.]]
            ("C-z C-w" . wiktionary-word)))
 #+end_src
 
-**** reddit-browse
+*** reddit-browse
 
 This is a very minimal package to ease the use of reddit within eww.
 It uses the old reddit mobile site, which works well with eww.
@@ -610,7 +709,7 @@ It uses the old reddit mobile site, which works well with eww.
     :bind ("C-z r" . reddit-goto-subreddit))
 #+end_src
 
-*** Toggle-touchpad
+** Toggle-touchpad
 
 A simple package I wrote to toggle the touchpad/trackpoint on my
 ThinkPad
@@ -625,7 +724,7 @@ Located [[file:lisp/toggle-touchpad.el][here.]]
      ("C-z \\" . 'toggle-touchpad)))
 #+end_src
 
-*** lilypond-mode
+** lilypond-mode
 
 I copied lilypond-mode into my custom directory for the machines that
 don't have lilypond installed.
@@ -654,7 +753,7 @@ Located [[file:lisp/lilypond-mode][here.]]
                                  ".pdf")))))
 #+end_src
 
-**** lilypond-skel
+*** lilypond-skel
 
 My small package that provides an auto-insert skeleton for lilypond.
 
@@ -664,7 +763,7 @@ My small package that provides an auto-insert skeleton for lilypond.
     :after (lilypond-mode auto-insert))
 #+end_src
 
-*** Arch Linux settings
+** Arch Linux settings
 
 This file just adds a few auto-mode-alist entries for systemd and
 pacman files.
@@ -676,7 +775,7 @@ Located [[file:lisp/arch-linux-settings.el][here.]]
     :load-path "lisp")
 #+end_src
 
-*** Custom EXWM config
+** Custom EXWM config
 
 My custom settings for EXWM - not much different from the
 =exwm-config-default=, but doesn't get in my way as much. It provides
@@ -689,7 +788,7 @@ Located [[file:lisp/custom-exwm-config.el][here.]]
     :load-path "lisp")
 #+end_src
 
-*** Miscellaneous functions
+** Miscellaneous functions
 
 A number of functions that don't necessarily have a proper home.  Bind
 =C-c p= to open the pdf output of a typesetting program, and =C-h M-a=
@@ -707,7 +806,7 @@ Located [[file:lisp/my-misc-defuns][here]].
                  ("C-c e" . eww-open-html-of-current-file))))
 #+end_src
 
-*** Selime
+** Selime
 
 This is my package to make elisp evaluation and documentation lookup a
 bit more like slime.  It's often not necessary, but sometimes I find
@@ -719,11 +818,11 @@ myself using =C-c C-d C-f= to describe an elisp function, etc.
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
-*** Helm
+** Helm
 
 My own bits of lisp to enhance helm.
 
-**** Bookmarks
+*** Bookmarks
 
 This package defines a macro to create new bookmark sources, and adds
 a few.
@@ -747,13 +846,13 @@ a few.
                helm-source-bookmark-set)))
 #+end_src
 
-** ELPA Packages
+* ELPA Packages
 
 This is where the packages installed within emacs are located. All of
 these use the =:ensure= keyword, so that they are downloaded if they
 aren't already.
 
-*** HELM
+** HELM
 
 Rebind a few keys in order to make use of helm's features. Stuff like
 find-files and switch-to-buffer. Also remap =C-x k= to
@@ -790,7 +889,7 @@ replace yank-pop but the latter is too engrained in my fingers.
            ("C-h c" . 'describe-key-briefly)))
 #+end_src
 
-**** Helm system packages
+*** Helm system packages
 
 Provides an abstraction layer for viewing and installing system
 packages.
@@ -802,7 +901,7 @@ packages.
     :bind (("C-h C-p" . helm-system-packages)))
 #+end_src
 
-**** Helm notmuch
+*** Helm notmuch
 
 A helm interface for notmuch. Load it after both helm and notmuch (of
 course).
@@ -813,7 +912,7 @@ course).
     :after (helm notmuch))
 #+end_src
 
-**** Helm man
+*** Helm man
 
 Remap =C-h C-m= to helm-man-woman, a helm interface for selecting
 manpages.
@@ -825,7 +924,7 @@ manpages.
     :bind ("C-h C-m" . 'helm-man-woman))
 #+end_src
 
-**** Helm eww
+*** Helm eww
 
 Some helm functions for eww. I replace all the default functions with
 the helm alternatives.
@@ -840,7 +939,7 @@ the helm alternatives.
                  ("S" . helm-eww-buffers))))
 #+end_src
 
-**** Helm org
+*** Helm org
 
 =C-c M-o= in org-mode runs the function =helm-org-in-buffer-headings=.
 Similar to =occur=, but only shows headings.
@@ -853,7 +952,7 @@ Similar to =occur=, but only shows headings.
                 ("C-c M-o" . helm-org-in-buffer-headings)))
 #+end_src
 
-*** Helpful
+** Helpful
 
 Helpful gives a whole lot more information than describe-*. I also
 bind =C-h SPC= to helpful-at-point, just to save a keypress here and
@@ -868,9 +967,9 @@ there.
            ("C-h SPC" . helpful-at-point)))
 #+end_src
 
-*** Major Modes
+** Major Modes
 
-**** Nov.el - epub in emacs
+*** Nov.el - epub in emacs
 
 Read epub files in emacs. I set this up as the default mode for epubs,
 and set the default width to 80C.
@@ -882,7 +981,7 @@ and set the default width to 80C.
     :mode ("\\.epub\\'" . nov-mode))
 #+end_src
 
-**** PDF-tools
+*** PDF-tools
 
 Majorly increases performance when viewing pdfs within Emacs, and
 provides some note-taking facilities.
@@ -895,7 +994,7 @@ provides some note-taking facilities.
     (pdf-tools-install))
 #+end_src
 
-**** Markdown
+*** Markdown
 
 A very featureful major mode for markdown files.  I only really use it
 for looking at READMEs though, so I add view-mode to the hook.
@@ -906,9 +1005,9 @@ for looking at READMEs though, so I add view-mode to the hook.
     :hook (markdown-mode . view-mode))
 #+end_src
 
-*** Programming
+** Programming
 
-**** Geiser
+*** Geiser
 
 Interact with scheme in a powerful and emacsy way. I set guile as the
 default scheme program.
@@ -922,7 +1021,7 @@ default scheme program.
              (geiser-default-implementation 'guile)))
 #+end_src
 
-**** SLIME
+*** SLIME
 
 Interact with common lisp in a powerful and emacsy way. I set sbcl as
 the default lisp program, add some fancier stuff such as a nicer REPl,
@@ -948,7 +1047,7 @@ and move the history file out of $HOME.
                 ("C-c C-z" . slime-repl-or-run-slime)))
 #+end_src
 
-**** paredit
+*** paredit
 
 Efficient and clever editing commands for working with
 s-expressions. Enabled for lisp modes only.
@@ -966,7 +1065,7 @@ s-expressions. Enabled for lisp modes only.
            (scheme-mode . paredit-mode)))
 #+end_src
 
-**** elf-mode
+*** elf-mode
 
 Major mode for viewing ELF files (compiled binaries).  I don't use it
 often, but it's nice to be able to see what a program does sometimes.
@@ -977,9 +1076,9 @@ often, but it's nice to be able to see what a program does sometimes.
     :config (elf-setup-default))
 #+end_src
 
-*** Org
+** Org
 
-**** Github markdown
+*** Github markdown
 
 Export to markdown.
 
@@ -988,7 +1087,7 @@ Export to markdown.
     :ensure t)
 #+end_src
 
-**** Html export
+*** Html export
 
 Export to html.
 
@@ -997,7 +1096,7 @@ Export to html.
     :ensure t)
 #+end_src
 
-*** EXWM - Emacs X Window Manager
+** EXWM - Emacs X Window Manager
 
 Manipulate X windows as emacs buffers.  I don't use (exwm-init) here,
 in case I decide to use another wm.  Eval '(exwm-init)' when starting
@@ -1011,7 +1110,7 @@ the EXWM frame. i.e. in ~.xinitrc
     (custom-exwm-config))
 #+end_src
 
-**** Desktop-environment (useful with EXWM)
+*** Desktop-environment (useful with EXWM)
 
 This package sets up volume keys, brightness keys, and a screen
 locker. I like i3lock, and want it to use my theme's background
@@ -1041,9 +1140,9 @@ colour.
     (desktop-environment-mode))
 #+end_src
 
-*** "Applications"
+** "Applications"
 
-**** vterm
+*** vterm
 
 A performant terminal emulator in emacs. unfortunately, it still
 doesn't play nice with complicated things such as nethack.
@@ -1062,7 +1161,7 @@ The function =eshell/vterm= starts a program in vterm from eshell.
         (vterm (format "*%s*" program)))))
 #+end_src
 
-**** libmpdee
+*** libmpdee
 
 An mpd library. I use it only for random/shuffle.
 
@@ -1071,7 +1170,7 @@ An mpd library. I use it only for random/shuffle.
     :ensure t)
 #+end_src
 
-**** MPDel
+*** MPDel
 
 A more flexible mpd client than mingus.
 
@@ -1090,23 +1189,32 @@ A more flexible mpd client than mingus.
                  ("C-d" . mpdel-core-open-directories))))
 #+end_src
 
-**** Notmuch
+*** Notmuch
 
-A simple email client, with emphasis on searching
+A simple email client, with emphasis on searching.  Customise some
+generic mail variables, change the order in which notmuch displays
+messages, and set the archive tags.  I also unbind =C-x C-s= in
+notmuch-message-mode so that I don't get a whole bunch of drafts -- I
+have a habit of hitting =C-x C-s= more than I should.
 
 #+begin_src emacs-lisp
   (use-package notmuch
     :ensure t
     :after eww
     :custom ((notmuch-archive-tags '("-unread" "-inbox"))
-             (notmuch-search-oldest-first nil))
+             (notmuch-search-oldest-first nil)
+             (send-mail-function 'sendmail-send-it)
+             (sendmail-program "/usr/bin/msmtp")
+             (mail-specify-envelope-from t)
+             (message-sendmail-envelope-from 'header)
+             (mail-envelope-from 'header))
     :bind ((:map notmuch-show-mode-map
                  ("u" . eww-follow-link))
            (:map notmuch-message-mode-map
                  ("C-x C-s" . ignore))))
 #+end_src
 
-**** Transmission
+*** Transmission
 
 An emacs front-end for the transmission bittorrent daemon
 
@@ -1123,9 +1231,9 @@ An emacs front-end for the transmission bittorrent daemon
                 ("m" . transmission-add-url-at-point)))
 #+end_src
 
-*** Appearance
+** Appearance
 
-**** Rainbow-mode
+*** Rainbow-mode
 
 This package highlights hex colours
 (also install xterm-color to use in a terminal emulator)
@@ -1136,7 +1244,7 @@ This package highlights hex colours
     :bind (("C-c h" . 'rainbow-mode)))
 #+end_src
 
-**** Rainbow-delimiters
+*** Rainbow-delimiters
 
 Minor mode that highlights parentheses well
 
@@ -1147,7 +1255,7 @@ Minor mode that highlights parentheses well
 
 #+end_src
 
-**** Dim (unclutter mode-line)
+*** Dim (unclutter mode-line)
 
 From Alezost, remove clutter in the mode-line.
 
@@ -1177,7 +1285,7 @@ From Alezost, remove clutter in the mode-line.
        (eldoc-mode         ""    eldoc))))
 #+end_src
 
-**** Dimmer (dim inactive buffers)
+*** Dimmer (dim inactive buffers)
 
 Dims inactive buffers, so that you can more clearly see which window
 you're in (sometimes the mode-line just doesn't cut it).
@@ -1189,9 +1297,9 @@ you're in (sometimes the mode-line just doesn't cut it).
     :config (dimmer-mode t))
 #+end_src
 
-*** Quality of life
+** Quality of life
 
-**** scratch
+*** scratch
 
 scratch allows you to create a scratch buffer - either in the major
 mode of the current buffer, or (with prefix arg) in the major mode of
@@ -1204,7 +1312,7 @@ your choice.
            ("C-z C-s" . scratch)))
 #+end_src
 
-**** edwina
+*** edwina
 
 My PR has been merged! I can now use the MELPA package.
 
@@ -1216,7 +1324,7 @@ My PR has been merged! I can now use the MELPA package.
     (edwina-mode 0))
 #+end_src
 
-**** 0x0
+*** 0x0
 
 Provides some functions to upload to [[http://0x0.st][0x0.st]]
 
@@ -1225,7 +1333,7 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]]
     :ensure t)
 #+end_src
 
-*** fish completion
+** fish completion
 
 fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
 completion. fish must be installed.
@@ -1238,7 +1346,7 @@ completion. fish must be installed.
     (global-fish-completion-mode))
 #+end_src
 
-*** system-packages
+** system-packages
 
 system-packages allows updating, installing, and removing programs
 installed with your system's package manager.
@@ -1248,105 +1356,15 @@ installed with your system's package manager.
     :ensure t)
 #+end_src
 
-*** Not really useful
+** Not really useful
 
-**** Lorem Ipsum
+*** Lorem Ipsum
 
 A 'Lorem ipsum' generator
 
 #+begin_src emacs-lisp
   (use-package lorem-ipsum
     :ensure t)
-#+end_src
-
-* Fixing defaults
-
-** Miscellaneous
-
-*** Swap yes/no prompt with y/n
-
-Typing yes/no is an inconvenience that can be avoided. Alias it to y/n
-
-#+begin_src emacs-lisp
-  (defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
-
-*** Enable all the features
-
-Disable the annoying "This is an advanced feature" thing.  It seems so
-dumb that this feature exists.
-
-#+begin_src emacs-lisp
-  (setq disabled-command-function nil)
-#+end_src
-
-** Aesthetics
-
-*** GUI ugliness
-
-Disable all the wasteful bars.  I've actually started liking the
-scroll bar (with-x-toolkit=no), so just the menu bar and tool bar.
-
-#+begin_src emacs-lisp
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-#+end_src
-
-*** Disable audible and visual bell
-
-Don't ring the damn bell.
-
-#+begin_src emacs-lisp
-  (setq ring-bell-function 'ignore)
-#+end_src
-
-** show-paren
-
-Highlight matching parentheses.
-
-#+begin_src emacs-lisp
-  (show-paren-mode t)
-#+end_src
-
-* Keybindings
-
-** Config
-
-Reload [[file:lisp/config.el][config file]] 
-
-#+begin_src emacs-lisp
-  (bind-key "C-c r" 'config-load)
-#+end_src
-
-** Miscellaneous
-
-*** Line numbers
-
-Display line numbers. I prefer to just use the mode-line because it
-doesn't slow down emacs as much.
-
-#+begin_src emacs-lisp
-  (bind-key "C-c n" 'display-line-numbers-mode)
-#+end_src
-
-*** Line wrap
-
-Simple keybinding to wrap/unwrap lines.
-
-#+begin_src emacs-lisp
-  (bind-key "C-c l" 'toggle-truncate-lines)
-#+end_src
-
-* Email
-
-email settings
-
-#+begin_src emacs-lisp
-  (setq send-mail-function 'sendmail-send-it
-        sendmail-program "/usr/bin/msmtp"
-        mail-specify-envelope-from t
-        message-sendmail-envelope-from 'header
-        mail-envelope-from 'header)
 #+end_src
 
 * Making this requirable
