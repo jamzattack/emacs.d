@@ -1,3 +1,5 @@
+(require 'helm-bookmark)
+
 (defmacro helm-bookmark-create-source-please (name docstring conditions)
   "Create a helm source for helm-filtered-bookmarks.
 
@@ -71,5 +73,35 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
  (string-match-p
   (concat (expand-file-name "~/Downloads/") ".*")
   filename))
+
+;;; Misc. org-mode files -- only org-mode files that aren't already in
+;;; one of the sources.
+(helm-bookmark-create-source-please
+ org-misc "Miscellaneous org files"
+ (and (string-suffix-p ".org" filename t)
+      (not (helm-bookmark-config-p bookmark))
+      (not (helm-bookmark-downloads-p bookmark))
+      (not (helm-bookmark-university-p bookmark))))
+
+;;; Directories
+(helm-bookmark-create-source-please
+ dired "Bookmarked directories"
+ (file-directory-p filename))
+
+;;; Files
+(helm-bookmark-create-source-please
+ other "Other bookmarks"
+ (and (not (file-directory-p filename))
+      (bookmark-get-filename bookmark)
+      (cl-loop for pred in '(helm-bookmark-university-p
+			     helm-bookmark-elisp-p
+			     helm-bookmark-config-p
+			     helm-bookmark-org-misc-p
+			     helm-bookmark-downloads-p
+			     helm-bookmark-dired-p
+			     helm-bookmark-info-bookmark-p
+			     helm-bookmark-man-bookmark-p)
+               never (funcall pred bookmark))))
+
 
 (provide 'custom-helm-bookmark)
