@@ -191,6 +191,47 @@ keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
     :custom (initial-major-mode 'emacs-lisp-mode))
 #+end_src
 
+**** Typesetting
+
+***** Nroff-mode
+
+Set a compile-command hook for nroff files.  I usually use the ms
+macros when writing something, but I usually just use org-mode anyway.
+
+#+begin_src emacs-lisp
+  (use-package nroff-mode
+    :defer t
+    :init
+    (defun nroff-mode-compile ()
+    "Set the compile command for nroff files. (using the ms
+  macros)"
+      (let* ((in (buffer-file-name))
+             (out (concat (file-name-sans-extension in)
+                          ".pdf")))
+        (setq-local
+         compile-command
+         (format "groff -ms -Tpdf %s > %s"
+                 (shell-quote-argument in)
+                 (shell-quote-argument out)))))
+    :hook (nroff-mode . nroff-mode-compile))
+#+end_src
+
+***** LaTeX
+
+Set a compile-command hook for latex files.  I prefer to write in
+org-mode, but compiling latex on its own is sometimes useful.
+
+#+begin_src emacs-lisp
+  (use-package latex-mode
+    :defer t
+    :init
+    (defun latex-compile-command ()
+      "Set the compile command for latex files."
+      (setq-local compile-command
+                  (format "pdflatex %s" buffer-file-name)))
+    :hook (latex-mode . latex-compile-command))
+#+end_src
+
 *** Minor modes for programming
 
 Minor modes that help with writing programs.
@@ -1255,37 +1296,6 @@ Highlight matching parentheses.
 
 #+begin_src emacs-lisp
   (show-paren-mode t)
-#+end_src
-
-* Major mode hooks and variables
-
-** M-x compile hooks
-
-*** Groff
-
-I usually use the ms macros when writing something, but I usually just
-use org-mode anyway.
-
-#+begin_src emacs-lisp
-  (add-hook 'nroff-mode-hook
-            (lambda ()
-              (setq-local compile-command
-                          (format "groff -ms -Tpdf %s > %s"
-                                  (shell-quote-argument buffer-file-name)
-                                  (concat (file-name-sans-extension
-                                           (shell-quote-argument
-                                            buffer-file-name)) ".pdf")))))
-#+end_src
-
-*** LaTeX
-
-Compile latex files with pdflatex.
-
-#+begin_src emacs-lisp
-  (add-hook 'latex-mode-hook
-            (lambda ()
-              (setq-local compile-command
-                          (format "pdflatex %s" buffer-file-name))))
 #+end_src
 
 * Keybindings
