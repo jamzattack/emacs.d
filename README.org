@@ -675,11 +675,17 @@ a few.
   (use-package custom-helm-bookmark
     :load-path "lisp/helm"
     :after helm
-    :config
-    (dolist (new '(helm-source-bookmark-config
-                   helm-source-bookmark-elisp
-                   helm-source-bookmark-university))
-            (add-to-list 'helm-bookmark-default-filtered-sources new)))
+    :custom (helm-bookmark-default-filtered-sources
+             '(helm-source-bookmark-university
+               helm-source-bookmark-elisp
+               helm-source-bookmark-config
+               helm-source-bookmark-org-misc
+               helm-source-bookmark-downloads
+               helm-source-bookmark-dired
+               helm-source-bookmark-info
+               helm-source-bookmark-man
+               helm-source-bookmark-other
+               helm-source-bookmark-set)))
 #+end_src
 
 ** ELPA Packages
