@@ -490,6 +490,16 @@ mode-line.
     :config (display-battery-mode t))
 #+end_src
 
+**** Display column in mode-line
+
+Show the current column in the mode-line.  This is provided by the
+=simple= package.
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :config (column-number-mode t))
+#+end_src
+
 *** environment variables
 
 Set the $EDITOR to emacsclient. Because I (almost) only use other
@@ -1325,15 +1335,6 @@ Simple keybinding to wrap/unwrap lines.
 
 #+begin_src emacs-lisp
   (bind-key "C-c l" 'toggle-truncate-lines)
-#+end_src
-
-* Mode-line
-
-Just some basic extra stuff in the mode-line.
-I don't want anything fancy.
-
-#+begin_src emacs-lisp
-  (column-number-mode t)
 #+end_src
 
 * Email
