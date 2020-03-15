@@ -7,12 +7,15 @@
 		    :weight 'normal
 		    :height 80)
 
+(set-face-attribute 'fixed-pitch nil
+		    :font (face-attribute 'default :font))
+
 (set-face-attribute 'italic nil
 		    :underline nil
                     :slant 'italic)
 
 (set-face-attribute 'variable-pitch nil
-                    :font "Noto Serif"
+                    :font "DejaVu Serif"
                     :height 1.1)
 
 (set-face-attribute 'fixed-pitch-serif nil
