@@ -30,7 +30,8 @@ config.el, then repeat."
 	   (progn (load-file el)
 		  (byte-compile-file el)))
 	  ((file-exists-p org)
-	   (progn (org-babel-tangle-file org)
+	   (progn (require 'org)
+		  (org-babel-tangle-file org)
 		  (config-load))))))
 
 (config-load)
