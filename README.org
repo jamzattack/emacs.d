@@ -61,7 +61,6 @@ This section has been moved to [[file:lisp/fonts.el][its own file]]
     (load fonts-file))
 
   (add-hook 'server-after-make-frame-hook 'set-up-fonts-please)
-  (add-hook 'after-make-frame-functions 'set-up-fonts-please)
 #+end_src
 
 ** Keybindings
