@@ -54,13 +54,15 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
   (concat (expand-file-name "~/Documents/uni") ".*")
   filename))
 
-;;; Config files -- matches all org-mode files in ~/org/config/
+;;; Config files -- matches all org-mode files in ~/org/config/, as
+;;; well as anything with "config" in the name.
 (helm-bookmark-create-source-please
  config "Org-mode config files"
  (and (string-suffix-p ".org" filename t)
-      (string-match-p
-       (concat (expand-file-name "~/org/config/") ".*")
-       filename)))
+      (or (string-match-p
+	   (concat (expand-file-name "~/org/config/") ".*")
+	   filename)
+	  (string-match-p ".*config.*" (car bookmark)))))
 
 ;;; Elisp files -- matches all elisp files
 (helm-bookmark-create-source-please
