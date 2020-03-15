@@ -50,18 +50,16 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
 ;;; University files -- matches anything in ~/Documents/uni
 (helm-bookmark-create-source-please
  university "University"
- (string-match-p
-  (concat (expand-file-name "~/Documents/uni") ".*")
-  filename))
+ (file-in-directory-p
+  filename "~/Documents/uni"))
 
 ;;; Config files -- matches all org-mode files in ~/org/config/, as
 ;;; well as anything with "config" in the name.
 (helm-bookmark-create-source-please
  config "Org-mode config files"
  (and (string-suffix-p ".org" filename t)
-      (or (string-match-p
-	   (concat (expand-file-name "~/org/config/") ".*")
-	   filename)
+      (or (file-in-directory-p
+	   filename "~/org/config/")
 	  (string-match-p ".*config.*" (car bookmark)))))
 
 ;;; Elisp files -- matches all elisp files
@@ -72,9 +70,7 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
 ;;; Downloads -- matches anything in ~/Downloads
 (helm-bookmark-create-source-please
  downloads "Downloads"
- (string-match-p
-  (concat (expand-file-name "~/Downloads/") ".*")
-  filename))
+ (file-in-directory-p filename "~/Downloads/"))
 
 ;;; Misc. org-mode files -- only org-mode files that aren't already in
 ;;; one of the sources.
