@@ -660,6 +660,28 @@ myself using =C-c C-d C-f= to describe an elisp function, etc.
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
+*** Helm
+
+My own bits of lisp to enhance helm.
+
+**** Bookmarks
+
+This package defines a macro to create new bookmark sources, and adds
+a few.
+
+[[file:lisp/helm/custom-helm-bookmark.el][Located here.]]
+
+#+begin_src emacs-lisp
+  (use-package custom-helm-bookmark
+    :load-path "lisp/helm"
+    :after helm
+    :config
+    (dolist (new '(helm-source-bookmark-config
+                   helm-source-bookmark-elisp
+                   helm-source-bookmark-university))
+            (add-to-list 'helm-bookmark-default-filtered-sources new)))
+#+end_src
+
 ** ELPA Packages
 
 This is where the packages installed within emacs are located. All of
