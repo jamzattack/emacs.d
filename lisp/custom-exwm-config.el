@@ -92,51 +92,53 @@ output."
 (defun custom-exwm-input-global-keys ()
   (custom-set-variables
    '(exwm-input-global-keys
-     `(;; 's-f': Toggle fullscreen.
-       ("" . exwm-quit)
-       ([?\s-f] . exwm-fullscreen-or-reset)
+     `(;; 'C-x C-c': delete all frames and start another window manager
+       (,(kbd "C-x C-c") . exwm-quit)
+       ;; 's-f' and '<f11>': Toggle fullscreen.
+       (,(kbd "s-f") . exwm-fullscreen-or-reset)
+       (,(kbd "<f11>") . exwm-fullscreen-or-reset)
        ;; 's-w': Switch workspace.
-       ([?\s-w] . exwm-workspace-switch)
+       (,(kbd "s-w") . exwm-workspace-switch)
        ;; 's-&': Launch application.
-       ([?\s-&] . exwm-shell-command)
+       (,(kbd "s-&") . exwm-shell-command)
        ;; 's-N': Switch to certain workspace.
        ,@(mapcar (lambda (i)
-                   `(,(kbd (format "s-%d" i)) .
-                     (lambda ()
-                       (interactive)
-                       (exwm-workspace-switch-create ,i))))
-                 (number-sequence 0 4))))))
+		   `(,(kbd (format "s-%d" i)) .
+		     (lambda ()
+		       (interactive)
+		       (exwm-workspace-switch-create ,i))))
+		 (number-sequence 0 4))))))
 
 
 ;; Line-editing shortcuts
 (defun custom-exwm-input-simulation-keys ()
   (custom-set-variables
    '(exwm-input-simulation-keys
-     '( ; Basic movement
-       ([?\C-b] . [left])
-       ([?\C-f] . [right])
-       ([?\C-p] . [up])
-       ([?\C-n] . [down])
+     `(;; Basic movement
+       (,(kbd "C-b") . [left])
+       (,(kbd "C-f") . [right])
+       (,(kbd "C-p") . [up])
+       (,(kbd "C-n") . [down])
        
-       ([?\M-f] . [C-right])
-       ([?\M-b] . [C-left])
+       (,(kbd "M-f") . [C-right])
+       (,(kbd "M-b") . [C-left])
 
-       ([?\C-a] . [home])
-       ([?\C-e] . [end])
+       (,(kbd "C-a") . [home])
+       (,(kbd "C-e") . [end])
 
-       ([?\M-v] . [prior])
-       ([?\C-v] . [next])
+       (,(kbd "M-v") . [prior])
+       (,(kbd "C-v") . [next])
 
        ;; Deleting text
-       ([?\C-d] . [delete])
-       ([?\C-k] . [S-end delete])
-       ([?\M-d] . [S-C-right delete])
-       ([?\M-\d] . [C-DEL])
-
+       (,(kbd "C-d") . [delete])
+       (,(kbd "C-k") . [S-end delete])
+       (,(kbd "M-d") . [S-C-right delete])
+       (,(kbd "<M-DEL>") . [C-DEL])
+       
        ;; clipboard/kill-ring
-       ([?\C-w] . [C-x])
-       ([?\M-w] . [C-c])
-       ([?\C-y] . [C-v])))))
+       (,(kbd "C-w") . [C-x])
+       (,(kbd "M-w") . [C-c])
+       (,(kbd "C-y") . [C-v])))))
 
 
 
