@@ -1231,6 +1231,35 @@ An emacs front-end for the transmission bittorrent daemon
                 ("m" . transmission-add-url-at-point)))
 #+end_src
 
+*** Elfeed
+
+Elfeed is an RSS and Atom feed reader for emacs, which functions
+similarly to notmuch.  To get the list of feeds, I decrypt the file
+named =feeds.gpg= in the [[file:elfeed/][elfeed]] directory.  I also bind the same keys
+as in [[* EWW][eww]].
+
+#+begin_src emacs-lisp
+  (use-package elfeed
+    :ensure t
+    :custom
+    ((elfeed-db-directory (expand-file-name
+                           "elfeed" "~/.cache"))
+     (elfeed-feeds
+      (let ((file (expand-file-name
+                   "elfeed/feeds.gpg" user-emacs-directory)))
+        (when (file-exists-p file)
+          (with-temp-buffer
+            (insert-file-contents file)
+            (eval (read (current-buffer))))))))
+    :bind
+    (:map elfeed-show-mode-map
+          ("f" . dmenu-handler-stream)
+          ("D" . dmenu-handler-download-video)
+          ("A" . dmenu-handler-audio))
+    :config
+    (elfeed-update))
+#+end_src
+
 ** Appearance
 
 *** Rainbow-mode
