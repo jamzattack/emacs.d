@@ -1257,6 +1257,12 @@ as in [[* EWW][eww]].
           ("D" . dmenu-handler-download-video)
           ("A" . dmenu-handler-audio))
     :config
+    (defun elfeed-university ()
+      "Search elfeed for all items with the tag \"university\"."
+      (interactive)
+      (kill-buffer (elfeed-search-buffer))
+      (let ((elfeed-search-filter "+university"))
+        (elfeed)))
     (elfeed-update))
 #+end_src
 
