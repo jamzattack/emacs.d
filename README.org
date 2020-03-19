@@ -228,7 +228,7 @@ Set a compile-command hook for latex files.  I prefer to write in
 org-mode, but compiling latex on its own is sometimes useful.
 
 #+begin_src emacs-lisp
-  (use-package latex-mode
+  (use-package tex-mode
     :defer t
     :init
     (defun latex-compile-command ()
