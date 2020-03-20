@@ -1255,7 +1255,9 @@ as in [[* EWW][eww]].
     (:map elfeed-show-mode-map
           ("f" . dmenu-handler-stream)
           ("D" . dmenu-handler-download-video)
-          ("A" . dmenu-handler-audio))
+          ("A" . dmenu-handler-audio)
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph))
     :config
     (defun elfeed-university ()
       "Search elfeed for all items with the tag \"university\"."
