@@ -108,13 +108,18 @@ Major modes for text editing. For non-editing major modes, see
 
 *** Org Mode
 
-Open source blocks and stuff in the current window. Use tab from the
-language's major mode inside source blocks.
+Open source blocks and stuff in the current window.  Use tab from the
+language's major mode inside source blocks.  Open everything in emacs,
+and use eww for html instead of mhtml-mode.
 
 #+begin_src emacs-lisp
   (use-package org
     :custom ((org-src-window-setup 'current-window)
-             (org-src-tab-acts-natively t))
+             (org-src-tab-acts-natively t)
+             (org-file-apps
+               '((auto-mode . emacs)
+                 ("\\.x?html?\\'" . (lambda (file &optional ignore)
+                                      (eww-open-file file))))))
     :config (when (featurep 'org-tempo)
               (require 'org-tempo)))
 #+end_src
