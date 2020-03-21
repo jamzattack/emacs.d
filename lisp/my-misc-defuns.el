@@ -67,11 +67,10 @@ optional arguments ARGS."
 
 
 ;;; Update locally stored mail with isync and then index it with notmuch.
-(defun mailsync ()
+;;;###autoload 
+(defun notmuch-new-async ()
   "Downloads new mail and adds it to the notmuch database"
   (interactive)
-  (shell-command "mbsync -a ; notmuch new &" "*mailsync*"))
+  (start-process "notmuch new" "*notmuch new*" "notmuch" "new"))
 
 (provide 'my-misc-defuns)
-
-
