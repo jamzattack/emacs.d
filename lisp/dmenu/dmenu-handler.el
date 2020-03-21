@@ -34,12 +34,12 @@ arg prompts for these flags."
   (let ((default-directory (or directory dmenu-handler-video-directory)))
     (start-process-shell-command 
      "youtube-dl download" " *youtube-dl download*"
-     "youtube-dl"
-     "--all-subs"
-     "--format=22,best"
-     "--add-metadata"
-     "--output='%(title)s.%(ext)s'"
-     url))
+     (concat "youtube-dl "
+	     "--all-subs "
+	     "--format=22,best "
+	     "--add-metadata "
+	     "--output='%(title)s.%(ext)s' "
+	     url)))
   (message "%s downloaded in %s" url (or directory dmenu-handler-video-directory)))
 
 (defun dmenu-handler-audio (url &optional directory)
@@ -52,11 +52,11 @@ arg prompts for these flags."
   (let ((default-directory (or directory dmenu-handler-audio-directory)))
     (start-process-shell-command 
      "youtube-dl audio" " *youtube-dl audio*"
-     "youtube-dl"
-     "--extract-audio"
-     "--add-metadata"
-     "--output='%(title)s.%(ext)s'"
-     url))
+     (concat "youtube-dl "
+	     "--extract-audio "
+	     "--add-metadata "
+	     "--output='%(title)s.%(ext)s' "
+	     url)))
   (message "%s downloaded in %s" url (or directory dmenu-handler-audio-directory)))
 
 (defun dmenu-handler-save-to-register (url)
@@ -67,19 +67,19 @@ arg prompts for these flags."
 
 (defun dmenu-handler-image (url)
   "View URL as an image within emacs"
-  (start-process-shell-command "dmenu-handler-image"
-                               nil
-                               "curl" url "-o"
-                               "/tmp/dmenu-handler-image"
-                               "&& emacsclient /tmp/dmenu-handler-image"))
+  (start-process-shell-command
+   "dmenu-handler-image" nil
+   (concat "curl " url " -o "
+	   "/tmp/dmenu-handler-image "
+	   "&& emacsclient /tmp/dmenu-handler-image")))
 
 (defun dmenu-handler-pdf (url)
   "View URL as a pdf within emacs"
-  (start-process-shell-command "dmenu-handler-pdf"
-                               nil
-                               "curl" url "-o"
-                               "/tmp/dmenu-handler-pdf"
-                               "&& emacsclient /tmp/dmenu-handler-pdf"))
+  (start-process-shell-command
+   "dmenu-handler-pdf" nil
+   (concat "curl " url " -o "
+	   "/tmp/dmenu-handler-pdf "
+	   "&& emacsclient /tmp/dmenu-handler-pdf")))
 
 (defun dmenu-handler-read (prompt)
   "Reads input for `dmenu-handler'"
