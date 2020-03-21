@@ -1,5 +1,5 @@
 ;;; Emacs is sorely missing an interface for "apropos".  This is my
-;;; meagre attempt at makeing it useful within emacs.
+;;; meagre attempt at making it useful within emacs.
 (defun system-apropos (search &optional args)
   "Run the \"apropos\" comamnd with search term SEARCH and
 optional arguments ARGS."
