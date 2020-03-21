@@ -6,19 +6,22 @@
   "The directory in which to download files using
 `dmenu-handler'")
 
-(defun dmenu-handler-stream (url)
-  "Plays video with mpv, provided URL is supported by
-youtube-dl."
+(defun dmenu-handler-stream (url &optional flags)
+  "Plays video with mpv, provided URL is supported by youtube-dl.
+Optional argument FLAGS sets mpv flags; interactively, a prefix
+arg prompts for these flags."
   (interactive (list
-                (if current-prefix-arg
-                    (read-file-name "file or url: ")
-                  (shr-url-at-point nil))))
+                (read-string "stream video: " (shr-url-at-point nil))
+		(when current-prefix-arg
+		  (read-string "mpv flags: "))))
   (start-process-shell-command 
    "mpv stream" " *mpv stream*"
-   "mpv"
-   "--ytdl-format=22,best"
-   ;; "--ytdl-raw-options=all-subs="
-   url)
+   (concat
+    "mpv "
+    (if flags
+	(concat flags " ")
+	"--ytdl-format=22,best --ytdl-raw-options=all-subs= ")
+    url))
   (message "%s is being streamed" url))
 
 (defun dmenu-handler-download-video (url &optional directory)
