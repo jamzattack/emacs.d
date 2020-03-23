@@ -1201,7 +1201,25 @@ locker. I like i3lock, and want it to use my theme's background
 colour.
 
 #+begin_src emacs-lisp
+  (use-package desktop-environment
+    :ensure t
+    :diminish
+    :init
+    <<custom-screenlock-command>>
+    :config
+    (defadvice desktop-environment-lock-screen
+        (before change-bg-color activate)
+      (custom-screenlock-command))
+    (desktop-environment-mode))
+#+end_src
+
+**** Change screenlock command based on theme colour
+
+#+name: custom-screenlock-command
+#+begin_src emacs-lisp
   (defun custom-screenlock-command ()
+    "Change the value of `desktop-environment-screenlock-command'
+  to run i3lock with the background colour of the current theme."
     (let ((color (face-attribute 'default :background)))
       (setq desktop-environment-screenlock-command
             (format "i3lock -c '%s' -n"
@@ -1213,15 +1231,6 @@ colour.
                       (beginning-of-line)
                       (delete-char 1)
                       (buffer-string))))))
-
-  (use-package desktop-environment
-    :ensure t
-    :diminish
-    :config
-    (defadvice desktop-environment-lock-screen
-        (before change-bg-color activate)
-      (custom-screenlock-command))
-    (desktop-environment-mode))
 #+end_src
 
 ** "Applications"
