@@ -1,6 +1,7 @@
 #+TITLE: Emacs Configuration
-#+AUTHOR: Jamie Beardslee <beardsleejamie@gmail.com>
-#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :comments org :noweb yes
+#+AUTHOR: Jamie Beardslee
+#+EMAIL: beardsleejamie@gmail.com
+#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :noweb yes
 
 This is my emacs config file. It is written in org-mode so that I can
 brag about how dope org-mode is. [[file:README.org][This file]] contains my main
@@ -220,7 +221,7 @@ macros when writing something, but I usually just use org-mode anyway.
 ***** Compile Command
 
 #+name: nroff-mode-compile
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun nroff-mode-compile ()
     "Set the compile command for nroff files. (using the ms
   macros)"
@@ -250,7 +251,7 @@ org-mode, but compiling latex on its own is sometimes useful.
 ***** Compile Command
 
 #+name: latex-compile-command
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun latex-compile-command ()
     "Set the compile command for latex files."
     (setq-local compile-command
@@ -454,7 +455,7 @@ in the =:config= section.
 ***** Delete or quit
 
 #+name: eshell-delete-or-quit
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun eshell-delete-or-quit (arg)
     "If point is at the end of the buffer and input is empty,
   kill the buffer. Just like giving EOF to a normal shell."
@@ -472,7 +473,7 @@ in the =:config= section.
 ***** Clear screen
 
 #+name: eshell/clear-please
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun eshell/clear-please ()
     "Similar to `eshell/clear', but keeps the current input."
     (interactive)
@@ -1026,7 +1027,7 @@ I still want to make this work with c source code, but that's not
 nearly as useful anyway.
 
 #+name: helpful-edit-source-temporarily
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun helpful-edit-source-temporarily ()
     "Edit the source of a function, variable, or macro in its own
   buffer.  You need to already be in a helpful buffer."
@@ -1216,7 +1217,7 @@ colour.
 **** Change screenlock command based on theme colour
 
 #+name: custom-screenlock-command
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun custom-screenlock-command ()
     "Change the value of `desktop-environment-screenlock-command'
   to run i3lock with the background colour of the current theme."
@@ -1252,7 +1253,7 @@ doesn't play nice with complicated things such as nethack.
 The function =eshell/vterm= starts a program in vterm from eshell.
 
 #+name: eshell/vterm
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun eshell/vterm (&rest args)
     "Launch a program from eshell using vterm."
     (let ((vterm-shell
@@ -1368,7 +1369,7 @@ A macro to search for a specific tag, and a handful of functions to
 search for my most useful tags.
 
 #+name: elfeed-functions
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defmacro elfeed-defun-tag-search (tag)
     "Define a function to search elfeed for TAG."
     `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
