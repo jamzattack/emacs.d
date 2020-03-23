@@ -213,18 +213,25 @@ macros when writing something, but I usually just use org-mode anyway.
   (use-package nroff-mode
     :defer t
     :init
-    (defun nroff-mode-compile ()
-      "Set the compile command for nroff files. (using the ms
-  macros)"
-      (let* ((in (buffer-file-name))
-             (out (concat (file-name-sans-extension in)
-                          ".pdf")))
-        (setq-local
-         compile-command
-         (format "groff -ms -Tpdf %s > %s"
-                 (shell-quote-argument in)
-                 (shell-quote-argument out)))))
+    <<nroff-mode-compile>>
     :hook (nroff-mode . nroff-mode-compile))
+#+end_src
+
+***** Compile Command
+
+#+name: nroff-mode-compile
+#+begin_src emacs-lisp
+  (defun nroff-mode-compile ()
+    "Set the compile command for nroff files. (using the ms
+  macros)"
+    (let* ((in (buffer-file-name))
+           (out (concat (file-name-sans-extension in)
+                        ".pdf")))
+      (setq-local
+       compile-command
+       (format "groff -ms -Tpdf %s > %s"
+               (shell-quote-argument in)
+               (shell-quote-argument out)))))
 #+end_src
 
 **** LaTeX
@@ -236,11 +243,18 @@ org-mode, but compiling latex on its own is sometimes useful.
   (use-package tex-mode
     :defer t
     :init
-    (defun latex-compile-command ()
-      "Set the compile command for latex files."
-      (setq-local compile-command
-                  (format "pdflatex %s" buffer-file-name)))
+    <<latex-compile-command>>
     :hook (latex-mode . latex-compile-command))
+#+end_src
+
+***** Compile Command
+
+#+name: latex-compile-command
+#+begin_src emacs-lisp
+  (defun latex-compile-command ()
+    "Set the compile command for latex files."
+    (setq-local compile-command
+                (format "pdflatex %s" buffer-file-name)))
 #+end_src
 
 ** Minor modes for programming
