@@ -382,13 +382,13 @@ Ibuffer is an interface similar to dired, but for editing your open
 buffers.
 
 #+begin_src emacs-lisp
-  (defun ibuffer-filter-helm ()
-    (with-current-buffer (get-buffer "*Ibuffer*")
-      (ibuffer-mark-by-mode 'helm-major-mode)
-      (ibuffer-do-kill-lines)))
-
   (use-package ibuffer
     :bind ("C-x C-b" . ibuffer)
+    :config
+    (defun ibuffer-filter-helm ()
+      (with-current-buffer (get-buffer "*Ibuffer*")
+        (ibuffer-mark-by-mode 'helm-major-mode)
+        (ibuffer-do-kill-lines)))
     :hook (ibuffer . ibuffer-filter-helm))
 #+end_src
 
