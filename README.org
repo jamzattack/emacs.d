@@ -1160,10 +1160,9 @@ The function =eshell/vterm= starts a program in vterm from eshell.
     :config
     (defun eshell/vterm (&rest args)
       "Launch a program from eshell using vterm."
-      (interactive)
-      (let* ((program (mapconcat 'identity args " "))
-             (vterm-shell program))
-        (vterm (format "*%s*" program)))))
+      (let ((vterm-shell
+             (eshell-flatten-and-stringify args)))
+        (vterm))))
 #+end_src
 
 *** libmpdee
