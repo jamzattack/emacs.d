@@ -1358,13 +1358,29 @@ as in [[* EWW][eww]].
           ("M-p" . backward-paragraph)
           ("M-n" . forward-paragraph))
     :config
-    (defun elfeed-university ()
-      "Search elfeed for all items with the tag \"university\"."
-      (interactive)
-      (kill-buffer (elfeed-search-buffer))
-      (let ((elfeed-search-filter "+university"))
-        (elfeed)))
+    <<elfeed-functions>>
     (elfeed-update))
+#+end_src
+
+**** Elfeed functions
+
+A macro to search for a specific tag, and a handful of functions to
+search for my most useful tags.
+
+#+name: elfeed-functions
+#+begin_src emacs-lisp
+  (defmacro elfeed-defun-tag-search (tag)
+    "Define a function to search elfeed for TAG."
+    `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
+       ,(format "Search elfeed for all items with the tag \"%s\"." tag)
+       (interactive)
+       (kill-buffer (elfeed-search-buffer))
+       (let ((elfeed-search-filter ,(concat "+" tag)))
+         (elfeed))))
+
+  (elfeed-defun-tag-search "university")
+  (elfeed-defun-tag-search "youtube")
+  (elfeed-defun-tag-search "blog")
 #+end_src
 
 ** Appearance
