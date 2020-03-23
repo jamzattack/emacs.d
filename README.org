@@ -1240,17 +1240,24 @@ colour.
 A performant terminal emulator in emacs. unfortunately, it still
 doesn't play nice with complicated things such as nethack.
 
-The function =eshell/vterm= starts a program in vterm from eshell.
-
 #+begin_src emacs-lisp
   (use-package vterm
     :ensure t
     :config
-    (defun eshell/vterm (&rest args)
-      "Launch a program from eshell using vterm."
-      (let ((vterm-shell
-             (eshell-flatten-and-stringify args)))
-        (vterm))))
+    <<eshell/vterm>>)
+#+end_src
+
+**** launch a vterm from eshell
+
+The function =eshell/vterm= starts a program in vterm from eshell.
+
+#+name: eshell/vterm
+#+begin_src emacs-lisp
+  (defun eshell/vterm (&rest args)
+    "Launch a program from eshell using vterm."
+    (let ((vterm-shell
+           (eshell-flatten-and-stringify args)))
+      (vterm)))
 #+end_src
 
 *** libmpdee
