@@ -1,6 +1,6 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Jamie Beardslee <beardsleejamie@gmail.com>
-#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :comments org
+#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :comments org :noweb yes
 
 This is my emacs config file. It is written in org-mode so that I can
 brag about how dope org-mode is. [[file:README.org][This file]] contains my main
@@ -959,17 +959,55 @@ Similar to =occur=, but only shows headings.
 
 ** Helpful
 
-Helpful gives a whole lot more information than describe-*. I also
+Helpful gives a whole lot more information than describe-*.  I also
 bind =C-h SPC= to helpful-at-point, just to save a keypress here and
-there.
+there.  
 
 #+begin_src emacs-lisp
   (use-package helpful
     :ensure t
+    :init
+    <<helpful-edit-source-temporarily>>
     :bind (([remap describe-function] . helpful-callable)
            ([remap describe-variable] . helpful-variable)
            ([remap describe-key] . helpful-key)
-           ("C-h SPC" . helpful-at-point)))
+           ("C-h SPC" . helpful-at-point)
+           (:map helpful-mode-map
+                 ("e" . helpful-edit-source-temporarily))))
+#+end_src
+
+*** Edit source
+
+A function that opens up a new buffer with the source shown in the
+current =helpful= buffer.
+
+I still want to make this work with c source code, but that's not
+nearly as useful anyway.
+
+#+name: helpful-edit-source-temporarily
+#+begin_src emacs-lisp
+  (defun helpful-edit-source-temporarily ()
+    "Edit the source of a function, variable, or macro in its own
+  buffer.  You need to already be in a helpful buffer."
+    (interactive)
+    (save-excursion
+      (let* ((name (replace-regexp-in-string
+                    "^.*:" "*helpful edit:"
+                    (buffer-name (current-buffer))))
+             (buffer (get-buffer-create name))
+             (min (progn
+                    (goto-char (point-min))
+                    (re-search-forward "^Source Code$")
+                    (point-min)
+                    (point)))
+             (max (progn
+                    (goto-char (point-min))
+                    (forward-sexp))))
+        (copy-to-buffer buffer
+                        min
+                        max)
+        (pop-to-buffer buffer)
+        (emacs-lisp-mode))))
 #+end_src
 
 ** Major Modes
