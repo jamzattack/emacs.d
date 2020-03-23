@@ -315,19 +315,27 @@ browser, and change the width to 80 columns.
   (use-package eww
     :defer nil
     :init
-    (defun browse-url-vimb (url &optional ignored)
-      "Open URL using vimb if it is found, otherwise use xdg-open."
-      (interactive (browse-url-interactive-arg "URL: "))
-      (call-process (or (executable-find "vimb")
-                        (executable-find "xdg-open"))
-                    nil 0 nil url))
+    <<browse-url-vimb>>
     :bind (:map eww-mode-map
                 ("M-n" . forward-paragraph)
                 ("M-p" . backward-paragraph))
     :custom ((browse-url-browser-function 'eww-browse-url)
-             (browse-url-secondary-browser-function 'browse-url-vimb)
+             (browse-url-secondary-browser-function 'browse-url-externally-please)
              (shr-width 80)
              (shr-use-colors nil)))
+#+end_src
+
+**** External browser
+
+#+begin_src emacs-lisp
+  (defun browse-url-externally-please (url &optional ignored)
+    "Open URL using either vimb or surf if they are found,
+  otherwise use xdg-open."
+    (interactive (browse-url-interactive-arg "URL: "))
+    (call-process (or (executable-find "vimb")
+                      (executable-find "surf")
+                      (executable-find "xdg-open"))
+                  nil 0 nil url))
 #+end_src
 
 *** ERC
