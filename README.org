@@ -443,6 +443,7 @@ delete-char or kill-buffer like a "normal" shell.
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
     <<eshell/e>>
+    <<eshell/comint>>
     :bind (:map eshell-mode-map
                 ("C-d" . eshell-delete-or-quit)
                 ("C-c M-l" . eshell/clear-please)))
@@ -500,6 +501,30 @@ Instead of opening a file with emacsclient, just edit it directly.
   (defun eshell/e (&rest args)
     "Edit a file from eshell."
     (mapcar 'find-file args))
+#+end_src
+
+***** Comint
+
+A wrapper to start a comint process from eshell.
+
+Used like so:
+#+begin_example sh
+comint ed ~/.bashrc
+#+end_example
+
+#+name: eshell/comint
+#+begin_src emacs-lisp :tangle no
+(defun eshell/comint (&rest args)
+  "Start a comint session running ARGS"
+  (let ((string (eshell-flatten-and-stringify args))
+	(program (executable-find (car args)))
+	(program-args (cdr args)))
+    (switch-to-buffer
+     (make-comint string
+		  (or program
+		      (user-error "Executable %s not found" (car args)))
+		  nil
+		  (eshell-flatten-and-stringify (cdr args))))))
 #+end_src
 
 ** Saving the state of emacs
