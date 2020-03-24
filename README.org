@@ -1355,7 +1355,9 @@ have a habit of hitting =C-x C-s= more than I should.
              (message-sendmail-envelope-from 'header)
              (mail-envelope-from 'header))
     :bind ((:map notmuch-show-mode-map
-                 ("u" . eww-follow-link))
+                 ("u" . eww-follow-link)
+                 ("M-p" . backward-paragraph)
+                 ("M-n" . forward-paragraph))
            (:map notmuch-message-mode-map
                  ("C-x C-s" . ignore))))
 #+end_src
