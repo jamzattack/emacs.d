@@ -477,8 +477,8 @@ char.
 
 ***** Clear screen
 
-Clear the screen, but keep current input intact.  TODO clear the
-screen differently when a command is running.
+Clear the screen, but keep current input intact.  If a command is
+running, keep the output of that command on screen.
 
 #+name: eshell/clear-please
 #+begin_src emacs-lisp :tangle no
@@ -486,9 +486,10 @@ screen differently when a command is running.
     "Similar to `eshell/clear', but keeps the current input."
     (interactive)
     (save-excursion
-      (eshell-bol)
-      (forward-line -1)
-      (end-of-line)
+      (if (equal eshell-command-running-string "**")
+          (eshell-next-prompt -1)
+        (eshell-bol))
+      (end-of-line 0)
       (insert (make-string (window-height) ?\n))))
 #+end_src
 
