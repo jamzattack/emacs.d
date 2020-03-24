@@ -1057,6 +1057,7 @@ there.
     <<helpful-edit-source-temporarily>>
     :bind (([remap describe-function] . helpful-callable)
            ([remap describe-variable] . helpful-variable)
+           ([remap describe-symbol] . helpful-symbol)
            ([remap describe-key] . helpful-key)
            ("C-h SPC" . helpful-at-point)
            (:map helpful-mode-map
