@@ -118,9 +118,9 @@ and use eww for html instead of mhtml-mode.
     :custom ((org-src-window-setup 'current-window)
              (org-src-tab-acts-natively t)
              (org-file-apps
-               '((auto-mode . emacs)
-                 ("\\.x?html?\\'" . (lambda (file &optional ignore)
-                                      (eww-open-file file))))))
+              '((auto-mode . emacs)
+                ("\\.x?html?\\'" . (lambda (file &optional ignore)
+                                     (eww-open-file file))))))
     :config (when (featurep 'org-tempo)
               (require 'org-tempo)))
 #+end_src
@@ -514,17 +514,17 @@ comint ed ~/.bashrc
 
 #+name: eshell/comint
 #+begin_src emacs-lisp :tangle no
-(defun eshell/comint (&rest args)
-  "Start a comint session running ARGS"
-  (let ((string (eshell-flatten-and-stringify args))
-	(program (executable-find (car args)))
-	(program-args (cdr args)))
-    (switch-to-buffer
-     (make-comint string
-		  (or program
-		      (user-error "Executable %s not found" (car args)))
-		  nil
-		  (eshell-flatten-and-stringify (cdr args))))))
+  (defun eshell/comint (&rest args)
+    "Start a comint session running ARGS"
+    (let ((string (eshell-flatten-and-stringify args))
+          (program (executable-find (car args)))
+          (program-args (cdr args)))
+      (switch-to-buffer
+       (make-comint string
+                    (or program
+                        (user-error "Executable %s not found" (car args)))
+                    nil
+                    (eshell-flatten-and-stringify (cdr args))))))
 #+end_src
 
 ** Saving the state of emacs
