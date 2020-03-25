@@ -1423,6 +1423,8 @@ as in [[* EWW][eww]].
 
 **** Elfeed functions
 
+***** Create new search functions
+
 A macro to search for a specific tag, and a handful of functions to
 search for my most useful tags.  Note: it's not possible to define a
 macro and use it within a progn, so this needs to stay outside the
@@ -1444,8 +1446,11 @@ use-package.
   (elfeed-defun-tag-search "blog")
 #+end_src
 
+***** Switch to entry buffer
+
 If there is an =elfeed-entry= buffer, switch to it.  Otherwise, open
 the entry at point.
+
 #+name: elfeed-switch-to-entry
 #+begin_src emacs-lisp :tangle no
 (defun elfeed-switch-to-entry ()
@@ -1456,7 +1461,6 @@ the entry at point.
 	(switch-to-buffer buffer)
       (elfeed-search-show-entry entry))))
 #+end_src
-
 
 ** Appearance
 
