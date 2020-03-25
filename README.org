@@ -1412,8 +1412,9 @@ as in [[* EWW][eww]].
           ("M-p" . backward-paragraph)
           ("M-n" . forward-paragraph))
     :config
-    (load-file (expand-file-name "lisp/elfeed-macro.el" user-emacs-directory))
     (elfeed-update))
+
+  <<elfeed-functions>>
 #+end_src
 
 **** Elfeed functions
@@ -1422,7 +1423,7 @@ A macro to search for a specific tag, and a handful of functions to
 search for my most useful tags.
 
 #+name: elfeed-functions
-#+begin_src emacs-lisp :tangle (expand-file-name "lisp/elfeed-macro.el" user-emacs-directory)
+#+begin_src emacs-lisp :tangle no
   (defmacro elfeed-defun-tag-search (tag)
     "Define a function to search elfeed for TAG."
     `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
