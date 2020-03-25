@@ -766,6 +766,7 @@ Located [[file:lisp/library-genesis.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package library-genesis
+    :load-path "lisp/library-genesis"
     :bind (("C-z l" . library-genesis-search)))
 #+end_src
 
@@ -779,6 +780,7 @@ Located [[file:lisp/search-query.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package search-query
+    :load-path "lisp/search-query"
     :custom (tpb-mirror "lepiratebay.org")
     :bind (("C-z t" . tpb-search)
            ("C-z C-t" . tpb-search)
@@ -795,6 +797,7 @@ It uses the old reddit mobile site, which works well with eww.
 
 #+begin_src emacs-lisp
   (use-package reddit-browse
+    :load-path "lisp/reddit-browse"
     :custom (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
                                      "vxjunkies" "linux" "nethack"
                                      "cello" "throwers"))
@@ -810,7 +813,7 @@ Located [[file:lisp/toggle-touchpad.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
-    :load-path "lisp"
+    :load-path "lisp/toggle-touchpad"
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
      ("C-z \\" . 'toggle-touchpad)))
@@ -864,7 +867,7 @@ Located [[file:lisp/arch-linux-settings.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package arch-linux-settings
-    :load-path "lisp")
+    :load-path "lisp/arch-linux-settings")
 #+end_src
 
 ** Custom EXWM config
@@ -877,7 +880,7 @@ Located [[file:lisp/custom-exwm-config.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
-    :load-path "lisp")
+    :load-path "lisp/exwm")
 #+end_src
 
 ** Miscellaneous functions
@@ -891,6 +894,7 @@ Located [[file:lisp/my-misc-defuns][here]].
 
 #+begin_src emacs-lisp
   (use-package my-misc-defuns
+    :load-path "lisp/my-misc-defuns"
     :defer nil
     :bind (("C-h M-a" . system-apropos)
            ("C-c p" . open-pdf-of-current-file)
