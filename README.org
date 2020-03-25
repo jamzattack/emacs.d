@@ -762,7 +762,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 My custom package for searching library genesis. I bind ~C-z l~ to a
 search.
 
-Located [[file:lisp/library-genesis.el][here.]]
+Located [[file:lisp/library-genesis/library-genesis.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package library-genesis
@@ -776,7 +776,7 @@ My own search-query package. It simply provides a few functions so
 that I don't need to use DuckDuckGo's bangs, and for websites that
 don't have a bang.
 
-Located [[file:lisp/search-query.el][here.]]
+Located [[file:lisp/search-query/search-query.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package search-query
@@ -809,7 +809,7 @@ It uses the old reddit mobile site, which works well with eww.
 A simple package I wrote to toggle the touchpad/trackpoint on my
 ThinkPad
 
-Located [[file:lisp/toggle-touchpad.el][here.]]
+Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
@@ -863,7 +863,7 @@ My small package that provides an auto-insert skeleton for lilypond.
 This file just adds a few auto-mode-alist entries for systemd and
 pacman files.
 
-Located [[file:lisp/arch-linux-settings.el][here.]]
+Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package arch-linux-settings
@@ -876,7 +876,7 @@ My custom settings for EXWM - not much different from the
 =exwm-config-default=, but doesn't get in my way as much. It provides
 the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
 
-Located [[file:lisp/custom-exwm-config.el][here.]]
+Located [[file:lisp/custom-exwm-config/custom-exwm-config.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
@@ -890,7 +890,7 @@ A number of functions that don't necessarily have a proper home.  Bind
 to run the external "apropos" command (not to be confused with elisp
 apropos).
 
-Located [[file:lisp/my-misc-defuns][here]].
+Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
 
 #+begin_src emacs-lisp
   (use-package my-misc-defuns
