@@ -1,3 +1,4 @@
+;-*- lexical-binding: t; -*-
 ;; Prefer newer files rather than old byte-compiled ones.
 (setq load-prefer-newer t)
 
@@ -20,19 +21,23 @@ config.el, then repeat."
 	 (el (expand-file-name "config.el" dir))
 	 (elc (expand-file-name "config.elc" dir))
 	 (org (expand-file-name "config.org" user-emacs-directory)))
-    (cond ((file-exists-p elc)
-	   (progn (when recompile
-		    (delete-file elc)
-		    (delete-file el)
-		    (config-load))
-		  (load-file elc)))
+    (cond (recompile
+	   (delete-file elc)
+	   (delete-file el)
+	   (config-load))
+	  ((file-exists-p elc)
+	   (when (featurep 'config.el)
+	     (unload-feature 'config.el))
+	   (require 'config.el elc))
 	  ((file-exists-p el)
-	   (progn (load-file el)
-		  (byte-compile-file el)))
+	   (when (featurep 'config.el)
+	     (unload-feature 'config.el))
+	   (require 'config.el el))
 	  ((file-exists-p org)
-	   (progn (require 'org)
-		  (org-babel-tangle-file org)
-		  (config-load))))))
+	   (require 'org)
+	   (org-babel-tangle-file org)
+	   (config-load))
+	  (t (user-error "file \"%s\" not found" org)))))
 
 (config-load)
 
