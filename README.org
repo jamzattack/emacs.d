@@ -440,6 +440,7 @@ delete-char or kill-buffer like a "normal" shell.
 #+begin_src emacs-lisp
   (use-package eshell
     :custom (eshell-history-size 1000)
+    :init (require 'esh-mode)
     :config
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
