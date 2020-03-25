@@ -3,7 +3,8 @@
 url
 eww-*
 
-eshell
+eshell/history
+eshell/lastdir
 tramp
 
 bookmarks
