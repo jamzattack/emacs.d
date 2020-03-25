@@ -644,7 +644,7 @@ by =simple=.
 
 #+begin_src emacs-lisp
   (use-package simple
-    :bind ("C-c l" . toggle-truncate-lines))
+    :bind ("C-c t" . toggle-truncate-lines))
 #+end_src
 
 **** Line numbers
@@ -654,7 +654,7 @@ doesn't slow down emacs as much.
 
 #+begin_src emacs-lisp
   (use-package display-line-numbers
-    :bind ("C-c n" . display-line-numbers-mode))
+    :bind ("C-c l" . display-line-numbers-mode))
 #+end_src
 
 ** Environment variables
