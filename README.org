@@ -26,6 +26,7 @@ Some things to do before everything else.
 Enable melpa archive and making sure packages work.
 
 #+begin_src emacs-lisp
+  ;;; -*- lexical-binding:t; -*-
   (add-to-list 'load-path (concat user-emacs-directory "lisp"))
   (require 'package)
   (setq package-enable-at-startup nil)
@@ -176,7 +177,6 @@ prolog-mode.
 
 #+begin_src emacs-lisp
   (use-package prolog
-    :after (init)
     :mode ("\\.pl\\'" . prolog-mode))
 #+end_src
 
@@ -521,13 +521,13 @@ comint ed ~/.bashrc
     "Start a comint session running ARGS"
     (let ((string (eshell-flatten-and-stringify args))
           (program (executable-find (car args)))
-          (program-args (cdr args)))
+          (program-args (eshell-flatten-and-stringify (cdr args))))
       (switch-to-buffer
        (make-comint string
                     (or program
                         (user-error "Executable %s not found" (car args)))
                     nil
-                    (eshell-flatten-and-stringify (cdr args))))))
+                    program-args))))
 #+end_src
 
 ** Saving the state of emacs
@@ -1575,11 +1575,11 @@ A 'Lorem ipsum' generator
 
 * Making this requirable
 
-This file can be loaded with (require 'config.el) if it is in the
+This file can be loaded with (require 'config) if it is in the
 load-path. This is better than explicitly loading config.el because it
 will use the byte-compiled version.
 
 #+begin_src emacs-lisp
-  (provide 'config.el)
+  (provide 'config)
 #+end_src
 
