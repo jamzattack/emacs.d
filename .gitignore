@@ -1,31 +1,36 @@
+# Backups
 *\~
+\#*
 
+# Eww files
 url
 eww-*
 
+# Eshell files
 eshell/history
 eshell/lastdir
-tramp
 
+# desktop/bookmark/etc
 bookmarks
 recentf
 .emacs.desktop*
 
+# files created from config.org
 config.el
 custom.el
 
-helm-adaptive-history
-nov-places
-
+# compiled packages
 lisp/*/*.elc
 lisp/*.elc
+elpa
 
-elpa/archives
-
-eaf
-
-elpa/vterm*
-
-elfeed
-
+# files
+helm-adaptive-history
+nov-places
 .org-id-locations
+
+# directories
+eaf
+elfeed
+tramp
+
