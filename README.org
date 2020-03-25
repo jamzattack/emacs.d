@@ -26,7 +26,6 @@ Some things to do before everything else.
 Enable melpa archive and making sure packages work.
 
 #+begin_src emacs-lisp
-  ;;; -*- lexical-binding:t; -*-
   (add-to-list 'load-path (concat user-emacs-directory "lisp"))
   (require 'package)
   (setq package-enable-at-startup nil)
@@ -1413,7 +1412,7 @@ as in [[* EWW][eww]].
           ("M-p" . backward-paragraph)
           ("M-n" . forward-paragraph))
     :config
-    <<elfeed-functions>>
+    (load-file (expand-file-name "lisp/elfeed-macro.el" user-emacs-directory))
     (elfeed-update))
 #+end_src
 
@@ -1423,7 +1422,7 @@ A macro to search for a specific tag, and a handful of functions to
 search for my most useful tags.
 
 #+name: elfeed-functions
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle (expand-file-name "lisp/elfeed-macro.el" user-emacs-directory)
   (defmacro elfeed-defun-tag-search (tag)
     "Define a function to search elfeed for TAG."
     `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
@@ -1572,7 +1571,6 @@ A 'Lorem ipsum' generator
   (use-package lorem-ipsum
     :ensure t)
 #+end_src
-
 * Making this requirable
 
 This file can be loaded with (require 'config) if it is in the
