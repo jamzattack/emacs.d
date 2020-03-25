@@ -1,4 +1,3 @@
-;-*- lexical-binding: t; -*-
 ;; Prefer newer files rather than old byte-compiled ones.
 (setq load-prefer-newer t)
 
@@ -26,13 +25,14 @@ config.el, then repeat."
 	   (delete-file el)
 	   (config-load))
 	  ((file-exists-p elc)
-	   (when (featurep 'config.el)
-	     (unload-feature 'config.el))
-	   (require 'config.el elc))
+	   (when (featurep 'config)
+	     (unload-feature 'config t))
+	   (require 'config elc))
 	  ((file-exists-p el)
-	   (when (featurep 'config.el)
-	     (unload-feature 'config.el))
-	   (require 'config.el el))
+	   (when (featurep 'config)
+	     (unload-feature 'config t))
+	   (byte-compile-file el)
+	   (config-load))
 	  ((file-exists-p org)
 	   (require 'org)
 	   (org-babel-tangle-file org)
@@ -45,5 +45,3 @@ config.el, then repeat."
 
 ;; Theme
 (load-theme 'custom t)
-
-(provide 'init)
