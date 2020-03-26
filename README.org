@@ -697,7 +697,6 @@ so that I can bind the keys in exwm-mode as well.
       (bind-key (car a) (cdr a) exwm-mode-map)))
 #+end_src
 
-
 ** View-mode
 
 I like using view-mode and scroll-lock-mode is kind-of useless, so I
