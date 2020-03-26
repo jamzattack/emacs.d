@@ -3,8 +3,8 @@
 #+EMAIL: beardsleejamie@gmail.com
 #+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :noweb yes
 
-This is my emacs config file. It is written in org-mode so that I can
-brag about how dope org-mode is. [[file:README.org][This file]] contains my main
+This is my emacs config file.  It is written in org-mode so that I can
+brag about how dope org-mode is.  [[file:README.org][This file]] contains my main
 configuration, which is tangled to [[file:lisp/config.el][config.el]].  [[file:init.el][init.el]] sets the
 variable =custom-file= to [[file:custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
 [[file:custom.el][custom.el]].
@@ -13,9 +13,8 @@ Note: [[file:custom.el][custom.el]] should not be edited manually, as it is used
 for settings changed using the customisation interface.
 
 My own packages and other things that I need to =require= are housed
-in [[file:lisp][lisp/]]. I have added the [[file:elpa][elpa/]] directory for convenience, but it
-would be wise to remove it and recompile everything by evaluating
-[[file:config.el][config.el]].
+in [[file:lisp][lisp/]].  I no longer include the [[file:elpa/][elpa]] directory, so the first
+startup will take some time.
 
 * Startup
 
@@ -99,12 +98,12 @@ recorded in the variable =personal-keybindings=.
 
 * Built-in packages
 
-This is the section for built-in packages. A lot of these are just
+This is the section for built-in packages.  A lot of these are just
 minor things such as setting a single variable.
 
 ** Major editing modes
 
-Major modes for text editing. For non-editing major modes, see
+Major modes for text editing.  For non-editing major modes, see
 [[Applications]]
 
 *** Org Mode
@@ -128,7 +127,7 @@ and use eww for html instead of mhtml-mode.
 **** Org Capture
 
 Take notes in org-mode with specific templates and write them to a
-file. Similar to remember.
+file.  Similar to remember.
 
 #+begin_src emacs-lisp
   (use-package org-capture
@@ -161,8 +160,8 @@ Better layout for org-mode.
 
 **** Org-babel lilypond
 
-ob-lilypond is required to evaluate lilypond within org-mode. It isn't
-loaded by default, so load it here.
+ob-lilypond is required to evaluate lilypond within org-mode.  It
+isn't loaded by default, so load it here.
 
 #+begin_src emacs-lisp
   (when (executable-find "lilypond")
@@ -171,7 +170,7 @@ loaded by default, so load it here.
 
 *** Prolog
 
-Major mode for editing prolog files. Files ending in ~.pl~ open in
+Major mode for editing prolog files.  Files ending in ~.pl~ open in
 prolog-mode.
 
 #+begin_src emacs-lisp
@@ -181,8 +180,8 @@ prolog-mode.
 
 *** cc-mode
 
-Set the c style to bsd, which uses tabs. Use java/awk indentation
-for java/awk files.
+Set the c style to bsd, which uses tabs.  Use java/awk indentation for
+java/awk files.
 
 #+begin_src emacs-lisp
   (use-package cc-mode
@@ -283,7 +282,7 @@ Bind =C-z RET= and =f9= to compile.
 *** hi-lock
 
 I often use =M-s h .= to see where variables, functions, etc. are
-used. However, paredit remaps =M-s= to =paredit-splice-sexp=, so I
+used.  However, paredit remaps =M-s= to =paredit-splice-sexp=, so I
 turn on hi-lock-mode which enables the =C-x w= prefix.
 
 #+begin_src emacs-lisp
@@ -353,7 +352,7 @@ The only reason for this to be here is to set my nick.
 
 **** erc notifications
 
-erc-notify enables notifications for erc conversations. I only enable
+erc-notify enables notifications for erc conversations.  I only enable
 it if the executable "dunst" is found, because it will crash emacs
 unless a notification daemon is active.
 
@@ -367,7 +366,7 @@ unless a notification daemon is active.
 
 *** Info
 
-Rebind M-p and M-n to move by paragraphs. By default M-n runs
+Rebind M-p and M-n to move by paragraphs.  By default M-n runs
 =clone-buffer=, which I find to be completely useless.
 
 #+begin_src emacs-lisp
@@ -395,7 +394,7 @@ buffers.
 
 *** dired
 
-Group directories first. This works only with GNU ls, so don't use
+Group directories first.  This works only with GNU ls, so don't use
 this if you use a different version.
 
 #+begin_src emacs-lisp
@@ -464,7 +463,7 @@ char.
 #+begin_src emacs-lisp :tangle no
   (defun eshell-delete-or-quit (arg)
     "If point is at the end of the buffer and input is empty,
-  kill the buffer. Just like giving EOF to a normal shell."
+  kill the buffer.  Just like giving EOF to a normal shell."
     (interactive "p")
     (if (=
          (save-excursion
@@ -536,7 +535,7 @@ files, and desktop saves a list of variables and current buffers.
 
 *** recentf
 
-This package saves a list of recently visited files. I've had some
+This package saves a list of recently visited files.  I've had some
 problems with helm not loading the recentf list, so it is done here.
 
 #+begin_src emacs-lisp
@@ -570,7 +569,7 @@ bar.
 
 **** Scroll bar
 
-I've started to use scroll-bar-mode. It's not so bad if the width is
+I've started to use scroll-bar-mode.  It's not so bad if the width is
 small enough.
 
 #+begin_src emacs-lisp
@@ -648,7 +647,7 @@ by =simple=.
 
 **** Line numbers
 
-Display line numbers. I prefer to just use the mode-line because it
+Display line numbers.  I prefer to just use the mode-line because it
 doesn't slow down emacs as much.
 
 #+begin_src emacs-lisp
@@ -658,9 +657,9 @@ doesn't slow down emacs as much.
 
 ** Environment variables
 
-Set the $EDITOR to emacsclient. Because I (almost) only use other
-programs from within Emacs, this works. If you don't use EXWM it would
-be advisable to set this in your xinitrc.
+Set the $EDITOR to emacsclient.  Because I (almost) only use other
+programs from within Emacs, this works.  If you don't use EXWM it
+would be advisable to set this in your xinitrc.
 
 #+begin_src emacs-lisp
   (use-package env
@@ -740,7 +739,7 @@ within emacs.
 
 *** dmenu-handler
 
-A way to open URLs the way I want. I bind it to =C-z d=.
+A way to open URLs the way I want.  I bind it to =C-z d=.
 
 Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 
@@ -759,7 +758,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 
 *** library-genesis
 
-My custom package for searching library genesis. I bind ~C-z l~ to a
+My custom package for searching library genesis.  I bind ~C-z l~ to a
 search.
 
 Located [[file:lisp/library-genesis/library-genesis.el][here.]]
@@ -772,7 +771,7 @@ Located [[file:lisp/library-genesis/library-genesis.el][here.]]
 
 *** search-query
 
-My own search-query package. It simply provides a few functions so
+My own search-query package.  It simply provides a few functions so
 that I don't need to use DuckDuckGo's bangs, and for websites that
 don't have a bang.
 
@@ -873,7 +872,7 @@ Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here.]]
 ** Custom EXWM config
 
 My custom settings for EXWM - not much different from the
-=exwm-config-default=, but doesn't get in my way as much. It provides
+=exwm-config-default=, but doesn't get in my way as much.  It provides
 the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
 
 Located [[file:lisp/custom-exwm-config/custom-exwm-config.el][here.]]
@@ -944,17 +943,17 @@ a few.
 
 * ELPA Packages
 
-This is where the packages installed within emacs are located. All of
+This is where the packages installed within emacs are located.  All of
 these use the =:ensure= keyword, so that they are downloaded if they
 aren't already.
 
 ** HELM
 
-Rebind a few keys in order to make use of helm's features. Stuff like
-find-files and switch-to-buffer. Also remap =C-x k= to
+Rebind a few keys in order to make use of helm's features.  Stuff like
+find-files and switch-to-buffer.  Also remap =C-x k= to
 kill-this-buffer, because I use helm-mini to kill other buffers.
 
-I also bind M-C-y to helm-show-kill-ring. I tried to use this to
+I also bind M-C-y to helm-show-kill-ring.  I tried to use this to
 replace yank-pop but the latter is too engrained in my fingers.
 
 #+begin_src emacs-lisp
@@ -999,7 +998,7 @@ packages.
 
 *** Helm notmuch
 
-A helm interface for notmuch. Load it after both helm and notmuch (of
+A helm interface for notmuch.  Load it after both helm and notmuch (of
 course).
 
 #+begin_src emacs-lisp
@@ -1022,7 +1021,7 @@ manpages.
 
 *** Helm eww
 
-Some helm functions for eww. I replace all the default functions with
+Some helm functions for eww.  I replace all the default functions with
 the helm alternatives.
 
 #+begin_src emacs-lisp
@@ -1107,8 +1106,8 @@ nearly as useful anyway.
 
 *** Nov.el - epub in emacs
 
-Read epub files in emacs. I set this up as the default mode for epubs,
-and set the default width to 80C.
+Read epub files in emacs.  I set this up as the default mode for
+epubs, and set the default width to 80C.
 
 #+begin_src emacs-lisp
   (use-package nov
@@ -1145,7 +1144,7 @@ for looking at READMEs though, so I add view-mode to the hook.
 
 *** Geiser
 
-Interact with scheme in a powerful and emacsy way. I set guile as the
+Interact with scheme in a powerful and emacsy way.  I set guile as the
 default scheme program.
 
 #+begin_src emacs-lisp
@@ -1159,7 +1158,7 @@ default scheme program.
 
 *** SLIME
 
-Interact with common lisp in a powerful and emacsy way. I set sbcl as
+Interact with common lisp in a powerful and emacsy way.  I set sbcl as
 the default lisp program, add some fancier stuff such as a nicer REPl,
 and move the history file out of $HOME.
 
@@ -1185,8 +1184,8 @@ and move the history file out of $HOME.
 
 *** paredit
 
-Efficient and clever editing commands for working with
-s-expressions. Enabled for lisp modes only.
+Efficient and clever editing commands for working with s-expressions.
+Enabled for lisp modes only.
 
 #+begin_src emacs-lisp
   (use-package paredit
@@ -1249,7 +1248,7 @@ the EXWM frame. i.e. in ~.xinitrc
 *** Desktop-environment (useful with EXWM)
 
 This package sets up volume keys, brightness keys, and a screen
-locker. I like i3lock, and want it to use my theme's background
+locker.  I like i3lock, and want it to use my theme's background
 colour.
 
 #+begin_src emacs-lisp
@@ -1314,7 +1313,7 @@ The function =eshell/vterm= starts a program in vterm from eshell.
 
 *** libmpdee
 
-An mpd library. I use it only for random/shuffle.
+An mpd library.  I use it only for random/shuffle.
 
 #+begin_src emacs-lisp
   (use-package libmpdee
@@ -1599,8 +1598,8 @@ A 'Lorem ipsum' generator
 * Making this requirable
 
 This file can be loaded with (require 'config) if it is in the
-load-path. This is better than explicitly loading config.el because it
-will use the byte-compiled version.
+load-path.  This is better than explicitly loading config.el because
+it will use the byte-compiled version.
 
 #+begin_src emacs-lisp
   (provide 'config)
