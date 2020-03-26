@@ -765,11 +765,15 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 #+begin_src emacs-lisp
   (use-package dmenu-handler
     :load-path "lisp/dmenu"
-    :after eww
+    :after (eww elfeed)
     :bind
     (("C-z d" . 'dmenu-handler)
      ("C-z C-d" . 'dmenu-handler)
      (:map eww-mode-map
+           ("f" . 'dmenu-handler-stream)
+           ("D" . 'dmenu-handler-download-video)
+           ("A" . 'dmenu-handler-audio))
+     (:map elfeed-show-mode-map
            ("f" . 'dmenu-handler-stream)
            ("D" . 'dmenu-handler-download-video)
            ("A" . 'dmenu-handler-audio))))
@@ -1424,9 +1428,6 @@ as in [[* EWW][eww]].
             (eval (read (current-buffer))))))))
     :bind
     ((:map elfeed-show-mode-map
-           ("f" . dmenu-handler-stream)
-           ("D" . dmenu-handler-download-video)
-           ("A" . dmenu-handler-audio)
            ("M-p" . backward-paragraph)
            ("M-n" . forward-paragraph)
            ("l" . elfeed))
