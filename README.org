@@ -1452,13 +1452,13 @@ the entry at point.
 
 #+name: elfeed-switch-to-entry
 #+begin_src emacs-lisp :tangle no
-(defun elfeed-switch-to-entry ()
-  (interactive)
-  (let ((buffer (get-buffer "*elfeed-entry*"))
-	(entry (elfeed-search-selected :ignore-region)))
-    (if buffer
-	(switch-to-buffer buffer)
-      (elfeed-search-show-entry entry))))
+  (defun elfeed-switch-to-entry ()
+    (interactive)
+    (let ((buffer (get-buffer "*elfeed-entry*"))
+          (entry (elfeed-search-selected :ignore-region)))
+      (if buffer
+          (switch-to-buffer buffer)
+        (elfeed-search-show-entry entry))))
 #+end_src
 
 ** Appearance
