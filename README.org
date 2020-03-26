@@ -1051,7 +1051,7 @@ Similar to =occur=, but only shows headings.
 
 Helpful gives a whole lot more information than describe-*.  I also
 bind =C-h SPC= to helpful-at-point, just to save a keypress here and
-there.  
+there.
 
 #+begin_src emacs-lisp
   (use-package helpful
@@ -1465,8 +1465,8 @@ the entry at point.
 
 *** Rainbow-mode
 
-This package highlights hex colours
-(also install xterm-color to use in a terminal emulator)
+This package highlights hex colours (also install xterm-color to use
+in a terminal emulator)
 
 #+begin_src emacs-lisp
   (use-package rainbow-mode
