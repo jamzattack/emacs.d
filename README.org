@@ -679,6 +679,25 @@ keys.
            ("C-z z" . kill-buffer-and-window)))
 #+end_src
 
+** Windmove
+
+Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so
+this is like ={i,j,k,l}= on a qwerty keyboard.  Load this after exwm
+so that I can bind the keys in exwm-mode as well.
+
+#+begin_src emacs-lisp
+  (use-package windmove
+    :after exwm
+    :config
+    (dolist (a '(("s-c" . windmove-up)
+                 ("s-h" . windmove-left)
+                 ("s-t" . windmove-down)
+                 ("s-n" . windmove-right)))
+      (bind-key (car a) (cdr a))
+      (bind-key (car a) (cdr a) exwm-mode-map)))
+#+end_src
+
+
 ** View-mode
 
 I like using view-mode and scroll-lock-mode is kind-of useless, so I
