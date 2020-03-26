@@ -1414,10 +1414,9 @@ as in [[* EWW][eww]].
      (:map elfeed-search-mode-map
            ("r" . elfeed-switch-to-entry)))
     :config
+    <<elfeed-macro>>
     <<elfeed-switch-to-entry>>
     (elfeed-update))
-
-  <<elfeed-macro>>
 #+end_src
 
 **** Elfeed functions
@@ -1426,19 +1425,20 @@ as in [[* EWW][eww]].
 
 A macro to search for a specific tag, and a handful of functions to
 search for my most useful tags.  Note: it's not possible to define a
-macro and use it within a progn, so this needs to stay outside the
-use-package.
+macro and use it within a progn, the macro is wrapped in
+=eval-when-compile=.
 
 #+name: elfeed-macro
 #+begin_src emacs-lisp :tangle no
-  (defmacro elfeed-defun-tag-search (tag)
-    "Define a function to search elfeed for TAG."
-    `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
-       ,(format "Search elfeed for all items with the tag \"%s\"." tag)
-       (interactive)
-       (kill-buffer (elfeed-search-buffer))
-       (let ((elfeed-search-filter ,(concat "+" tag)))
-         (elfeed))))
+  (eval-when-compile
+    (defmacro elfeed-defun-tag-search (tag)
+     "Define a function to search elfeed for TAG."
+     `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
+        ,(format "Search elfeed for all items with the tag \"%s\"." tag)
+        (interactive)
+        (kill-buffer (elfeed-search-buffer))
+        (let ((elfeed-search-filter ,(concat "+" tag)))
+          (elfeed)))))
 
   (elfeed-defun-tag-search "university")
   (elfeed-defun-tag-search "youtube")
