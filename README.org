@@ -745,6 +745,18 @@ the file is actually =terminal.c=.
     :custom (ring-bell-function 'ignore))
 #+end_src
 
+** Theme
+
+Allow themes to be loaded from the [[file:lisp/themes][lisp/themes]] directory, then load my
+[[file:lisp/themes/custom-theme.el][custom theme]].
+
+#+begin_src emacs-lisp
+  (use-package custom
+    :custom (custom-theme-directory
+             (expand-file-name "lisp/themes" user-emacs-directory))
+    :config (load-theme 'custom t))
+#+end_src
+
 * My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
