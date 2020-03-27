@@ -403,7 +403,7 @@ this if you use a different version.
     :defer t
     :custom ((dired-listing-switches "-lah --group-directories-first")
              (delete-by-moving-to-trash t))
-    :bind ([remap list-directory] . dired-jump))
+    :bind ("C-x C-d" . dired-jump))
 #+end_src
 
 **** dired-async
