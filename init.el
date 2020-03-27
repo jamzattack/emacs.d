@@ -1,11 +1,16 @@
-;; Prefer newer files rather than old byte-compiled ones.
+;; -*- lexical-binding: t; -*-
+;; Default to lexical binding
+(setq-default lexical-binding t)
+
+;; Prefer newer files rather than old byte-compiled ones
 (setq load-prefer-newer t)
 
-;; add the lisp directory to `load-path'
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; Move custom-file to the lisp directory
+(setq custom-file (expand-file-name "lisp/custom.el"
+				    user-emacs-directory))
 
-;; Move custom settings to another file
-(setq custom-file (concat user-emacs-directory "custom.el"))
+;; Add the lisp directory to `load-path'
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Define a function that loads my config file
 (defun config-load (&optional recompile)
@@ -39,9 +44,5 @@ config.el, then repeat."
 	   (config-load))
 	  (t (user-error "file \"%s\" not found" org)))))
 
+;; Load config.org
 (config-load)
-
-(load custom-file)
-
-;; Theme
-(load-theme 'custom t)
