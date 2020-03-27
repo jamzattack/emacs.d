@@ -1636,6 +1636,7 @@ A 'Lorem ipsum' generator
   (use-package lorem-ipsum
     :ensure t)
 #+end_src
+
 * Making this requirable
 
 This file can be loaded with (require 'config) if it is in the
