@@ -53,12 +53,9 @@ byte-compiling.
 This section has been moved to [[file:lisp/fonts.el][its own file]]
 
 #+begin_src emacs-lisp
-  (defvar fonts-file (concat user-emacs-directory "lisp/fonts.el")
-    "This is the file to load custom font settings from")
-
   (defun set-up-fonts-please ()
     (interactive)
-    (load fonts-file))
+    (load (expand-file-name "lisp/fonts.el" user-emacs-directory)))
 
   (add-hook 'server-after-make-frame-hook 'set-up-fonts-please)
 #+end_src
