@@ -996,7 +996,14 @@ replace yank-pop but the latter is too engrained in my fingers.
     :diminish
     :custom ((helm-completion-style 'emacs)
              (helm-describe-variable-function 'helpful-variable)
-             (helm-describe-function-function 'helpful-callable))
+             (helm-describe-function-function 'helpful-callable)
+             (helm-external-programs-associations
+              '(("midi" . "timidity")
+                ("png" . "sxiv")
+                ("jpg" . "sxiv")
+                ("gif" . "mpv -L")
+                ("mp4" . "mpv")
+                ("mkv" . "mpv"))))
     :init
     (defun kill-this-buffer-please ()
       "Actually kill this buffer, unlike `kill-this-buffer' which
