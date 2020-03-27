@@ -1101,10 +1101,10 @@ there.
     :ensure t
     :init
     <<helpful-edit-source-temporarily>>
-    :bind (([remap describe-function] . helpful-callable)
-           ([remap describe-variable] . helpful-variable)
-           ([remap describe-symbol] . helpful-symbol)
-           ([remap describe-key] . helpful-key)
+    :bind (("C-h f" . helpful-callable)
+           ("C-h v" . helpful-variable)
+           ("C-h o" . helpful-symbol)
+           ("C-h k" . helpful-key)
            ("C-h SPC" . helpful-at-point)
            (:map helpful-mode-map
                  ("e" . helpful-edit-source-temporarily))))
