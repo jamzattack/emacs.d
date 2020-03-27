@@ -1418,6 +1418,7 @@ as in [[* EWW][eww]].
     :custom
     ((elfeed-db-directory (expand-file-name
                            "elfeed" "~/.cache"))
+     (elfeed-search-remain-on-entry t)
      (elfeed-feeds
       (let ((file (expand-file-name
                    "elfeed/feeds.gpg" user-emacs-directory)))
