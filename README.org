@@ -1,7 +1,7 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Jamie Beardslee
 #+EMAIL: beardsleejamie@gmail.com
-#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :noweb yes
+#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :noweb yes :results none
 
 This is my emacs config file.  It is written in org-mode so that I can
 brag about how dope org-mode is.  [[file:README.org][This file]] contains my main
@@ -1007,7 +1007,9 @@ replace yank-pop but the latter is too engrained in my fingers.
       "Actually kill this buffer, unlike `kill-this-buffer' which
   sometimes doesn't work."
       (interactive)
-      (kill-buffer (current-buffer)))
+      (if (equal (buffer-name) "*scratch*")
+          (bury-buffer)
+       (kill-buffer (current-buffer))))
     :config
     (require 'helm-config)
     (helm-mode t)
