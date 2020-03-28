@@ -94,6 +94,7 @@ for a function to disassemble."
     (define-key map (kbd "C-c C-k")	'eval-buffer)
     (define-key map (kbd "C-c M-k")	'eval-buffer)
     (define-key map (kbd "C-c C-z")	'selime-ielm)
+    (define-key map (kbd "C-c C-t")	'trace-function-foreground)
     map))
 
 (define-minor-mode selime-mode
