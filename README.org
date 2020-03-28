@@ -318,7 +318,8 @@ browser, and change the width to 80 columns.
     :bind (:map eww-mode-map
                 ("M-n" . forward-paragraph)
                 ("M-p" . backward-paragraph))
-    :custom ((browse-url-browser-function 'eww-browse-url)
+    :custom ((mail-user-agent notmuch-user-agent)
+             (browse-url-browser-function 'eww-browse-url)
              (browse-url-secondary-browser-function 'browse-url-externally-please)
              (eww-bookmarks-directory (expand-file-name "eww" user-emacs-directory))
              (shr-width 80)
