@@ -77,4 +77,18 @@ optional arguments ARGS."
   (interactive)
   (start-process "notmuch new" "*notmuch new*" "notmuch" "new"))
 
+;;; If region is active, indent it.  Otherwise, indent defun.
+;;;###autoload
+(defun indent-region-or-defun-please ()
+  "Indent region if it is active, otherwise indent defun.  With
+prefix arg, indent the whole buffer."
+  (interactive)
+  (let ((bounds (cond
+  		 (current-prefix-arg
+  		  (cons (point-min) (point-max)))
+  		 ((region-active-p)
+  		  (car (region-bounds)))
+  		 (t (bounds-of-thing-at-point 'defun)))))
+    (indent-region (car bounds) (cdr bounds))))
+
 (provide 'my-misc-defuns)
