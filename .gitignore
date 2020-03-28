@@ -4,7 +4,7 @@
 
 # Eww files
 url
-eww-*
+eww
 
 # Eshell files
 eshell/history
@@ -16,8 +16,8 @@ recentf
 .emacs.desktop*
 
 # files created from config.org
-config.el
-custom.el
+lisp/config.el
+lisp/custom.el
 
 # compiled packages
 lisp/*/*.elc
