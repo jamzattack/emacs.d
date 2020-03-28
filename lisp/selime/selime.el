@@ -72,6 +72,14 @@ for a function to disassemble."
     (forward-sexp)
     (pp-macroexpand-last-sexp nil)))
 
+(defun selime-ielm (&optional buffer-name)
+  "Open IELM in another window."
+  (interactive (list (when current-prefix-arg
+		       (read-string "IELM Buffer Name: "))))
+  (let ((buffer (get-buffer-create (or buffer-name "*ielm*"))))
+    (switch-to-buffer-other-window buffer)
+    (inferior-emacs-lisp-mode)))
+
 (defvar selime-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-d C-d")	'selime-describe-symbol)
@@ -85,6 +93,7 @@ for a function to disassemble."
     (define-key map (kbd "C-c C-m")	'selime-macroexpand)
     (define-key map (kbd "C-c C-k")	'eval-buffer)
     (define-key map (kbd "C-c M-k")	'eval-buffer)
+    (define-key map (kbd "C-c C-z")	'selime-ielm)
     map))
 
 (define-minor-mode selime-mode
