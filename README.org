@@ -1033,7 +1033,6 @@ replace yank-pop but the latter is too engrained in my fingers.
     (if (member (buffer-name) buffers-to-bury)
         (bury-buffer)
       (kill-buffer (current-buffer))))
-
 #+end_src
 
 *** Helm system packages
