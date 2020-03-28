@@ -31,6 +31,7 @@
 (require 'help-fns)
 (require 'pp)
 
+;;;###autoload
 (defun selime-describe-function ()
   "If package \"helpful\" is installed, call `helpful-callable',
 otherwise call `describe-function'"
@@ -39,6 +40,7 @@ otherwise call `describe-function'"
       (call-interactively #'helpful-callable)
     (call-interactively #'describe-function)))
 
+;;;###autoload
 (defun selime-describe-variable ()
   "If package \"helpful\" is installed, call `helpful-variable',
 otherwise call `describe-variable'"
@@ -47,6 +49,7 @@ otherwise call `describe-variable'"
       (call-interactively #'helpful-variable)
     (call-interactively #'describe-variable)))
 
+;;;###autoload
 (defun selime-describe-symbol ()
   "If package \"helpful\" is installed, call `helpful-at-point',
 otherwise call `describe-symbol' on the symbol at point"
@@ -55,6 +58,7 @@ otherwise call `describe-symbol' on the symbol at point"
       (call-interactively #'helpful-at-point)
     (describe-symbol (symbol-at-point))))
 
+;;;###autoload
 (defun selime-disassemble (function)
   "If point is on a function, disassemble it.  Otherwise prompt
 for a function to disassemble."
@@ -65,6 +69,7 @@ for a function to disassemble."
 			  (completing-read "Disassemble function: " obarray 'fboundp t nil nil ))))))
   (disassemble function))
 
+;;;###autoload
 (defun selime-macroexpand ()
   "Macro expand the following sexp."
   (interactive)
@@ -72,6 +77,7 @@ for a function to disassemble."
     (forward-sexp)
     (pp-macroexpand-last-sexp nil)))
 
+;;;###autoload
 (defun selime-ielm (&optional buffer-name)
   "Open IELM in another window."
   (interactive (list (when current-prefix-arg
@@ -97,6 +103,7 @@ for a function to disassemble."
     (define-key map (kbd "C-c C-t")	'trace-function-foreground)
     map))
 
+;;;###autoload
 (define-minor-mode selime-mode
   "Enable Slime-style documentation for elisp buffers."
   nil "" selime-mode-map)
