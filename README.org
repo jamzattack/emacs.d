@@ -1003,13 +1003,7 @@ replace yank-pop but the latter is too engrained in my fingers.
                 ("mp4" . "mpv")
                 ("mkv" . "mpv"))))
     :init
-    (defun kill-this-buffer-please ()
-      "Actually kill this buffer, unlike `kill-this-buffer' which
-  sometimes doesn't work."
-      (interactive)
-      (if (equal (buffer-name) "*scratch*")
-          (bury-buffer)
-       (kill-buffer (current-buffer))))
+    <<kill-this-buffer-please>>
     :config
     (require 'helm-config)
     (helm-mode t)
@@ -1024,6 +1018,22 @@ replace yank-pop but the latter is too engrained in my fingers.
            ("M-C-y" . 'helm-show-kill-ring)
            :map helm-map
            ("C-h c" . 'describe-key-briefly)))
+#+end_src
+
+#+name: kill-this-buffer-please
+#+begin_src emacs-lisp :tangle no
+  (defvar buffers-to-bury '("*scratch*" "#emacs" "*Messages*")
+    "List of buffers to bury instead of kill with the function
+  `kill-this-buffer-please'")
+
+  (defun kill-this-buffer-please ()
+    "Actually kill this buffer, unlike `kill-this-buffer' which
+  sometimes doesn't work."
+    (interactive)
+    (if (member (buffer-name) buffers-to-bury)
+        (bury-buffer)
+      (kill-buffer (current-buffer))))
+
 #+end_src
 
 *** Helm system packages
@@ -1472,13 +1482,13 @@ macro and use it within a progn, the macro is wrapped in
 #+begin_src emacs-lisp :tangle no
   (eval-when-compile
     (defmacro elfeed-defun-tag-search (tag)
-     "Define a function to search elfeed for TAG."
-     `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
-        ,(format "Search elfeed for all items with the tag \"%s\"." tag)
-        (interactive)
-        (kill-buffer (elfeed-search-buffer))
-        (let ((elfeed-search-filter ,(concat "+" tag)))
-          (elfeed)))))
+      "Define a function to search elfeed for TAG."
+      `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
+         ,(format "Search elfeed for all items with the tag \"%s\"." tag)
+         (interactive)
+         (kill-buffer (elfeed-search-buffer))
+         (let ((elfeed-search-filter ,(concat "+" tag)))
+           (elfeed)))))
 
   (elfeed-defun-tag-search "university")
   (elfeed-defun-tag-search "youtube")
