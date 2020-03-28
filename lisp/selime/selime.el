@@ -20,11 +20,16 @@
 
 ;;; Commentary:
 
-;; Function/variable documentation works fine.  Compilation/evaluation
-;; with =C-c C-c= and =C-c C-k= all work fine, as does disassembly
-;; with =C-c M-d= also work fine.  What I want to fix is macroexpand.
+;; My attempt at emulating slime-mode for emacs lisp.  A bunch of
+;; things work, but there are still a couple of functions to add and
+;; improve.
 
 ;;; Code:
+
+(require 'disass)
+(require 'ielm)
+(require 'help-fns)
+(require 'pp)
 
 (defun selime-describe-function ()
   "If package \"helpful\" is installed, call `helpful-callable',
@@ -60,6 +65,13 @@ for a function to disassemble."
 			  (completing-read "Disassemble function: " obarray 'fboundp t nil nil ))))))
   (disassemble function))
 
+(defun selime-macroexpand ()
+  "Macro expand the following sexp."
+  (interactive)
+  (save-excursion
+    (forward-sexp)
+    (pp-macroexpand-last-sexp nil)))
+
 (defvar selime-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-d C-d")	'selime-describe-symbol)
@@ -70,7 +82,7 @@ for a function to disassemble."
     (define-key map (kbd "C-c C-d v")	'selime-describe-variable)
     (define-key map (kbd "C-c C-c")	'compile-defun)
     (define-key map (kbd "C-c M-d")	'selime-disassemble)
-    (define-key map (kbd "C-c C-m")	'pp-macroexpand-last-sexp)
+    (define-key map (kbd "C-c C-m")	'selime-macroexpand)
     (define-key map (kbd "C-c C-k")	'eval-buffer)
     (define-key map (kbd "C-c M-k")	'eval-buffer)
     map))
