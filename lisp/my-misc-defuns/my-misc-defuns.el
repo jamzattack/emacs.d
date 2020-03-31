@@ -63,7 +63,7 @@ optional arguments ARGS."
 ;;; eww.  Useful for writing in org-mode and exporting to html.
 ;;;###autoload
 (defun eww-open-html-of-current-file ()
-  "Opens a pdf file of the same name as the current file"
+  "Opens an html file of the same name as the current file"
   (interactive)
   (eww-open-file (concat
                   (file-name-sans-extension buffer-file-name)
@@ -79,12 +79,12 @@ optional arguments ARGS."
 
 ;;; If region is active, indent it.  Otherwise, indent defun.
 ;;;###autoload
-(defun indent-region-or-defun-please ()
+(defun indent-region-or-defun-please (&optional whole-buffer)
   "Indent region if it is active, otherwise indent defun.  With
 prefix arg, indent the whole buffer."
-  (interactive)
+  (interactive "P")
   (let ((bounds (cond
-  		 (current-prefix-arg
+  		 (whole-buffer
   		  (cons (point-min) (point-max)))
   		 ((region-active-p)
   		  (car (region-bounds)))

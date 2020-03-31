@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "my-misc-defuns" "my-misc-defuns.el" (24191
-;;;;;;  18020 485305 16000))
+;;;### (autoloads nil "my-misc-defuns" "my-misc-defuns.el" (24192
+;;;;;;  17417 972245 151000))
 ;;; Generated autoloads from my-misc-defuns.el
 
 (autoload 'system-apropos "my-misc-defuns" "\
@@ -31,15 +31,16 @@ Using `find-dired', list all the videos a specified directory.
 Opens a pdf file of the same name as the current file" t nil)
 
 (autoload 'eww-open-html-of-current-file "my-misc-defuns" "\
-Opens a pdf file of the same name as the current file" t nil)
+Opens an html file of the same name as the current file" t nil)
 
 (autoload 'notmuch-new-async "my-misc-defuns" "\
 Downloads new mail and adds it to the notmuch database" t nil)
 
 (autoload 'indent-region-or-defun-please "my-misc-defuns" "\
+Indent region if it is active, otherwise indent defun.  With
+prefix arg, indent the whole buffer.
 
-
-\(fn &optional COLUMN)" t nil)
+\(fn &optional WHOLE-BUFFER)" t nil)
 
 ;;;***
 
