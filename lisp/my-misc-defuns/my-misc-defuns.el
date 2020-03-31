@@ -88,7 +88,13 @@ prefix arg, indent the whole buffer."
   		  (cons (point-min) (point-max)))
   		 ((region-active-p)
   		  (car (region-bounds)))
-  		 (t (bounds-of-thing-at-point 'defun)))))
+  		 (t (or (bounds-of-thing-at-point 'defun)
+			(cons (save-excursion
+				(backward-paragraph 1)
+				(point))
+			      (save-excursion
+				(forward-paragraph 1)
+				(point))))))))
     (indent-region (car bounds) (cdr bounds))))
 
 (provide 'my-misc-defuns)
