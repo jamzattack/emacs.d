@@ -1,4 +1,5 @@
 alias transmission (transmission)
+alias erc call-interactively #'erc
 alias ed comint ed $*
 alias pacman sudo pacman $*
 alias d dired $*
