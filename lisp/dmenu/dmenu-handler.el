@@ -11,7 +11,8 @@
 Optional argument FLAGS sets mpv flags; interactively, a prefix
 arg prompts for these flags."
   (interactive (list
-                (read-string "stream video: " (shr-url-at-point nil))
+                (read-string "stream video: " (or (shr-url-at-point nil)
+						  (thing-at-point 'url t)))
 		(when current-prefix-arg
 		  (read-string "mpv flags: "))))
   (start-process-shell-command 
