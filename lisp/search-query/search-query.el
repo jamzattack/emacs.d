@@ -20,11 +20,17 @@ host."
   (browse-url
    (concat "https://m.youtube.com/search?q=" query)))
 
-(defun wikipedia-search (query)
-  "Search wikipedia. Called interactively, prompt for a QUERY."
-  (interactive (list (read-string "Wikipedia: ")))
+(defun wikipedia-search (query &optional language)
+  "Search wikipedia.  Called interactively, prompt for a QUERY.
+With prefix arg LANGUAGE, prompt for language code"
+  (interactive (list (read-string "Wikipedia: ")
+		     (when current-prefix-arg
+		       (read-string "Language: "))))
   (browse-url
-   (concat "https://en.wikipedia.org/wiki/Special:Search?search=" query)))
+   (format "https://%s.wikipedia.org/wiki/Special:Search?search=%s"
+	   (or language
+	       "en")
+	   query)))
 
 (defun wiktionary-word (word)
   "Search wiktionary for a word. With a prefix arg, prompt for a
