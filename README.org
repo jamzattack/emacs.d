@@ -345,7 +345,8 @@ The only reason for this to be here is to set my nick.
 
 #+begin_src emacs-lisp
   (use-package erc
-    :custom (erc-nick "jamzattack")
+    :custom ((erc-nick "jamzattack")
+             (erc-hide-list '("JOIN" "PART" "QUIT")))
     :config
     (add-to-list 'erc-modules 'notifications)
     (erc-track-mode))
