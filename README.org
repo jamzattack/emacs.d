@@ -755,6 +755,7 @@ Allow themes to be loaded from the [[file:lisp/themes][lisp/themes]] directory, 
 
 #+begin_src emacs-lisp
   (use-package custom
+    :when window-system
     :custom (custom-theme-directory
              (expand-file-name "lisp/themes" user-emacs-directory))
     :config (load-theme 'custom t))
@@ -850,6 +851,7 @@ Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here.]]
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
     :load-path "lisp/toggle-touchpad"
+    :when window-system
     :bind
     (("<XF86TouchpadToggle>" . 'toggle-touchpad)
      ("C-z \\" . 'toggle-touchpad)))
@@ -1375,6 +1377,7 @@ An mpd library.  I use it only for random/shuffle.
 
 #+begin_src emacs-lisp
   (use-package libmpdee
+    :when (executable-find "mpd")
     :ensure t)
 #+end_src
 
@@ -1385,6 +1388,7 @@ A more flexible mpd client than mingus.
 #+begin_src emacs-lisp
   (use-package mpdel
     :ensure t
+    :when (executable-find "mpd")
     :after libmpdee
     :bind-keymap (("s-m" . mpdel-core-map))
     :bind (("s-a" . mpdel-core-open-albums)
@@ -1408,6 +1412,7 @@ have a habit of hitting =C-x C-s= more than I should.
 #+begin_src emacs-lisp
   (use-package notmuch
     :ensure t
+    :when (executable-find "notmuch")
     :after eww
     :custom ((notmuch-archive-tags '("-unread" "-inbox"))
              (mail-user-agent 'notmuch-user-agent)
@@ -1432,6 +1437,7 @@ An emacs front-end for the transmission bittorrent daemon
 #+begin_src emacs-lisp
   (use-package transmission
     :ensure t
+    :when (executable-find "transmission-daemon")
     :after (eww)
     :config
     (defun transmission-add-url-at-point (url)
@@ -1627,6 +1633,7 @@ completion. fish must be installed.
 #+begin_src emacs-lisp
   (use-package fish-completion
     :after eshell
+    :when (executable-find "fish")
     :ensure t
     :config
     (global-fish-completion-mode))
