@@ -1204,16 +1204,20 @@ for looking at READMEs though, so I add view-mode to the hook.
 
 *** Geiser
 
-Interact with scheme in a powerful and emacsy way.  I set guile as the
-default scheme program.
+Interact with scheme in a powerful and emacsy way.  I set the scheme
+program name (which isn't actually a part of geiser) to whichever
+scheme is installed, in order of preference.
 
 #+begin_src emacs-lisp
   (use-package geiser
     :ensure t
-    :custom ((scheme-program-name (if (executable-find "guile3.0")
-                                      "guile3.0"
-                                    "guile"))
-             (geiser-default-implementation 'guile)))
+    :custom ((scheme-program-name (or (executable-find "guile3.0")
+                                      (executable-find "guile")
+                                      (executable-find "chez")
+                                      (executable-find "mit-scheme")
+                                      "scheme"))
+             (geiser-default-implementation 'guile)
+             (geiser-repl-history-filename "~/.cache/geiser/history")))
 #+end_src
 
 *** SLIME
