@@ -198,7 +198,8 @@ keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
 
 #+begin_src emacs-lisp
   (use-package elisp-mode
-    :custom (initial-major-mode 'emacs-lisp-mode))
+    :custom (initial-major-mode 'emacs-lisp-mode)
+    :bind ("<C-M-backspace>" . backward-kill-sexp))
 #+end_src
 
 *** Typesetting
