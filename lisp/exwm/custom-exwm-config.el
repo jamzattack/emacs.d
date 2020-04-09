@@ -1,4 +1,6 @@
 (require 'exwm)
+(require 'helm-buffers)
+(require 'eshell)
 
 (defun custom-exwm-window-setup ()
   "Other configurations."
@@ -101,6 +103,9 @@ output."
        (,(kbd "s-w") . exwm-workspace-switch)
        ;; 's-&': Launch application.
        (,(kbd "s-&") . exwm-shell-command)
+
+       (,(kbd "s-e") . eshell)
+       (,(kbd "s-b") . helm-mini)
        ;; 's-N': Switch to certain workspace.
        ,@(mapcar (lambda (i)
 		   `(,(kbd (format "s-%d" i)) .
