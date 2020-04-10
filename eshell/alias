@@ -9,4 +9,4 @@ alias S systemctl $*
 alias SS sudo systemctl $*
 alias SU systemctl --user $*
 alias f (find-file $*)
-alias push (let ((display-buffer-alist (cons '("\\* git push\\*" display-buffer-no-window) display-buffer-alist))) (async-shell-command "git push" "* git push*"))
+alias push (let ((display-buffer-alist (cons '("\\ *git push\\*" display-buffer-no-window) display-buffer-alist))) (async-shell-command "git push" " *git push*"))
