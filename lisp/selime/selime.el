@@ -86,6 +86,29 @@ for a function to disassemble."
     (switch-to-buffer-other-window buffer)
     (inferior-emacs-lisp-mode)))
 
+;;;###autoload
+(defun selime-compile-file (&optional file)
+  "Compiles the the current file without loading it.  With prefix
+arg, read file name from minibuffer."
+  (interactive (list (if current-prefix-arg
+			 (read-file-name "Compile file: ")
+		       (buffer-file-name (current-buffer)))))
+  (if file
+      (byte-compile-file file)
+    (user-error "Buffer is not associated with a file.")))
+
+;;;###autoload
+(defun selime-compile-and-load-file (&optional file)
+  "Compiles the file that the current buffer is visiting, or
+evals the buffer if it isn't visiting a file.  With prefix
+arg, read file name from minibuffer."
+  (interactive (list (if current-prefix-arg
+			 (read-file-name "Compile and load file: ")
+		       (buffer-file-name (current-buffer)))))
+  (if file
+      (byte-compile-file file t)
+    (eval-buffer)))
+
 (defvar selime-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-d C-d")	'selime-describe-symbol)
@@ -97,8 +120,8 @@ for a function to disassemble."
     (define-key map (kbd "C-c C-c")	'compile-defun)
     (define-key map (kbd "C-c M-d")	'selime-disassemble)
     (define-key map (kbd "C-c C-m")	'selime-macroexpand)
-    (define-key map (kbd "C-c C-k")	'eval-buffer)
-    (define-key map (kbd "C-c M-k")	'eval-buffer)
+    (define-key map (kbd "C-c C-k")	'selime-compile-and-load-file)
+    (define-key map (kbd "C-c M-k")	'selime-compile-file)
     (define-key map (kbd "C-c C-z")	'selime-ielm)
     (define-key map (kbd "C-c C-t")	'trace-function-foreground)
     map))
