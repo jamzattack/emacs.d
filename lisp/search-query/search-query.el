@@ -1,3 +1,7 @@
+(require 'url-util)
+(require 'thing-at-pt)
+(require 'browse-url)
+
 ;;;###autoload
 (defun torrentz2-search (query)
   "Search torrentz2.eu. Called interactively, prompt for a
