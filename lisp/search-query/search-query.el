@@ -1,5 +1,4 @@
 (require 'url-util)
-(require 'thing-at-pt)
 (require 'browse-url)
 
 ;;;###autoload
