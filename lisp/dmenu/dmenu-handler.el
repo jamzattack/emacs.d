@@ -6,6 +6,7 @@
   "The directory in which to download files using
 `dmenu-handler'")
 
+;;;###autoload
 (defun dmenu-handler-stream (url &optional flags)
   "Plays video with mpv, provided URL is supported by youtube-dl.
 Optional argument FLAGS sets mpv flags; interactively, a prefix
@@ -25,6 +26,7 @@ arg prompts for these flags."
     url))
   (message "%s is being streamed" url))
 
+;;;###autoload
 (defun dmenu-handler-download-video (url &optional directory)
   "Downloads the audio of URL using youtube-dl."
   (interactive (list
@@ -43,6 +45,7 @@ arg prompts for these flags."
 	     url)))
   (message "%s downloaded in %s" url (or directory dmenu-handler-video-directory)))
 
+;;;###autoload
 (defun dmenu-handler-audio (url &optional directory)
   "Downloads the audio of URL using youtube-dl."
   (interactive (list
@@ -60,12 +63,14 @@ arg prompts for these flags."
 	     url)))
   (message "%s downloaded in %s" url (or directory dmenu-handler-audio-directory)))
 
+;;;###autoload
 (defun dmenu-handler-save-to-register (url)
   "Copies the last URL into a register."
   (set-register
    (register-read-with-preview "Copy URL to register: ")
    url))
 
+;;;###autoload
 (defun dmenu-handler-image (url)
   "View URL as an image within emacs"
   (start-process-shell-command
@@ -74,6 +79,7 @@ arg prompts for these flags."
 	   "/tmp/dmenu-handler-image "
 	   "&& emacsclient /tmp/dmenu-handler-image")))
 
+;;;###autoload
 (defun dmenu-handler-pdf (url)
   "View URL as a pdf within emacs"
   (start-process-shell-command
@@ -82,6 +88,7 @@ arg prompts for these flags."
 	   "/tmp/dmenu-handler-pdf "
 	   "&& emacsclient /tmp/dmenu-handler-pdf")))
 
+;;;###autoload
 (defun dmenu-handler-read (prompt)
   "Reads input for `dmenu-handler'"
   (completing-read (concat prompt " : ")
@@ -94,34 +101,33 @@ arg prompts for these flags."
                      "Download audio"
                      "View as pdf")))
 
+;;;###autoload
 (defun dmenu-handler-get-url ()
-  "Converts fontified kill ring contents into nice plaintext"
-  (with-temp-buffer
-    (yank)
-    (font-lock-mode -1)
-    (buffer-string)))
+  "Get URL at point or from minibuffer"
+  (or (thing-at-point 'url t)
+      (read-string "URL: ")))
 
+;;;###autoload
 (defun dmenu-handler (url)
   "Select a way to use a URL"
   (interactive (list (dmenu-handler-get-url)))
-  (let ((choice (dmenu-handler-read url))
-	(fixed-url (car (split-string url "&"))))
-    (cond
-     ((equal "Save to register" choice)
-      (dmenu-handler-save-to-register fixed-url))
-     ((equal "eww" choice)
-      (eww fixed-url))
-     ((equal "external browser" choice)
-      (eww-browse-with-external-browser fixed-url))
-     ((equal "View as image" choice)
-      (dmenu-handler-image fixed-url))
-     ((equal "View as pdf" choice)
-      (dmenu-handler-pdf fixed-url))
-     ((equal "Stream" choice)
-      (dmenu-handler-stream fixed-url))
-     ((equal "Download video" choice)
-      (dmenu-handler-download-video fixed-url))
-     ((equal "Download audio" choice)
-      (dmenu-handler-audio fixed-url)))))
+  (let ((choice (dmenu-handler-read url)))
+    (pcase choice
+     ("Save to register"
+      (dmenu-handler-save-to-register url))
+     ("eww"
+      (eww url))
+     ("external browser"
+      (eww-browse-with-external-browser url))
+     ("View as image"
+      (dmenu-handler-image url))
+     ("View as pdf"
+      (dmenu-handler-pdf url))
+     ("Stream"
+      (dmenu-handler-stream url))
+     ("Download video"
+      (dmenu-handler-download-video url))
+     ("Download audio"
+      (dmenu-handler-audio url)))))
 
 (provide 'dmenu-handler)
