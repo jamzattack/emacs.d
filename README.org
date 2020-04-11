@@ -876,7 +876,6 @@ Located [[file:lisp/lilypond-mode][here.]]
         (setq-local compile-command
                     (format "lilypond %s" buffer-file-name)))
       (setq-local comment-column 0))
-    :defer 20
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup)
     :config
