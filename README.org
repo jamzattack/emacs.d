@@ -876,9 +876,13 @@ Located [[file:lisp/lilypond-mode][here.]]
         (setq-local compile-command
                     (format "lilypond %s" buffer-file-name)))
       (setq-local comment-column 0))
+    (defun custom-lilypond-what-beat-timer ()
+      (when (eq major-mode 'LilyPond-mode)
+        (LilyPond-what-beat)))
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup)
     :config
+    (run-with-idle-timer 1 t #'custom-lilypond-what-beat-timer)
     (defun LilyPond-command-view ()
       (interactive)
       (let ((master-file (or LilyPond-master-file
