@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "selime" "selime.el" (24191 20553 914913 584000))
+;;;### (autoloads nil "selime" "selime.el" (0 0 0 0))
 ;;; Generated autoloads from selime.el
 
 (autoload 'selime-describe-function "selime" "\
@@ -31,6 +31,19 @@ Macro expand the following sexp." t nil)
 Open IELM in another window.
 
 \(fn &optional BUFFER-NAME)" t nil)
+
+(autoload 'selime-compile-file "selime" "\
+Compiles the the current file without loading it.  With prefix
+arg, read file name from minibuffer.
+
+\(fn &optional FILE)" t nil)
+
+(autoload 'selime-compile-and-load-file "selime" "\
+Compiles the file that the current buffer is visiting, or
+evals the buffer if it isn't visiting a file.  With prefix
+arg, read file name from minibuffer.
+
+\(fn &optional FILE)" t nil)
 
 (autoload 'selime-mode "selime" "\
 Enable Slime-style documentation for elisp buffers.
