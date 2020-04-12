@@ -10,7 +10,7 @@
    `(secondary-selection ((,class (:background "khaki1" :extend t))))
    `(helm-source-header ((,class (:inherit 'bold))))
    `(tooltip ((,class (:inherit 'default))))
-   `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
+   ;; `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
    `(region ((,class (:background "lightgoldenrod2"))))
    `(fringe ((,class (:inherit 'default))))
    `(mode-line ((,class (:background "sky blue"))))
