@@ -6,10 +6,10 @@
 This is my emacs config file.  It is written in org-mode so that I can
 brag about how dope org-mode is.  [[file:README.org][This file]] contains my main
 configuration, which is tangled to [[file:lisp/config.el][config.el]].  [[file:init.el][init.el]] sets the
-variable =custom-file= to [[file:custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
-[[file:custom.el][custom.el]].
+variable =custom-file= to [[file:lisp/custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
+[[file:lisp/custom.el][custom.el]].
 
-Note: [[file:custom.el][custom.el]] should not be edited manually, as it is used by emacs
+Note: [[file:lisp/custom.el][custom.el]] should not be edited manually, as it is used by emacs
 for settings changed using the customisation interface.
 
 My own packages and other things that I need to =require= are housed
@@ -913,7 +913,7 @@ My custom settings for EXWM - not much different from the
 =exwm-config-default=, but doesn't get in my way as much.  It provides
 the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
 
-Located [[file:lisp/custom-exwm-config/custom-exwm-config.el][here.]]
+Located [[file:lisp/exwm/custom-exwm-config.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
