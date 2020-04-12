@@ -1,7 +1,6 @@
-alias transmission (transmission)
 alias erc call-interactively #'erc
 alias ed comint ed $*
-alias pacman sudo pacman $*
+alias pacman yay --repo $*
 alias d dired $*
 alias l ls -lah $*
 alias ,p ls -lh $*
