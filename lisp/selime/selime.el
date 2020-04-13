@@ -109,6 +109,21 @@ arg, read file name from minibuffer."
       (byte-compile-file file t)
     (eval-buffer)))
 
+;;;###autoload
+(defun selime-compile-last-sexp (&optional arg)
+  "Compile and evaluate the last sexp.
+Print the result in the echo area.
+With argument ARG, insert value in current buffer after the form."
+  (interactive "P")
+  (declare (interactive-only))
+  (let ((value (eval
+		(byte-compile-sexp
+		 (read (thing-at-point 'sexp t)))
+		lexical-binding)))
+    (if arg
+	(prin1 value (current-buffer))
+      (message "%s" (prin1-to-string value)))))
+
 (defvar selime-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-d C-d")	'selime-describe-symbol)
@@ -124,6 +139,7 @@ arg, read file name from minibuffer."
     (define-key map (kbd "C-c M-k")	'selime-compile-file)
     (define-key map (kbd "C-c C-z")	'selime-ielm)
     (define-key map (kbd "C-c C-t")	'trace-function-foreground)
+    (define-key map (kbd "C-c C-e")	'selime-compile-last-sexp)
     map))
 
 ;;;###autoload
