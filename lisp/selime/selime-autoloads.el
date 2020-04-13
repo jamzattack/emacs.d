@@ -45,6 +45,13 @@ arg, read file name from minibuffer.
 
 \(fn &optional FILE)" t nil)
 
+(autoload 'selime-compile-last-sexp "selime" "\
+Compile and evaluate the last sexp.
+Print the result in the echo area.
+With argument ARG, insert value in current buffer after the form.
+
+\(fn &optional ARG)" t nil)
+
 (autoload 'selime-mode "selime" "\
 Enable Slime-style documentation for elisp buffers.
 
