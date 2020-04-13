@@ -31,6 +31,8 @@
 (require 'help-fns)
 (require 'pp)
 
+;;; Help
+
 ;;;###autoload
 (defun selime-describe-function ()
   "If package \"helpful\" is installed, call `helpful-callable',
@@ -58,33 +60,7 @@ otherwise call `describe-symbol' on the symbol at point"
       (call-interactively #'helpful-at-point)
     (describe-symbol (symbol-at-point))))
 
-;;;###autoload
-(defun selime-disassemble (function)
-  "If point is on a function, disassemble it.  Otherwise prompt
-for a function to disassemble."
-  (interactive (list (let ((fun (symbol-at-point)))
-		       (if (fboundp fun)
-			   fun
-			 (intern
-			  (completing-read "Disassemble function: " obarray 'fboundp t nil nil ))))))
-  (disassemble function))
-
-;;;###autoload
-(defun selime-macroexpand ()
-  "Macro expand the following sexp."
-  (interactive)
-  (save-excursion
-    (forward-sexp)
-    (pp-macroexpand-last-sexp nil)))
-
-;;;###autoload
-(defun selime-ielm (&optional buffer-name)
-  "Open IELM in another window."
-  (interactive (list (when current-prefix-arg
-		       (read-string "IELM Buffer Name: "))))
-  (let ((buffer (get-buffer-create (or buffer-name "*ielm*"))))
-    (switch-to-buffer-other-window buffer)
-    (inferior-emacs-lisp-mode)))
+;;; Compilation
 
 ;;;###autoload
 (defun selime-compile-file (&optional file)
@@ -123,6 +99,48 @@ With argument ARG, insert value in current buffer after the form."
     (if arg
 	(prin1 value (current-buffer))
       (message "%s" (prin1-to-string value)))))
+
+;;; Misc
+
+;;;###autoload
+(defun selime-macroexpand ()
+  "Macro expand the following sexp."
+  (interactive)
+  (let ((buffer (get-buffer-create "*selime macroexpand*"))
+	(sexp (thing-at-point 'sexp t)))
+    (if (eq (current-buffer) buffer)
+	(save-excursion
+	  (let ((bounds (bounds-of-thing-at-point 'sexp)))
+	    (delete-region (car bounds) (cdr bounds))
+	    (insert (pp-to-string (read sexp)))))
+      (pp-display-expression (macroexpand-1 (read sexp))
+			     buffer))
+    (with-current-buffer buffer
+      (indent-region (point-min) (point-max)))))
+
+
+;;;###autoload
+(defun selime-disassemble (function)
+  "If point is on a function, disassemble it.  Otherwise prompt
+for a function to disassemble."
+  (interactive (list (let ((fun (symbol-at-point)))
+		       (if (fboundp fun)
+			   fun
+			 (intern
+			  (completing-read "Disassemble function: " obarray 'fboundp t nil nil ))))))
+  (disassemble function))
+
+;;;###autoload
+(defun selime-ielm (&optional buffer-name)
+  "Open IELM in another window.  With prefix arg BUFFER-NAME,
+prompt for the name of the new IELM buffer."
+  (interactive (list (when current-prefix-arg
+		       (read-string "IELM Buffer Name: "))))
+  (let ((buffer (get-buffer-create (or buffer-name "*ielm*"))))
+    (switch-to-buffer-other-window buffer)
+    (inferior-emacs-lisp-mode)))
+
+;;; Selime-mode
 
 (defvar selime-mode-map
   (let ((map (make-sparse-keymap)))
