@@ -1111,9 +1111,12 @@ Helpful gives a whole lot more information than describe-*.  I also
 bind =C-h SPC= to helpful-at-point, just to save a keypress here and
 there.
 
+I sent in a [[file:lisp/helpful/helpful-no-f.diff][patch]] to remove helpful's dependency on f.el, so I use a
+local version rather than the one in melpa.
+
 #+begin_src emacs-lisp
   (use-package helpful
-    :ensure t
+    :load-path "lisp/helpful"
     :init
     <<helpful-edit-source-temporarily>>
     :bind (("C-h f" . helpful-callable)
