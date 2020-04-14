@@ -579,14 +579,13 @@ bar.
 
 **** Scroll bar
 
-I've started to use scroll-bar-mode.  It's not so bad if the width is
-small enough.
+Disable the scroll bar using =customize=, but set the width in case I
+decide to turn it on.
 
 #+begin_src emacs-lisp
   (use-package scroll-bar
-    :custom ((scroll-bar-mode 'right)
-             (scroll-bar-width 6 t))
-    :config (scroll-bar-mode -1))
+    :custom ((scroll-bar-mode nil)
+             (scroll-bar-width 6 t)))
 #+end_src
 
 **** Menu bar
