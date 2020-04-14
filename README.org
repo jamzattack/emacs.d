@@ -762,10 +762,9 @@ Allow themes to be loaded from the [[file:lisp/themes][lisp/themes]] directory, 
 
 #+begin_src emacs-lisp
   (use-package custom
-    :when window-system
-    :custom (custom-theme-directory
-             (expand-file-name "lisp/themes" user-emacs-directory))
-    :config (load-theme 'custom t))
+    :custom ((custom-theme-directory
+              (expand-file-name "lisp/themes" user-emacs-directory))
+             (custom-enabled-themes '(custom))))
 #+end_src
 
 * My packages
