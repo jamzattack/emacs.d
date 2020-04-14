@@ -21,9 +21,12 @@
 (defun exwm-fullscreen-or-reset ()
   "Toggle EXWM fullscreen layout"
   (interactive)
-  (if (exwm-layout--fullscreen-p)
-      (exwm-reset)
-    (exwm-layout-set-fullscreen)))
+  (let ((id (exwm--buffer->id (current-buffer))))
+    (if (exwm-layout--fullscreen-p)
+	(progn
+	  (exwm-input-grab-keyboard id)
+	  (exwm-layout-unset-fullscreen id))
+      (exwm-layout-set-fullscreen id))))
 
 ;; Start a program without creating a buffer
 (defun exwm-shell-command (command)
