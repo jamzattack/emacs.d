@@ -13,39 +13,43 @@ Note: [[file:lisp/custom.el][custom.el]] should not be edited manually, as it is
 for settings changed using the customisation interface.
 
 My own packages and other things that I need to =require= are housed
-in [[file:lisp][lisp/]].  I no longer include the [[file:elpa/][elpa]] directory, so the first
-startup will take some time.
+in [[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so startup will
+take some time.
 
 * Startup
 
 Some things to do before everything else.
 
-** Repositories and initialisation
+** Straight
 
-Enable melpa archive and making sure packages work.
+Install [[https://github.com/raxod502/straight.el][straight.el]].  It gets a lot of hype, so I'm trying to use it
+instead of the built-in =package.el=.
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path (concat user-emacs-directory "lisp"))
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                           ("melpa" . "http://melpa.org/packages/")))
-  (package-initialize)
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 #+end_src
 
 ** Use-package and bind-key
 
-Install use-package if not installed.  Also set the variable
-=personal-keybindings= to nil, so that bind-key doesn't freak out when
-byte-compiling.
+Install use-package using =straight-use-package=, and load both
+=use-package= and =bind-key=.  Note =bind-key= is a dependency of
+=use-package=, so I don't need to install it manually.
 
 #+begin_src emacs-lisp
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package)
-    (package-install 'diminish))
-
-  (setq personal-keybindings nil)
+  (straight-use-package 'use-package)
+  (require 'use-package)
+  (require 'bind-key)
 #+end_src
 
 ** Fonts
@@ -990,11 +994,11 @@ a few.
                helm-source-bookmark-set)))
 #+end_src
 
-* ELPA Packages
+* Packages installed with Straight
 
-This is where the packages installed within emacs are located.  All of
-these use the =:ensure= keyword, so that they are downloaded if they
-aren't already.
+This is where the packages installed with [[https://github.com/raxod502/straight.el][straight.el]] are located.
+All of these use the =:straight= keyword, so that they are downloaded
+if they aren't already.
 
 ** HELM
 
@@ -1007,7 +1011,7 @@ replace yank-pop but the latter is too engrained in my fingers.
 
 #+begin_src emacs-lisp
   (use-package helm
-    :ensure t
+    :straight t
     :diminish
     :custom ((helm-completion-style 'emacs)
              (helm-describe-variable-function 'helpful-variable)
@@ -1059,7 +1063,7 @@ packages.
 
 #+begin_src emacs-lisp
   (use-package helm-system-packages
-    :ensure t
+    :straight t
     :after helm
     :bind (("C-h C-p" . helm-system-packages)))
 #+end_src
@@ -1071,7 +1075,7 @@ course).
 
 #+begin_src emacs-lisp
   (use-package helm-notmuch
-    :ensure t
+    :straight t
     :after (helm notmuch))
 #+end_src
 
@@ -1094,7 +1098,7 @@ the helm alternatives.
 
 #+begin_src emacs-lisp
   (use-package helm-eww
-    :ensure t
+    :straight t
     :bind (("C-x r e" . helm-eww-bookmarks)
            (:map eww-mode-map
                  ("B" . helm-eww-bookmarks)
@@ -1109,7 +1113,7 @@ Similar to =occur=, but only shows headings.
 
 #+begin_src emacs-lisp
   (use-package helm-org
-    :ensure t
+    :straight t
     :after helm
     :bind (:map org-mode-map
                 ("C-c M-o" . helm-org-in-buffer-headings)))
@@ -1182,7 +1186,7 @@ epubs, and set the default width to 80C.
 
 #+begin_src emacs-lisp
   (use-package nov
-    :ensure t
+    :straight t
     :custom (nov-text-width 80)
     :mode ("\\.epub\\'" . nov-mode))
 #+end_src
@@ -1194,7 +1198,7 @@ provides some note-taking facilities.
 
 #+begin_src emacs-lisp
   (use-package pdf-tools
-    :ensure t
+    :straight t
     :hook (pdf-view-mode . auto-revert-mode)
     :config
     (pdf-tools-install))
@@ -1207,7 +1211,7 @@ for looking at READMEs though, so I add view-mode to the hook.
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
-    :ensure t
+    :straight t
     :hook (markdown-mode . view-mode))
 #+end_src
 
@@ -1221,7 +1225,7 @@ scheme is installed, in order of preference.
 
 #+begin_src emacs-lisp
   (use-package geiser
-    :ensure t
+    :straight t
     :custom ((scheme-program-name (or (executable-find "guile3.0")
                                       (executable-find "guile")
                                       (executable-find "chez")
@@ -1239,7 +1243,7 @@ and move the history file out of $HOME.
 
 #+begin_src emacs-lisp
   (use-package slime
-    :ensure t
+    :straight t
     :custom ((inferior-lisp-program "sbcl")
              (slime-contribs '(slime-fancy))
              (slime-completion-at-point-functions
@@ -1264,7 +1268,7 @@ Enabled for lisp modes only.
 
 #+begin_src emacs-lisp
   (use-package paredit
-    :ensure t
+    :straight t
     :diminish
     :hook ((emacs-lisp-mode . paredit-mode)
            (lisp-interaction-mode . paredit-mode)
@@ -1282,7 +1286,7 @@ often, but it's nice to be able to see what a program does sometimes.
 
 #+begin_src emacs-lisp
   (use-package elf-mode
-    :ensure t
+    :straight t
     :config (elf-setup-default))
 #+end_src
 
@@ -1294,7 +1298,7 @@ Export to markdown.
 
 #+begin_src emacs-lisp
   (use-package ox-gfm
-    :ensure t)
+    :straight t)
 #+end_src
 
 *** Html export
@@ -1303,7 +1307,7 @@ Export to html.
 
 #+begin_src emacs-lisp
   (use-package htmlize
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** EXWM - Emacs X Window Manager
@@ -1315,7 +1319,7 @@ the EXWM frame. i.e. in ~.xinitrc
 #+begin_src emacs-lisp
   (use-package exwm
     :after (custom-exwm-config)
-    :ensure t
+    :straight t
     :config
     (custom-exwm-config))
 #+end_src
@@ -1328,7 +1332,7 @@ colour.
 
 #+begin_src emacs-lisp
   (use-package desktop-environment
-    :ensure t
+    :straight t
     :diminish
     :init
     <<custom-screenlock-command>>
@@ -1368,7 +1372,7 @@ doesn't play nice with complicated things such as nethack.
 
 #+begin_src emacs-lisp
   (use-package vterm
-    :ensure t
+    :straight t
     :config
     <<eshell/vterm>>)
 #+end_src
@@ -1393,7 +1397,7 @@ An mpd library.  I use it only for random/shuffle.
 #+begin_src emacs-lisp
   (use-package libmpdee
     :when (executable-find "mpd")
-    :ensure t)
+    :straight t)
 #+end_src
 
 *** MPDel
@@ -1402,7 +1406,7 @@ A more flexible mpd client than mingus.
 
 #+begin_src emacs-lisp
   (use-package mpdel
-    :ensure t
+    :straight t
     :when (executable-find "mpd")
     :after libmpdee
     :bind-keymap (("s-m" . mpdel-core-map))
@@ -1426,7 +1430,7 @@ have a habit of hitting =C-x C-s= more than I should.
 
 #+begin_src emacs-lisp
   (use-package notmuch
-    :ensure t
+    :straight t
     :when (executable-find "notmuch")
     :after eww
     :custom ((notmuch-archive-tags '("-unread" "-inbox"))
@@ -1451,7 +1455,7 @@ An emacs front-end for the transmission bittorrent daemon
 
 #+begin_src emacs-lisp
   (use-package transmission
-    :ensure t
+    :straight t
     :when (executable-find "transmission-daemon")
     :after (eww)
     :config
@@ -1472,7 +1476,7 @@ as in [[* EWW][eww]].
 
 #+begin_src emacs-lisp
   (use-package elfeed
-    :ensure t
+    :straight t
     :custom
     ((elfeed-db-directory (expand-file-name
                            "elfeed" "~/.cache"))
@@ -1548,7 +1552,7 @@ in a terminal emulator)
 
 #+begin_src emacs-lisp
   (use-package rainbow-mode
-    :ensure t
+    :straight t
     :bind (("C-c h" . 'rainbow-mode)))
 #+end_src
 
@@ -1558,7 +1562,7 @@ Minor mode that highlights parentheses well
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
-    :ensure t
+    :straight t
     :hook (prog-mode . rainbow-delimiters-mode))
 
 #+end_src
@@ -1569,7 +1573,7 @@ From Alezost, remove clutter in the mode-line.
 
 #+begin_src emacs-lisp
   (use-package dim
-    :ensure t
+    :straight t
     :config
     (dim-major-names
      '((lisp-interaction-mode "eλ")
@@ -1599,7 +1603,7 @@ you're in (sometimes the mode-line just doesn't cut it).
 
 #+begin_src emacs-lisp
   (use-package dimmer
-    :ensure t
+    :straight t
     :custom (dimmer-fraction 0.3)
     :config (dimmer-mode t))
 #+end_src
@@ -1614,18 +1618,19 @@ your choice.
 
 #+begin_src emacs-lisp
   (use-package scratch
-    :ensure t
+    :straight t
     :bind (("C-z s" . scratch)
            ("C-z C-s" . scratch)))
 #+end_src
 
 *** edwina
 
-My PR has been merged! I can now use the MELPA package.
+Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  The function
+=edwina-setup-dwm-keys= binds similar keys to what dwm actually uses.
 
 #+begin_src emacs-lisp
   (use-package edwina
-    :ensure t
+    :straight t
     :config
     (edwina-setup-dwm-keys 'super)
     (edwina-mode 0))
@@ -1637,7 +1642,7 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]]
 
 #+begin_src emacs-lisp
   (use-package 0x0
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** fish completion
@@ -1649,7 +1654,7 @@ completion. fish must be installed.
   (use-package fish-completion
     :after eshell
     :when (executable-find "fish")
-    :ensure t
+    :straight t
     :config
     (global-fish-completion-mode))
 #+end_src
@@ -1661,7 +1666,7 @@ installed with your system's package manager.
 
 #+begin_src emacs-lisp
   (use-package system-packages
-    :ensure t)
+    :straight t)
 #+end_src
 
 ** Not really useful
@@ -1672,7 +1677,7 @@ A 'Lorem ipsum' generator
 
 #+begin_src emacs-lisp
   (use-package lorem-ipsum
-    :ensure t)
+    :straight t)
 #+end_src
 
 * Making this requirable
