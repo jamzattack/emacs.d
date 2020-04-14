@@ -22,7 +22,7 @@ lisp/custom.el
 # compiled packages
 lisp/*/*.elc
 lisp/*.elc
-elpa
+straight
 
 # files
 helm-adaptive-history
