@@ -48,6 +48,7 @@ Install use-package using =straight-use-package=, and load both
 
 #+begin_src emacs-lisp
   (straight-use-package 'use-package)
+  (straight-use-package 'bind-key)
   (require 'use-package)
   (require 'bind-key)
 #+end_src
@@ -410,15 +411,6 @@ this if you use a different version.
     :custom ((dired-listing-switches "-lah --group-directories-first")
              (delete-by-moving-to-trash t))
     :bind ("C-x C-d" . dired-jump))
-#+end_src
-
-**** dired-async
-
-Make dired run actions in the background.
-
-#+begin_src emacs-lisp
-  (use-package dired-async
-    :config (dired-async-mode))
 #+end_src
 
 ** Shells
@@ -795,7 +787,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 #+begin_src emacs-lisp
   (use-package dmenu-handler
     :load-path "lisp/dmenu"
-    :init (autoload 'eww-mode-map "eww" nil nil 'keymap)
+    :after eww
     :bind
     (("C-z d" . 'dmenu-handler)
      ("C-z C-d" . 'dmenu-handler)
@@ -931,7 +923,9 @@ Located [[file:lisp/exwm/custom-exwm-config.el][here.]]
 
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
-    :load-path "lisp/exwm")
+    :load-path "lisp/exwm"
+    :after exwm
+    :config (custom-exwm-config))
 #+end_src
 
 ** Miscellaneous functions
@@ -1130,7 +1124,7 @@ local version rather than the one in melpa.
 
 #+begin_src emacs-lisp
   (use-package helpful
-    :load-path "lisp/helpful"
+    :straight t
     :init
     <<helpful-edit-source-temporarily>>
     :bind (("C-h f" . helpful-callable)
@@ -1318,10 +1312,7 @@ the EXWM frame. i.e. in ~.xinitrc
 
 #+begin_src emacs-lisp
   (use-package exwm
-    :after (custom-exwm-config)
-    :straight t
-    :config
-    (custom-exwm-config))
+    :straight t)
 #+end_src
 
 *** Desktop-environment (useful with EXWM)
@@ -1645,6 +1636,16 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]]
     :straight t)
 #+end_src
 
+*** dired-async
+
+Make dired run actions in the background.
+
+#+begin_src emacs-lisp
+  (use-package dired-async
+    :straight async
+    :config (dired-async-mode))
+#+end_src
+
 ** fish completion
 
 fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
@@ -1679,14 +1680,3 @@ A 'Lorem ipsum' generator
   (use-package lorem-ipsum
     :straight t)
 #+end_src
-
-* Making this requirable
-
-This file can be loaded with (require 'config) if it is in the
-load-path.  This is better than explicitly loading config.el because
-it will use the byte-compiled version.
-
-#+begin_src emacs-lisp
-  (provide 'config)
-#+end_src
-
