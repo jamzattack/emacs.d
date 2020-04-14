@@ -13,36 +13,28 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Define a function that loads my config file
-(defun config-load (&optional recompile)
+(defun config-load (&optional tangle)
   "Load my config file.
-If config.elc exists, load it. 
-If config.el exists, load it, then compile it.
-If config.org exists, tangle it, load it, compile it.
-If prefix arg RECOMPILE is non-nil, delete config.elc and
-config.el, then repeat."
+If config.el exists, load it.
+If config.org exists, tangle it and then load it.
+If prefix arg TANGLE is non-nil, tangle config.org even if
+config.el exists."
   (interactive "P")
   (let* ((dir (expand-file-name "lisp/" user-emacs-directory))
 	 (el (expand-file-name "config.el" dir))
-	 (elc (expand-file-name "config.elc" dir))
 	 (org (expand-file-name "config.org" user-emacs-directory)))
-    (cond (recompile
-	   (delete-file elc)
+    (cond (tangle
 	   (delete-file el)
 	   (config-load))
-	  ((file-exists-p elc)
-	   (when (featurep 'config)
-	     (unload-feature 'config t))
-	   (require 'config elc))
 	  ((file-exists-p el)
-	   (when (featurep 'config)
-	     (unload-feature 'config t))
-	   (byte-compile-file el)
-	   (config-load))
+	   (load-file el))
 	  ((file-exists-p org)
 	   (require 'org)
 	   (org-babel-tangle-file org)
 	   (config-load))
-	  (t (user-error "file \"%s\" not found" org)))))
+	  (t (user-error "file \"%s\" not found" org)))
+    (when (file-exists-p custom-file)
+      (load custom-file))))
 
 ;; Load config.org
 (config-load)
