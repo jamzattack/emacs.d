@@ -562,6 +562,16 @@ everywhere.
     (desktop-save-mode t))
 #+end_src
 
+*** Winner-mode
+
+Saves window configurations so that you can use =C-c <left>= to undo
+changes in window arrangement.
+
+#+begin_src emacs-lisp
+  (use-package winner
+    :config (winner-mode))
+#+end_src
+
 ** Interface tweaks
 
 Some settings for the UI of emacs - mode-line, scroll-bar, etc
