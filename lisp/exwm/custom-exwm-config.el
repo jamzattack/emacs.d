@@ -17,16 +17,34 @@
   (delete-frame)
   (start-process-shell-command "twm" nil "sleep 1; DISPLAY=:0 twm"))
 
-;; Toggle fullscreen
+;;; Toggle fullscreen
+(defvar exwm-fullscreen--old-window nil
+  "The last window to be focused before
+`exwm-fullscreen-or-reset' was called.")
+
 (defun exwm-fullscreen-or-reset ()
-  "Toggle EXWM fullscreen layout"
+  "Toggle EXWM fullscreen layout.  Use either the current exwm
+window or the first exwm window found."
   (interactive)
-  (let ((id (exwm--buffer->id (current-buffer))))
+  (let* ((exwm-window (let ((ht (make-hash-table)))
+			(dolist (window (window-list))
+			  (with-current-buffer (window-buffer window)
+			    (puthash major-mode window ht)))
+			(or (gethash 'exwm-mode ht)
+			    (user-error "No EXWM windows"))))
+	 (exwm-buffer (if (eq major-mode 'exwm-mode)
+			  (current-buffer)
+			(window-buffer exwm-window)))
+	 (id (exwm--buffer->id exwm-buffer)))
     (if (exwm-layout--fullscreen-p)
 	(progn
 	  (exwm-input-grab-keyboard id)
-	  (exwm-layout-unset-fullscreen id))
-      (exwm-layout-set-fullscreen id))))
+	  (exwm-layout-unset-fullscreen id)
+	  (select-window exwm-fullscreen--old-window))
+      (progn
+	(setq exwm-fullscreen--old-window (selected-window))
+	(select-window exwm-window)
+	(exwm-layout-set-fullscreen id)))))
 
 ;; Start a program without creating a buffer
 (defun exwm-shell-command (command)
