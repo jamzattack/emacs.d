@@ -888,12 +888,7 @@ Located [[file:lisp/lilypond-mode][here]].
                     (format "lilypond %s" buffer-file-name)))
       (setq-local comment-column 0))
     :mode ("\\.ly\\'" . LilyPond-mode)
-    :hook (LilyPond-mode . custom-lilypond-setup)
-    :config
-    (defun custom-lilypond-what-beat-timer ()
-      (when (eq major-mode 'LilyPond-mode)
-        (LilyPond-what-beat)))
-    (run-with-idle-timer 1 t #'custom-lilypond-what-beat-timer))
+    :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
 
 *** lilypond-skel
