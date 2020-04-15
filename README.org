@@ -136,19 +136,28 @@ file.  Similar to remember.
 
 #+begin_src emacs-lisp
   (use-package org-capture
-    :after (org)
     :custom ((org-default-notes-file "~/org/notes.org")
-             (org-capture-templates
-              `(("t" "Todo" entry (file+headline ,(concat org-directory
-                                                          "/todo.org") "Tasks")
-                 "* TODO %?\n  %i\n  %a")
-                ("n" "Notes" entry (file+datetree ,(concat org-directory
-                                                           "/notes.org"))
-                 "* %?\nEntered on %U\n  %i\n  %a")
-                ("d" "Diary" entry (file+datetree ,(concat org-directory
-                                                           "/diary.org"))
-                 "* %?\nEntered on %U\n  %i\n  %a")))
-             (org-capture-bookmark nil))
+	     (org-capture-templates
+	      '(("t" "Todo")
+		("tt" "Misc." entry
+		 (file+headline "todo.org" "Miscellaneous")
+		 "* TODO %?\n%i\n\n")
+		("tu" "University" entry
+		 (file+headline "todo.org" "University")
+		 "* TODO %?\n%i\n\n")
+		("n" "Notes" entry
+		 (file+headline "notes.org" "Notes")
+		 "* %?\nEntered on %u\n%i\n\n")
+		("m" "Music" entry
+		 (file+headline "notes.org" "Music")
+		 "* %?\nEntered on %u\n%i\n\n")
+		("e" "Elisp" entry
+		 (file+headline "notes.org" "Emacs Lisp")
+		 "* %^{Title}\n\n#+begin_src emacs-lisp\n %i\n#+end_src\n")
+		("d" "Diary" entry
+		 (file "diary.org")
+		 "* %?\n\nEntered on %u\n\n")))
+	     (org-capture-bookmark nil))
     :bind (("C-x M-r" . org-capture)))
 #+end_src
 
