@@ -1130,11 +1130,18 @@ Similar to =occur=, but only shows headings.
 
 Helpful gives a whole lot more information than =describe-*=.  I also
 bind =C-h SPC= to helpful-at-point, just to save a keypress here and
-there.
+there.  The =:straight= recipe uses my fork, which doesn't depend on
+=f.el=.  (I know it's minor, but I'd rather not load the extra
+library).
 
 #+begin_src emacs-lisp
   (use-package helpful
-    :straight t
+    :straight
+    (helpful :type git
+             :flavor melpa
+             :host gitlab
+             :repo "jamzattack/helpful"
+             :branch "no-f")
     :init
     <<helpful-edit-source-temporarily>>
     :bind (("C-h f" . helpful-callable)
