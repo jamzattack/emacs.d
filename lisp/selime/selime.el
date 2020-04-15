@@ -1,8 +1,8 @@
 ;;; selime.el --- A better version of elisp-slime-nav  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  
+;; Copyright (C) 2020  Jamie Beardslee
 
-;; Author:  <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
 ;; Keywords: lisp
 
 ;; This program is free software; you can redistribute it and/or modify
