@@ -1674,6 +1674,10 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
     :defer t)
 #+end_src
 
+** Dired
+
+A couple of packages that enhance dired.
+
 *** Dired-async
 
 Make dired run actions in the background.  This is in the package
@@ -1683,6 +1687,20 @@ Make dired run actions in the background.  This is in the package
   (use-package dired-async
     :straight async
     :config (dired-async-mode))
+#+end_src
+
+*** Dired-subtree
+
+Recursively list directories and cycle like org-mode.  Bind =TAB= to
+show/hide a subtree, and disable the predefined faces.  Part of the
+=dired-hacks= package.
+
+#+begin_src emacs-lisp
+(use-package dired-subtree
+  :straight dired-hacks
+  :custom (dired-subtree-use-backgrounds nil)
+  :bind (:map dired-mode-map
+	      ("<tab>" . dired-subtree-toggle)))
 #+end_src
 
 ** Fish completion
