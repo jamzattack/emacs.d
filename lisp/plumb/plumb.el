@@ -1,3 +1,33 @@
+;;; plumb.el --- Interactively select how to use a URL.  -*- lexical-binding: t; -*- 
+
+;; Copyright (C) 2020  Jamie Beardslee
+
+;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Keywords: convenience
+
+;; This file is not part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; This package defines a few functions to handle a URL.  The main
+;; entry-point `plumb' prompts for an action to run on the URL at
+;; point.
+
+;;; Code:
+
 (defvar plumb-audio-directory "~/Music"
   "The directory in which to download files using `plumb'")
 
@@ -106,21 +136,22 @@ arg prompts for these flags."
   (interactive (list (plumb-get-url)))
   (let ((choice (plumb-read url)))
     (pcase choice
-     ("Save to register"
-      (plumb-save-to-register url))
-     ("eww"
-      (eww url))
-     ("external browser"
-      (eww-browse-with-external-browser url))
-     ("View as image"
-      (plumb-image url))
-     ("View as pdf"
-      (plumb-pdf url))
-     ("Stream"
-      (plumb-stream url))
-     ("Download video"
-      (plumb-download-video url))
-     ("Download audio"
-      (plumb-audio url)))))
+      ("Save to register"
+       (plumb-save-to-register url))
+      ("eww"
+       (eww url))
+      ("external browser"
+       (eww-browse-with-external-browser url))
+      ("View as image"
+       (plumb-image url))
+      ("View as pdf"
+       (plumb-pdf url))
+      ("Stream"
+       (plumb-stream url))
+      ("Download video"
+       (plumb-download-video url))
+      ("Download audio"
+       (plumb-audio url)))))
 
 (provide 'plumb)
+;;; plumb.el ends here
