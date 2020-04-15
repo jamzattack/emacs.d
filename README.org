@@ -1696,11 +1696,11 @@ show/hide a subtree, and disable the predefined faces.  Part of the
 =dired-hacks= package.
 
 #+begin_src emacs-lisp
-(use-package dired-subtree
-  :straight dired-hacks
-  :custom (dired-subtree-use-backgrounds nil)
-  :bind (:map dired-mode-map
-	      ("<tab>" . dired-subtree-toggle)))
+  (use-package dired-subtree
+    :straight dired-hacks
+    :custom (dired-subtree-use-backgrounds nil)
+    :bind (:map dired-mode-map
+                ("<tab>" . dired-subtree-toggle)))
 #+end_src
 
 ** Fish completion
