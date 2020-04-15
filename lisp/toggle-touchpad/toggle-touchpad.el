@@ -1,9 +1,8 @@
-;;; touchpad-toggle.el
+;;; toggle-touchpad.el  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Jamie Beardslee
 
 ;; Author: Jamie Beardslee <beardslee@gmail.com>
-;; Package-version: 20191101.2236
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,8 +17,14 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+;;; Commentary:
+
+;; This file defines the function `toggle-touchpad', which uses xinput
+;; to disable or enable the mouse in an X session.  This probably only
+;; works with my laptop.
 
 ;;; Code:
+
 (defvar touchpad-disabled-p nil
   "Whether the touchpad is disabled. If the value is non-nil, the
 touchpad is disabled.")
@@ -49,3 +54,5 @@ nil, enable it. Otherwise, enable it."
     (disable-touchpad)))
 
 (provide 'toggle-touchpad)
+
+;;; toggle-touchpad.el ends here

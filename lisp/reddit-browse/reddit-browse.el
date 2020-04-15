@@ -1,8 +1,8 @@
 ;;; reddit-browse.el --- Minimal functions to browse emacs in eww  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  
+;; Copyright (C) 2020  Jamie Beardslee
 
-;; Author:  <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
 ;; Keywords: 
 
 ;; This program is free software; you can redistribute it and/or modify
