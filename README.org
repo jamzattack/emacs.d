@@ -102,6 +102,21 @@ recorded in the variable =personal-keybindings=.
 This is the section for built-in packages.  A lot of these are just
 minor things such as setting a single variable.
 
+** package.el
+
+It's useful to keep =package.el= updated for the functions
+=describe-package= and =list-packages=.  All my packages are now
+installed using [[*Straight][straight]], so disable the function =package-install=.
+
+#+begin_src emacs-lisp
+  (use-package package
+    :custom ((package-archives
+              '(("gnu" . "http://elpa.gnu.org/packages/")
+                ("melpa" . "http://melpa.org/packages/"))))
+    :config
+    (fmakunbound 'package-install))
+#+end_src
+
 ** Major editing modes
 
 Major modes for text editing.  For non-editing major modes, see
