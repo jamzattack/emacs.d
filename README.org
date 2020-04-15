@@ -779,27 +779,27 @@ directory.
 A selection of packages to facilitate searching and browsing the web
 within Emacs.
 
-*** Dmenu-handler
+*** Plumb
 
 A way to open URLs the way I want.  I bind it to =C-z d=.
 
-Located [[file:lisp/dmenu/dmenu-handler.el][here]].
+Located [[file:lisp/plumb/plumb.el][here]].
 
 #+begin_src emacs-lisp
-  (use-package dmenu-handler
-    :load-path "lisp/dmenu"
+  (use-package plumb
+    :load-path "lisp/plumb"
     :after eww
     :bind
-    (("C-z d" . 'dmenu-handler)
-     ("C-z C-d" . 'dmenu-handler)
+    (("C-z d" . 'plumb)
+     ("C-z C-d" . 'plumb)
      (:map eww-mode-map
-           ("f" . 'dmenu-handler-stream)
-           ("D" . 'dmenu-handler-download-video)
-           ("A" . 'dmenu-handler-audio))
+           ("f" . 'plumb-stream)
+           ("D" . 'plumb-download-video)
+           ("A" . 'plumb-audio))
      (:map elfeed-show-mode-map
-           ("f" . 'dmenu-handler-stream)
-           ("D" . 'dmenu-handler-download-video)
-           ("A" . 'dmenu-handler-audio))))
+           ("f" . 'plumb-stream)
+           ("D" . 'plumb-download-video)
+           ("A" . 'plumb-audio))))
 #+end_src
 
 *** Library-genesis
