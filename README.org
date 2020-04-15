@@ -413,6 +413,18 @@ this if you use a different version.
     :bind ("C-x C-d" . dired-jump))
 #+end_src
 
+*** Ediff
+
+By default, Ediff tries to open its own frame.  This doesn't work well
+with EXWM, so I disable that feature.
+
+#+begin_src emacs-lisp
+  (use-package ediff
+    :defer t
+    :custom ((ediff-window-setup-function
+              #'ediff-setup-windows-plain)))
+#+end_src
+
 ** Shells
 
 Shells in Emacs - both shell and eshell settings are here.
