@@ -2,6 +2,10 @@
 ;; Default to lexical binding
 (setq-default lexical-binding t)
 
+;; Temporarily disable GC
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+
 ;; Prefer newer files rather than old byte-compiled ones
 (setq load-prefer-newer t)
 
@@ -30,3 +34,7 @@ then load config.el."
 
 ;; Load config.org
 (config-load)
+
+;; Revert GC settings
+(setq gc-cons-threshold 800000
+      gc-cons-percentage 0.1)
