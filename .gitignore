@@ -23,6 +23,7 @@ lisp/custom.el
 lisp/*/*.elc
 lisp/*.elc
 straight
+elpa
 
 # files
 helm-adaptive-history
@@ -33,5 +34,4 @@ nov-places
 eaf
 elfeed
 tramp
-
 transient
