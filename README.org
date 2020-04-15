@@ -1540,6 +1540,20 @@ the entry at point.
         (elfeed-search-show-entry entry))))
 #+end_src
 
+*** Magit
+
+I've finally been convinced that Magit is the one true way to use git.
+Currently, the config is quite simple -- open magit in the current
+buffer, and show 20 recent commits instead of 10.
+
+#+begin_src emacs-lisp
+  (use-package magit
+    :straight t
+    :custom ((magit-display-buffer-function
+              #'magit-display-buffer-same-window-except-diff-v1)
+             (magit-log-section-commit-count 20)))
+#+end_src
+
 ** Appearance
 
 *** Rainbow-mode
