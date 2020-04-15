@@ -1551,7 +1551,9 @@ buffer, and show 20 recent commits instead of 10.
     :straight t
     :custom ((magit-display-buffer-function
               #'magit-display-buffer-same-window-except-diff-v1)
-             (magit-log-section-commit-count 20)))
+             (magit-log-section-commit-count 20))
+    :bind (("C-x g" . magit-status)))
+
 #+end_src
 
 ** Appearance
