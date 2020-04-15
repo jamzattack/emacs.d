@@ -48,7 +48,6 @@ Install use-package using =straight-use-package=, and load both
 
 #+begin_src emacs-lisp
   (straight-use-package 'use-package)
-  (straight-use-package 'bind-key)
   (require 'use-package)
   (require 'bind-key)
 #+end_src
@@ -158,8 +157,7 @@ Better layout for org-mode.
 
 #+begin_src emacs-lisp
   (use-package org-indent
-    :after (org)
-    :diminish
+    :defer t
     :hook (org-mode . org-indent-mode))
 #+end_src
 
@@ -190,6 +188,7 @@ Java/Awk files.
 
 #+begin_src emacs-lisp
   (use-package cc-mode
+    :defer t
     :custom
     ((c-default-style '((java-mode . "java")
                         (awk-mode . "awk")
@@ -800,7 +799,7 @@ Located [[file:lisp/plumb/plumb.el][here]].
 #+begin_src emacs-lisp
   (use-package plumb
     :load-path "lisp/plumb"
-    :after eww
+    :after (eww elfeed)
     :bind
     (("C-z d" . 'plumb)
      ("C-z C-d" . 'plumb)
@@ -1209,7 +1208,7 @@ provides some note-taking facilities.
 #+begin_src emacs-lisp
   (use-package pdf-tools
     :straight t
-    :hook (pdf-view-mode . auto-revert-mode)
+    :magic ("%PDF" . pdf-view-mode)
     :config
     (pdf-tools-install))
 #+end_src
@@ -1222,6 +1221,7 @@ for looking at READMEs though, so I add view-mode to the hook.
 #+begin_src emacs-lisp
   (use-package markdown-mode
     :straight t
+    :mode "*\\.md'"
     :hook (markdown-mode . view-mode))
 #+end_src
 
@@ -1236,6 +1236,7 @@ scheme is installed, in order of preference.
 #+begin_src emacs-lisp
   (use-package geiser
     :straight t
+    :defer t
     :custom ((scheme-program-name (or (executable-find "guile3.0")
                                       (executable-find "guile")
                                       (executable-find "chez")
@@ -1283,6 +1284,7 @@ Enabled for Lisp modes only.
   (use-package paredit
     :straight t
     :diminish
+    :defer t
     :hook ((emacs-lisp-mode . paredit-mode)
            (lisp-interaction-mode . paredit-mode)
            (ielm-mode . paredit-mode)
@@ -1300,7 +1302,7 @@ often, but it's nice to be able to see what a program does sometimes.
 #+begin_src emacs-lisp
   (use-package elf-mode
     :straight t
-    :config (elf-setup-default))
+    :magic ("^?ELF" . elf-mode))
 #+end_src
 
 ** Org
@@ -1311,7 +1313,8 @@ Export to markdown.
 
 #+begin_src emacs-lisp
   (use-package ox-gfm
-    :straight t)
+    :straight t
+    :defer t)
 #+end_src
 
 *** Html export
@@ -1320,7 +1323,8 @@ Export to html.
 
 #+begin_src emacs-lisp
   (use-package htmlize
-    :straight t)
+    :straight t
+    :defer t)
 #+end_src
 
 ** EXWM - Emacs X Window Manager
@@ -1383,6 +1387,7 @@ doesn't play nice with complicated things such as NetHack.
 #+begin_src emacs-lisp
   (use-package vterm
     :straight t
+    :defer t
     :config
     <<eshell/vterm>>)
 #+end_src
@@ -1406,8 +1411,9 @@ An mpd library.  I use it only for random/shuffle.
 
 #+begin_src emacs-lisp
   (use-package libmpdee
+    :straight t
     :when (executable-find "mpd")
-    :straight t)
+    :defer t)
 #+end_src
 
 *** MPDel
@@ -1467,6 +1473,7 @@ An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitT
   (use-package transmission
     :straight t
     :when (executable-find "transmission-daemon")
+    :defer t
     :after (eww)
     :config
     (defun transmission-add-url-at-point (url)
@@ -1486,6 +1493,7 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
 #+begin_src emacs-lisp
   (use-package elfeed
     :straight t
+    :defer t
     :custom
     ((elfeed-db-directory (expand-file-name
                            "elfeed" "~/.cache"))
@@ -1588,8 +1596,8 @@ Minor mode that highlights parentheses well.
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :straight t
+    :defer t
     :hook (prog-mode . rainbow-delimiters-mode))
-
 #+end_src
 
 *** Dim (unclutter mode-line)
@@ -1656,9 +1664,9 @@ Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  T
 #+begin_src emacs-lisp
   (use-package edwina
     :straight t
+    :defer t
     :config
-    (edwina-setup-dwm-keys 'super)
-    (edwina-mode 0))
+    (edwina-setup-dwm-keys 'super))
 #+end_src
 
 *** 0x0
@@ -1667,7 +1675,8 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
 
 #+begin_src emacs-lisp
   (use-package 0x0
-    :straight t)
+    :straight t
+    :defer t)
 #+end_src
 
 *** Dired-async
@@ -1688,9 +1697,9 @@ completion.  Fish must be installed.
 
 #+begin_src emacs-lisp
   (use-package fish-completion
+    :straight t
     :after eshell
     :when (executable-find "fish")
-    :straight t
     :config
     (global-fish-completion-mode))
 #+end_src
@@ -1702,7 +1711,8 @@ installed with your system's package manager.
 
 #+begin_src emacs-lisp
   (use-package system-packages
-    :straight t)
+    :straight t
+    :defer t)
 #+end_src
 
 ** Not really useful
@@ -1713,5 +1723,6 @@ A /Lorem Ipsum/ generator.
 
 #+begin_src emacs-lisp
   (use-package lorem-ipsum
-    :straight t)
+    :straight t
+    :defer t)
 #+end_src
