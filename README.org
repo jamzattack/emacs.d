@@ -783,7 +783,7 @@ within Emacs.
 
 A way to open URLs the way I want.  I bind it to =C-z d=.
 
-Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
+Located [[file:lisp/dmenu/dmenu-handler.el][here]].
 
 #+begin_src emacs-lisp
   (use-package dmenu-handler
@@ -807,7 +807,7 @@ Located [[file:lisp/dmenu/dmenu-handler.el][here.]]
 My custom package for searching library genesis.  I bind =C-z l= to a
 search.
 
-Located [[file:lisp/library-genesis/library-genesis.el][here.]]
+Located [[file:lisp/library-genesis/library-genesis.el][here]].
 
 #+begin_src emacs-lisp
   (use-package library-genesis
@@ -821,7 +821,7 @@ My own search query package.  It simply provides a few functions so
 that I don't need to use DuckDuckGo's bangs, and for websites that
 don't have a bang.
 
-Located [[file:lisp/search-query/search-query.el][here.]]
+Located [[file:lisp/search-query/search-query.el][here]].
 
 #+begin_src emacs-lisp
   (use-package search-query
@@ -856,7 +856,7 @@ Located [[file:lisp/reddit-browse/reddit-browse.el][here]].
 A simple package I wrote to toggle the touchpad/trackpoint on my
 ThinkPad
 
-Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here.]]
+Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
 
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
@@ -872,7 +872,7 @@ Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here.]]
 I copied lilypond-mode into my custom directory for the machines that
 don't have lilypond installed.
 
-Located [[file:lisp/lilypond-mode][here.]]
+Located [[file:lisp/lilypond-mode][here]].
 
 #+begin_src emacs-lisp
   (use-package lilypond-mode
@@ -911,7 +911,7 @@ Located [[file:lisp/skeletons/lilypond-skel.el][here]].
 This file just adds a few =auto-mode-alist= entries for systemd and
 pacman files.
 
-Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here.]]
+Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here]].
 
 #+begin_src emacs-lisp
   (use-package arch-linux-settings
@@ -924,7 +924,7 @@ My custom settings for EXWM - not much different from the
 =exwm-config-default=, but doesn't get in my way as much.  It provides
 the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
 
-Located [[file:lisp/exwm/custom-exwm-config.el][here.]]
+Located [[file:lisp/exwm/custom-exwm-config.el][here]].
 
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
@@ -976,7 +976,7 @@ My own bits of Lisp to enhance Helm.
 This package defines a macro to create new bookmark sources, and adds
 a few.
 
-[[file:lisp/helm/custom-helm-bookmark.el][Located here.]]
+Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
 
 #+begin_src emacs-lisp
   (use-package custom-helm-bookmark
