@@ -117,6 +117,7 @@ and use eww for html instead of mhtml-mode.
   (use-package org
     :custom ((org-src-window-setup 'current-window)
              (org-src-tab-acts-natively t)
+             (org-adapt-indentation nil)
              (org-file-apps
               '((auto-mode . emacs)
                 ("\\.x?html?\\'" . (lambda (file &optional ignore)
@@ -149,16 +150,6 @@ file.  Similar to remember.
                  "* %?\nEntered on %U\n  %i\n  %a")))
              (org-capture-bookmark nil))
     :bind (("C-x M-r" . org-capture)))
-#+end_src
-
-**** Org indent
-
-Better layout for org-mode.
-
-#+begin_src emacs-lisp
-  (use-package org-indent
-    :defer t
-    :hook (org-mode . org-indent-mode))
 #+end_src
 
 **** Org-babel lilypond
