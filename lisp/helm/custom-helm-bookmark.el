@@ -1,3 +1,51 @@
+;;; custom-helm-bookmark.el --- Quickly define sources for `helm-bookmark-jump'  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2020  Jamie Beardslee
+
+;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Keywords: convenience, helm, completion
+
+;; This file is not part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; This package defines a macro to create Helm bookmark sources
+;; quickly and easily.  It also uses the macro to create a few sources
+;; that I use.
+
+;; Although the macro `helm-bookmark-create-source-please' defines all
+;; the necessary functions and variables, they are not enabled by
+;; `helm-bookmark-jump'.  The following is how I enable these:
+;;
+;; (custom-set-variables
+;;  '(helm-bookmark-default-filtered-sources
+;;    '(helm-source-bookmark-university
+;;      helm-source-bookmark-config
+;;      helm-source-bookmark-org-misc
+;;      helm-source-bookmark-elisp
+;;      helm-source-bookmark-downloads
+;;      helm-source-bookmark-dired
+;;      helm-source-bookmark-info
+;;      helm-source-bookmark-man
+;;      helm-source-bookmark-other
+;;      helm-source-bookmark-set)))
+
+
+;;; Code:
+
 (require 'helm-bookmark)
 
 (defmacro helm-bookmark-create-source-please (name docstring conditions)
@@ -103,3 +151,5 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
 
 
 (provide 'custom-helm-bookmark)
+
+;;; custom-helm-bookmark.el ends here
