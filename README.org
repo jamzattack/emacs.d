@@ -332,7 +332,7 @@ browser, and change the width to 80 columns.
 
 #+begin_src emacs-lisp
   (use-package eww
-    :defer nil
+    :demand t
     :init
     <<browse-url-externally-please>>
     :bind (:map eww-mode-map
