@@ -1512,7 +1512,7 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
     :defer t
     :custom
     ((elfeed-db-directory (expand-file-name
-                           "elfeed" "~/.cache"))
+                           "elfeed" user-emacs-directory))
      (elfeed-search-remain-on-entry t)
      (elfeed-feeds
       (let ((file (expand-file-name
