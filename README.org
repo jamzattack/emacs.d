@@ -1441,7 +1441,6 @@ A more flexible mpd client than mingus.
   (use-package mpdel
     :straight t
     :when (executable-find "mpd")
-    :after libmpdee
     :bind-keymap (("s-m" . mpdel-core-map))
     :bind (("s-a" . mpdel-core-open-albums)
            ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
