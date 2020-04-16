@@ -48,6 +48,7 @@ Install use-package using =straight-use-package=, and load both
 
 #+begin_src emacs-lisp
   (straight-use-package 'use-package)
+  (setq use-package-compute-statistics t)
   (require 'use-package)
   (require 'bind-key)
 #+end_src
@@ -62,6 +63,7 @@ This section has been moved to [[file:lisp/fonts.el][its own file]]
     (load (expand-file-name "lisp/fonts.el" user-emacs-directory)))
 
   (add-hook 'server-after-make-frame-hook 'set-up-fonts-please)
+  (add-hook 'window-setup-hook 'set-up-fonts-please)
 #+end_src
 
 ** Keybindings
@@ -887,7 +889,6 @@ Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
 #+begin_src emacs-lisp
   (use-package toggle-touchpad
     :load-path "lisp/toggle-touchpad"
-    :when window-system
     :bind
     (("<XF86TouchpadToggle>" . toggle-touchpad)
      ("C-z \\" . toggle-touchpad)))
@@ -1708,6 +1709,7 @@ Make dired run actions in the background.  This is in the package
 #+begin_src emacs-lisp
   (use-package dired-async
     :straight async
+    :defer t
     :config (dired-async-mode))
 #+end_src
 
