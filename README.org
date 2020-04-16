@@ -1465,7 +1465,7 @@ I have a habit of hitting =C-x C-s= more than I should.
   (use-package notmuch
     :straight t
     :when (executable-find "notmuch")
-    :after eww
+    :init (autoload #'eww-follow-link "eww")
     :custom ((notmuch-archive-tags '("-unread" "-inbox"))
              (mail-user-agent 'notmuch-user-agent)
              (notmuch-search-oldest-first nil)
