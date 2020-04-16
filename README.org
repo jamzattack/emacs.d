@@ -332,12 +332,15 @@ browser, and change the width to 80 columns.
 
 #+begin_src emacs-lisp
   (use-package eww
-    :demand t
+    :defer t
     :init
     <<browse-url-externally-please>>
     :bind (:map eww-mode-map
                 ("M-n" . forward-paragraph)
-                ("M-p" . backward-paragraph))
+                ("M-p" . backward-paragraph)
+                ("f" . plumb-stream)
+                ("D" . plumb-download-video)
+                ("A" . plumb-audio))
     :custom ((browse-url-browser-function 'eww-browse-url)
              (browse-url-secondary-browser-function 'browse-url-externally-please)
              (eww-bookmarks-directory (expand-file-name "eww" user-emacs-directory))
@@ -807,25 +810,22 @@ within Emacs.
 
 *** Plumb
 
-A way to open URLs the way I want.  I bind it to =C-z d=.
+A way to open URLs the way I want.  I bind it to =C-z d=.  I use the
+=:demand= keyword so that I can use these commands in the [[*EWW][EWW]] and
+[[*Elfeed][Elfeed]] use-package forms.
 
 Located [[file:lisp/plumb/plumb.el][here]].
 
 #+begin_src emacs-lisp
   (use-package plumb
     :load-path "lisp/plumb"
-    :after (eww elfeed)
+    :demand t
+    :functions (plum-stream
+                plum-download-audio
+                plum-download-video)
     :bind
     (("C-z d" . plumb)
-     ("C-z C-d" . plumb)
-     (:map eww-mode-map
-           ("f" . plumb-stream)
-           ("D" . plumb-download-video)
-           ("A" . plumb-audio))
-     (:map elfeed-show-mode-map
-           ("f" . plumb-stream)
-           ("D" . plumb-download-video)
-           ("A" . plumb-audio))))
+     ("C-z C-d" . plumb)))
 #+end_src
 
 *** Library-genesis
@@ -1525,7 +1525,10 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
     ((:map elfeed-show-mode-map
            ("M-p" . backward-paragraph)
            ("M-n" . forward-paragraph)
-           ("l" . elfeed))
+           ("l" . elfeed)
+           ("f" . plumb-stream)
+           ("D" . plumb-download-video)
+           ("A" . plumb-audio))
      (:map elfeed-search-mode-map
            ("r" . elfeed-switch-to-entry)))
     :config
