@@ -816,16 +816,16 @@ Located [[file:lisp/plumb/plumb.el][here]].
     :load-path "lisp/plumb"
     :after (eww elfeed)
     :bind
-    (("C-z d" . 'plumb)
-     ("C-z C-d" . 'plumb)
+    (("C-z d" . plumb)
+     ("C-z C-d" . plumb)
      (:map eww-mode-map
-           ("f" . 'plumb-stream)
-           ("D" . 'plumb-download-video)
-           ("A" . 'plumb-audio))
+           ("f" . plumb-stream)
+           ("D" . plumb-download-video)
+           ("A" . plumb-audio))
      (:map elfeed-show-mode-map
-           ("f" . 'plumb-stream)
-           ("D" . 'plumb-download-video)
-           ("A" . 'plumb-audio))))
+           ("f" . plumb-stream)
+           ("D" . plumb-download-video)
+           ("A" . plumb-audio))))
 #+end_src
 
 *** Library-genesis
@@ -889,8 +889,8 @@ Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
     :load-path "lisp/toggle-touchpad"
     :when window-system
     :bind
-    (("<XF86TouchpadToggle>" . 'toggle-touchpad)
-     ("C-z \\" . 'toggle-touchpad)))
+    (("<XF86TouchpadToggle>" . toggle-touchpad)
+     ("C-z \\" . toggle-touchpad)))
 #+end_src
 
 ** LilyPond-mode
@@ -1050,17 +1050,17 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     :config
     (require 'helm-config)
     (helm-mode t)
-    :bind (("M-x" . 'helm-M-x)
-           ("<menu><menu>" . 'helm-M-x)
-           ("M-s M-o" . 'helm-occur)
-           ("s-b" . 'helm-mini)
-           ("C-x b" . 'helm-mini)
-           ("C-x k" . 'kill-this-buffer-please)
-           ("C-x C-f" . 'helm-find-files)
-           ("C-x r b" . 'helm-filtered-bookmarks)
-           ("M-C-y" . 'helm-show-kill-ring)
+    :bind (("M-x" . helm-M-x)
+           ("<menu><menu>" . helm-M-x)
+           ("M-s M-o" . helm-occur)
+           ("s-b" . helm-mini)
+           ("C-x b" . helm-mini)
+           ("C-x k" . kill-this-buffer-please)
+           ("C-x C-f" . helm-find-files)
+           ("C-x r b" . helm-filtered-bookmarks)
+           ("M-C-y" . helm-show-kill-ring)
            :map helm-map
-           ("C-h c" . 'describe-key-briefly)))
+           ("C-h c" . describe-key-briefly)))
 #+end_src
 
 #+name: kill-this-buffer-please
@@ -1110,7 +1110,7 @@ manpages.
   (use-package helm-man
     :after (helm)
     :custom (man-width 80)
-    :bind ("C-h C-m" . 'helm-man-woman))
+    :bind ("C-h C-m" . helm-man-woman))
 #+end_src
 
 *** Helm eww
@@ -1465,7 +1465,6 @@ I have a habit of hitting =C-x C-s= more than I should.
   (use-package notmuch
     :straight t
     :when (executable-find "notmuch")
-    :init (autoload #'eww-follow-link "eww")
     :custom ((notmuch-archive-tags '("-unread" "-inbox"))
              (mail-user-agent 'notmuch-user-agent)
              (notmuch-search-oldest-first nil)
@@ -1602,7 +1601,7 @@ in a terminal emulator).
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :straight t
-    :bind (("C-c h" . 'rainbow-mode)))
+    :bind (("C-c h" . rainbow-mode)))
 #+end_src
 
 *** Rainbow-delimiters
