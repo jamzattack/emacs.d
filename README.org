@@ -1,7 +1,7 @@
-#+TITLE: Emacs Configuration
-#+AUTHOR: Jamie Beardslee
-#+EMAIL: beardsleejamie@gmail.com
-#+PROPERTY: header-args:emacs-lisp :tangle lisp/config.el :noweb yes :results none
+#+title: Emacs Configuration
+#+author: Jamie Beardslee
+#+email: beardsleejamie@gmail.com
+#+property: header-args:emacs-lisp :tangle lisp/config.el :noweb yes :results none
 
 This is my Emacs config file.  It is written in org-mode so that I can
 brag about how dope org-mode is.  [[file:README.org][This file]] contains my main
