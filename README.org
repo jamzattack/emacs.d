@@ -1332,7 +1332,7 @@ often, but it's nice to be able to see what a program does sometimes.
 #+begin_src emacs-lisp
   (use-package elf-mode
     :straight t
-    :magic ("^?ELF" . elf-mode))
+    :magic ("ELF" . elf-mode))
 #+end_src
 
 ** Org
