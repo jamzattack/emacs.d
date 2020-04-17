@@ -856,9 +856,7 @@ Located [[file:lisp/search-query/search-query.el][here]].
     :load-path "lisp/search-query"
     :custom (tpb-mirror "lepiratebay.org")
     :bind (("C-z t" . tpb-search)
-           ("C-z C-t" . tpb-search)
            ("C-z y" . youtube-search)
-           ("C-z C-y" . youtube-search)
            ("C-z w" . wikipedia-search)
            ("C-z C-w" . wiktionary-word)))
 #+end_src
@@ -1496,8 +1494,16 @@ An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitT
       "Adds torrent if point is on a magnet link"
       (interactive (list (shr-url-at-point nil)))
       (transmission-add url))
-    :bind (:map eww-mode-map
-                ("m" . transmission-add-url-at-point)))
+    (defun open-transmission-in-this-window ()
+      (interactive)
+      (let ((buffer (get-buffer-create "*transmission*")))
+        (switch-to-buffer buffer)
+        (transmission-mode)
+        (revert-buffer)
+        (cd (expand-file-name "~/Downloads"))))
+    :bind (("C-z C-t" . open-transmission-in-this-window)
+           (:map eww-mode-map
+                 ("m" . transmission-add-url-at-point))))
 #+end_src
 
 *** Elfeed
