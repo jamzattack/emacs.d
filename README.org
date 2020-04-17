@@ -432,7 +432,9 @@ this if you use a different version.
     :bind ("C-x C-d" . dired-jump))
 #+end_src
 
-*** Ediff
+*** Diffing
+
+**** Ediff
 
 By default, Ediff tries to open its own frame.  This doesn't work well
 with EXWM, so I disable that feature.
@@ -442,6 +444,18 @@ with EXWM, so I disable that feature.
     :defer t
     :custom ((ediff-window-setup-function
               #'ediff-setup-windows-plain)))
+#+end_src
+
+**** Smerge
+
+Easily merge git conflicts.  The prefix is =C-c ^= which works fine,
+but I also bind =C-c n= and =C-c p= to go to the next/previous hunk.
+
+#+begin_src emacs-lisp
+  (use-package smerge-mode
+    :bind (:map smerge-mode-map
+                ("C-c n" . smerge-next)
+                ("C-c p" . smerge-prev)))
 #+end_src
 
 ** Shells
