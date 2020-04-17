@@ -1323,24 +1323,23 @@ move the history file out of =$HOME=.
 #+begin_src emacs-lisp
   (use-package slime
     :straight t
+    :init
+    (autoload 'slime-switch-to-output-buffer "slime-repl")
+    (defun disable-slime-completion ()
+      (setq slime-completion-at-point-functions
+            '(slime-simple-completion-at-point)))
     :custom ((inferior-lisp-program (or (executable-find "sbcl")
                                         (executable-find "ccl")
                                         (executable-find "clisp")
                                         (executable-find "lisp")))
              (slime-contribs '(slime-fancy))
-             (slime-completion-at-point-functions
-              '(slime-simple-completion-at-point))
              (slime-repl-history-file "~/.cache/slime/history")
              (common-lisp-hyperspec-root (when (file-exists-p "/usr/share/doc/HyperSpec/")
-                                           "file:///usr/share/doc/HyperSpec/")))
-    :config
-    (defun slime-repl-or-run-slime ()
-      (interactive)
-      (if (slime-connected-p)
-          (slime-switch-to-output-buffer)
-        (slime)))
+                                           "file:///usr/share/doc/HyperSpec/"))
+             (slime-auto-start 'ask))
+    :hook (slime-connected . disable-slime-completion)
     :bind (:map slime-mode-map
-                ("C-c C-z" . slime-repl-or-run-slime)))
+                ("C-c C-z" . slime-switch-to-output-buffer)))
 #+end_src
 
 *** Paredit
