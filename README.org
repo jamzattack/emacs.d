@@ -634,11 +634,12 @@ everywhere.
 
 #+begin_src emacs-lisp
   (use-package desktop
-    :custom (desktop-restore-frames nil)
+    :custom ((desktop-restore-frames nil)
+             (history-delete-duplicates t)
+             (desktop-save-mode t))
     :config
     (add-to-list 'desktop-globals-to-save 'helm-ff-history)
-    (add-to-list 'desktop-globals-to-save 'extended-command-history)
-    (desktop-save-mode t))
+    (add-to-list 'desktop-globals-to-save 'extended-command-history))
 #+end_src
 
 *** Winner-mode
