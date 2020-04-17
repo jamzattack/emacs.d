@@ -58,19 +58,3 @@
 (set-fontset-font t 'tamil "Noto Sans Tamil")
 (set-fontset-font t 'telugu "Noto Sans Telugu")
 (set-fontset-font t 'tibetan "Noto Sans Tibetan")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
