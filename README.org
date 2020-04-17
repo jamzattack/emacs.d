@@ -444,17 +444,20 @@ Rebind M-p and M-n to move by paragraphs.  By default M-n runs
 *** Ibuffer
 
 Ibuffer is an interface similar to dired, but for editing your open
-buffers.
+buffers.  I don't use it much now in favour of [[*Helm][Helm]], but it can be
+useful for more complex filtering.
 
 #+begin_src emacs-lisp
   (use-package ibuffer
     :bind ("C-x C-b" . ibuffer)
     :config
-    (defun ibuffer-filter-helm ()
-      (with-current-buffer (get-buffer "*Ibuffer*")
-        (ibuffer-mark-by-mode 'helm-major-mode)
-        (ibuffer-do-kill-lines)))
-    :hook (ibuffer . ibuffer-filter-helm))
+    (defun ibuffer-helm-major-mode-predicate (buffer)
+      "Returns t if BUF is a helm buffer."
+      (equal 'helm-major-mode
+             (with-current-buffer buffer
+               major-mode)))
+    (add-to-list 'ibuffer-maybe-show-predicates
+                 #'ibuffer-helm-major-mode-predicate))
 #+end_src
 
 *** Dired
