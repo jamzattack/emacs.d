@@ -187,7 +187,7 @@ isn't loaded by default, so load it here.
   (use-package ob-lilypond
     :when (executable-find "lilypond")
     :defer t
-    :defines org-babel-execute:lilypond)
+    :commands org-babel-execute:lilypond)
 #+end_src
 
 **** Org-babel C
@@ -198,10 +198,32 @@ instead of gcc if it's installed.
 #+begin_src emacs-lisp
   (use-package ob-C
     :defer t
-    :defines org-babel-execute:C
+    :commands org-babel-execute:C
     :custom ((org-babel-c-compiler
               (or (executable-find "tcc")
                   "gcc"))))
+#+end_src
+
+**** Org-babel scheme
+
+Execute scheme source blocks.  This uses [[*Geiser][Geiser]] which is kind of
+awkward and slow, but evaluating scheme is useful.
+
+#+begin_src emacs-lisp
+  (use-package ob-scheme
+    :defer t
+    :commands org-babel-execute:scheme)
+#+end_src
+
+**** Org-babel lisp
+
+Execute Common Lisp source blocks.  This depends on [[*SLIME][Slime]], which
+doesn't start automatically (see the variable =slime-auto-start=).
+
+#+begin_src emacs-lisp
+  (use-package ob-lisp
+    :defer t
+    :commands org-babel-execute:lisp)
 #+end_src
 
 *** Prolog
