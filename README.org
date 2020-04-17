@@ -180,12 +180,28 @@ file.  Similar to remember.
 
 **** Org-babel lilypond
 
-ob-lilypond is required to evaluate lilypond within org-mode.  It
+=ob-lilypond= is required to evaluate lilypond within org-mode.  It
 isn't loaded by default, so load it here.
 
 #+begin_src emacs-lisp
-  (when (executable-find "lilypond")
-    (use-package ob-lilypond))
+  (use-package ob-lilypond
+    :when (executable-find "lilypond")
+    :defer t
+    :defines org-babel-execute:lilypond)
+#+end_src
+
+**** Org-babel C
+
+Execute C source blocks.  [[http://bellard.org/tcc/][TCC]] is a really fast compiler, so use it
+instead of gcc if it's installed.
+
+#+begin_src emacs-lisp
+  (use-package ob-C
+    :defer t
+    :defines org-babel-execute:C
+    :custom ((org-babel-c-compiler
+              (or (executable-find "tcc")
+                  "gcc"))))
 #+end_src
 
 *** Prolog
