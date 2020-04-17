@@ -1187,7 +1187,7 @@ Similar to =occur=, but only shows headings.
 #+begin_src emacs-lisp
   (use-package helm-org
     :straight t
-    :after helm
+    :after org
     :bind (:map org-mode-map
                 ("C-c M-o" . helm-org-in-buffer-headings)))
 #+end_src
