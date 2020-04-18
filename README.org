@@ -1988,4 +1988,5 @@ A /Lorem Ipsum/ generator.
 
 # Local Variables:
 # indent-tabs-mode: nil
+# eval: (rename-buffer "config.org" t)
 # End:
