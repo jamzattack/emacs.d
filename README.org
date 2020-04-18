@@ -13,17 +13,29 @@ Note: [[file:lisp/custom.el][custom.el]] should not be edited manually, as it is
 for settings changed using the customisation interface.
 
 My own packages and other things that I need to =require= are housed
-in [[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so startup will
-take some time.
+in [[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so the first
+startup will take some time.
 
 * Startup
 
-Some things to do before everything else.
+Get some things out of the way early.  Without [[*Straight][straight]] or
+[[*Use-package][use-package]], none of this config would work.
 
 ** Straight
 
 Install [[https://github.com/raxod502/straight.el][straight.el]].  It gets a lot of hype, so I'm trying to use it
-instead of the built-in =package.el=.
+instead of the built-in =package.el=.  It has a use-package keyword,
+so you can simply (re)define a package like so:
+
+#+begin_src emacs-lisp :tangle no
+  (use-package package-name
+    :straight
+    (package-name :host gitlab
+                  :repo "user/forked-package"
+                  :branch "cool-new-feature"))
+#+end_src
+
+This snippet clones and loads straight, stolen from the README.
 
 #+begin_src emacs-lisp
   (defvar bootstrap-version)
@@ -40,7 +52,7 @@ instead of the built-in =package.el=.
     (load bootstrap-file nil 'nomessage))
 #+end_src
 
-** Use-package and bind-key
+** Use-package
 
 Install use-package using =straight-use-package=, and load both
 =use-package= and =bind-key=.  Note =bind-key= is a dependency of
@@ -55,7 +67,8 @@ Install use-package using =straight-use-package=, and load both
 
 ** Fonts
 
-This section has been moved to [[file:lisp/fonts.el][its own file]]
+The function =set-up-font-please= loads my [[file:lisp/fonts.el][font settings]].  Call it
+when creating a new frame or starting emacs.
 
 #+begin_src emacs-lisp
   (defun set-up-fonts-please ()
@@ -87,7 +100,7 @@ key.
 Make the menu key do the same as =C-x=.
 
 #+begin_src emacs-lisp
-  (global-set-key (kbd "<menu>") ctl-x-map)
+  (bind-key "<menu>" ctl-x-map)
 #+end_src
 
 *** Reloading config file
@@ -101,8 +114,7 @@ recorded in the variable =personal-keybindings=.
 
 * Built-in packages
 
-This is the section for built-in packages.  A lot of these are just
-minor things such as setting a single variable.
+This is the section for built-in packages.
 
 ** package.el
 
@@ -178,10 +190,15 @@ file.  Similar to remember.
     :bind (("C-x M-r" . org-capture)))
 #+end_src
 
-**** Org-babel lilypond
+**** Org-babel
 
-=ob-lilypond= is required to evaluate lilypond within org-mode.  It
-isn't loaded by default, so load it here.
+Work with code blocks.  The libraries all provide support for a
+language so that you can run their source blocks with =C-c C-c=.
+
+***** LilyPond
+
+Execute LilyPond source blocks.  For notes about exporting to pdf, see
+[[https://gitlab.com/jamzattack/lilypond/-/raw/master/org/lilypond.org][this org file]].  Only load it when lilypond is installed.
 
 #+begin_src emacs-lisp
   (use-package ob-lilypond
@@ -190,7 +207,7 @@ isn't loaded by default, so load it here.
     :commands org-babel-execute:lilypond)
 #+end_src
 
-**** Org-babel C
+***** C
 
 Execute C source blocks.  [[http://bellard.org/tcc/][TCC]] is a really fast compiler, so use it
 instead of gcc if it's installed.
@@ -204,7 +221,7 @@ instead of gcc if it's installed.
                   "gcc"))))
 #+end_src
 
-**** Org-babel scheme
+***** Scheme
 
 Execute scheme source blocks.  This uses [[*Geiser][Geiser]] which is kind of
 awkward and slow, but evaluating scheme is useful.
@@ -215,7 +232,7 @@ awkward and slow, but evaluating scheme is useful.
     :commands org-babel-execute:scheme)
 #+end_src
 
-**** Org-babel lisp
+***** Common Lisp
 
 Execute Common Lisp source blocks.  This depends on [[*SLIME][Slime]], which
 doesn't start automatically (see the variable =slime-auto-start=).
@@ -835,11 +852,11 @@ dumb that this feature exists.
 
 *** Disable audible and visual bell
 
-Don't ring the damn bell.  Although the package name is =multi-tty=,
-the file is actually =terminal.c=.
+Don't ring the damn bell.  This is provided by the file "terminal.c"
+which isn't a loadable feature, so use custom instead.
 
 #+begin_src emacs-lisp
-  (use-package multi-tty
+  (use-package custom
     :custom (ring-bell-function 'ignore))
 #+end_src
 
@@ -959,6 +976,7 @@ Located [[file:lisp/lilypond-mode][here]].
   (use-package lilypond-mode
     :load-path "lisp/lilypond-mode"
     :init
+    (defalias 'lilypond-mode 'LilyPond-mode)
     (defun custom-lilypond-setup ()
       "Sets the buffer's comile command and comment-column."
       (unless (or (file-exists-p "Makefile")
