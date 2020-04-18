@@ -396,7 +396,7 @@ turn on hi-lock-mode which enables the =C-x w= prefix.
 #+begin_src emacs-lisp
   (use-package hi-lock
     :diminish
-    :custom
+    :config
     (global-hi-lock-mode t))
 #+end_src
 
@@ -406,7 +406,7 @@ Highlight matching parens everywhere.
 
 #+begin_src emacs-lisp
   (use-package paren
-    :custom
+    :config
     (show-paren-mode t))
 #+end_src
 
@@ -748,8 +748,8 @@ Disable the menu bar.
 
 #+begin_src emacs-lisp
   (use-package menu-bar
-    :custom
-    (menu-bar-mode nil))
+    :config
+    (menu-bar-mode -1))
 #+end_src
 
 **** Tool bar
@@ -758,8 +758,8 @@ Disable the tool bar.
 
 #+begin_src emacs-lisp
   (use-package tool-bar
-    :custom
-    (tool-bar-mode nil))
+    :config
+    (tool-bar-mode -1))
 #+end_src
 
 *** Mode-line
@@ -773,6 +773,7 @@ time.
   (use-package time
     :custom
     (display-time-24hr-format t)
+    :config
     (display-time-mode t))
 #+end_src
 
@@ -783,10 +784,10 @@ mode-line.
 
 #+begin_src emacs-lisp
   (use-package battery
-    :custom
-    (display-battery-mode t)
     :bind
-    ("C-z b" . battery))
+    ("C-z b" . battery)
+    :config
+    (display-battery-mode t))
 #+end_src
 
 **** Show the column
@@ -796,7 +797,7 @@ Show the current column in the mode-line.  This is provided by the
 
 #+begin_src emacs-lisp
   (use-package simple
-    :custom
+    :config
     (column-number-mode t))
 #+end_src
 
@@ -1309,11 +1310,11 @@ library).
     <<helpful-edit-source-temporarily>>
     :bind
     (:map help-map
-          ("C-h f" . helpful-callable)
-          ("C-h v" . helpful-variable)
-          ("C-h o" . helpful-symbol)
-          ("C-h k" . helpful-key)
-          ("C-h SPC" . helpful-at-point))
+          ("f" . helpful-callable)
+          ("v" . helpful-variable)
+          ("o" . helpful-symbol)
+          ("k" . helpful-key)
+          ("SPC" . helpful-at-point))
     (:map helpful-mode-map
           ("e" . helpful-edit-source-temporarily)))
 #+end_src
@@ -1903,9 +1904,9 @@ Make dired run actions in the background.  This is in the package
 #+begin_src emacs-lisp
   (use-package dired-async
     :straight async
-    :custom
-    (dired-async-mode t)
-    :defer t)
+    :defer t
+    :config
+    (dired-async-mode))
 #+end_src
 
 *** Dired-subtree
@@ -1934,7 +1935,7 @@ completion.  Fish must be installed.
     :straight t
     :after eshell
     :when (executable-find "fish")
-    :custom
+    :config
     (global-fish-completion-mode))
 #+end_src
 
