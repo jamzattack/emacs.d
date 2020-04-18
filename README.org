@@ -1126,20 +1126,6 @@ Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
           ("C-c e" . eww-open-html-of-current-file)))
 #+end_src
 
-** Selime
-
-This is my package to make Elisp evaluation and documentation lookup a
-bit more like Slime.  It's often not necessary, but sometimes I find
-myself using =C-c C-d C-f= to describe an Elisp function, etc.
-
-Located [[file:lisp/selime/selime.el][here]].
-
-#+begin_src emacs-lisp
-  (use-package selime
-    :load-path "lisp/selime"
-    :hook (emacs-lisp-mode . selime-mode))
-#+end_src
-
 ** Helm
 
 My own bits of Lisp to enhance Helm.
@@ -1491,6 +1477,24 @@ often, but it's nice to be able to see what a program does sometimes.
   (use-package elf-mode
     :straight t
     :magic ("ELF" . elf-mode))
+#+end_src
+
+*** Selime
+
+This is my package to make Elisp evaluation and documentation lookup a
+bit more like Slime.  It's often not necessary, but sometimes I find
+myself using =C-c C-d C-f= to describe an Elisp function, etc.
+
+Hosted [[https://gitlab.com/jamzattack/selime][here]].
+
+#+begin_src emacs-lisp
+  (use-package selime
+    :straight
+    (selime :type git
+            :flavor melpa
+            :host gitlab
+            :repo "jamzattack/selime")
+    :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
 ** Org
