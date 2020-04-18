@@ -796,7 +796,12 @@ some programs automatically output to the pager.
     (setenv "PAGER" "cat"))
 #+end_src
 
-** Window
+** Windows
+
+Libraries related to Emacs windows.  Not to be confused
+with the operating system.
+
+*** Window
 
 These functions are both quite useful, so I bound them to similar
 keys.
@@ -807,7 +812,7 @@ keys.
            ("C-z z" . kill-buffer-and-window)))
 #+end_src
 
-** Windmove
+*** Windmove
 
 Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so
 this is like ={i,j,k,l}= on a qwerty keyboard.  Load this after exwm
@@ -1243,7 +1248,7 @@ library).
              :host gitlab
              :repo "jamzattack/helpful"
              :branch "no-f")
-    :init
+    :config
     <<helpful-edit-source-temporarily>>
     :bind (("C-h f" . helpful-callable)
            ("C-h v" . helpful-variable)
