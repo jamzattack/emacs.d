@@ -1303,8 +1303,8 @@ library).
     :straight
     (helpful :type git
              :flavor melpa
-             :host gitlab
-             :repo "jamzattack/helpful"
+             :host nil
+             :repo "git@gitlab.com:jamzattack/helpful"
              :branch "no-f")
     :config
     <<helpful-edit-source-temporarily>>
@@ -1493,8 +1493,7 @@ Hosted [[https://gitlab.com/jamzattack/selime][here]].
     :straight
     (selime :type git
             :flavor melpa
-            :host gitlab
-            :repo "jamzattack/selime")
+            :repo "git@gitlab.com:jamzattack/selime")
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
