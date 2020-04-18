@@ -381,9 +381,10 @@ org-mode, but compiling latex on its own is sometimes useful.
                 (format "pdflatex %s" buffer-file-name)))
 #+end_src
 
-** Minor modes for programming
+** Minor modes
 
-Minor modes that help with writing programs.
+Minor modes that help with anything Emacs, be it programming, writing
+emails, or anything else that Emacs can do.
 
 *** Compile
 
@@ -417,6 +418,39 @@ Highlight matching parens everywhere.
   (use-package paren
     :config
     (show-paren-mode t))
+#+end_src
+
+*** Auto fill
+
+Instead of "Fill", show "^M" (carriage return) in the mode-line.
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :delight
+    (auto-fill-mode " ^M"))
+#+end_src
+
+*** Isearch
+
+Instead of "ISearch", show "^S" =(kbd "C-s")= in the mode-line.
+
+#+begin_src emacs-lisp
+  (use-package isearch
+    :delight " ^S")
+#+end_src
+
+*** Eldoc
+
+Eldoc is what provides the function signature in the mode-line when
+editing Elisp.  By default, it waits for 0.5 seconds so I bump the
+delay down to 0.
+
+#+begin_src emacs-lisp
+  (use-package eldoc
+    :delight
+    :defer t
+    :custom
+    (eldoc-idle-delay 0))
 #+end_src
 
 ** Applications
