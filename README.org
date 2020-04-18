@@ -1273,7 +1273,6 @@ packages.
 #+begin_src emacs-lisp
   (use-package helm-system-packages
     :straight t
-    :after helm
     :bind
     (:map help-map
           ("C-p" . helm-system-packages)))
