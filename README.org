@@ -243,6 +243,19 @@ doesn't start automatically (see the variable =slime-auto-start=).
     :commands org-babel-execute:lisp)
 #+end_src
 
+***** Shell
+
+Execute shell source blocks.  Autoload =sh=, =shell=, and =bash=
+functions.
+
+#+begin_src emacs-lisp
+  (use-package ob-shell
+    :defer t
+    :commands (org-babel-execute:sh
+               org-babel-execute:shell
+               org-babel-execute:bash))
+#+end_src
+
 *** Prolog
 
 Major mode for editing prolog files.  Files ending in =.pl= open in
