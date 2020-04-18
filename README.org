@@ -366,15 +366,6 @@ org-mode, but compiling latex on its own is sometimes useful.
 
 Minor modes that help with writing programs.
 
-*** Auto-insert
-
-Insert boilerplate code/comments automatically.
-
-#+begin_src emacs-lisp
-  (use-package autoinsert
-    :config (auto-insert-mode t))
-#+end_src
-
 *** Compile
 
 Bind =C-z RET= and =f9= to compile.
