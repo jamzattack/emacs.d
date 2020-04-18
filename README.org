@@ -38,7 +38,6 @@ so you can simply (re)define a package like so:
 This snippet clones and loads straight, stolen from the README.
 
 #+begin_src emacs-lisp
-  (defvar bootstrap-version)
   (let ((bootstrap-file
          (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
         (bootstrap-version 5))
@@ -124,9 +123,10 @@ installed using [[*Straight][straight]], so disable the function =package-instal
 
 #+begin_src emacs-lisp
   (use-package package
-    :custom ((package-archives
-              '(("gnu" . "http://elpa.gnu.org/packages/")
-                ("melpa" . "http://melpa.org/packages/"))))
+    :custom
+    (package-archives
+     '(("gnu" . "http://elpa.gnu.org/packages/")
+       ("melpa" . "http://melpa.org/packages/")))
     :config
     (fmakunbound 'package-install))
 #+end_src
@@ -144,18 +144,21 @@ and use eww for html instead of mhtml-mode.
 
 #+begin_src emacs-lisp
   (use-package org
-    :custom ((org-src-window-setup 'current-window)
-             (org-src-tab-acts-natively t)
-             (org-adapt-indentation nil)
-             (org-file-apps
-              '((auto-mode . emacs)
-                ("\\.x?html?\\'" . (lambda (file &optional ignore)
-                                     (eww-open-file file))))))
-    :config (when (featurep 'org-tempo)
-              (require 'org-tempo))
-    :bind (:map org-mode-map
-                ("M-h" . mark-paragraph)
-                ("C-M-h" . org-mark-element)))
+    :custom
+    (org-src-window-setup 'current-window)
+    (org-src-tab-acts-natively t)
+    (org-adapt-indentation nil)
+    (org-file-apps
+     '((auto-mode . emacs)
+       ("\\.x?html?\\'" . (lambda (file &optional ignore)
+                            (eww-open-file file)))))
+    :config
+    (when (featurep 'org-tempo)
+      (require 'org-tempo))
+    :bind
+    (:map org-mode-map
+          ("M-h" . mark-paragraph)
+          ("C-M-h" . org-mark-element)))
 #+end_src
 
 **** Org Capture
@@ -165,29 +168,31 @@ file.  Similar to remember.
 
 #+begin_src emacs-lisp
   (use-package org-capture
-    :custom ((org-default-notes-file "~/org/notes.org")
-             (org-capture-templates
-              '(("t" "Todo")
-                ("tt" "Misc." entry
-                 (file+headline "todo.org" "Miscellaneous")
-                 "* TODO %?\n%i\n\n")
-                ("tu" "University" entry
-                 (file+headline "todo.org" "University")
-                 "* TODO %?\n%i\n\n")
-                ("n" "Notes" entry
-                 (file+headline "notes.org" "Notes")
-                 "* %?\nEntered on %u\n%i\n\n")
-                ("m" "Music" entry
-                 (file+headline "notes.org" "Music")
-                 "* %?\nEntered on %u\n%i\n\n")
-                ("e" "Elisp" entry
-                 (file+headline "notes.org" "Emacs Lisp")
-                 "* %^{Title}\n\n#+begin_src emacs-lisp\n %i\n#+end_src\n")
-                ("d" "Diary" entry
-                 (file "diary.org")
-                 "* %?\n\nEntered on %u\n\n")))
-             (org-capture-bookmark nil))
-    :bind (("C-x M-r" . org-capture)))
+    :custom
+    (org-default-notes-file "~/org/notes.org")
+    (org-capture-templates
+     '(("t" "Todo")
+       ("tt" "Misc." entry
+        (file+headline "todo.org" "Miscellaneous")
+        "* TODO %?\n%i\n\n")
+       ("tu" "University" entry
+        (file+headline "todo.org" "University")
+        "* TODO %?\n%i\n\n")
+       ("n" "Notes" entry
+        (file+headline "notes.org" "Notes")
+        "* %?\nEntered on %u\n%i\n\n")
+       ("m" "Music" entry
+        (file+headline "notes.org" "Music")
+        "* %?\nEntered on %u\n%i\n\n")
+       ("e" "Elisp" entry
+        (file+headline "notes.org" "Emacs Lisp")
+        "* %^{Title}\n\n#+begin_src emacs-lisp\n %i\n#+end_src\n")
+       ("d" "Diary" entry
+        (file "diary.org")
+        "* %?\n\nEntered on %u\n\n")))
+    (org-capture-bookmark nil)
+    :bind
+    ("C-x M-r" . org-capture))
 #+end_src
 
 **** Org-babel
@@ -216,9 +221,10 @@ instead of gcc if it's installed.
   (use-package ob-C
     :defer t
     :commands org-babel-execute:C
-    :custom ((org-babel-c-compiler
-              (or (executable-find "tcc")
-                  "gcc"))))
+    :custom
+    (org-babel-c-compiler
+     (or (executable-find "tcc")
+         "gcc")))
 #+end_src
 
 ***** Scheme
@@ -251,9 +257,10 @@ functions.
 #+begin_src emacs-lisp
   (use-package ob-shell
     :defer t
-    :commands (org-babel-execute:sh
-               org-babel-execute:shell
-               org-babel-execute:bash))
+    :commands
+    org-babel-execute:sh
+    org-babel-execute:shell
+    org-babel-execute:bash)
 #+end_src
 
 *** Prolog
@@ -275,9 +282,9 @@ Java/Awk files.
   (use-package cc-mode
     :defer t
     :custom
-    ((c-default-style '((java-mode . "java")
-                        (awk-mode . "awk")
-                        (other . "bsd")))))
+    (c-default-style '((java-mode . "java")
+                       (awk-mode . "awk")
+                       (other . "bsd"))))
 #+end_src
 
 *** Emacs Lisp mode
@@ -287,8 +294,10 @@ keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
 
 #+begin_src emacs-lisp
   (use-package elisp-mode
-    :custom (initial-major-mode 'emacs-lisp-mode)
-    :bind ("<C-M-backspace>" . backward-kill-sexp))
+    :custom
+    (initial-major-mode 'emacs-lisp-mode)
+    :bind
+    ("<C-M-backspace>" . backward-kill-sexp))
 #+end_src
 
 **** Find-func
@@ -300,11 +309,12 @@ keys in =ctl-x-map=, but I prefer to have them under =C-h=.
 #+begin_src emacs-lisp
   (use-package find-func
     :defer t
-    :bind (:map help-map
-                ("C-l" . find-library)
-                ("C-f" . find-function)
-                ("C-v" . find-variable)
-                ("C-k" . find-function-on-key)))
+    :bind
+    (:map help-map
+          ("C-l" . find-library)
+          ("C-f" . find-function)
+          ("C-v" . find-variable)
+          ("C-k" . find-function-on-key)))
 #+end_src
 
 *** Typesetting
@@ -372,8 +382,9 @@ Bind =C-z RET= and =f9= to compile.
 
 #+begin_src emacs-lisp
   (use-package compile
-    :bind (("C-z C-m" . compile)
-           ("<f9>" . compile)))
+    :bind
+    ("C-z C-m" . compile)
+    ("<f9>" . compile))
 #+end_src
 
 *** Hi-lock
@@ -385,7 +396,8 @@ turn on hi-lock-mode which enables the =C-x w= prefix.
 #+begin_src emacs-lisp
   (use-package hi-lock
     :diminish
-    :config (global-hi-lock-mode))
+    :custom
+    (global-hi-lock-mode t))
 #+end_src
 
 *** Parens
@@ -394,7 +406,8 @@ Highlight matching parens everywhere.
 
 #+begin_src emacs-lisp
   (use-package paren
-    :config (show-paren-mode t))
+    :custom
+    (show-paren-mode t))
 #+end_src
 
 ** Applications
@@ -410,19 +423,21 @@ browser, and change the width to 80 columns.
 #+begin_src emacs-lisp
   (use-package eww
     :defer t
+    :custom
+    (browse-url-browser-function 'eww-browse-url)
+    (browse-url-secondary-browser-function 'browse-url-externally-please)
+    (eww-bookmarks-directory (expand-file-name "eww" user-emacs-directory))
+    (shr-width 80)
+    (shr-use-colors nil)
     :init
     <<browse-url-externally-please>>
-    :bind (:map eww-mode-map
-                ("M-n" . forward-paragraph)
-                ("M-p" . backward-paragraph)
-                ("f" . plumb-stream)
-                ("D" . plumb-download-video)
-                ("A" . plumb-audio))
-    :custom ((browse-url-browser-function 'eww-browse-url)
-             (browse-url-secondary-browser-function 'browse-url-externally-please)
-             (eww-bookmarks-directory (expand-file-name "eww" user-emacs-directory))
-             (shr-width 80)
-             (shr-use-colors nil)))
+    :bind
+    (:map eww-mode-map
+          ("M-n" . forward-paragraph)
+          ("M-p" . backward-paragraph)
+          ("f" . plumb-stream)
+          ("D" . plumb-download-video)
+          ("A" . plumb-audio)))
 #+end_src
 
 **** External browser
@@ -445,8 +460,9 @@ The only reason for this to be here is to set my nick.
 
 #+begin_src emacs-lisp
   (use-package erc
-    :custom ((erc-nick "jamzattack")
-             (erc-hide-list '("JOIN" "PART" "QUIT")))
+    :custom
+    (erc-nick "jamzattack")
+    (erc-hide-list '("JOIN" "PART" "QUIT"))
     :config
     (add-to-list 'erc-modules 'notifications)
     (erc-track-mode))
@@ -473,9 +489,10 @@ Rebind M-p and M-n to move by paragraphs.  By default M-n runs
 
 #+begin_src emacs-lisp
   (use-package info
-    :bind (:map Info-mode-map
-                ("M-p" . backward-paragraph)
-                ("M-n" . forward-paragraph)))
+    :bind
+    (:map Info-mode-map
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph)))
 #+end_src
 
 *** Ibuffer
@@ -486,7 +503,9 @@ useful for more complex filtering.
 
 #+begin_src emacs-lisp
   (use-package ibuffer
-    :bind ("C-x C-b" . ibuffer)
+    :bind
+    (:map ctl-x-map
+          ("C-b" . ibuffer))
     :config
     (defun ibuffer-helm-major-mode-predicate (buffer)
       "Returns t if BUF is a helm buffer."
@@ -505,9 +524,12 @@ this if you use a different version.
 #+begin_src emacs-lisp
   (use-package dired
     :defer t
-    :custom ((dired-listing-switches "-lah --group-directories-first")
-             (delete-by-moving-to-trash t))
-    :bind ("C-x C-d" . dired-jump))
+    :custom
+    (dired-listing-switches "-lah --group-directories-first")
+    (delete-by-moving-to-trash t)
+    :bind
+    (:map ctl-x-map
+          ("C-d" . dired-jump)))
 #+end_src
 
 *** Diffing
@@ -520,8 +542,9 @@ with EXWM, so I disable that feature.
 #+begin_src emacs-lisp
   (use-package ediff
     :defer t
-    :custom ((ediff-window-setup-function
-              #'ediff-setup-windows-plain)))
+    :custom
+    (ediff-window-setup-function
+     #'ediff-setup-windows-plain))
 #+end_src
 
 **** Smerge
@@ -531,9 +554,10 @@ but I also bind =C-c n= and =C-c p= to go to the next/previous hunk.
 
 #+begin_src emacs-lisp
   (use-package smerge-mode
-    :bind (:map smerge-mode-map
-                ("C-c n" . smerge-next)
-                ("C-c p" . smerge-prev)))
+    :bind
+    (:map smerge-mode-map
+          ("C-c n" . smerge-next)
+          ("C-c p" . smerge-prev)))
 #+end_src
 
 ** Shells
@@ -559,17 +583,20 @@ delete-char or kill-buffer like a "normal" shell.
 
 #+begin_src emacs-lisp
   (use-package eshell
-    :custom (eshell-history-size 1000)
-    :init (require 'esh-mode)
+    :custom
+    (eshell-history-size 1000)
+    :init
+    (require 'esh-mode)
     :config
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
     <<eshell/e>>
     <<eshell/comint>>
-    :bind (("s-e" . eshell)
-           (:map eshell-mode-map
-                 ("C-d" . eshell-delete-or-quit)
-                 ("C-c M-l" . eshell/clear-please))))
+    :bind
+    ("s-e" . eshell)
+    (:map eshell-mode-map
+          ("C-d" . eshell-delete-or-quit)
+          ("C-c M-l" . eshell/clear-please)))
 #+end_src
 
 **** Eshell functions
@@ -674,9 +701,10 @@ everywhere.
 
 #+begin_src emacs-lisp
   (use-package desktop
-    :custom ((desktop-restore-frames nil)
-             (history-delete-duplicates t)
-             (desktop-save-mode t))
+    :custom
+    (desktop-restore-frames nil)
+    (history-delete-duplicates t)
+    (desktop-save-mode t)
     :config
     (add-to-list 'desktop-globals-to-save 'helm-ff-history)
     (add-to-list 'desktop-globals-to-save 'extended-command-history))
@@ -689,7 +717,8 @@ changes in window arrangement.
 
 #+begin_src emacs-lisp
   (use-package winner
-    :config (winner-mode))
+    :config
+    (winner-mode))
 #+end_src
 
 ** Interface tweaks
@@ -708,8 +737,9 @@ decide to turn it on.
 
 #+begin_src emacs-lisp
   (use-package scroll-bar
-    :custom ((scroll-bar-mode nil)
-             (scroll-bar-width 6 t)))
+    :custom
+    (scroll-bar-mode nil)
+    (scroll-bar-width 6 t))
 #+end_src
 
 **** Menu bar
@@ -718,7 +748,8 @@ Disable the menu bar.
 
 #+begin_src emacs-lisp
   (use-package menu-bar
-    :config (menu-bar-mode -1))
+    :custom
+    (menu-bar-mode nil))
 #+end_src
 
 **** Tool bar
@@ -727,7 +758,8 @@ Disable the tool bar.
 
 #+begin_src emacs-lisp
   (use-package tool-bar
-    :config (tool-bar-mode -1))
+    :custom
+    (tool-bar-mode nil))
 #+end_src
 
 *** Mode-line
@@ -739,8 +771,9 @@ time.
 
 #+begin_src emacs-lisp
   (use-package time
-    :custom (display-time-24hr-format t)
-    :config (display-time-mode t))
+    :custom
+    (display-time-24hr-format t)
+    (display-time-mode t))
 #+end_src
 
 **** Battery
@@ -750,8 +783,10 @@ mode-line.
 
 #+begin_src emacs-lisp
   (use-package battery
-    :bind (("C-z b" . battery))
-    :config (display-battery-mode t))
+    :custom
+    (display-battery-mode t)
+    :bind
+    ("C-z b" . battery))
 #+end_src
 
 **** Show the column
@@ -761,7 +796,8 @@ Show the current column in the mode-line.  This is provided by the
 
 #+begin_src emacs-lisp
   (use-package simple
-    :config (column-number-mode t))
+    :custom
+    (column-number-mode t))
 #+end_src
 
 *** Keybindings
@@ -775,7 +811,8 @@ by =simple=.
 
 #+begin_src emacs-lisp
   (use-package simple
-    :bind ("C-c t" . toggle-truncate-lines))
+    :bind
+    ("C-c t" . toggle-truncate-lines))
 #+end_src
 
 **** Line numbers
@@ -785,7 +822,8 @@ doesn't slow down Emacs as much.
 
 #+begin_src emacs-lisp
   (use-package display-line-numbers
-    :bind ("C-c l" . display-line-numbers-mode))
+    :bind
+    ("C-c l" . display-line-numbers-mode))
 #+end_src
 
 ** Environment variables
@@ -815,8 +853,9 @@ keys.
 
 #+begin_src emacs-lisp
   (use-package window
-    :bind (("C-z C-z" . bury-buffer)
-           ("C-z z" . kill-buffer-and-window)))
+    :bind
+    ("C-z C-z" . bury-buffer)
+    ("C-z z" . kill-buffer-and-window))
 #+end_src
 
 *** Windmove
@@ -846,12 +885,13 @@ Also enable view-mode if a buffer is read-only.
 
 #+begin_src emacs-lisp
   (use-package view
-    :bind (("<Scroll_Lock>" . view-mode)
-           (:map view-mode-map
-                 ("l" . recenter-top-bottom)
-                 ("f" . forward-sexp)
-                 ("b" . backward-sexp)))
-    :custom (view-read-only t))
+    :custom (view-read-only t)
+    :bind
+    ("<Scroll_Lock>" . view-mode)
+    (:map view-mode-map
+          ("l" . recenter-top-bottom)
+          ("f" . forward-sexp)
+          ("b" . backward-sexp)))
 #+end_src
 
 ** Fixing some default behaviour
@@ -886,7 +926,8 @@ which isn't a loadable feature, so use custom instead.
 
 #+begin_src emacs-lisp
   (use-package custom
-    :custom (ring-bell-function 'ignore))
+    :custom
+    (ring-bell-function 'ignore))
 #+end_src
 
 ** Theme
@@ -896,10 +937,11 @@ themes to be loaded, then load my [[file:lisp/themes/custom-theme.el][custom the
 
 #+begin_src emacs-lisp
   (use-package custom
-    :custom ((custom-theme-directory
-              (expand-file-name "lisp/themes" user-emacs-directory))
-             (custom-safe-themes t)
-             (custom-enabled-themes '(custom))))
+    :custom
+    (custom-theme-directory
+     (expand-file-name "lisp/themes" user-emacs-directory))
+    (custom-safe-themes t)
+    (custom-enabled-themes '(custom)))
 #+end_src
 
 * My packages
@@ -924,12 +966,13 @@ Located [[file:lisp/plumb/plumb.el][here]].
   (use-package plumb
     :load-path "lisp/plumb"
     :demand t
-    :functions (plum-stream
-                plum-download-audio
-                plum-download-video)
+    :functions
+    plum-stream
+    plum-download-audio
+    plum-download-video
     :bind
-    (("C-z d" . plumb)
-     ("C-z C-d" . plumb)))
+    ("C-z d" . plumb)
+    ("C-z C-d" . plumb))
 #+end_src
 
 *** Library-genesis
@@ -942,7 +985,8 @@ Located [[file:lisp/library-genesis/library-genesis.el][here]].
 #+begin_src emacs-lisp
   (use-package library-genesis
     :load-path "lisp/library-genesis"
-    :bind (("C-z l" . library-genesis-search)))
+    :bind
+    ("C-z l" . library-genesis-search))
 #+end_src
 
 *** Search-query
@@ -956,11 +1000,13 @@ Located [[file:lisp/search-query/search-query.el][here]].
 #+begin_src emacs-lisp
   (use-package search-query
     :load-path "lisp/search-query"
-    :custom (tpb-mirror "lepiratebay.org")
-    :bind (("C-z t" . tpb-search)
-           ("C-z y" . youtube-search)
-           ("C-z w" . wikipedia-search)
-           ("C-z C-w" . wiktionary-word)))
+    :custom
+    (tpb-mirror "lepiratebay.org")
+    :bind
+    ("C-z t" . tpb-search)
+    ("C-z y" . youtube-search)
+    ("C-z w" . wikipedia-search)
+    ("C-z C-w" . wiktionary-word))
 #+end_src
 
 *** Reddit-browse
@@ -973,10 +1019,12 @@ Located [[file:lisp/reddit-browse/reddit-browse.el][here]].
 #+begin_src emacs-lisp
   (use-package reddit-browse
     :load-path "lisp/reddit-browse"
-    :custom (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
-                                     "vxjunkies" "linux" "nethack"
-                                     "cello" "throwers"))
-    :bind ("C-z r" . reddit-goto-subreddit))
+    :custom
+    (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
+                             "vxjunkies" "linux" "nethack"
+                             "cello" "throwers"))
+    :bind
+    ("C-z r" . reddit-goto-subreddit))
 #+end_src
 
 ** Toggle-touchpad
@@ -990,8 +1038,8 @@ Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
   (use-package toggle-touchpad
     :load-path "lisp/toggle-touchpad"
     :bind
-    (("<XF86TouchpadToggle>" . toggle-touchpad)
-     ("C-z \\" . toggle-touchpad)))
+    ("<XF86TouchpadToggle>" . toggle-touchpad)
+    ("C-z \\" . toggle-touchpad))
 #+end_src
 
 ** LilyPond-mode
@@ -1026,7 +1074,7 @@ Located [[file:lisp/skeletons/lilypond-skel.el][here]].
 #+begin_src emacs-lisp
   (use-package lilypond-skel
     :load-path "lisp/skeletons/"
-    :after (lilypond-mode auto-insert))
+    :defer t)
 #+end_src
 
 ** Arch Linux settings
@@ -1053,7 +1101,8 @@ Located [[file:lisp/exwm/custom-exwm-config.el][here]].
   (use-package custom-exwm-config
     :load-path "lisp/exwm"
     :after exwm
-    :config (custom-exwm-config))
+    :config
+    (custom-exwm-config))
 #+end_src
 
 ** Miscellaneous functions
@@ -1069,11 +1118,12 @@ Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
   (use-package my-misc-defuns
     :load-path "lisp/my-misc-defuns"
     :defer nil
-    :bind (("C-M-\\" . indent-region-or-defun-please)
-           ("C-h M-a" . system-apropos)
-           ("C-c p" . open-pdf-of-current-file)
-           (:map org-mode-map
-                 ("C-c e" . eww-open-html-of-current-file))))
+    :bind
+    ("C-M-\\" . indent-region-or-defun-please)
+    ("C-h M-a" . system-apropos)
+    ("C-c p" . open-pdf-of-current-file)
+    (:map org-mode-map
+          ("C-c e" . eww-open-html-of-current-file)))
 #+end_src
 
 ** Selime
@@ -1105,17 +1155,18 @@ Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
   (use-package custom-helm-bookmark
     :load-path "lisp/helm"
     :after helm
-    :custom (helm-bookmark-default-filtered-sources
-             '(helm-source-bookmark-university
-               helm-source-bookmark-config
-               helm-source-bookmark-org-misc
-               helm-source-bookmark-elisp
-               helm-source-bookmark-downloads
-               helm-source-bookmark-dired
-               helm-source-bookmark-info
-               helm-source-bookmark-man
-               helm-source-bookmark-other
-               helm-source-bookmark-set)))
+    :custom
+    (helm-bookmark-default-filtered-sources
+     '(helm-source-bookmark-university
+       helm-source-bookmark-config
+       helm-source-bookmark-org-misc
+       helm-source-bookmark-elisp
+       helm-source-bookmark-downloads
+       helm-source-bookmark-dired
+       helm-source-bookmark-info
+       helm-source-bookmark-man
+       helm-source-bookmark-other
+       helm-source-bookmark-set)))
 #+end_src
 
 * Third party packages
@@ -1137,32 +1188,34 @@ replace =yank-pop= but the latter is too engrained in my fingers.
   (use-package helm
     :straight t
     :diminish
-    :custom ((helm-completion-style 'emacs)
-             (helm-describe-variable-function 'helpful-variable)
-             (helm-describe-function-function 'helpful-callable)
-             (helm-external-programs-associations
-              '(("midi" . "timidity")
-                ("png" . "sxiv")
-                ("jpg" . "sxiv")
-                ("gif" . "mpv -L")
-                ("mp4" . "mpv")
-                ("mkv" . "mpv"))))
+    :custom
+    (helm-completion-style 'emacs)
+    (helm-describe-variable-function 'helpful-variable)
+    (helm-describe-function-function 'helpful-callable)
+    (helm-external-programs-associations
+     '(("midi" . "timidity")
+       ("png" . "sxiv")
+       ("jpg" . "sxiv")
+       ("gif" . "mpv -L")
+       ("mp4" . "mpv")
+       ("mkv" . "mpv")))
     :init
     <<kill-this-buffer-please>>
     :config
     (require 'helm-config)
     (helm-mode t)
-    :bind (("M-x" . helm-M-x)
-           ("<menu><menu>" . helm-M-x)
-           ("M-s M-o" . helm-occur)
-           ("s-b" . helm-mini)
-           ("C-x b" . helm-mini)
-           ("C-x k" . kill-this-buffer-please)
-           ("C-x C-f" . helm-find-files)
-           ("C-x r b" . helm-filtered-bookmarks)
-           ("M-C-y" . helm-show-kill-ring)
-           :map helm-map
-           ("C-h c" . describe-key-briefly)))
+    :bind
+    ("M-x" . helm-M-x)
+    ("<menu><menu>" . helm-M-x)
+    ("M-s M-o" . helm-occur)
+    ("s-b" . helm-mini)
+    ("C-x b" . helm-mini)
+    ("C-x k" . kill-this-buffer-please)
+    ("C-x C-f" . helm-find-files)
+    ("C-x r b" . helm-filtered-bookmarks)
+    ("M-C-y" . helm-show-kill-ring)
+    (:map helm-map
+          ("C-h c" . describe-key-briefly)))
 #+end_src
 
 #+name: kill-this-buffer-please
@@ -1189,7 +1242,9 @@ packages.
   (use-package helm-system-packages
     :straight t
     :after helm
-    :bind (("C-h C-p" . helm-system-packages)))
+    :bind
+    (:map help-map
+          ("C-p" . helm-system-packages)))
 #+end_src
 
 *** Helm Notmuch
@@ -1200,7 +1255,7 @@ course).
 #+begin_src emacs-lisp
   (use-package helm-notmuch
     :straight t
-    :after (helm notmuch))
+    :defer t)
 #+end_src
 
 *** Helm man
@@ -1210,9 +1265,12 @@ manpages.
 
 #+begin_src emacs-lisp
   (use-package helm-man
-    :after (helm)
-    :custom (man-width 80)
-    :bind ("C-h C-m" . helm-man-woman))
+    :defer t
+    :custom
+    (man-width 80)
+    :bind
+    (:map help-map
+          ("C-m" . helm-man-woman)))
 #+end_src
 
 *** Helm eww
@@ -1223,11 +1281,12 @@ the Helm alternatives.
 #+begin_src emacs-lisp
   (use-package helm-eww
     :straight t
-    :bind (("C-x r e" . helm-eww-bookmarks)
-           (:map eww-mode-map
-                 ("B" . helm-eww-bookmarks)
-                 ("H" . helm-eww-history)
-                 ("S" . helm-eww-buffers))))
+    :bind
+    ("C-x r e" . helm-eww-bookmarks)
+    (:map eww-mode-map
+          ("B" . helm-eww-bookmarks)
+          ("H" . helm-eww-history)
+          ("S" . helm-eww-buffers)))
 #+end_src
 
 *** Helm org
@@ -1239,8 +1298,9 @@ Similar to =occur=, but only shows headings.
   (use-package helm-org
     :straight t
     :after org
-    :bind (:map org-mode-map
-                ("C-c M-o" . helm-org-in-buffer-headings)))
+    :bind
+    (:map org-mode-map
+          ("C-c M-o" . helm-org-in-buffer-headings)))
 #+end_src
 
 ** Helpful
@@ -1261,13 +1321,15 @@ library).
              :branch "no-f")
     :config
     <<helpful-edit-source-temporarily>>
-    :bind (("C-h f" . helpful-callable)
-           ("C-h v" . helpful-variable)
-           ("C-h o" . helpful-symbol)
-           ("C-h k" . helpful-key)
-           ("C-h SPC" . helpful-at-point)
-           (:map helpful-mode-map
-                 ("e" . helpful-edit-source-temporarily))))
+    :bind
+    (:map help-map
+          ("C-h f" . helpful-callable)
+          ("C-h v" . helpful-variable)
+          ("C-h o" . helpful-symbol)
+          ("C-h k" . helpful-key)
+          ("C-h SPC" . helpful-at-point))
+    (:map helpful-mode-map
+          ("e" . helpful-edit-source-temporarily)))
 #+end_src
 
 *** Edit source
@@ -1315,7 +1377,8 @@ epubs, and set the default width to 80 columns.
 #+begin_src emacs-lisp
   (use-package nov
     :straight t
-    :custom (nov-text-width 80)
+    :custom
+    (nov-text-width 80)
     :mode ("\\.epub\\'" . nov-mode))
 #+end_src
 
@@ -1356,13 +1419,15 @@ scheme is installed, in order of preference.
   (use-package geiser
     :straight t
     :defer t
-    :custom ((scheme-program-name (or (executable-find "guile3.0")
-                                      (executable-find "guile")
-                                      (executable-find "chez")
-                                      (executable-find "mit-scheme")
-                                      "scheme"))
-             (geiser-default-implementation 'guile)
-             (geiser-repl-history-filename "~/.cache/geiser/history")))
+    :custom
+    (scheme-program-name
+     (or (executable-find "guile3.0")
+         (executable-find "guile")
+         (executable-find "chez")
+         (executable-find "mit-scheme")
+         "scheme"))
+    (geiser-default-implementation 'guile)
+    (geiser-repl-history-filename "~/.cache/geiser/history"))
 #+end_src
 
 *** SLIME
@@ -1379,18 +1444,22 @@ move the history file out of =$HOME=.
     (defun disable-slime-completion ()
       (setq slime-completion-at-point-functions
             '(slime-simple-completion-at-point)))
-    :custom ((inferior-lisp-program (or (executable-find "sbcl")
-                                        (executable-find "ccl")
-                                        (executable-find "clisp")
-                                        (executable-find "lisp")))
-             (slime-contribs '(slime-fancy))
-             (slime-repl-history-file "~/.cache/slime/history")
-             (common-lisp-hyperspec-root (when (file-exists-p "/usr/share/doc/HyperSpec/")
-                                           "file:///usr/share/doc/HyperSpec/"))
-             (slime-auto-start 'ask))
     :hook (slime-connected . disable-slime-completion)
-    :bind (:map slime-mode-map
-                ("C-c C-z" . slime-switch-to-output-buffer)))
+    :custom
+    (inferior-lisp-program
+     (or (executable-find "sbcl")
+         (executable-find "ccl")
+         (executable-find "clisp")
+         (executable-find "lisp")))
+    (slime-contribs '(slime-fancy))
+    (slime-repl-history-file "~/.cache/slime/history")
+    (common-lisp-hyperspec-root
+     (when (file-exists-p "/usr/share/doc/HyperSpec/")
+       "file:///usr/share/doc/HyperSpec/"))
+    (slime-auto-start 'ask)
+    :bind
+    (:map slime-mode-map
+          ("C-c C-z" . slime-switch-to-output-buffer)))
 #+end_src
 
 *** Paredit
@@ -1403,13 +1472,14 @@ Enabled for Lisp modes only.
     :straight t
     :diminish
     :defer t
-    :hook ((emacs-lisp-mode . paredit-mode)
-           (lisp-interaction-mode . paredit-mode)
-           (ielm-mode . paredit-mode)
-           (eval-expression-minibuffer-setup . paredit-mode)
-           (lisp-mode . paredit-mode)
-           (slime-repl-mode . paredit-mode)
-           (scheme-mode . paredit-mode)))
+    :hook
+    (emacs-lisp-mode . paredit-mode)
+    (lisp-interaction-mode . paredit-mode)
+    (ielm-mode . paredit-mode)
+    (eval-expression-minibuffer-setup . paredit-mode)
+    (lisp-mode . paredit-mode)
+    (slime-repl-mode . paredit-mode)
+    (scheme-mode . paredit-mode))
 #+end_src
 
 *** Elf-mode
@@ -1542,15 +1612,17 @@ A more flexible mpd client than mingus.
   (use-package mpdel
     :straight t
     :when (executable-find "mpd")
-    :bind-keymap (("s-m" . mpdel-core-map))
-    :bind (("s-a" . mpdel-core-open-albums)
-           ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
-           ("<XF86AudioPrev>" . libmpdel-playback-previous)
-           ("<XF86AudioNext>" . libmpdel-playback-next)
-           (:map mpdel-core-map
-                 ("Z" . mpd-shuffle-playlist)
-                 ("z" . mpd-toggle-random)
-                 ("C-d" . mpdel-core-open-directories))))
+    :bind-keymap
+    ("s-m" . mpdel-core-map)
+    :bind
+    ("s-a" . mpdel-core-open-albums)
+    ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
+    ("<XF86AudioPrev>" . libmpdel-playback-previous)
+    ("<XF86AudioNext>" . libmpdel-playback-next)
+    (:map mpdel-core-map
+          ("Z" . mpd-shuffle-playlist)
+          ("z" . mpd-toggle-random)
+          ("C-d" . mpdel-core-open-directories)))
 #+end_src
 
 *** Notmuch
@@ -1565,20 +1637,22 @@ I have a habit of hitting =C-x C-s= more than I should.
   (use-package notmuch
     :straight t
     :when (executable-find "notmuch")
-    :custom ((notmuch-archive-tags '("-unread" "-inbox"))
-             (mail-user-agent 'notmuch-user-agent)
-             (notmuch-search-oldest-first nil)
-             (send-mail-function 'sendmail-send-it)
-             (sendmail-program "/usr/bin/msmtp")
-             (mail-specify-envelope-from t)
-             (message-sendmail-envelope-from 'header)
-             (mail-envelope-from 'header))
-    :bind ((:map notmuch-show-mode-map
-                 ("u" . eww-follow-link)
-                 ("M-p" . backward-paragraph)
-                 ("M-n" . forward-paragraph))
-           (:map notmuch-message-mode-map
-                 ("C-x C-s" . ignore))))
+    :custom
+    (notmuch-archive-tags '("-unread" "-inbox"))
+    (mail-user-agent 'notmuch-user-agent)
+    (notmuch-search-oldest-first nil)
+    (send-mail-function 'sendmail-send-it)
+    (sendmail-program "/usr/bin/msmtp")
+    (mail-specify-envelope-from t)
+    (message-sendmail-envelope-from 'header)
+    (mail-envelope-from 'header)
+    :bind
+    (:map notmuch-show-mode-map
+          ("u" . eww-follow-link)
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph))
+    (:map notmuch-message-mode-map
+          ("C-x C-s" . ignore)))
 #+end_src
 
 *** Transmission
@@ -1603,9 +1677,10 @@ An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitT
         (transmission-mode)
         (revert-buffer)
         (cd (expand-file-name "~/Downloads"))))
-    :bind (("C-z C-t" . open-transmission-in-this-window)
-           (:map eww-mode-map
-                 ("m" . transmission-add-url-at-point))))
+    :bind
+    ("C-z C-t" . open-transmission-in-this-window)
+    (:map eww-mode-map
+          ("m" . transmission-add-url-at-point)))
 #+end_src
 
 *** Elfeed
@@ -1619,26 +1694,26 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
     :straight t
     :defer t
     :custom
-    ((elfeed-db-directory (expand-file-name
-                           "elfeed" user-emacs-directory))
-     (elfeed-search-remain-on-entry t)
-     (elfeed-feeds
-      (let ((file (expand-file-name
-                   "elfeed/feeds.gpg" user-emacs-directory)))
-        (when (file-exists-p file)
-          (with-temp-buffer
-            (insert-file-contents file)
-            (eval (read (current-buffer))))))))
+    (elfeed-db-directory (expand-file-name
+                          "elfeed" user-emacs-directory))
+    (elfeed-search-remain-on-entry t)
+    (elfeed-feeds
+     (let ((file (expand-file-name
+                  "elfeed/feeds.gpg" user-emacs-directory)))
+       (when (file-exists-p file)
+         (with-temp-buffer
+           (insert-file-contents file)
+           (eval (read (current-buffer)))))))
     :bind
-    ((:map elfeed-show-mode-map
-           ("M-p" . backward-paragraph)
-           ("M-n" . forward-paragraph)
-           ("l" . elfeed)
-           ("f" . plumb-stream)
-           ("D" . plumb-download-video)
-           ("A" . plumb-audio))
-     (:map elfeed-search-mode-map
-           ("r" . elfeed-switch-to-entry)))
+    (:map elfeed-show-mode-map
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph)
+          ("l" . elfeed)
+          ("f" . plumb-stream)
+          ("D" . plumb-download-video)
+          ("A" . plumb-audio))
+    (:map elfeed-search-mode-map
+          ("r" . elfeed-switch-to-entry))
     :config
     <<elfeed-macro>>
     <<elfeed-switch-to-entry>>
@@ -1696,10 +1771,12 @@ buffer, and show 20 recent commits instead of 10.
 #+begin_src emacs-lisp
   (use-package magit
     :straight t
-    :custom ((magit-display-buffer-function
-              #'magit-display-buffer-same-window-except-diff-v1)
-             (magit-log-section-commit-count 20))
-    :bind (("C-x g" . magit-status)))
+    :custom
+    (magit-display-buffer-function
+     #'magit-display-buffer-same-window-except-diff-v1)
+    (magit-log-section-commit-count 20)
+    :bind
+    ("C-x g" . magit-status))
 #+end_src
 
 ** Appearance
@@ -1712,7 +1789,8 @@ in a terminal emulator).
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :straight t
-    :bind (("C-c h" . rainbow-mode)))
+    :bind
+    ("C-c h" . rainbow-mode))
 #+end_src
 
 *** Rainbow-delimiters
@@ -1733,6 +1811,7 @@ From Alezost, remove clutter in the mode-line.
 #+begin_src emacs-lisp
   (use-package dim
     :straight t
+    :disabled t
     :config
     (dim-major-names
      '((lisp-interaction-mode "eλ")
@@ -1763,8 +1842,10 @@ you're in (sometimes the mode-line just doesn't cut it).
 #+begin_src emacs-lisp
   (use-package dimmer
     :straight t
-    :custom (dimmer-fraction 0.3)
-    :config (dimmer-mode t))
+    :custom
+    (dimmer-fraction 0.3)
+    :config
+    (dimmer-mode t))
 #+end_src
 
 ** Quality of life
@@ -1778,8 +1859,9 @@ your choice.
 #+begin_src emacs-lisp
   (use-package scratch
     :straight t
-    :bind (("C-z s" . scratch)
-           ("C-z C-s" . scratch)))
+    :bind
+    ("C-z s" . scratch)
+    ("C-z C-s" . scratch))
 #+end_src
 
 *** Edwina
@@ -1817,8 +1899,9 @@ Make dired run actions in the background.  This is in the package
 #+begin_src emacs-lisp
   (use-package dired-async
     :straight async
-    :defer t
-    :config (dired-async-mode))
+    :custom
+    (dired-async-mode t)
+    :defer t)
 #+end_src
 
 *** Dired-subtree
@@ -1830,9 +1913,11 @@ show/hide a subtree, and disable the predefined faces.  Part of the
 #+begin_src emacs-lisp
   (use-package dired-subtree
     :straight dired-hacks
-    :custom (dired-subtree-use-backgrounds nil)
-    :bind (:map dired-mode-map
-                ("<tab>" . dired-subtree-toggle)))
+    :custom
+    (dired-subtree-use-backgrounds nil)
+    :bind
+    (:map dired-mode-map
+          ("<tab>" . dired-subtree-toggle)))
 #+end_src
 
 ** Fish completion
@@ -1845,7 +1930,7 @@ completion.  Fish must be installed.
     :straight t
     :after eshell
     :when (executable-find "fish")
-    :config
+    :custom
     (global-fish-completion-mode))
 #+end_src
 
