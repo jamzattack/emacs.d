@@ -29,10 +29,16 @@
 ;;; Code:
 
 (defvar plumb-audio-directory "~/Music"
-  "The directory in which to download files using `plumb'")
+  "The directory in which to download music using `plumb'")
 
 (defvar plumb-video-directory "~/Videos"
-  "The directory in which to download files using `plumb'")
+  "The directory in which to download videos using `plumb'")
+
+(defvar plumb-image-directory "~/Pictures"
+  "The directory in which do download images using `plumb'")
+
+(defvar plumb-pdf-directory "~/Documents"
+  "The directory in which do download pdfs using `plumb'")
 
 ;;;###autoload
 (defun plumb-stream (url &optional flags)
@@ -86,32 +92,39 @@ arg prompts for these flags."
 		   url))
   (message "%s downloaded in %s" url (or directory plumb-audio-directory)))
 
-;;;###autoload
 (defun plumb-save-to-register (url)
   "Copies the last URL into a register."
   (set-register
    (register-read-with-preview "Copy URL to register: ")
    url))
 
-;;;###autoload
+(defun plumb-download-and-view (url &optional directory)
+  "Download URL in either DIRECTORY or ~/Downloads, and then open it.
+Used by `plumb-image' and `plumb-pdf'."
+  (let* ((file (expand-file-name
+		(file-name-nondirectory url)
+		(or directory "~/Downloads"))))
+    (url-retrieve url
+		  (lambda (_status)
+		    (goto-char (point-min))
+		    (re-search-forward "\r?\n\r?\n")
+		    (write-region (point) (point-max) file)
+		    (find-file file)))
+    file))
+
+(defun plumb-plain (url)
+  "Download and open URL directly.  This should work with any
+  filetype in `auto-mode-alist'."
+  (plumb-download-and-view url))
+
 (defun plumb-image (url)
-  "View URL as an image within emacs"
-  (start-process-shell-command
-   "plumb-image" nil
-   (concat "curl " url " -o "
-	   "/tmp/plumb-image "
-	   "&& emacsclient /tmp/plumb-image")))
+  "View URL as an image within Emacs."
+  (plumb-download-and-view url plumb-image-directory))
 
-;;;###autoload
 (defun plumb-pdf (url)
-  "View URL as a pdf within emacs"
-  (start-process-shell-command
-   "plumb-pdf" nil
-   (concat "curl " url " -o "
-	   "/tmp/plumb-pdf "
-	   "&& emacsclient /tmp/plumb-pdf")))
+  "View URL as a pdf within Emacs."
+  (plumb-download-and-view url plumb-pdf-directory))
 
-;;;###autoload
 (defun plumb-read (prompt)
   "Reads input for `plumb'"
   (completing-read (concat prompt " : ")
@@ -120,11 +133,11 @@ arg prompts for these flags."
                      "external browser"
                      "View as image"
                      "Stream"
+		     "Download and open"
 		     "Download video"
                      "Download audio"
                      "View as pdf")))
 
-;;;###autoload
 (defun plumb-get-url ()
   "Get URL at point or from minibuffer"
   (or (thing-at-point 'url t)
@@ -146,6 +159,8 @@ arg prompts for these flags."
        (plumb-image url))
       ("View as pdf"
        (plumb-pdf url))
+      ("Download and open"
+       (plumb-plain url))
       ("Stream"
        (plumb-stream url))
       ("Download video"

@@ -23,29 +23,6 @@ Downloads the audio of URL using youtube-dl.
 
 \(fn URL &optional DIRECTORY)" t nil)
 
-(autoload 'plumb-save-to-register "plumb" "\
-Copies the last URL into a register.
-
-\(fn URL)" nil nil)
-
-(autoload 'plumb-image "plumb" "\
-View URL as an image within emacs
-
-\(fn URL)" nil nil)
-
-(autoload 'plumb-pdf "plumb" "\
-View URL as a pdf within emacs
-
-\(fn URL)" nil nil)
-
-(autoload 'plumb-read "plumb" "\
-Reads input for `plumb'
-
-\(fn PROMPT)" nil nil)
-
-(autoload 'plumb-get-url "plumb" "\
-Get URL at point or from minibuffer" nil nil)
-
 (autoload 'plumb "plumb" "\
 Select a way to use a URL
 
