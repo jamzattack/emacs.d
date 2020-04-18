@@ -51,14 +51,18 @@ This snippet clones and loads straight, stolen from the README.
     (load bootstrap-file nil 'nomessage))
 #+end_src
 
-** Use-package
+** Use-package and dependencies
 
 Install use-package using =straight-use-package=, and load both
 =use-package= and =bind-key=.  Note =bind-key= is a dependency of
 =use-package=, so I don't need to install it manually.
 
+I also use use-package's =:delight= keyword, so install that as well.
+I don't need to use =(require delight)= as use-package handles that.
+
 #+begin_src emacs-lisp
   (straight-use-package 'use-package)
+  (straight-use-package 'delight)
   (setq use-package-compute-statistics t)
   (require 'use-package)
   (require 'bind-key)
@@ -152,6 +156,8 @@ and use eww for html instead of mhtml-mode.
      '((auto-mode . emacs)
        ("\\.x?html?\\'" . (lambda (file &optional ignore)
                             (eww-open-file file)))))
+    :delight
+    (org-src-mode " #+src")
     :config
     (when (featurep 'org-tempo)
       (require 'org-tempo))
@@ -296,6 +302,9 @@ keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
   (use-package elisp-mode
     :custom
     (initial-major-mode 'emacs-lisp-mode)
+    :delight
+    (emacs-lisp-mode "el" :major)
+    (inferior-emacs-lisp-mode "EL>" :major)
     :bind
     ("<C-M-backspace>" . backward-kill-sexp))
 #+end_src
@@ -395,7 +404,7 @@ turn on hi-lock-mode which enables the =C-x w= prefix.
 
 #+begin_src emacs-lisp
   (use-package hi-lock
-    :diminish
+    :delight
     :config
     (global-hi-lock-mode t))
 #+end_src
@@ -1053,6 +1062,8 @@ Located [[file:lisp/lilypond-mode][here]].
 #+begin_src emacs-lisp
   (use-package lilypond-mode
     :load-path "lisp/lilypond-mode"
+    :delight
+    (LilyPond-mode "ly" :major)
     :init
     (defalias 'lilypond-mode 'LilyPond-mode)
     (defun custom-lilypond-setup ()
@@ -1174,7 +1185,7 @@ replace =yank-pop= but the latter is too engrained in my fingers.
 #+begin_src emacs-lisp
   (use-package helm
     :straight t
-    :diminish
+    :delight
     :custom
     (helm-completion-style 'emacs)
     (helm-describe-variable-function 'helpful-variable)
@@ -1406,6 +1417,10 @@ scheme is installed, in order of preference.
   (use-package geiser
     :straight t
     :defer t
+    :delight
+    (scheme-mode "scm" :major)
+    (geiser-repl-mode "SCM>" :major)
+    (geiser-autodoc-mode)
     :custom
     (scheme-program-name
      (or (executable-find "guile3.0")
@@ -1426,6 +1441,11 @@ move the history file out of =$HOME=.
 #+begin_src emacs-lisp
   (use-package slime
     :straight t
+    :delight
+    (lisp-mode "cl" :major)
+    (slime-repl-mode "CL>" :major)
+    (slime-mode)
+    (slime-autodoc-mode)
     :init
     (autoload 'slime-switch-to-output-buffer "slime-repl")
     (defun disable-slime-completion ()
@@ -1457,8 +1477,8 @@ Enabled for Lisp modes only.
 #+begin_src emacs-lisp
   (use-package paredit
     :straight t
-    :diminish
     :defer t
+    :delight
     :hook
     (emacs-lisp-mode . paredit-mode)
     (lisp-interaction-mode . paredit-mode)
@@ -1539,7 +1559,7 @@ colour.
 #+begin_src emacs-lisp
   (use-package desktop-environment
     :straight t
-    :diminish
+    :delight
     :init
     <<custom-screenlock-command>>
     :config
@@ -1793,6 +1813,8 @@ in a terminal emulator).
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :straight t
+    :delight
+    (rainbow-mode " 🌈")
     :bind
     ("C-c h" . rainbow-mode))
 #+end_src
@@ -1806,36 +1828,6 @@ Minor mode that highlights parentheses well.
     :straight t
     :defer t
     :hook (prog-mode . rainbow-delimiters-mode))
-#+end_src
-
-*** Dim (unclutter mode-line)
-
-From Alezost, remove clutter in the mode-line.
-
-#+begin_src emacs-lisp
-  (use-package dim
-    :straight t
-    :disabled t
-    :config
-    (dim-major-names
-     '((lisp-interaction-mode "eλ")
-       (emacs-lisp-mode    "el")
-       (lisp-mode          "cl")
-       (scheme-mode        "scm")
-       (org-mode           "org")
-       (Info-mode          "info")
-       (ibuffer-mode       "ibu")
-       (LilyPond-mode      "ly")
-       (lilypond-mode      "ly")
-       (help-mode          "?")))
-    (dim-minor-names
-     '((auto-fill-function " ^M")
-       (isearch-mode       " ^S")
-       (helm-mode          "" helm)
-       (paredit-mode       "" paredit)
-       (org-src-mode       " *" org)
-       (desktop-environment-mode "" desktop-environment)
-       (eldoc-mode         ""    eldoc))))
 #+end_src
 
 *** Dimmer (dim inactive buffers)
