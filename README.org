@@ -855,7 +855,11 @@ Also enable view-mode if a buffer is read-only.
 
 #+begin_src emacs-lisp
   (use-package view
-    :bind (("<Scroll_Lock>" . view-mode))
+    :bind (("<Scroll_Lock>" . view-mode)
+           (:map view-mode-map
+                 ("l" . recenter-top-bottom)
+                 ("f" . forward-sexp)
+                 ("b" . backward-sexp)))
     :custom (view-read-only t))
 #+end_src
 
