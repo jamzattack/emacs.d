@@ -291,6 +291,22 @@ keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
     :bind ("<C-M-backspace>" . backward-kill-sexp))
 #+end_src
 
+**** Find-func
+
+A package that defines a few functions for editing Elisp source code.
+It provides the function =find-function-setup-keys= which binds some
+keys in =ctl-x-map=, but I prefer to have them under =C-h=.
+
+#+begin_src emacs-lisp
+  (use-package find-func
+    :defer t
+    :bind (:map help-map
+                ("C-l" . find-library)
+                ("C-f" . find-function)
+                ("C-v" . find-variable)
+                ("C-k" . find-function-on-key)))
+#+end_src
+
 *** Typesetting
 
 **** Nroff-mode
