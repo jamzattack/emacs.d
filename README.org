@@ -427,7 +427,7 @@ Instead of "Fill", show "^M" (carriage return) in the mode-line.
 #+begin_src emacs-lisp
   (use-package simple
     :delight
-    (auto-fill-mode " ^M"))
+    (auto-fill-function " ^M"))
 #+end_src
 
 *** Isearch
