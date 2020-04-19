@@ -40,6 +40,11 @@
 (defvar plumb-pdf-directory "~/Documents"
   "The directory in which do download pdfs using `plumb'")
 
+(defvar plumb-mpv-default-flags
+  '("--ytdl-format=22,best"
+    "--ytdl-raw-options=all-subs="
+    "--speed=1.30"))
+
 ;;;###autoload
 (defun plumb-stream (url &optional flags)
   "Plays video with mpv, provided URL is supported by youtube-dl.
@@ -50,11 +55,15 @@ arg prompts for these flags."
 						  (thing-at-point 'url t)))
 		(when current-prefix-arg
 		  (read-string "mpv flags: "))))
-  (start-process "mpv stream" " *mpv stream*"
-		 "mpv"
-		 (or flags
-		     "--ytdl-format=22,best --ytdl-raw-options=all-subs=")
-		 url)
+  (let ((flags
+	 (if (stringp flags)
+	     (split-string flags " ")
+	   plumb-mpv-default-flags)))
+    (eval
+     `(start-process "mpv stream" " *mpv stream*"
+		     "mpv"
+		     ,@flags
+		     ,url)))
   (message "%s is being streamed" url))
 
 ;;;###autoload
