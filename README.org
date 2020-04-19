@@ -1909,7 +1909,11 @@ Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
 
 #+begin_src emacs-lisp
   (use-package plumb
-    :load-path "lisp/plumb"
+    :straight
+    (plumb :type git
+           :flavor melpa
+           :host gitlab
+           :repo "jamzattack/plumb.el")
     :demand t
     :bind
     ("C-z d" . plumb)
