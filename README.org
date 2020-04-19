@@ -49,6 +49,8 @@ This snippet clones and loads straight, stolen from the README.
         (goto-char (point-max))
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
+
+  (setq straight-vc-git-default-protocol 'ssh)
 #+end_src
 
 ** Use-package and dependencies
@@ -1344,8 +1346,8 @@ library).
     :straight
     (helpful :type git
              :flavor melpa
-             :host nil
-             :repo "git@gitlab.com:jamzattack/helpful"
+             :host gitlab
+             :repo "jamzattack/helpful"
              :branch "no-f")
     :config
     <<helpful-edit-source-temporarily>>
@@ -1543,7 +1545,8 @@ Hosted [[https://gitlab.com/jamzattack/selime][here]].
     :straight
     (selime :type git
             :flavor melpa
-            :repo "git@gitlab.com:jamzattack/selime")
+            :host gitlab
+            :repo "jamzattack/selime")
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
