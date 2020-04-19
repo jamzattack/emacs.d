@@ -1900,9 +1900,8 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
 
 *** Plumb
 
-A way to open URLs the way I want.  I bind it to =C-z d=.  I use the
-=:demand= keyword so that I can use these commands in the [[*EWW][EWW]] and
-[[*Elfeed][Elfeed]] use-package forms.
+A way to open URLs the way I want.  I bind it to =C-z d=.  Some
+commands from this package are bound in the [[*EWW][EWW]] and [[*Elfeed][Elfeed]].
 
 Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
 
@@ -1913,7 +1912,6 @@ Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
            :flavor melpa
            :host gitlab
            :repo "jamzattack/plumb.el")
-    :demand t
     :bind
     ("C-z d" . plumb)
     ("C-z C-d" . plumb))
