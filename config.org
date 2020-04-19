@@ -1,1 +1,1996 @@
-README.org
+#+title: Emacs Configuration
+#+author: Jamie Beardslee
+#+email: beardsleejamie@gmail.com
+#+property: header-args:emacs-lisp :tangle lisp/config.el :noweb yes :results none
+
+This is my Emacs config file.  It is written in org-mode so that I can
+brag about how dope org-mode is.  [[file:README.org][This file]] contains my main
+configuration, which is tangled to [[file:lisp/config.el][config.el]].  [[file:init.el][init.el]] sets the
+variable =custom-file= to [[file:lisp/custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
+[[file:lisp/custom.el][custom.el]].
+
+Note: [[file:lisp/custom.el][custom.el]] should not be edited manually, as it is used by Emacs
+for settings changed using the customisation interface.
+
+My own packages and other things that I need to =require= are housed
+in [[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so the first
+startup will take some time.
+
+* Startup
+
+Get some things out of the way early.  Without [[*Straight][straight]] or
+[[*Use-package][use-package]], none of this config would work.
+
+** Straight
+
+Install [[https://github.com/raxod502/straight.el][straight.el]].  It gets a lot of hype, so I'm trying to use it
+instead of the built-in =package.el=.  It has a use-package keyword,
+so you can simply (re)define a package like so:
+
+#+begin_src emacs-lisp :tangle no
+  (use-package package-name
+    :straight
+    (package-name :host gitlab
+                  :repo "user/forked-package"
+                  :branch "cool-new-feature"))
+#+end_src
+
+This snippet clones and loads straight, stolen from the README.
+
+#+begin_src emacs-lisp
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  (setq straight-vc-git-default-protocol 'ssh)
+#+end_src
+
+** Use-package and dependencies
+
+Install use-package using =straight-use-package=, and load both
+=use-package= and =bind-key=.  Note =bind-key= is a dependency of
+=use-package=, so I don't need to install it manually.
+
+I also use use-package's =:delight= keyword, so install that as well.
+I don't need to use =(require delight)= as use-package handles that.
+
+#+begin_src emacs-lisp
+  (straight-use-package 'use-package)
+  (straight-use-package 'delight)
+  (setq use-package-compute-statistics t)
+  (require 'use-package)
+  (require 'bind-key)
+#+end_src
+
+** Fonts
+
+The function =set-up-font-please= loads my [[file:lisp/fonts.el][font settings]].  Call it
+when creating a new frame or starting emacs.
+
+#+begin_src emacs-lisp
+  (defun set-up-fonts-please ()
+    (interactive)
+    (load (expand-file-name "lisp/fonts.el" user-emacs-directory)))
+
+  (add-hook 'server-after-make-frame-hook 'set-up-fonts-please)
+  (add-hook 'window-setup-hook 'set-up-fonts-please)
+#+end_src
+
+** Keybindings
+
+*** Prefix keys
+
+A couple of prefix keys.  It's useful to set these up early, so that
+you don't get any errors i.e "C-z is not a valid prefix key".
+
+**** Remove =C-z=
+
+Unbind =C-z= before anything else, so that I can use it as a prefix
+key.
+
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-z"))
+#+end_src
+
+**** Alias <menu> to C-x
+
+Make the menu key do the same as =C-x=.
+
+#+begin_src emacs-lisp
+  (bind-key "<menu>" ctl-x-map)
+#+end_src
+
+*** Reloading config file
+
+Reload [[file:lisp/config.el][config file]].  This is done with =bind-key= so that it is
+recorded in the variable =personal-keybindings=.
+
+#+begin_src emacs-lisp
+  (bind-key "C-c r" 'config-load)
+#+end_src
+
+* Built-in packages
+
+This is the section for built-in packages.
+
+** package.el
+
+It's useful to keep =package.el= updated for the functions
+=describe-package= and =list-packages=.  All my packages are now
+installed using [[*Straight][straight]], so disable the function =package-install=.
+
+#+begin_src emacs-lisp
+  (use-package package
+    :custom
+    (package-archives
+     '(("gnu" . "http://elpa.gnu.org/packages/")
+       ("melpa" . "http://melpa.org/packages/")))
+    :config
+    (fmakunbound 'package-install))
+#+end_src
+
+** Major editing modes
+
+Major modes for text editing.  For non-editing major modes, see
+[[Applications]]
+
+*** Org Mode
+
+Open source blocks and stuff in the current window.  Use tab from the
+language's major mode inside source blocks.  Open everything in Emacs,
+and use eww for html instead of mhtml-mode.
+
+#+begin_src emacs-lisp
+  (use-package org
+    :custom
+    (org-src-window-setup 'current-window)
+    (org-src-tab-acts-natively t)
+    (org-adapt-indentation nil)
+    (org-file-apps
+     '((auto-mode . emacs)
+       ("\\.x?html?\\'" . (lambda (file &optional ignore)
+                            (eww-open-file file)))))
+    :delight
+    (org-src-mode " #+src")
+    :config
+    (when (featurep 'org-tempo)
+      (require 'org-tempo))
+    :bind
+    (:map org-mode-map
+          ("M-h" . mark-paragraph)
+          ("C-M-h" . org-mark-element)))
+#+end_src
+
+**** Org Capture
+
+Take notes in org-mode with specific templates and write them to a
+file.  Similar to remember.
+
+#+begin_src emacs-lisp
+  (use-package org-capture
+    :custom
+    (org-default-notes-file "~/org/notes.org")
+    (org-capture-templates
+     '(("t" "Todo")
+       ("tt" "Misc." entry
+        (file+headline "todo.org" "Miscellaneous")
+        "* TODO %?\n%i\n\n")
+       ("tu" "University" entry
+        (file+headline "todo.org" "University")
+        "* TODO %?\n%i\n\n")
+       ("n" "Notes" entry
+        (file+headline "notes.org" "Notes")
+        "* %?\nEntered on %u\n%i\n\n")
+       ("m" "Music" entry
+        (file+headline "notes.org" "Music")
+        "* %?\nEntered on %u\n%i\n\n")
+       ("e" "Elisp" entry
+        (file+headline "notes.org" "Emacs Lisp")
+        "* %^{Title}\n\n#+begin_src emacs-lisp\n %i\n#+end_src\n")
+       ("d" "Diary" entry
+        (file "diary.org")
+        "* %?\n\nEntered on %u\n\n")))
+    (org-capture-bookmark nil)
+    :bind
+    ("C-x M-r" . org-capture))
+#+end_src
+
+**** Org-babel
+
+Work with code blocks.  The libraries all provide support for a
+language so that you can run their source blocks with =C-c C-c=.
+
+***** LilyPond
+
+Execute LilyPond source blocks.  For notes about exporting to pdf, see
+[[https://gitlab.com/jamzattack/lilypond/-/raw/master/org/lilypond.org][this org file]].  Only load it when lilypond is installed.
+
+#+begin_src emacs-lisp
+  (use-package ob-lilypond
+    :when (executable-find "lilypond")
+    :defer t
+    :commands org-babel-execute:lilypond)
+#+end_src
+
+***** C
+
+Execute C source blocks.  [[http://bellard.org/tcc/][TCC]] is a really fast compiler, so use it
+instead of gcc if it's installed.
+
+#+begin_src emacs-lisp
+  (use-package ob-C
+    :defer t
+    :commands org-babel-execute:C
+    :custom
+    (org-babel-c-compiler
+     (or (executable-find "tcc")
+         "gcc")))
+#+end_src
+
+***** Scheme
+
+Execute scheme source blocks.  This uses [[*Geiser][Geiser]] which is kind of
+awkward and slow, but evaluating scheme is useful.
+
+#+begin_src emacs-lisp
+  (use-package ob-scheme
+    :defer t
+    :commands org-babel-execute:scheme)
+#+end_src
+
+***** Common Lisp
+
+Execute Common Lisp source blocks.  This depends on [[*SLIME][Slime]], which
+doesn't start automatically (see the variable =slime-auto-start=).
+
+#+begin_src emacs-lisp
+  (use-package ob-lisp
+    :defer t
+    :commands org-babel-execute:lisp)
+#+end_src
+
+***** Shell
+
+Execute shell source blocks.  Autoload =sh=, =shell=, and =bash=
+functions.
+
+#+begin_src emacs-lisp
+  (use-package ob-shell
+    :defer t
+    :commands
+    org-babel-execute:sh
+    org-babel-execute:shell
+    org-babel-execute:bash)
+#+end_src
+
+*** Prolog
+
+Major mode for editing prolog files.  Files ending in =.pl= open in
+=prolog-mode=.
+
+#+begin_src emacs-lisp
+  (use-package prolog
+    :mode ("\\.pl\\'" . prolog-mode))
+#+end_src
+
+*** Cc-mode
+
+Set the C style to bsd, which uses tabs.  Use Java/Awk indentation for
+Java/Awk files.
+
+#+begin_src emacs-lisp
+  (use-package cc-mode
+    :defer t
+    :custom
+    (c-default-style '((java-mode . "java")
+                       (awk-mode . "awk")
+                       (other . "bsd"))))
+#+end_src
+
+*** Emacs Lisp mode
+
+Make the scratch buffer use =emacs-lisp-mode=.  Note: Most of my Elisp
+keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
+
+#+begin_src emacs-lisp
+  (use-package elisp-mode
+    :custom
+    (initial-major-mode 'emacs-lisp-mode)
+    :delight
+    (emacs-lisp-mode "el" :major)
+    (inferior-emacs-lisp-mode "EL>" :major)
+    :bind
+    ("<C-M-backspace>" . backward-kill-sexp))
+#+end_src
+
+**** Find-func
+
+A package that defines a few functions for editing Elisp source code.
+It provides the function =find-function-setup-keys= which binds some
+keys in =ctl-x-map=, but I prefer to have them under =C-h=.
+
+#+begin_src emacs-lisp
+  (use-package find-func
+    :defer t
+    :bind
+    (:map help-map
+          ("C-l" . find-library)
+          ("C-f" . find-function)
+          ("C-v" . find-variable)
+          ("C-k" . find-function-on-key)))
+#+end_src
+
+*** Typesetting
+
+**** Nroff-mode
+
+Set a compile-command hook for =nroff= files.  I usually use the ms
+macros when writing something, but I usually just use org-mode anyway.
+
+#+begin_src emacs-lisp
+  (use-package nroff-mode
+    :defer t
+    :init
+    <<nroff-mode-compile>>
+    :hook (nroff-mode . nroff-mode-compile))
+#+end_src
+
+***** Compile Command
+
+#+name: nroff-mode-compile
+#+begin_src emacs-lisp :tangle no
+  (defun nroff-mode-compile ()
+    "Set the compile command for nroff files. (using the ms
+  macros)"
+    (let* ((in (buffer-file-name))
+           (out (concat (file-name-sans-extension in)
+                        ".pdf")))
+      (setq-local
+       compile-command
+       (format "groff -ms -Tpdf %s > %s"
+               (shell-quote-argument in)
+               (shell-quote-argument out)))))
+#+end_src
+
+**** LaTeX
+
+Set a compile-command hook for latex files.  I prefer to write in
+org-mode, but compiling latex on its own is sometimes useful.
+
+#+begin_src emacs-lisp
+  (use-package tex-mode
+    :defer t
+    :init
+    <<latex-compile-command>>
+    :hook (latex-mode . latex-compile-command))
+#+end_src
+
+***** Compile Command
+
+#+name: latex-compile-command
+#+begin_src emacs-lisp :tangle no
+  (defun latex-compile-command ()
+    "Set the compile command for latex files."
+    (setq-local compile-command
+                (format "pdflatex %s" buffer-file-name)))
+#+end_src
+
+** Minor modes
+
+Minor modes that help with anything Emacs, be it programming, writing
+emails, or anything else that Emacs can do.
+
+*** Compile
+
+Bind =C-z RET= and =f9= to compile.
+
+#+begin_src emacs-lisp
+  (use-package compile
+    :bind
+    ("C-z C-m" . compile)
+    ("<f9>" . compile))
+#+end_src
+
+*** Hi-lock
+
+I often use =M-s h .= to see where variables, functions, etc. are
+used.  However, paredit remaps =M-s= to =paredit-splice-sexp=, so I
+turn on hi-lock-mode which enables the =C-x w= prefix.
+
+#+begin_src emacs-lisp
+  (use-package hi-lock
+    :delight
+    :config
+    (global-hi-lock-mode t))
+#+end_src
+
+*** Parens
+
+Highlight matching parens everywhere.
+
+#+begin_src emacs-lisp
+  (use-package paren
+    :config
+    (show-paren-mode t))
+#+end_src
+
+*** Auto fill
+
+Instead of "Fill", show "^M" (carriage return) in the mode-line.
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :delight
+    (auto-fill-function " ^M"))
+#+end_src
+
+*** Isearch
+
+Instead of "ISearch", show "^S" =(kbd "C-s")= in the mode-line.
+
+#+begin_src emacs-lisp
+  (use-package isearch
+    :delight " ^S")
+#+end_src
+
+*** Eldoc
+
+Eldoc is what provides the function signature in the mode-line when
+editing Elisp.  By default, it waits for 0.5 seconds so I bump the
+delay down to 0.
+
+#+begin_src emacs-lisp
+  (use-package eldoc
+    :delight
+    :defer t
+    :custom
+    (eldoc-idle-delay 0))
+#+end_src
+
+** Applications
+
+This section is for Elisp programs that have an interface of their
+own, rather than being just a major/minor mode.
+
+*** EWW
+
+Elisp web browser - I just set some variables to make eww the default
+browser, and change the width to 80 columns.
+
+#+begin_src emacs-lisp
+  (use-package eww
+    :defer t
+    :custom
+    (browse-url-browser-function 'eww-browse-url)
+    (browse-url-secondary-browser-function 'browse-url-externally-please)
+    (eww-bookmarks-directory (expand-file-name "eww" user-emacs-directory))
+    (shr-width 80)
+    (shr-use-colors nil)
+    :init
+    <<browse-url-externally-please>>
+    :bind
+    (:map eww-mode-map
+          ("M-n" . forward-paragraph)
+          ("M-p" . backward-paragraph)
+          ("f" . plumb-stream)
+          ("D" . plumb-download-video)
+          ("A" . plumb-audio)))
+#+end_src
+
+**** External browser
+
+#+name: browse-url-externally-please
+#+begin_src emacs-lisp
+  (defun browse-url-externally-please (url &optional ignored)
+    "Open URL using either vimb or surf if they are found,
+  otherwise use xdg-open."
+    (interactive (browse-url-interactive-arg "URL: "))
+    (call-process (or (executable-find "vimb")
+                      (executable-find "surf")
+                      (executable-find "xdg-open"))
+                  nil 0 nil url))
+#+end_src
+
+*** ERC
+
+The only reason for this to be here is to set my nick.
+
+#+begin_src emacs-lisp
+  (use-package erc
+    :custom
+    (erc-nick "jamzattack")
+    (erc-hide-list '("JOIN" "PART" "QUIT"))
+    :config
+    (add-to-list 'erc-modules 'notifications)
+    (erc-track-mode))
+#+end_src
+
+**** ERC notifications
+
+erc-notify enables notifications for erc conversations.  I only enable
+it if the executable "dunst" is found, because it will crash Emacs
+unless a notification daemon is active.
+
+#+begin_src emacs-lisp
+  (use-package erc-notify
+    :after erc
+    :config
+    (when (executable-find "dunst")
+      (erc-notify-enable)))
+#+end_src
+
+*** Info
+
+Rebind M-p and M-n to move by paragraphs.  By default M-n runs
+=clone-buffer=, which I find to be completely useless.
+
+#+begin_src emacs-lisp
+  (use-package info
+    :bind
+    (:map Info-mode-map
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph)))
+#+end_src
+
+*** Ibuffer
+
+Ibuffer is an interface similar to dired, but for editing your open
+buffers.  I don't use it much now in favour of [[*Helm][Helm]], but it can be
+useful for more complex filtering.
+
+#+begin_src emacs-lisp
+  (use-package ibuffer
+    :bind
+    (:map ctl-x-map
+          ("C-b" . ibuffer))
+    :config
+    (defun ibuffer-helm-major-mode-predicate (buffer)
+      "Returns t if BUF is a helm buffer."
+      (equal 'helm-major-mode
+             (with-current-buffer buffer
+               major-mode)))
+    (add-to-list 'ibuffer-maybe-show-predicates
+                 #'ibuffer-helm-major-mode-predicate))
+#+end_src
+
+*** Dired
+
+Group directories first.  This works only with GNU ls, so don't use
+this if you use a different version.
+
+#+begin_src emacs-lisp
+  (use-package dired
+    :defer t
+    :custom
+    (dired-listing-switches "-lah --group-directories-first")
+    (delete-by-moving-to-trash t)
+    :bind
+    (:map ctl-x-map
+          ("C-d" . dired-jump)))
+#+end_src
+
+*** Diffing
+
+**** Ediff
+
+By default, Ediff tries to open its own frame.  This doesn't work well
+with EXWM, so I disable that feature.
+
+#+begin_src emacs-lisp
+  (use-package ediff
+    :defer t
+    :custom
+    (ediff-window-setup-function
+     #'ediff-setup-windows-plain))
+#+end_src
+
+**** Smerge
+
+Easily merge git conflicts.  The prefix is =C-c ^= which works fine,
+but I also bind =C-c n= and =C-c p= to go to the next/previous hunk.
+
+#+begin_src emacs-lisp
+  (use-package smerge-mode
+    :bind
+    (:map smerge-mode-map
+          ("C-c n" . smerge-next)
+          ("C-c p" . smerge-prev)))
+#+end_src
+
+** Shells
+
+Shells in Emacs - both shell and eshell settings are here.
+
+*** Shell
+
+I don't want the shell buffer to open a new window, so add an entry in
+=display-buffer-alist=.
+
+#+begin_src emacs-lisp
+  (use-package shell
+    :config
+    (add-to-list 'display-buffer-alist
+                 '("^\\*shell\\*$" display-buffer-same-window)))
+#+end_src
+
+*** Eshell
+
+Change the history size to 1000, custom keybinding to either
+delete-char or kill-buffer like a "normal" shell.
+
+#+begin_src emacs-lisp
+  (use-package eshell
+    :custom
+    (eshell-history-size 1000)
+    :init
+    (require 'esh-mode)
+    :config
+    <<eshell-delete-or-quit>>
+    <<eshell/clear-please>>
+    <<eshell/e>>
+    <<eshell/comint>>
+    :bind
+    ("s-e" . eshell)
+    (:map eshell-mode-map
+          ("C-d" . eshell-delete-or-quit)
+          ("C-c M-l" . eshell/clear-please)))
+#+end_src
+
+**** Eshell functions
+
+These functions need to be compiled after eshell is loaded, so they go
+in the =:config= section.
+
+***** Delete or quit
+
+If point is at an empty prompt, kill the buffer.  Otherwise, delete
+char.
+
+#+name: eshell-delete-or-quit
+#+begin_src emacs-lisp :tangle no
+  (defun eshell-delete-or-quit (arg)
+    "If point is at the end of the buffer and input is empty,
+  kill the buffer.  Just like giving EOF to a normal shell."
+    (interactive "p")
+    (if (=
+         (save-excursion
+           (eshell-bol)
+           (point))
+         (point)
+         (point-max))
+        (kill-buffer (current-buffer))
+      (delete-char arg)))
+#+end_src
+
+***** Clear screen
+
+Clear the screen, but keep current input intact.  If a command is
+running, keep the output of that command on screen.
+
+#+name: eshell/clear-please
+#+begin_src emacs-lisp :tangle no
+  (defun eshell/clear-please ()
+    "Similar to `eshell/clear', but keeps the current input."
+    (interactive)
+    (save-excursion
+      (if (equal eshell-command-running-string "**")
+          (eshell-next-prompt -1)
+        (eshell-bol))
+      (end-of-line 0)
+      (insert (make-string (window-height) ?\n))))
+#+end_src
+
+***** Edit a file
+
+Instead of opening a file with =emacsclient=, just edit it directly.
+
+#+name: eshell/e
+#+begin_src emacs-lisp :tangle no
+  (defun eshell/e (&rest args)
+    "Edit a file from eshell."
+    (mapcar 'find-file args))
+#+end_src
+
+***** Comint
+
+A wrapper to start a comint process from eshell.
+
+Used like so:
+#+begin_example sh
+comint ed ~/.bashrc
+#+end_example
+
+#+name: eshell/comint
+#+begin_src emacs-lisp :tangle no
+  (defun eshell/comint (&rest args)
+    "Start a comint session running ARGS"
+    (let ((string (eshell-flatten-and-stringify args))
+          (program (executable-find (car args)))
+          (program-args (eshell-flatten-and-stringify (cdr args))))
+      (switch-to-buffer
+       (make-comint string
+                    (or program
+                        (user-error "Executable %s not found" (car args)))
+                    nil
+                    program-args))))
+#+end_src
+
+** Saving the state of Emacs
+
+Packages that save where you were - recentf saves a list of edited
+files, and desktop saves a list of variables and current buffers.
+
+*** Recentf
+
+This package saves a list of recently visited files.  I've had some
+problems with Helm not loading the recentf list, so it is done here.
+
+#+begin_src emacs-lisp
+  (use-package recentf
+    :config (recentf-load-list))
+#+end_src
+
+*** Desktop
+
+Save list of buffers and some variables when exiting Emacs.  Don't
+save a list of frames, that just ends up spamming me with extra frames
+everywhere.
+
+#+begin_src emacs-lisp
+  (use-package desktop
+    :custom
+    (desktop-restore-frames nil)
+    (history-delete-duplicates t)
+    (desktop-save-mode t)
+    :config
+    (add-to-list 'desktop-globals-to-save 'helm-ff-history)
+    (add-to-list 'desktop-globals-to-save 'extended-command-history))
+#+end_src
+
+*** Winner-mode
+
+Saves window configurations so that you can use =C-c <left>= to undo
+changes in window arrangement.
+
+#+begin_src emacs-lisp
+  (use-package winner
+    :config
+    (winner-mode))
+#+end_src
+
+** Interface tweaks
+
+Some settings for the UI of Emacs - mode-line, scroll-bar, etc.
+
+*** Extraneous bars
+
+Section for the three wasteful bars -- tool bar, menu bar, and scroll
+bar.
+
+**** Scroll bar
+
+Disable the scroll bar using =customize=, but set the width in case I
+decide to turn it on.
+
+#+begin_src emacs-lisp
+  (use-package scroll-bar
+    :custom
+    (scroll-bar-mode nil)
+    (scroll-bar-width 6 t))
+#+end_src
+
+**** Menu bar
+
+Disable the menu bar.
+
+#+begin_src emacs-lisp
+  (use-package menu-bar
+    :config
+    (menu-bar-mode -1))
+#+end_src
+
+**** Tool bar
+
+Disable the tool bar.
+
+#+begin_src emacs-lisp
+  (use-package tool-bar
+    :config
+    (tool-bar-mode -1))
+#+end_src
+
+*** Mode-line
+
+**** Time
+
+Display the current time in the mode-line, and make it use 24-hour
+time.
+
+#+begin_src emacs-lisp
+  (use-package time
+    :custom
+    (display-time-24hr-format t)
+    :config
+    (display-time-mode t))
+#+end_src
+
+**** Battery
+
+Show battery information with =C-z b=.
+
+#+begin_src emacs-lisp
+  (use-package battery
+    :bind
+    ("C-z b" . battery))
+#+end_src
+
+**** Show the column
+
+Show the current column in the mode-line.  This is provided by the
+=simple= package.
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :config
+    (column-number-mode t))
+#+end_src
+
+*** Keybindings
+
+A couple of keybindings to change the way lines are displayed.
+
+**** Line wrapping
+
+Simple keybinding to wrap/unwrap lines.  This feature is also provided
+by =simple=.
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :bind
+    ("C-c t" . toggle-truncate-lines))
+#+end_src
+
+**** Line numbers
+
+Display line numbers.  I prefer to just use the mode-line because it
+doesn't slow down Emacs as much.
+
+#+begin_src emacs-lisp
+  (use-package display-line-numbers
+    :bind
+    ("C-c l" . display-line-numbers-mode))
+#+end_src
+
+** Environment variables
+
+Set the =$EDITOR= to =emacsclient=.  Because I (almost) only use other
+programs from within Emacs, this works.  If you don't use EXWM it
+would be advisable to set this in =~/.xinitrc=.  Also set =$PAGER= to
+=cat= for programs launched from Emacs, helpful with eshell because
+some programs automatically output to the pager.
+
+#+begin_src emacs-lisp
+  (use-package env
+    :config
+    (setenv "EDITOR" "emacsclient")
+    (setenv "PAGER" "cat"))
+#+end_src
+
+** Windows
+
+Libraries related to Emacs windows.  Not to be confused
+with the operating system.
+
+*** Window
+
+These functions are both quite useful, so I bound them to similar
+keys.
+
+#+begin_src emacs-lisp
+  (use-package window
+    :bind
+    ("C-z C-z" . bury-buffer)
+    ("C-z z" . kill-buffer-and-window))
+#+end_src
+
+*** Windmove
+
+Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so
+this is like ={i,j,k,l}= on a qwerty keyboard.  Load this after exwm
+so that I can bind the keys in exwm-mode as well.
+
+#+begin_src emacs-lisp
+  (use-package windmove
+    :after exwm
+    :config
+    (dolist (a '(("s-c" . windmove-up)
+                 ("s-h" . windmove-left)
+                 ("s-t" . windmove-down)
+                 ("s-n" . windmove-right)))
+      (bind-key (car a) (cdr a))
+      (bind-key (car a) (cdr a) exwm-mode-map)))
+#+end_src
+
+** View-mode
+
+I like using view-mode and scroll-lock-mode is kind-of useless, so I
+rebind Scroll_Lock to toggle view-mode.
+
+Also enable view-mode if a buffer is read-only.
+
+#+begin_src emacs-lisp
+  (use-package view
+    :custom (view-read-only t)
+    :bind
+    ("<Scroll_Lock>" . view-mode)
+    (:map view-mode-map
+          ("l" . recenter-top-bottom)
+          ("f" . forward-sexp)
+          ("b" . backward-sexp)))
+#+end_src
+
+** Fixing some default behaviour
+
+Tweak some default behaviour that pisses me off.
+
+*** Swap yes/no prompt with y/n
+
+Typing yes/no is an inconvenience that can be avoided.  Alias it to
+y/n.  This would be wrapped in =(use-package subr ...)= but that isn't
+requirable.
+
+#+begin_src emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+*** Enable all the features
+
+Disable the annoying "This is an advanced feature" thing.  It seems so
+dumb that this feature exists.
+
+#+begin_src emacs-lisp
+  (use-package novice
+    :custom
+    (disabled-command-function nil))
+#+end_src
+
+*** Disable audible and visual bell
+
+Don't ring the damn bell.  This is provided by the file "terminal.c"
+which isn't a loadable feature, so use custom instead.
+
+#+begin_src emacs-lisp
+  (use-package custom
+    :custom
+    (ring-bell-function 'ignore))
+#+end_src
+
+** Theme
+
+Allow themes to be loaded from the [[file:lisp/themes][lisp/themes]] directory, allow all
+themes to be loaded, then load my [[file:lisp/themes/custom-theme.el][custom theme]].
+
+#+begin_src emacs-lisp
+  (use-package custom
+    :custom
+    (custom-theme-directory
+     (expand-file-name "lisp/themes" user-emacs-directory))
+    (custom-safe-themes t)
+    (custom-enabled-themes '(custom)))
+#+end_src
+
+* My packages
+
+Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
+directory.
+
+** Internet
+
+A selection of packages to facilitate searching and browsing the web
+within Emacs.
+
+*** Library-genesis
+
+My custom package for searching library genesis.  I bind =C-z l= to a
+search.
+
+Located [[file:lisp/library-genesis/library-genesis.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package library-genesis
+    :load-path "lisp/library-genesis"
+    :bind
+    ("C-z l" . library-genesis-search))
+#+end_src
+
+*** Search-query
+
+My own search query package.  It simply provides a few functions so
+that I don't need to use DuckDuckGo's bangs, and for websites that
+don't have a bang.
+
+Located [[file:lisp/search-query/search-query.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package search-query
+    :load-path "lisp/search-query"
+    :custom
+    (tpb-mirror "lepiratebay.org")
+    :bind
+    ("C-z t" . tpb-search)
+    ("C-z y" . youtube-search)
+    ("C-z w" . wikipedia-search)
+    ("C-z C-w" . wiktionary-word))
+#+end_src
+
+*** Reddit-browse
+
+This is a very minimal package to ease the use of reddit within eww.
+It uses the old reddit mobile site, which works well with eww.
+
+Located [[file:lisp/reddit-browse/reddit-browse.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package reddit-browse
+    :load-path "lisp/reddit-browse"
+    :custom
+    (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
+                             "vxjunkies" "linux" "nethack"
+                             "cello" "throwers"))
+    :bind
+    ("C-z r" . reddit-goto-subreddit))
+#+end_src
+
+** Toggle-touchpad
+
+A simple package I wrote to toggle the touchpad/trackpoint on my
+ThinkPad
+
+Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package toggle-touchpad
+    :load-path "lisp/toggle-touchpad"
+    :bind
+    ("<XF86TouchpadToggle>" . toggle-touchpad)
+    ("C-z \\" . toggle-touchpad))
+#+end_src
+
+** LilyPond-mode
+
+I copied lilypond-mode into my custom directory for the machines that
+don't have lilypond installed.
+
+Located [[file:lisp/lilypond-mode][here]].
+
+#+begin_src emacs-lisp
+  (use-package lilypond-mode
+    :load-path "lisp/lilypond-mode"
+    :delight
+    (LilyPond-mode "ly" :major)
+    :init
+    (defalias 'lilypond-mode 'LilyPond-mode)
+    (defun custom-lilypond-setup ()
+      "Sets the buffer's comile command and comment-column."
+      (unless (or (file-exists-p "Makefile")
+                  (local-variable-p 'compile-command (current-buffer)))
+        (setq-local compile-command
+                    (format "lilypond %s" buffer-file-name)))
+      (setq-local comment-column 0))
+    :mode ("\\.ly\\'" . LilyPond-mode)
+    :hook (LilyPond-mode . custom-lilypond-setup))
+#+end_src
+
+*** lilypond-skel
+
+My small package that provides an auto-insert skeleton for lilypond.
+
+Located [[file:lisp/skeletons/lilypond-skel.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package lilypond-skel
+    :load-path "lisp/skeletons/"
+    :defer t)
+#+end_src
+
+** Arch Linux settings
+
+This file just adds a few =auto-mode-alist= entries for systemd and
+pacman files.
+
+Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package arch-linux-settings
+    :load-path "lisp/arch-linux-settings")
+#+end_src
+
+** Custom EXWM config
+
+My custom settings for EXWM - not much different from the
+=exwm-config-default=, but doesn't get in my way as much.  It provides
+the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
+
+Located [[file:lisp/exwm/custom-exwm-config.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package custom-exwm-config
+    :load-path "lisp/exwm"
+    :commands custom-exwm-config
+    :hook
+    (exwm-init . custom-exwm-config))
+#+end_src
+
+** Miscellaneous functions
+
+A number of functions that don't necessarily have a proper home.  Bind
+=C-c p= to open the pdf output of a typesetting program, and =C-h M-a=
+to run the external "apropos" command (not to be confused with Elisp
+apropos).
+
+Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package my-misc-defuns
+    :load-path "lisp/my-misc-defuns"
+    :defer nil
+    :bind
+    ("C-M-\\" . indent-region-or-defun-please)
+    ("C-h M-a" . system-apropos)
+    ("C-c p" . open-pdf-of-current-file)
+    (:map org-mode-map
+          ("C-c e" . eww-open-html-of-current-file)))
+#+end_src
+
+** Helm
+
+My own bits of Lisp to enhance Helm.
+
+*** Bookmarks
+
+This package defines a macro to create new bookmark sources, and adds
+a few.
+
+Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package custom-helm-bookmark
+    :load-path "lisp/helm"
+    :after helm
+    :custom
+    (helm-bookmark-default-filtered-sources
+     '(helm-source-bookmark-university
+       helm-source-bookmark-config
+       helm-source-bookmark-org-misc
+       helm-source-bookmark-elisp
+       helm-source-bookmark-downloads
+       helm-source-bookmark-dired
+       helm-source-bookmark-info
+       helm-source-bookmark-man
+       helm-source-bookmark-other
+       helm-source-bookmark-set)))
+#+end_src
+
+* Third party packages
+
+This is where the packages installed with [[https://github.com/raxod502/straight.el][straight.el]] are located.
+All of these use the =:straight= keyword, so that they are downloaded
+if they aren't already.
+
+** HELM
+
+Rebind a few keys in order to make use of Helm's features.  Stuff like
+=find-file= and =switch-to-buffer=.  Also remap =C-x k= to
+kill-this-buffer, because I use helm-mini to kill other buffers.
+
+I also bind =M-C-y= to =helm-show-kill-ring=.  I tried to use this to
+replace =yank-pop= but the latter is too engrained in my fingers.
+
+#+begin_src emacs-lisp
+  (use-package helm
+    :straight t
+    :custom
+    (helm-completion-style 'emacs)
+    (helm-describe-variable-function 'helpful-variable)
+    (helm-describe-function-function 'helpful-callable)
+    (helm-external-programs-associations
+     '(("midi" . "timidity")
+       ("png" . "sxiv")
+       ("jpg" . "sxiv")
+       ("gif" . "mpv -L")
+       ("mp4" . "mpv")
+       ("mkv" . "mpv")))
+    :init
+    <<kill-this-buffer-please>>
+    :config
+    (require 'helm-config)
+    (delight '((helm-mode "")))
+    (helm-mode t)
+    :bind
+    ("M-x" . helm-M-x)
+    ("<menu><menu>" . helm-M-x)
+    ("M-s M-o" . helm-occur)
+    ("s-b" . helm-mini)
+    ("C-x b" . helm-mini)
+    ("C-x k" . kill-this-buffer-please)
+    ("C-x C-f" . helm-find-files)
+    ("C-x r b" . helm-filtered-bookmarks)
+    ("M-C-y" . helm-show-kill-ring)
+    (:map helm-map
+          ("C-h c" . describe-key-briefly)))
+#+end_src
+
+#+name: kill-this-buffer-please
+#+begin_src emacs-lisp :tangle no
+  (defvar buffers-to-bury '("*scratch*" "#emacs" "*Messages*")
+    "List of buffers to bury instead of kill with the function
+  `kill-this-buffer-please'")
+
+  (defun kill-this-buffer-please ()
+    "Actually kill this buffer, unlike `kill-this-buffer' which
+  sometimes doesn't work."
+    (interactive)
+    (if (member (buffer-name) buffers-to-bury)
+        (bury-buffer)
+      (kill-buffer (current-buffer))))
+#+end_src
+
+*** Helm system packages
+
+Provides an abstraction layer for viewing and installing system
+packages.
+
+#+begin_src emacs-lisp
+  (use-package helm-system-packages
+    :straight t
+    :bind
+    (:map help-map
+          ("C-p" . helm-system-packages)))
+#+end_src
+
+*** Helm Notmuch
+
+A Helm interface for Notmuch.  Load it after both Helm and Notmuch (of
+course).
+
+#+begin_src emacs-lisp
+  (use-package helm-notmuch
+    :straight t
+    :defer t)
+#+end_src
+
+*** Helm man
+
+Remap =C-h C-m= to =helm-man-woman=, a Helm interface for selecting
+manpages.
+
+#+begin_src emacs-lisp
+  (use-package helm-man
+    :defer t
+    :custom
+    (man-width 80)
+    :bind
+    (:map help-map
+          ("C-m" . helm-man-woman)))
+#+end_src
+
+*** Helm eww
+
+Some Helm functions for eww.  I replace all the default functions with
+the Helm alternatives.
+
+#+begin_src emacs-lisp
+  (use-package helm-eww
+    :straight t
+    :bind
+    ("C-x r e" . helm-eww-bookmarks)
+    (:map eww-mode-map
+          ("B" . helm-eww-bookmarks)
+          ("H" . helm-eww-history)
+          ("S" . helm-eww-buffers)))
+#+end_src
+
+*** Helm org
+
+=C-c M-o= in org-mode runs the function =helm-org-in-buffer-headings=.
+Similar to =occur=, but only shows headings.
+
+#+begin_src emacs-lisp
+  (use-package helm-org
+    :straight t
+    :after org
+    :bind
+    (:map org-mode-map
+          ("C-c M-o" . helm-org-in-buffer-headings)))
+#+end_src
+
+** Helpful
+
+Helpful gives a whole lot more information than =describe-*=.  I also
+bind =C-h SPC= to helpful-at-point, just to save a keypress here and
+there.  The =:straight= recipe uses my fork, which doesn't depend on
+=f.el=.  (I know it's minor, but I'd rather not load the extra
+library).
+
+#+begin_src emacs-lisp
+  (use-package helpful
+    :straight
+    (helpful :type git
+             :flavor melpa
+             :host gitlab
+             :repo "jamzattack/helpful"
+             :branch "no-f")
+    :config
+    <<helpful-edit-source-temporarily>>
+    :bind
+    (:map help-map
+          ("f" . helpful-callable)
+          ("v" . helpful-variable)
+          ("o" . helpful-symbol)
+          ("k" . helpful-key)
+          ("SPC" . helpful-at-point))
+    (:map helpful-mode-map
+          ("e" . helpful-edit-source-temporarily)))
+#+end_src
+
+*** Edit source
+
+A function that opens up a new buffer with the source shown in the
+current =helpful= buffer.
+
+I still want to make this work with C source code, but that's not
+nearly as useful anyway.
+
+#+name: helpful-edit-source-temporarily
+#+begin_src emacs-lisp :tangle no
+  (defun helpful-edit-source-temporarily ()
+    "Edit the source of a function, variable, or macro in its own
+  buffer.  You need to already be in a helpful buffer."
+    (interactive)
+    (save-excursion
+      (let* ((name (replace-regexp-in-string
+                    "^.*:" "*helpful edit:"
+                    (buffer-name (current-buffer))))
+             (buffer (get-buffer-create name))
+             (min (progn
+                    (goto-char (point-min))
+                    (re-search-forward "^Source Code$")
+                    (forward-line 1)
+                    (point)))
+             (max (progn
+                    (goto-char min)
+                    (end-of-defun)
+                    (point))))
+        (copy-to-buffer buffer
+                        min
+                        max)
+        (pop-to-buffer buffer)
+        (emacs-lisp-mode))))
+#+end_src
+
+** Major Modes
+
+*** Nov.el - epub in emacs
+
+Read epub files in Emacs.  I set this up as the default mode for
+epubs, and set the default width to 80 columns.
+
+#+begin_src emacs-lisp
+  (use-package nov
+    :straight t
+    :custom
+    (nov-text-width 80)
+    :mode ("\\.epub\\'" . nov-mode))
+#+end_src
+
+*** PDF-tools
+
+Majorly increases performance when viewing pdfs within Emacs, and
+provides some note-taking facilities.
+
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :straight t
+    :magic ("%PDF" . pdf-view-mode)
+    :config
+    (pdf-tools-install))
+#+end_src
+
+*** Markdown
+
+A very featureful major mode for markdown files.  I only really use it
+for looking at READMEs though, so I add view-mode to the hook.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :straight t
+    :mode "*\\.md'"
+    :hook (markdown-mode . view-mode))
+#+end_src
+
+** Programming
+
+*** Geiser
+
+Interact with scheme in a powerful and emacsy way.  I set the scheme
+program name (which isn't actually a part of geiser) to whichever
+scheme is installed, in order of preference.
+
+#+begin_src emacs-lisp
+  (use-package geiser
+    :straight t
+    :defer t
+    :delight
+    (scheme-mode "scm" :major)
+    (geiser-repl-mode "SCM>" :major)
+    (geiser-autodoc-mode)
+    :custom
+    (scheme-program-name
+     (or (executable-find "guile3.0")
+         (executable-find "guile")
+         (executable-find "chez")
+         (executable-find "mit-scheme")
+         "scheme"))
+    (geiser-default-implementation 'guile)
+    (geiser-repl-history-filename "~/.cache/geiser/history"))
+#+end_src
+
+*** SLIME
+
+Interact with Common Lisp in a powerful and emacsy way.  I set the
+default Lisp program, add some fancier stuff such as a nicer REPl, and
+move the history file out of =$HOME=.
+
+#+begin_src emacs-lisp
+  (use-package slime
+    :straight t
+    :delight
+    (lisp-mode "cl" :major)
+    (slime-repl-mode "CL>" :major)
+    (slime-mode)
+    (slime-autodoc-mode)
+    :init
+    (autoload 'slime-switch-to-output-buffer "slime-repl")
+    (defun disable-slime-completion ()
+      (setq slime-completion-at-point-functions
+            '(slime-simple-completion-at-point)))
+    :hook (slime-connected . disable-slime-completion)
+    :custom
+    (inferior-lisp-program
+     (or (executable-find "sbcl")
+         (executable-find "ccl")
+         (executable-find "clisp")
+         (executable-find "lisp")))
+    (slime-contribs '(slime-fancy))
+    (slime-repl-history-file "~/.cache/slime/history")
+    (common-lisp-hyperspec-root
+     (when (file-exists-p "/usr/share/doc/HyperSpec/")
+       "file:///usr/share/doc/HyperSpec/"))
+    (slime-auto-start 'ask)
+    :bind
+    (:map slime-mode-map
+          ("C-c C-z" . slime-switch-to-output-buffer)))
+#+end_src
+
+*** Paredit
+
+Efficient and clever editing commands for working with s-expressions.
+Enabled for Lisp modes only.
+
+#+begin_src emacs-lisp
+  (use-package paredit
+    :straight t
+    :defer t
+    :delight
+    :hook
+    (emacs-lisp-mode . paredit-mode)
+    (lisp-interaction-mode . paredit-mode)
+    (ielm-mode . paredit-mode)
+    (eval-expression-minibuffer-setup . paredit-mode)
+    (lisp-mode . paredit-mode)
+    (slime-repl-mode . paredit-mode)
+    (scheme-mode . paredit-mode))
+#+end_src
+
+*** Elf-mode
+
+Major mode for viewing ELF files (compiled binaries).  I don't use it
+often, but it's nice to be able to see what a program does sometimes.
+
+#+begin_src emacs-lisp
+  (use-package elf-mode
+    :straight t
+    :magic ("ELF" . elf-mode))
+#+end_src
+
+*** Selime
+
+This is my package to make Elisp evaluation and documentation lookup a
+bit more like Slime.  It's often not necessary, but sometimes I find
+myself using =C-c C-d C-f= to describe an Elisp function, etc.
+
+Hosted [[https://gitlab.com/jamzattack/selime][here]].
+
+#+begin_src emacs-lisp
+  (use-package selime
+    :straight
+    (selime :type git
+            :flavor melpa
+            :host gitlab
+            :repo "jamzattack/selime")
+    :hook (emacs-lisp-mode . selime-mode))
+#+end_src
+
+** Org
+
+*** Github markdown
+
+Export to markdown.
+
+#+begin_src emacs-lisp
+  (use-package ox-gfm
+    :straight t
+    :defer t)
+#+end_src
+
+*** Html export
+
+Export to html.
+
+#+begin_src emacs-lisp
+  (use-package htmlize
+    :straight t
+    :defer t)
+#+end_src
+
+** EXWM - Emacs X Window Manager
+
+Manipulate X windows as Emacs buffers.  I don't use =(exwm-init)=
+here, in case I decide to use another window manager.  Eval
+=(exwm-init)= when starting the EXWM frame. i.e. in =~.xinitrc=.
+
+#+begin_src emacs-lisp
+  (use-package exwm
+    :straight t
+    :defer t)
+#+end_src
+
+*** Desktop-environment (useful with EXWM)
+
+This package sets up volume keys, brightness keys, and a screen
+locker.  I like i3lock, and want it to use my theme's background
+colour.
+
+#+begin_src emacs-lisp
+  (use-package desktop-environment
+    :straight t
+    :delight
+    :init
+    <<custom-screenlock-command>>
+    :config
+    (defadvice desktop-environment-lock-screen
+        (before change-bg-color activate)
+      (custom-screenlock-command))
+    (desktop-environment-mode))
+#+end_src
+
+**** Change screenlock command based on theme colour
+
+#+name: custom-screenlock-command
+#+begin_src emacs-lisp :tangle no
+  (defun custom-screenlock-command ()
+    "Change the value of `desktop-environment-screenlock-command'
+  to run i3lock with the background colour of the current theme."
+    (let ((color (face-attribute 'default :background)))
+      (setq desktop-environment-screenlock-command
+            (format "i3lock -c '%s' -n"
+                    (with-temp-buffer
+                      (insert (if
+                                  (= (length color) 7)
+                                  color
+                                "#000000"))
+                      (beginning-of-line)
+                      (delete-char 1)
+                      (buffer-string))))))
+#+end_src
+
+** "Applications"
+
+*** Vterm
+
+A performant terminal emulator in Emacs.  Unfortunately, it still
+doesn't play nice with complicated things such as NetHack.
+
+#+begin_src emacs-lisp
+  (use-package vterm
+    :straight t
+    :defer t
+    :config
+    <<eshell/vterm>>)
+#+end_src
+
+**** Launch a vterm from eshell
+
+The function =eshell/vterm= starts a program in vterm from eshell.
+
+#+name: eshell/vterm
+#+begin_src emacs-lisp :tangle no
+  (defun eshell/vterm (&rest args)
+    "Launch a program from eshell using vterm."
+    (let ((vterm-shell
+           (eshell-flatten-and-stringify args)))
+      (vterm)))
+#+end_src
+
+*** Libmpdee
+
+An mpd library.  I use it only for random/shuffle.
+
+#+begin_src emacs-lisp
+  (use-package libmpdee
+    :straight t
+    :when (executable-find "mpd")
+    :defer t)
+#+end_src
+
+*** MPDel
+
+A more flexible mpd client than mingus.
+
+#+begin_src emacs-lisp
+  (use-package mpdel
+    :straight t
+    :when (executable-find "mpd")
+    :bind-keymap
+    ("s-m" . mpdel-core-map)
+    :bind
+    ("s-a" . mpdel-core-open-albums)
+    ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
+    ("<XF86AudioPrev>" . libmpdel-playback-previous)
+    ("<XF86AudioNext>" . libmpdel-playback-next)
+    (:map mpdel-core-map
+          ("Z" . mpd-shuffle-playlist)
+          ("z" . mpd-toggle-random)
+          ("C-d" . mpdel-core-open-directories)))
+#+end_src
+
+*** Notmuch
+
+A simple email client, with emphasis on searching.  Customise some
+generic mail variables, change the order in which Notmuch displays
+messages, and set the archive tags.  I also unbind =C-x C-s= in
+=notmuch-message-mode= so that I don't get a whole bunch of drafts --
+I have a habit of hitting =C-x C-s= more than I should.
+
+#+begin_src emacs-lisp
+  (use-package notmuch
+    :straight t
+    :when (executable-find "notmuch")
+    :init
+    (autoload 'notmuch-mua-mail "notmuch-mua")
+    :custom
+    (notmuch-archive-tags '("-unread" "-inbox"))
+    (mail-user-agent 'notmuch-user-agent)
+    (notmuch-search-oldest-first nil)
+    (send-mail-function 'sendmail-send-it)
+    (sendmail-program "/usr/bin/msmtp")
+    (mail-specify-envelope-from t)
+    (message-sendmail-envelope-from 'header)
+    (mail-envelope-from 'header)
+    :bind
+    ("C-x m" . notmuch-mua-mail)
+    (:map notmuch-show-mode-map
+          ("u" . eww-follow-link)
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph))
+    (:map notmuch-message-mode-map
+          ("C-x C-s" . ignore)))
+#+end_src
+
+*** Transmission
+
+An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitTorrent daemon.
+
+#+begin_src emacs-lisp
+  (use-package transmission
+    :straight t
+    :when (executable-find "transmission-daemon")
+    :defer t
+    :after (eww)
+    :config
+    (defun transmission-add-url-at-point (url)
+      "Adds torrent if point is on a magnet link"
+      (interactive (list (shr-url-at-point nil)))
+      (transmission-add url))
+    (defun open-transmission-in-this-window ()
+      (interactive)
+      (let ((buffer (get-buffer-create "*transmission*")))
+        (switch-to-buffer buffer)
+        (transmission-mode)
+        (revert-buffer)
+        (cd (expand-file-name "~/Downloads"))))
+    :bind
+    ("C-z C-t" . open-transmission-in-this-window)
+    (:map eww-mode-map
+          ("m" . transmission-add-url-at-point)))
+#+end_src
+
+*** Elfeed
+
+Elfeed is an RSS and Atom feed reader for Emacs, which functions
+similarly to Notmuch.  To get the list of feeds, I decrypt the file
+[[file:elfeed/feeds.gpg][feeds.gpg]].  I also bind the same keys as in [[* EWW][eww]].
+
+#+begin_src emacs-lisp
+  (use-package elfeed
+    :straight t
+    :defer t
+    :custom
+    (elfeed-db-directory (expand-file-name
+                          "elfeed" user-emacs-directory))
+    (elfeed-search-remain-on-entry t)
+    (elfeed-feeds
+     (let ((file (expand-file-name
+                  "elfeed/feeds.gpg" user-emacs-directory)))
+       (when (file-exists-p file)
+         (with-temp-buffer
+           (insert-file-contents file)
+           (eval (read (current-buffer)))))))
+    :bind
+    (:map elfeed-show-mode-map
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph)
+          ("l" . elfeed)
+          ("f" . plumb-stream)
+          ("D" . plumb-download-video)
+          ("A" . plumb-audio))
+    (:map elfeed-search-mode-map
+          ("r" . elfeed-switch-to-entry))
+    :config
+    <<elfeed-macro>>
+    <<elfeed-switch-to-entry>>
+    (elfeed-update))
+#+end_src
+
+**** Elfeed functions
+
+***** Create new search functions
+
+A macro to search for a specific tag, and a handful of functions to
+search for my most useful tags.  Note: it's not possible to define a
+macro and use it within a progn, the macro is wrapped in
+=eval-when-compile=.
+
+#+name: elfeed-macro
+#+begin_src emacs-lisp :tangle no
+  (eval-when-compile
+    (defmacro elfeed-defun-tag-search (tag)
+      "Define a function to search elfeed for TAG."
+      `(defun ,(intern (concat "elfeed-search-" tag "-please")) ()
+         ,(format "Search elfeed for all items with the tag \"%s\"." tag)
+         (interactive)
+         (kill-buffer (elfeed-search-buffer))
+         (let ((elfeed-search-filter ,(concat "+" tag)))
+           (elfeed)))))
+
+  (elfeed-defun-tag-search "university")
+  (elfeed-defun-tag-search "youtube")
+  (elfeed-defun-tag-search "blog")
+#+end_src
+
+***** Switch to entry buffer
+
+If there is an =elfeed-entry= buffer, switch to it.  Otherwise, open
+the entry at point.
+
+#+name: elfeed-switch-to-entry
+#+begin_src emacs-lisp :tangle no
+  (defun elfeed-switch-to-entry ()
+    (interactive)
+    (let ((buffer (get-buffer "*elfeed-entry*"))
+          (entry (elfeed-search-selected :ignore-region)))
+      (if buffer
+          (switch-to-buffer buffer)
+        (elfeed-search-show-entry entry))))
+#+end_src
+
+*** Magit
+
+I've finally been convinced that Magit is the one true way to use git.
+Currently, the config is quite simple -- open magit in the current
+buffer, and show 20 recent commits instead of 10.
+
+#+begin_src emacs-lisp
+  (use-package magit
+    :straight t
+    :custom
+    (magit-display-buffer-function
+     #'magit-display-buffer-same-window-except-diff-v1)
+    (magit-log-section-commit-count 20)
+    :bind
+    ("C-x g" . magit-status))
+#+end_src
+
+** Appearance
+
+*** Rainbow-mode
+
+This package highlights hex colours (also install =xterm-color= to use
+in a terminal emulator).
+
+#+begin_src emacs-lisp
+  (use-package rainbow-mode
+    :straight t
+    :delight
+    (rainbow-mode " 🌈")
+    :bind
+    ("C-c h" . rainbow-mode))
+#+end_src
+
+*** Rainbow-delimiters
+
+Minor mode that highlights parentheses well.
+
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :straight t
+    :defer t
+    :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+
+*** Dimmer (dim inactive buffers)
+
+Dims inactive buffers, so that you can more clearly see which window
+you're in (sometimes the mode-line just doesn't cut it).
+
+#+begin_src emacs-lisp
+  (use-package dimmer
+    :straight t
+    :custom
+    (dimmer-fraction 0.3)
+    :config
+    (dimmer-mode t))
+#+end_src
+
+** Quality of life
+
+*** Scratch
+
+Scratch allows you to create a scratch buffer - either in the major
+mode of the current buffer, or (with prefix arg) in the major mode of
+your choice.
+
+#+begin_src emacs-lisp
+  (use-package scratch
+    :straight t
+    :bind
+    ("C-z s" . scratch)
+    ("C-z C-s" . scratch))
+#+end_src
+
+*** Edwina
+
+Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  The function
+=edwina-setup-dwm-keys= binds similar keys to what dwm actually uses.
+
+#+begin_src emacs-lisp
+  (use-package edwina
+    :straight t
+    :defer t
+    :config
+    (edwina-setup-dwm-keys 'super))
+#+end_src
+
+*** 0x0
+
+Provides some functions to upload to [[http://0x0.st][0x0.st]].
+
+#+begin_src emacs-lisp
+  (use-package 0x0
+    :straight t
+    :defer t)
+#+end_src
+
+*** Plumb
+
+A way to open URLs the way I want.  I bind it to =C-z d=.  I use the
+=:demand= keyword so that I can use these commands in the [[*EWW][EWW]] and
+[[*Elfeed][Elfeed]] use-package forms.
+
+Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package plumb
+    :straight
+    (plumb :type git
+           :flavor melpa
+           :host gitlab
+           :repo "jamzattack/plumb.el")
+    :demand t
+    :bind
+    ("C-z d" . plumb)
+    ("C-z C-d" . plumb))
+#+end_src
+
+** Dired
+
+A couple of packages that enhance dired.
+
+*** Dired-async
+
+Make dired run actions in the background.  This is in the package
+=async=.
+
+#+begin_src emacs-lisp
+  (use-package dired-async
+    :straight async
+    :defer t
+    :config
+    (dired-async-mode))
+#+end_src
+
+*** Dired-subtree
+
+Recursively list directories and cycle like org-mode.  Bind =TAB= to
+show/hide a subtree, and disable the predefined faces.  Part of the
+=dired-hacks= package.
+
+#+begin_src emacs-lisp
+  (use-package dired-subtree
+    :straight dired-hacks
+    :custom
+    (dired-subtree-use-backgrounds nil)
+    :bind
+    (:map dired-mode-map
+          ("<tab>" . dired-subtree-toggle)))
+#+end_src
+
+** Fish completion
+
+Fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
+completion.  Fish must be installed.
+
+#+begin_src emacs-lisp
+  (use-package fish-completion
+    :straight t
+    :after eshell
+    :when (executable-find "fish")
+    :config
+    (global-fish-completion-mode))
+#+end_src
+
+** System-packages
+
+System-packages allows updating, installing, and removing programs
+installed with your system's package manager.
+
+#+begin_src emacs-lisp
+  (use-package system-packages
+    :straight t
+    :defer t)
+#+end_src
+
+** Not really useful
+
+*** Lorem Ipsum
+
+A /Lorem Ipsum/ generator.
+
+#+begin_src emacs-lisp
+  (use-package lorem-ipsum
+    :straight t
+    :defer t)
+#+end_src
+
+# Local Variables:
+# indent-tabs-mode: nil
+# eval: (rename-buffer "config.org" t)
+# End:
