@@ -551,12 +551,13 @@ useful for more complex filtering.
     :bind
     (:map ctl-x-map
           ("C-b" . ibuffer))
-    :config
+    :init
     (defun ibuffer-helm-major-mode-predicate (buffer)
       "Returns t if BUF is a helm buffer."
       (equal 'helm-major-mode
              (with-current-buffer buffer
                major-mode)))
+    :config
     (add-to-list 'ibuffer-maybe-show-predicates
                  #'ibuffer-helm-major-mode-predicate))
 #+end_src
@@ -631,8 +632,7 @@ delete-char or kill-buffer like a "normal" shell.
     :custom
     (eshell-history-size 1000)
     :init
-    (require 'esh-mode)
-    :config
+    (autoload 'eshell-mode-map "esh-mode" nil nil 'keymap)
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
     <<eshell/e>>
@@ -1705,7 +1705,7 @@ An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitT
     :when (executable-find "transmission-daemon")
     :defer t
     :after (eww)
-    :config
+    :init
     (defun transmission-add-url-at-point (url)
       "Adds torrent if point is on a magnet link"
       (interactive (list (shr-url-at-point nil)))
