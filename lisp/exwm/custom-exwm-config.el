@@ -29,8 +29,6 @@
 ;;; Code:
 
 (require 'exwm)
-(require 'helm-buffers)
-(require 'eshell)
 
 (defun custom-exwm-window-setup ()
   "Other configurations."
@@ -201,11 +199,12 @@ output."
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
   (setq exwm-workspace-number 1)
-  (custom-exwm-input-global-keys)
-  (custom-exwm-input-simulation-keys)
-  (custom-exwm-prefix-keys)
-  (custom-exwm-buffer-name)
-  (custom-exwm-window-setup))
+  (unless (exwm-workspace--active-p (selected-frame))
+    (custom-exwm-input-global-keys)
+    (custom-exwm-input-simulation-keys)
+    (custom-exwm-prefix-keys)
+    (custom-exwm-buffer-name)
+    (custom-exwm-window-setup)))
 
 
 

@@ -1146,9 +1146,9 @@ Located [[file:lisp/exwm/custom-exwm-config.el][here]].
 #+begin_src emacs-lisp
   (use-package custom-exwm-config
     :load-path "lisp/exwm"
-    :after exwm
-    :config
-    (custom-exwm-config))
+    :commands custom-exwm-config
+    :hook
+    (server-after-make-frame-hook . custom-exwm-config))
 #+end_src
 
 ** Miscellaneous functions
@@ -1580,7 +1580,8 @@ here, in case I decide to use another window manager.  Eval
 
 #+begin_src emacs-lisp
   (use-package exwm
-    :straight t)
+    :straight t
+    :defer t)
 #+end_src
 
 *** Desktop-environment (useful with EXWM)
