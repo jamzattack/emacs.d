@@ -22,15 +22,14 @@
 If config.el exists, load it.  Otherwise tangle config.org and
 then load config.el."
   (interactive "P")
-  (when (file-exists-p custom-file)
-    (load custom-file))
   (if tangle
       (let ((org (expand-file-name "config.org" user-emacs-directory)))
 	(require 'org)
 	(org-babel-tangle-file org)
 	(load "config" t))
     (unless (load "config" t)
-      (config-load t))))
+      (config-load t)))
+  (load-file custom-file))
 
 ;; Load config.org
 (config-load)
