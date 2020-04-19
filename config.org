@@ -482,7 +482,8 @@ browser, and change the width to 80 columns.
           ("M-p" . backward-paragraph)
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
-          ("A" . plumb-audio)))
+          ("A" . plumb-audio)
+          ("m" . transmission-add-url-at-point)))
 #+end_src
 
 **** External browser
@@ -549,8 +550,7 @@ useful for more complex filtering.
 #+begin_src emacs-lisp
   (use-package ibuffer
     :bind
-    (:map ctl-x-map
-          ("C-b" . ibuffer))
+    ("C-x C-b" . ibuffer)
     :init
     (defun ibuffer-helm-major-mode-predicate (buffer)
       "Returns t if BUF is a helm buffer."
@@ -574,8 +574,7 @@ this if you use a different version.
     (dired-listing-switches "-lah --group-directories-first")
     (delete-by-moving-to-trash t)
     :bind
-    (:map ctl-x-map
-          ("C-d" . dired-jump)))
+    ("C-x C-d" . dired-jump))
 #+end_src
 
 *** Diffing
@@ -1144,9 +1143,7 @@ Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
     :bind
     ("C-M-\\" . indent-region-or-defun-please)
     ("C-h M-a" . system-apropos)
-    ("C-c p" . open-pdf-of-current-file)
-    (:map org-mode-map
-          ("C-c e" . eww-open-html-of-current-file)))
+    ("C-c p" . open-pdf-of-current-file))
 #+end_src
 
 ** Helm
@@ -1696,14 +1693,16 @@ I have a habit of hitting =C-x C-s= more than I should.
 
 *** Transmission
 
-An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitTorrent daemon.
+An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitTorrent daemon.  In the [[*EWW][EWW]]
+section, I bind the function =transmission-add-url-at-point= in
+eww-mode.
 
 #+begin_src emacs-lisp
   (use-package transmission
     :straight t
     :when (executable-find "transmission-daemon")
     :defer t
-    :after (eww)
+    :commands transmission-mode
     :init
     (defun transmission-add-url-at-point (url)
       "Adds torrent if point is on a magnet link"
@@ -1717,9 +1716,7 @@ An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitT
         (revert-buffer)
         (cd (expand-file-name "~/Downloads"))))
     :bind
-    ("C-z C-t" . open-transmission-in-this-window)
-    (:map eww-mode-map
-          ("m" . transmission-add-url-at-point)))
+    ("C-z C-t" . open-transmission-in-this-window))
 #+end_src
 
 *** Elfeed
