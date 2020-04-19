@@ -997,27 +997,6 @@ directory.
 A selection of packages to facilitate searching and browsing the web
 within Emacs.
 
-*** Plumb
-
-A way to open URLs the way I want.  I bind it to =C-z d=.  I use the
-=:demand= keyword so that I can use these commands in the [[*EWW][EWW]] and
-[[*Elfeed][Elfeed]] use-package forms.
-
-Located [[file:lisp/plumb/plumb.el][here]].
-
-#+begin_src emacs-lisp
-  (use-package plumb
-    :load-path "lisp/plumb"
-    :demand t
-    :functions
-    plum-stream
-    plum-download-audio
-    plum-download-video
-    :bind
-    ("C-z d" . plumb)
-    ("C-z C-d" . plumb))
-#+end_src
-
 *** Library-genesis
 
 My custom package for searching library genesis.  I bind =C-z l= to a
@@ -1918,6 +1897,23 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
   (use-package 0x0
     :straight t
     :defer t)
+#+end_src
+
+*** Plumb
+
+A way to open URLs the way I want.  I bind it to =C-z d=.  I use the
+=:demand= keyword so that I can use these commands in the [[*EWW][EWW]] and
+[[*Elfeed][Elfeed]] use-package forms.
+
+Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
+
+#+begin_src emacs-lisp
+  (use-package plumb
+    :load-path "lisp/plumb"
+    :demand t
+    :bind
+    ("C-z d" . plumb)
+    ("C-z C-d" . plumb))
 #+end_src
 
 ** Dired
