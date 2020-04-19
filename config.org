@@ -921,9 +921,10 @@ so that I can bind the keys in exwm-mode as well.
 ** View-mode
 
 I like using view-mode and scroll-lock-mode is kind-of useless, so I
-rebind Scroll_Lock to toggle view-mode.
+rebind Scroll_Lock to toggle view-mode and enable view-mode if a
+buffer is read-only.
 
-Also enable view-mode if a buffer is read-only.
+Also bind some keys to simplify movement.
 
 #+begin_src emacs-lisp
   (use-package view
@@ -933,7 +934,9 @@ Also enable view-mode if a buffer is read-only.
     (:map view-mode-map
           ("l" . recenter-top-bottom)
           ("f" . forward-sexp)
-          ("b" . backward-sexp)))
+          ("b" . backward-sexp)
+          ("[" . backward-paragraph)
+          ("]" . forward-paragraph)))
 #+end_src
 
 ** Fixing some default behaviour
