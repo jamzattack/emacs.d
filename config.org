@@ -1023,7 +1023,7 @@ Located [[file:lisp/search-query/search-query.el][here]].
   (use-package search-query
     :load-path "lisp/search-query"
     :custom
-    (tpb-mirror "lepiratebay.org")
+    (tpb-mirror "piratebay.live")
     :bind
     ("C-z t" . tpb-search)
     ("C-z y" . youtube-search)
