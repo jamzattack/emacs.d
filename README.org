@@ -822,15 +822,12 @@ time.
 
 **** Battery
 
-Show battery information with =C-z b=, and show percentage in the
-mode-line.
+Show battery information with =C-z b=.
 
 #+begin_src emacs-lisp
   (use-package battery
     :bind
-    ("C-z b" . battery)
-    :config
-    (display-battery-mode t))
+    ("C-z b" . battery))
 #+end_src
 
 **** Show the column
