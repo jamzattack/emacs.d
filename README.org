@@ -1218,7 +1218,6 @@ replace =yank-pop= but the latter is too engrained in my fingers.
 #+begin_src emacs-lisp
   (use-package helm
     :straight t
-    :delight
     :custom
     (helm-completion-style 'emacs)
     (helm-describe-variable-function 'helpful-variable)
@@ -1234,6 +1233,7 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     <<kill-this-buffer-please>>
     :config
     (require 'helm-config)
+    (delight '((helm-mode "")))
     (helm-mode t)
     :bind
     ("M-x" . helm-M-x)
