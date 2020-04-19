@@ -1147,7 +1147,7 @@ Located [[file:lisp/exwm/custom-exwm-config.el][here]].
     :load-path "lisp/exwm"
     :commands custom-exwm-config
     :hook
-    (server-after-make-frame-hook . custom-exwm-config))
+    (exwm-init . custom-exwm-config))
 #+end_src
 
 ** Miscellaneous functions

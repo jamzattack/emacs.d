@@ -199,12 +199,11 @@ output."
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
   (setq exwm-workspace-number 1)
-  (unless (exwm-workspace--active-p (selected-frame))
-    (custom-exwm-input-global-keys)
-    (custom-exwm-input-simulation-keys)
-    (custom-exwm-prefix-keys)
-    (custom-exwm-buffer-name)
-    (custom-exwm-window-setup)))
+  (custom-exwm-input-global-keys)
+  (custom-exwm-input-simulation-keys)
+  (custom-exwm-prefix-keys)
+  (custom-exwm-buffer-name)
+  (custom-exwm-window-setup))
 
 
 
