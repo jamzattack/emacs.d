@@ -1141,7 +1141,6 @@ Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
 #+begin_src emacs-lisp
   (use-package my-misc-defuns
     :load-path "lisp/my-misc-defuns"
-    :defer nil
     :bind
     ("C-M-\\" . indent-region-or-defun-please)
     ("C-h M-a" . system-apropos)
