@@ -182,22 +182,22 @@ file.  Similar to remember.
      '(("t" "Todo")
        ("tt" "Misc." entry
         (file+headline "todo.org" "Miscellaneous")
-        "* TODO %?\n%i\n\n")
+        "* TODO %?\n\n%a\n")
        ("tu" "University" entry
         (file+headline "todo.org" "University")
-        "* TODO %?\n%i\n\n")
+        "* TODO %?\n\n%a\n")
        ("n" "Notes" entry
         (file+headline "notes.org" "Notes")
-        "* %?\nEntered on %u\n%i\n\n")
+        "* %?\nEntered on %u\n\n%i\n\n%a\n")
        ("m" "Music" entry
         (file+headline "notes.org" "Music")
-        "* %?\nEntered on %u\n%i\n\n")
+        "* %?\nEntered on %u\n\n%i\n")
        ("e" "Elisp" entry
         (file+headline "notes.org" "Emacs Lisp")
         "* %^{Title}\n\n#+begin_src emacs-lisp\n %i\n#+end_src\n")
        ("d" "Diary" entry
         (file "diary.org")
-        "* %?\n\nEntered on %u\n\n")))
+        "* %?\nEntered on %u\n\n")))
     (org-capture-bookmark nil)
     :bind
     ("C-x M-r" . org-capture))
