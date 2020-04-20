@@ -1119,7 +1119,10 @@ Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here]].
 
 My custom settings for EXWM - not much different from the
 =exwm-config-default=, but doesn't get in my way as much.  It provides
-the function =custom-exwm-config= which is used in [[EXWM - Emacs X Window Manager][EXWM]].
+the function =custom-exwm-config= which is run when exwm starts.
+
+Note: this doesn't actually start EXWM, so this needs to be done in
+your [[file:~/.xinitrc][xinitrc]].
 
 Located [[file:lisp/exwm/custom-exwm-config.el][here]].
 
@@ -1552,9 +1555,8 @@ Export to html.
 
 ** EXWM - Emacs X Window Manager
 
-Manipulate X windows as Emacs buffers.  I don't use =(exwm-init)=
-here, in case I decide to use another window manager.  Eval
-=(exwm-init)= when starting the EXWM frame. i.e. in =~.xinitrc=.
+Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM][earlier]], you need
+to enable exwm (via =exwm-init=) when creating the Emacs frame.
 
 #+begin_src emacs-lisp
   (use-package exwm
