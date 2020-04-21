@@ -1752,7 +1752,8 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
           ("l" . elfeed)
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
-          ("A" . plumb-audio))
+          ("A" . plumb-audio)
+          ("<tab>" . shr-next-link))
     (:map elfeed-search-mode-map
           ("r" . elfeed-switch-to-entry))
     :config
