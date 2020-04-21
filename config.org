@@ -1330,7 +1330,7 @@ library).
              :host gitlab
              :repo "jamzattack/helpful"
              :branch "no-f")
-    :config
+    :init
     <<helpful-edit-source-temporarily>>
     <<helpful-copy-to-kill-ring>>
     :bind
