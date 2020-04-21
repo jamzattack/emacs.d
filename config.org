@@ -1219,7 +1219,7 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     :bind
     ("M-x" . helm-M-x)
     ("<menu><menu>" . helm-M-x)
-    ("M-s M-o" . helm-occur)
+    ("M-o" . helm-occur)
     ("s-b" . helm-mini)
     ("C-x b" . helm-mini)
     ("C-x k" . kill-this-buffer-please)
