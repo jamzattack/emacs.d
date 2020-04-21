@@ -1332,6 +1332,7 @@ library).
              :branch "no-f")
     :config
     <<helpful-edit-source-temporarily>>
+    <<helpful-copy-to-kill-ring>>
     :bind
     (:map help-map
           ("f" . helpful-callable)
@@ -1340,7 +1341,8 @@ library).
           ("k" . helpful-key)
           ("SPC" . helpful-at-point))
     (:map helpful-mode-map
-          ("e" . helpful-edit-source-temporarily)))
+          ("e" . helpful-edit-source-temporarily)
+          ("w" . helpful-copy-to-kill-ring)))
 #+end_src
 
 *** Edit source
@@ -1601,6 +1603,32 @@ colour.
                       (beginning-of-line)
                       (delete-char 1)
                       (buffer-string))))))
+#+end_src
+
+*** Save symbol to kill ring
+
+#+name: helpful-copy-to-kill-ring
+#+begin_src emacs-lisp :tangle no
+  (defun helpful-copy-to-kill-ring (buffer)
+    "Copy the callable or variable of BUFFER to the kill ring.
+
+  Called interactively, BUFFER is the current buffer or, with
+  prefix arg, read from the minibuffer."
+    (interactive (list
+                  (if current-prefix-arg
+                      (read-buffer "Copy symbol from buffer: "
+                                   (current-buffer)
+                                   t
+                                   (lambda (name)
+                                     (string-match
+                                      "^\\*helpful"
+                                      name)))
+                    (current-buffer))))
+    (with-current-buffer buffer
+      (unless (eq major-mode 'helpful-mode)
+        (user-error "%s is not a helpful buffer" (buffer-name buffer)))
+      (kill-new (symbol-name helpful--sym))
+      (message "\"%s\" saved to kill ring." helpful--sym)))
 #+end_src
 
 ** "Applications"
