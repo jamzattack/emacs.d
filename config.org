@@ -868,6 +868,19 @@ doesn't slow down Emacs as much.
     ("C-c l" . display-line-numbers-mode))
 #+end_src
 
+**** Cycle spacing
+
+By default, =M-SPC= is bound to the less powerful =just-one-space=.  I
+rebind that key to =cycle-spacing=, which does the same thing but on
+successive invocations switches between one space and no spaces.
+Thus, =M-SPC M-SPC= acts like =M-\= (=delete-horizontal-space=)
+
+#+begin_src emacs-lisp
+  (use-package simple
+    :bind
+    ("M-SPC" . cycle-spacing))
+#+end_src
+
 ** Environment variables
 
 Set the =$EDITOR= to =emacsclient=.  Because I (almost) only use other
