@@ -489,7 +489,7 @@ browser, and change the width to 80 columns.
 **** External browser
 
 #+name: browse-url-externally-please
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun browse-url-externally-please (url &optional ignored)
     "Open URL using either vimb or surf if they are found,
   otherwise use xdg-open."
