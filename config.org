@@ -935,8 +935,8 @@ Also bind some keys to simplify movement.
           ("l" . recenter-top-bottom)
           ("f" . forward-sexp)
           ("b" . backward-sexp)
-          ("[" . backward-paragraph)
-          ("]" . forward-paragraph)))
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph)))
 #+end_src
 
 ** Fixing some default behaviour
