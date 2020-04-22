@@ -1094,7 +1094,8 @@ Located [[file:lisp/lilypond-mode][here]].
     :init
     (defalias 'lilypond-mode 'LilyPond-mode)
     (defun custom-lilypond-setup ()
-      "Sets the buffer's comile command and comment-column."
+      "Sets the buffer's compile command and comment-column."
+      (hack-local-variables)
       (unless (or (file-exists-p "Makefile")
                   (local-variable-p 'compile-command (current-buffer)))
         (setq-local compile-command
