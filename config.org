@@ -1730,6 +1730,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     (mail-envelope-from 'header)
     :bind
     ("C-x m" . notmuch-mua-mail)
+    ("C-z j" . notmuch-jump-search)
     (:map notmuch-show-mode-map
           ("u" . eww-follow-link)
           ("M-p" . backward-paragraph)
