@@ -1750,11 +1750,8 @@ Hosted [[https://gitlab.com/jamzattack/ol-notmuch][here]].
   (use-package ol-notmuch
     :straight
     (ol-notmuch :type git
-		:host gitlab
-		:repo "jamzattack/ol-notmuch")
-    :commands
-    org-notmuch-store-link
-    org-notmuch-open)
+                :host gitlab
+                :repo "jamzattack/ol-notmuch"))
 #+end_src
 
 *** Transmission
