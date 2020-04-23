@@ -1739,6 +1739,24 @@ I have a habit of hitting =C-x C-s= more than I should.
           ("C-x C-s" . ignore)))
 #+end_src
 
+**** ol-notmuch
+
+This library provides some org-mode link actions for notmuch.  It is a
+part of org-contrib, but I forked it to add/fix a few things.
+
+Hosted [[https://gitlab.com/jamzattack/ol-notmuch][here]].
+
+#+begin_src emacs-lisp
+  (use-package ol-notmuch
+    :straight
+    (ol-notmuch :type git
+		:host gitlab
+		:repo "jamzattack/ol-notmuch")
+    :commands
+    org-notmuch-store-link
+    org-notmuch-open)
+#+end_src
+
 *** Transmission
 
 An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitTorrent daemon.  In the [[*EWW][EWW]]
