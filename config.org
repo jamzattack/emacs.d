@@ -19,7 +19,7 @@ startup will take some time.
 * Startup
 
 Get some things out of the way early.  Without [[*Straight][straight]] or
-[[*Use-package][use-package]], none of this config would work.
+[[*Use-package and dependencies][use-package]], none of this config would work.
 
 ** Straight
 
@@ -298,7 +298,7 @@ Java/Awk files.
 *** Emacs Lisp mode
 
 Make the scratch buffer use =emacs-lisp-mode=.  Note: Most of my Elisp
-keybindings are now in my package [[file:lisp/selime/selime.el][selime]].
+keybindings are now in my package [[https://gitlab.com/jamzattack/selime][selime]].
 
 #+begin_src emacs-lisp
   (use-package elisp-mode
@@ -1571,7 +1571,7 @@ Export to html.
 
 ** EXWM - Emacs X Window Manager
 
-Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM][earlier]], you need
+Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM config][earlier]], you need
 to enable exwm (via =exwm-init=) when creating the Emacs frame.
 
 #+begin_src emacs-lisp
