@@ -203,7 +203,7 @@ file.  Similar to remember.
     ("C-x M-r" . org-capture))
 #+end_src
 
-**** Org-babel
+**** Org babel
 
 Work with code blocks.  The libraries all provide support for a
 language so that you can run their source blocks with =C-c C-c=.
@@ -269,6 +269,17 @@ functions.
     org-babel-execute:sh
     org-babel-execute:shell
     org-babel-execute:bash)
+#+end_src
+
+**** Org links
+
+The library org-mode uses to create and store links.  I bind =C-x M-l=
+to generate a link from the current position.
+
+#+begin_src emacs-lisp
+  (use-package ol
+    :bind
+    ("C-x M-l" . org-store-link))
 #+end_src
 
 *** Prolog
