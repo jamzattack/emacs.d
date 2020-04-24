@@ -1742,6 +1742,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     (mail-envelope-from 'header)
     :bind
     ("C-x m" . notmuch-mua-mail)
+    ("C-z C-n" . notmuch)
     ("C-z j" . notmuch-jump-search)
     (:map notmuch-show-mode-map
           ("u" . eww-follow-link)
