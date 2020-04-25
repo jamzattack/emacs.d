@@ -230,7 +230,7 @@ instead of gcc if it's installed.
     :defer t
     :commands org-babel-execute:C
     :custom
-    (org-babel-c-compiler
+    (org-babel-C-compiler
      (or (executable-find "tcc")
          "gcc")))
 #+end_src
