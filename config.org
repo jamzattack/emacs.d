@@ -1731,6 +1731,12 @@ I have a habit of hitting =C-x C-s= more than I should.
     :when (executable-find "notmuch")
     :init
     (autoload 'notmuch-mua-mail "notmuch-mua")
+    (defun notmuch-select-address-please (prompt collection &rest _ignore)
+      "Like `notmuch-address-selection-function', but without initial-input.
+
+  PROMPT and COLLECTION are both passed to `completing-read'."
+      (completing-read
+       prompt collection nil nil nil 'notmuch-address-history))
     :custom
     (notmuch-archive-tags '("-unread" "-inbox"))
     (mail-user-agent 'notmuch-user-agent)
@@ -1738,6 +1744,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     (send-mail-function 'sendmail-send-it)
     (sendmail-program "/usr/bin/msmtp")
     (mail-specify-envelope-from t)
+    (notmuch-address-selection-function 'notmuch-select-address-please)
     (message-sendmail-envelope-from 'header)
     (mail-envelope-from 'header)
     :bind
