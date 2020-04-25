@@ -1229,6 +1229,8 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     (helm-describe-variable-function 'helpful-variable)
     (helm-describe-function-function 'helpful-callable)
     (helm-buffer-max-length 30)
+    (helm-split-window-preferred-function
+     #'helm-split-window-please)
     (helm-external-programs-associations
      '(("midi" . "timidity")
        ("png" . "sxiv")
@@ -1238,6 +1240,7 @@ replace =yank-pop= but the latter is too engrained in my fingers.
        ("mkv" . "mpv")))
     :init
     <<kill-this-buffer-please>>
+    <<helm-split-window-please>>
     :config
     (require 'helm-config)
     (delight '((helm-mode "")))
@@ -1256,6 +1259,13 @@ replace =yank-pop= but the latter is too engrained in my fingers.
           ("C-h c" . describe-key-briefly)))
 #+end_src
 
+*** Functions
+**** Kill buffer
+
+I rebind =C-x k= to kill the current buffer, because =helm-mini= is so
+useful.  If buffer is in the list =buffers-to-bury=, bury it instead
+of killing.
+
 #+name: kill-this-buffer-please
 #+begin_src emacs-lisp :tangle no
   (defvar buffers-to-bury '("*scratch*" "#emacs" "*Messages*")
@@ -1269,6 +1279,40 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     (if (member (buffer-name) buffers-to-bury)
         (bury-buffer)
       (kill-buffer (current-buffer))))
+#+end_src
+
+**** Split window
+
+The way Helm splits windows can get in the way a bit.  This more
+predictable function selects the largest non-exwm window.
+
+#+name: helm-split-window-please
+#+begin_src emacs-lisp
+  (defun helm-split-window-please (window)
+    "If the frame only has one"
+    (if (one-window-p t)
+        (split-window (selected-window) nil
+                      (if (> (window-pixel-width) (window-pixel-height))
+                          'right
+                        'below))
+      (select-window
+       ;; Reworking of `get-largest-window', doesn't choose an exwm
+       ;; window.
+       (let ((best-size 0)
+             best-window size)
+         (dolist (window (window-list-1 nil 'nomini))
+           (when (and (not (window-dedicated-p window))
+                      (not (eq window (selected-window)))
+                      (not (equal
+                            (buffer-local-value
+                             'major-mode (window-buffer window))
+                            'exwm-mode)))
+             (setq size (* (window-pixel-height window)
+                           (window-pixel-width window)))
+             (when (> size best-size)
+               (setq best-size size)
+               (setq best-window window))))
+         best-window))))
 #+end_src
 
 *** Helm system packages
