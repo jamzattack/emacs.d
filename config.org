@@ -1289,7 +1289,8 @@ predictable function selects the largest non-exwm window.
 #+name: helm-split-window-please
 #+begin_src emacs-lisp
   (defun helm-split-window-please (window)
-    "If the frame only has one"
+    "If the frame only has one window, split it.  Otherwise, select
+  the largest non-exwm window."
     (if (one-window-p t)
         (split-window (selected-window) nil
                       (if (> (window-pixel-width) (window-pixel-height))
