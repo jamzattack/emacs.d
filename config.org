@@ -642,13 +642,13 @@ delete-char or kill-buffer like a "normal" shell.
     :custom
     (eshell-history-size 1000)
     :init
-    (autoload 'eshell-mode-map "esh-mode" nil nil 'keymap)
+    <<open-or-bury-eshell>>
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
     <<eshell/e>>
     <<eshell/comint>>
     :bind
-    ("s-e" . eshell)
+    ("s-e" . open-or-bury-eshell)
     (:map eshell-mode-map
           ("C-d" . eshell-delete-or-quit)
           ("C-c M-l" . eshell/clear-please)))
@@ -656,8 +656,25 @@ delete-char or kill-buffer like a "normal" shell.
 
 **** Eshell functions
 
-These functions need to be compiled after eshell is loaded, so they go
-in the =:config= section.
+***** Open or bury eshell
+
+Open an eshell buffer or bury the current one.
+
+#+name: open-or-bury-eshell
+#+begin_src emacs-lisp :tangle no
+  (defun open-or-bury-eshell (&optional arg)
+    "Launch or bury an eshell buffer.
+
+  Prefix arg ARG is passed to `eshell'.  If current buffer is an
+  eshell buffer, bury it."
+    (interactive "P")
+    (cond (arg
+           (eshell arg))
+          ((equal major-mode 'eshell-mode)
+           (bury-buffer))
+          (t
+           (eshell arg))))
+#+end_src
 
 ***** Delete or quit
 
@@ -1287,7 +1304,7 @@ The way Helm splits windows can get in the way a bit.  This more
 predictable function selects the largest non-exwm window.
 
 #+name: helm-split-window-please
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun helm-split-window-please (window)
     "If the frame only has one window, split it.  Otherwise, select
   the largest non-exwm window."

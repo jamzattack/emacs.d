@@ -117,6 +117,9 @@ output."
        [?\s-a]
        [menu]
        [f8]
+
+       ,(kbd "s-e")
+       ,(kbd "s-b")
        
        ;; For edwina-mode
        ,(kbd "s-r")
@@ -153,8 +156,6 @@ output."
        ;; 's-&': Launch application.
        (,(kbd "s-&") . exwm-shell-command)
 
-       (,(kbd "s-e") . eshell)
-       (,(kbd "s-b") . helm-mini)
        ;; 's-N': Switch to certain workspace.
        ,@(mapcar (lambda (i)
 		   `(,(kbd (format "s-%d" i)) .
