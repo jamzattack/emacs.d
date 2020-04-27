@@ -51,6 +51,7 @@ This snippet clones and loads straight, stolen from the README.
     (load bootstrap-file nil 'nomessage))
 
   (setq straight-vc-git-default-protocol 'ssh)
+  (add-to-list 'straight-built-in-pseudo-packages 'org)
 #+end_src
 
 ** Use-package and dependencies
@@ -1639,6 +1640,17 @@ Export to html.
 
 #+begin_src emacs-lisp
   (use-package htmlize
+    :straight t
+    :defer t)
+#+end_src
+
+*** Org web tools
+
+This package parses a web page and transforms it into beautiful
+org-mode.  I use it in my package [[*Plumb][plumb]].
+
+#+begin_src emacs-lisp
+  (use-package org-web-tools
     :straight t
     :defer t)
 #+end_src
