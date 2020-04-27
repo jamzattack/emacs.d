@@ -1449,9 +1449,9 @@ nearly as useful anyway.
   buffer.  You need to already be in a helpful buffer."
     (interactive)
     (save-excursion
-      (let* ((name (replace-regexp-in-string
-                    "^.*:" "*helpful edit:"
-                    (buffer-name (current-buffer))))
+      (let* ((name
+              (format "*%s <helpful edit>"
+                      helpful--sym))
              (buffer (get-buffer-create name))
              (min (progn
                     (goto-char (point-min))
