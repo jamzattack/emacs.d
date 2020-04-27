@@ -1258,7 +1258,7 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     (helm-completion-style 'emacs)
     (helm-describe-variable-function 'helpful-variable)
     (helm-describe-function-function 'helpful-callable)
-    (helm-buffer-max-length 30)
+    (helm-buffer-max-length 24)
     (helm-split-window-preferred-function
      #'helm-split-window-please)
     (helm-external-programs-associations
