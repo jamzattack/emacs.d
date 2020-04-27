@@ -282,6 +282,18 @@ to generate a link from the current position.
     :bind
     ("C-x M-l" . org-store-link))
 #+end_src
+**** Org agenda
+
+Use all files in =org-directory= to get my agenda.  And don't disrupt
+my window configuration.
+
+#+begin_src emacs-lisp
+  (use-package org-agenda
+    :defer t
+    :custom
+    (org-agenda-files (list org-directory))
+    (org-agenda-window-setup 'current-window))
+#+end_src
 
 *** Prolog
 
