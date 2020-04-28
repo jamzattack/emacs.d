@@ -1829,6 +1829,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     :custom
     (notmuch-archive-tags '("-unread" "-inbox"))
     (mail-user-agent 'notmuch-user-agent)
+    (browse-url-mailto-function 'notmuch-mua-mail)
     (notmuch-search-oldest-first nil)
     (send-mail-function 'sendmail-send-it)
     (sendmail-program "/usr/bin/msmtp")
