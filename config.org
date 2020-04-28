@@ -292,7 +292,9 @@ my window configuration.
     :defer t
     :custom
     (org-agenda-files (list org-directory))
-    (org-agenda-window-setup 'current-window))
+    (org-agenda-window-setup 'current-window)
+    :bind
+    ("C-z C-a" . org-agenda))
 #+end_src
 
 *** Prolog
