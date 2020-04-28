@@ -291,7 +291,8 @@ my window configuration.
   (use-package org-agenda
     :defer t
     :custom
-    (org-agenda-files (list org-directory))
+    (org-agenda-files (list (or org-directory
+                                "~/org")))
     (org-agenda-window-setup 'current-window)
     :bind
     ("C-z C-a" . org-agenda))
