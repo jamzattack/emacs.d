@@ -1233,6 +1233,8 @@ Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
        helm-source-bookmark-org-misc
        helm-source-bookmark-elisp
        helm-source-bookmark-downloads
+       helm-source-bookmark-magit
+       helm-source-bookmark-elfeed
        helm-source-bookmark-dired
        helm-source-bookmark-info
        helm-source-bookmark-man

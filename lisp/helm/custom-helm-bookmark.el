@@ -73,13 +73,13 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
 
 "
   (let* ((name-as-string (symbol-name name))
-	  (predicate-name (intern (concat "helm-bookmark-"
-					  name-as-string
-					  "-p")))
-	  (helm-source-name (intern (concat "helm-source-bookmark-" name-as-string)))
-	  (alist-function-name (intern (concat "helm-bookmark-"
-					       name-as-string
-					       "-setup-alist"))))
+	 (predicate-name (intern (concat "helm-bookmark-"
+					 name-as-string
+					 "-p")))
+	 (helm-source-name (intern (concat "helm-source-bookmark-" name-as-string)))
+	 (alist-function-name (intern (concat "helm-bookmark-"
+					      name-as-string
+					      "-setup-alist"))))
     `(progn
        (defun ,predicate-name (bookmark)
 	 (let* ((filename (expand-file-name (or (bookmark-get-filename bookmark) ""))))
@@ -115,10 +115,11 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
  elisp "Emacs lisp files"
  (string-suffix-p ".el" filename t))
 
-;;; Downloads -- matches anything in ~/Downloads
+;;; Downloads -- matches anything in ~/Downloads or ~/Videos
 (helm-bookmark-create-source-please
- downloads "Downloads"
- (file-in-directory-p filename "~/Downloads/"))
+ downloads "Downloads/Videos"
+ (or (file-in-directory-p filename "~/Downloads/")
+     (file-in-directory-p filename "~/Videos/")))
 
 ;;; Misc. org-mode files -- only org-mode files that aren't already in
 ;;; one of the sources.
@@ -129,24 +130,38 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
       (not (helm-bookmark-downloads-p bookmark))
       (not (helm-bookmark-university-p bookmark))))
 
+;;; Magit
+(helm-bookmark-create-source-please
+ magit "Git repositories"
+ (eq (bookmark-get-handler bookmark) 'magit--handle-bookmark))
+
 ;;; Directories
 (helm-bookmark-create-source-please
  dired "Bookmarked directories"
- (file-directory-p filename))
+ (and (file-directory-p filename)
+      (not (helm-bookmark-elfeed-p bookmark))
+      (not (helm-bookmark-magit-p bookmark))))
 
-;;; Files
+;;; Elfeed
+(helm-bookmark-create-source-please
+ elfeed "Elfeed entries and searches"
+ (or (eq (bookmark-get-handler bookmark) 'elfeed-show-bookmark-handler)
+     (eq (bookmark-get-handler bookmark) 'elfeed-search-bookmark-handler)))
+
+;;; Other bookmarks
 (helm-bookmark-create-source-please
  other "Other bookmarks"
  (and (not (file-directory-p filename))
-      (bookmark-get-filename bookmark)
       (cl-loop for pred in '(helm-bookmark-university-p
 			     helm-bookmark-elisp-p
 			     helm-bookmark-config-p
 			     helm-bookmark-org-misc-p
 			     helm-bookmark-downloads-p
 			     helm-bookmark-dired-p
+			     helm-bookmark-magit-p
 			     helm-bookmark-info-bookmark-p
-			     helm-bookmark-man-bookmark-p)
+			     helm-bookmark-man-bookmark-p
+			     helm-bookmark-elfeed-p)
                never (funcall pred bookmark))))
 
 
