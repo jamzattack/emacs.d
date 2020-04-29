@@ -290,6 +290,7 @@ my window configuration.
 #+begin_src emacs-lisp
   (use-package org-agenda
     :defer t
+    :after org
     :custom
     (org-agenda-files (list (or org-directory
                                 "~/org")))
