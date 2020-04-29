@@ -1,6 +1,4 @@
 ;; -*- lexical-binding: t; -*-
-;; Default to lexical binding
-(setq-default lexical-binding t)
 
 ;; Temporarily disable GC
 (setq gc-cons-threshold most-positive-fixnum
