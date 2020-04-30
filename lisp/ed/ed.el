@@ -36,12 +36,15 @@ use busybox.")
 (defun ed-find-file (file)
   "Open a file with ed, the standard editor. See ed(1) for usage."
   (interactive "F")
-  (let ((args (if ed-use-prompt
-		  `(,file)
-		`("-p> " ,file)))
-	(basename (file-name-base file)))
-    (comint-run "ed" args)
-    (cd (file-name-directory file))
-    (rename-buffer basename t)))
+  (let ((basename (file-name-base file)))
+    (switch-to-buffer
+     (make-comint (concat "ed " basename)
+		  "ed"
+		  nil
+		  file
+		  (if ed-use-prompt
+		      "-p> "
+		    "")))
+    (cd (file-name-directory file))))
 
 (provide 'ed)
