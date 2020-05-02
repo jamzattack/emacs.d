@@ -1544,6 +1544,8 @@ scheme is installed, in order of preference.
     (scheme-mode "scm" :major)
     (geiser-repl-mode "SCM>" :major)
     (geiser-autodoc-mode)
+    :hook
+    (geiser-repl-mode . paredit-mode)
     :custom
     (scheme-program-name
      (or (executable-find "guile3.0")
