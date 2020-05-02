@@ -54,7 +54,7 @@ host."
   (interactive (list (read-string "Youtube: ")))
   (browse-url
    (url-encode-url
-    (format "https://m.youtube.com/search?q=%s" query))))
+    (format "https://youtube.com/search?q=%s&disable_polymer=1" query))))
 
 ;;;###autoload
 (defun wikipedia-search (query &optional language)
