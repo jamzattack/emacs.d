@@ -1010,6 +1010,7 @@ requirable.
 
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
+  (bind-key "RET" 'y-or-n-p-insert-y y-or-n-p-map)
 #+end_src
 
 *** Enable all the features
