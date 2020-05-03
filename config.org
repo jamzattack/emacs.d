@@ -1839,7 +1839,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     (browse-url-mailto-function 'notmuch-mua-mail)
     (notmuch-search-oldest-first nil)
     (send-mail-function 'sendmail-send-it)
-    (sendmail-program "/usr/bin/msmtp")
+    (sendmail-program "msmtp")
     (mail-specify-envelope-from t)
     (notmuch-address-selection-function 'notmuch-select-address-please)
     (message-sendmail-envelope-from 'header)
