@@ -27,7 +27,8 @@ then load config.el."
 	(load "config" t))
     (unless (load "config" t)
       (config-load t)))
-  (load-file custom-file))
+  (when (file-exists-p custom-file)
+    (load-file custom-file)))
 
 ;; Load config.org
 (config-load)
