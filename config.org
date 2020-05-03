@@ -1644,6 +1644,25 @@ Hosted [[https://gitlab.com/jamzattack/selime][here]].
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
+*** LilyPond auto-insert
+
+My own package to handle auto-insertions for LilyPond-mode.  I add it
+to =LilyPond-mode-hook=.
+
+Hosted [[https://gitlab.com/jamzattack/lilypond-auto-insert][here]].
+
+#+begin_src emacs-lisp
+  (use-package lilypond-auto-insert
+    :straight
+    (lilypond-auto-insert :type git
+                          :host gitlab
+                          :flavor melpa
+                          :repo "jamzattack/lilypond-auto-insert")
+    :defer t
+    :hook
+    (LilyPond-mode . lilypond-auto-insert-on-empty-buffer))
+#+end_src
+
 ** Org
 
 *** Github markdown
