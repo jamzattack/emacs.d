@@ -1659,6 +1659,8 @@ Hosted [[https://gitlab.com/jamzattack/lilypond-auto-insert][here]].
                           :flavor melpa
                           :repo "jamzattack/lilypond-auto-insert")
     :defer t
+    :custom
+    (lilypond-auto-insert-language "english")
     :hook
     (LilyPond-mode . lilypond-auto-insert-on-empty-buffer))
 #+end_src
