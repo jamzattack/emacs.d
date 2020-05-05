@@ -1513,8 +1513,53 @@ provides some note-taking facilities.
   (use-package pdf-tools
     :straight t
     :magic ("%PDF" . pdf-view-mode)
+    :init
+    <<pdf-tools-open-uri-please>>
+    :custom
+    (pdf-links-browse-uri-function #'my-pdf-links-open)
     :config
     (pdf-tools-install))
+#+end_src
+
+**** Custom link handler
+
+Awkward hacky workaround to get LilyPond's links to open properly.
+
+#+name: pdf-links-open-uri-please
+#+begin_src emacs-lisp :tangle no
+  (defun pdf-links-open-please (uri)
+    "Open \"textedit://\" links via `find-file', and jump to the
+  right point.  I use this because lilypond output contains such
+  links."
+    (cond ((string-match "textedit://" uri)
+           (let* ((path
+                   ;; get rid of textedit://
+                   (replace-regexp-in-string
+                    "^textedit://"
+                    ""
+                    uri))
+                  (split
+                   (split-string path ":"))
+                  (file
+                   (apply #'concat
+                          (butlast split 3)))
+                  (extras
+                   (reverse
+                    (cdr split)))
+                  (line
+                   (string-to-number
+                    (caddr extras)))
+                  (column
+                   (string-to-number
+                    (car extras)))
+                  (buffer
+                   (find-file-noselect file)))
+             (with-current-buffer buffer
+               (goto-line line)
+               (move-to-column column))
+             (pop-to-buffer buffer)))
+          (t
+           (pdf-links-browse-uri-default uri))))
 #+end_src
 
 *** Markdown
