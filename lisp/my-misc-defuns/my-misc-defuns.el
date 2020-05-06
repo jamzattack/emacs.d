@@ -101,12 +101,6 @@ optional arguments ARGS."
                   ".html")))
 
 
-;;; Update locally stored mail with isync and then index it with notmuch.
-;;;###autoload 
-(defun notmuch-new-async ()
-  "Downloads new mail and adds it to the notmuch database"
-  (interactive)
-  (start-process "notmuch new" "*notmuch new*" "notmuch" "new"))
 
 ;;; If region is active, indent it.  Otherwise, indent defun.
 ;;;###autoload

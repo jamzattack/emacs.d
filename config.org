@@ -1893,14 +1893,10 @@ I have a habit of hitting =C-x C-s= more than I should.
     :when (executable-find "notmuch")
     :init
     (autoload 'notmuch-mua-mail "notmuch-mua")
-    (defun notmuch-select-address-please (prompt collection &rest _ignore)
-      "Like `notmuch-address-selection-function', but without initial-input.
-
-  PROMPT and COLLECTION are both passed to `completing-read'."
-      (completing-read
-       prompt collection nil nil nil 'notmuch-address-history))
+    <<notmuch-select-address-please>>
+    <<notmuch-new-async>>
     :custom
-    (notmuch-archive-tags '("-unread" "-inbox"))
+    (notmuch-archive-tags '("-unread" "-inbox" "+archive"))
     (mail-user-agent 'notmuch-user-agent)
     (browse-url-mailto-function 'notmuch-mua-mail)
     (notmuch-search-oldest-first nil)
@@ -1910,6 +1906,8 @@ I have a habit of hitting =C-x C-s= more than I should.
     (notmuch-address-selection-function 'notmuch-select-address-please)
     (message-sendmail-envelope-from 'header)
     (mail-envelope-from 'header)
+    (notmuch-saved-searches
+     <<notmuch-saved-searches>>)
     :bind
     ("C-x m" . notmuch-mua-mail)
     ("C-z C-n" . notmuch)
@@ -1919,7 +1917,89 @@ I have a habit of hitting =C-x C-s= more than I should.
           ("M-p" . backward-paragraph)
           ("M-n" . forward-paragraph))
     (:map notmuch-message-mode-map
-          ("C-x C-s" . ignore)))
+          ("C-x C-s" . ignore))
+    (:map notmuch-common-keymap
+          ("G" . notmuch-new-async)))
+#+end_src
+
+**** Notmuch functions
+
+A couple of functions for notmuch.  These go in the =:init= section
+above.
+
+***** Normal completing-read for addresses
+
+The default completion for notmuch addresses works weirdly -- it uses
+the first match as initial input, so you have to clear the minibuffer
+every time.  This is a little wrapper around completing-read that uses
+no initial input.
+
+#+name: notmuch-select-address-please
+#+begin_src emacs-lisp :tangle no
+  (defun notmuch-select-address-please (prompt collection &rest _ignore)
+    "Like `notmuch-address-selection-function', but without initial-input.
+
+  PROMPT and COLLECTION are both passed to `completing-read'."
+    (completing-read
+     prompt collection nil nil nil 'notmuch-address-history))
+#+end_src
+
+***** Update the notmuch database
+
+The function =notmuch-poll= is used by default to run =notmuch new=,
+but it hangs Emacs.  For those who fetch their mail in a notmuch hook,
+this is bad news.  This function runs in the background and refreshes
+all notmuch buffers when finished.
+
+#+name: notmuch-new-async
+#+begin_src emacs-lisp :tangle no
+  (defun notmuch-new-async ()
+    "Update the notmuch database.
+
+  When finished, this should refresh all notmuch buffers."
+    (interactive)
+    (make-process
+     :name "notmuch new"
+     :buffer " *notmuch new*"
+     :command '("notmuch" "new")
+     :coding 'us-ascii
+     :sentinel
+     (lambda (process event)
+       (message "sentinel `%s': `%s'"
+                process
+                ;; for whatever reason, the event given to a sentinel
+                ;; ends in a newline.
+                (replace-regexp-in-string
+                 "\n$" "" event))
+       (notmuch-refresh-all-buffers))))
+#+end_src
+
+**** Saved mail searches
+
+A list of saved notmuch searches.  The =:key= section defines a
+shortcut key to jump to the search.  My main interface with notmuch is
+through these shortcuts (with =notmuch-jump-search= bound to =C-z j=).
+
+#+name: notmuch-saved-searches
+#+begin_src emacs-lisp :tangle no
+  '(
+    ;; Most used
+    (:name "unread" :query "tag:unread" :key " ")
+    (:name "sent" :query "tag:sent" :key "s")
+    (:name "inbox" :query "tag:inbox" :key "i")
+
+    ;; General purpose, but not used as much
+    (:name "archived" :query "tag:archive" :key "a")
+    (:name "attachment" :query "tag:attachment" :key "t" :search-type unthreaded)
+    (:name "flagged" :query "tag:flagged" :key "f")
+    (:name "drafts" :query "tag:draft" :key "d")
+    (:name "all mail" :query "*" :key "*")
+
+    ;; Specific tags
+    (:name "university" :query "tag:uni" :key "n")
+    (:name "mailing lists" :query "tag:list" :key "ll")
+    (:name "lilypond" :query "tag:lilypond" :key "lp")
+    (:name "emacs" :query "tag:emacs" :key "le"))
 #+end_src
 
 **** ol-notmuch
