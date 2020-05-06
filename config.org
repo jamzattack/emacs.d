@@ -130,6 +130,7 @@ installed using [[*Straight][straight]], so disable the function =package-instal
 
 #+begin_src emacs-lisp
   (use-package package
+    :no-require t
     :custom
     (package-archives
      '(("gnu" . "http://elpa.gnu.org/packages/")
