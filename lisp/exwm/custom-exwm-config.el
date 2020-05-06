@@ -190,6 +190,9 @@ output."
        (,(kbd "M-d") . [S-C-right delete])
        (,(kbd "<M-DEL>") . [C-DEL])
        
+       (,(kbd "C-x h" . [C-a]))
+       (,(kbd "C-/") . [C-z])
+
        ;; clipboard/kill-ring
        (,(kbd "C-w") . [C-x])
        (,(kbd "M-w") . [C-c])
