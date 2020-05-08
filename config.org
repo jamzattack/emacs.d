@@ -1966,7 +1966,7 @@ all notmuch buffers when finished.
      :coding 'us-ascii
      :sentinel
      (lambda (process event)
-       (message "sentinel `%s': `%s'"
+       (message "Process %s `%s'"
                 process
                 ;; for whatever reason, the event given to a sentinel
                 ;; ends in a newline.
