@@ -1515,9 +1515,9 @@ provides some note-taking facilities.
     :straight t
     :magic ("%PDF" . pdf-view-mode)
     :init
-    <<pdf-tools-open-uri-please>>
+    <<pdf-links-open-please>>
     :custom
-    (pdf-links-browse-uri-function #'my-pdf-links-open)
+    (pdf-links-browse-uri-function #'pdf-links-open-please)
     :config
     (pdf-tools-install))
 #+end_src
@@ -1526,7 +1526,7 @@ provides some note-taking facilities.
 
 Awkward hacky workaround to get LilyPond's links to open properly.
 
-#+name: pdf-links-open-uri-please
+#+name: pdf-links-open-please
 #+begin_src emacs-lisp :tangle no
   (defun pdf-links-open-please (uri)
     "Open \"textedit://\" links via `find-file', and jump to the
