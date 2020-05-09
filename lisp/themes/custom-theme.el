@@ -14,6 +14,9 @@
    `(region ((,class (:background "lightgoldenrod2"))))
    `(fringe ((,class (:inherit 'default))))
    `(mode-line ((,class (:background "sky blue"))))
-   `(dired-async-mode-message ((,class (:foreground "darkred"))))))
+   `(dired-async-mode-message ((,class (:foreground "darkred"))))
+   `(tab-bar ((,class (:inherit mode-line-inactive :box nil))))
+   `(tab-bar-tab ((,class (:inherit default))))
+   `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive :box nil))))))
 
 (provide-theme 'custom)
