@@ -1961,20 +1961,23 @@ all notmuch buffers when finished.
 
   When finished, this should refresh all notmuch buffers."
     (interactive)
-    (make-process
-     :name "notmuch new"
-     :buffer " *notmuch new*"
-     :command '("notmuch" "new")
-     :coding 'us-ascii
-     :sentinel
-     (lambda (process event)
-       (message "Process %s `%s'"
-                process
-                ;; for whatever reason, the event given to a sentinel
-                ;; ends in a newline.
-                (replace-regexp-in-string
-                 "\n$" "" event))
-       (notmuch-refresh-all-buffers))))
+    (let ((proc (get-process "notmuch new")))
+      (if proc
+          (pop-to-buffer (process-buffer proc))
+        (make-process
+         :name "notmuch new"
+         :buffer " *notmuch new*"
+         :command '("notmuch" "new")
+         :coding 'us-ascii
+         :sentinel
+         (lambda (process event)
+           (message "Process %s `%s'"
+                    process
+                    ;; for whatever reason, the event given to a sentinel
+                    ;; ends in a newline.
+                    (replace-regexp-in-string
+                     "\n$" "" event))
+           (notmuch-refresh-all-buffers))))))
 #+end_src
 
 **** Saved mail searches
