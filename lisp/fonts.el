@@ -8,7 +8,8 @@
 		    :height 80)
 
 (set-face-attribute 'fixed-pitch nil
-		    :font (face-attribute 'default :font))
+		    :family "Go Mono"
+		    :height 1.0)
 
 (set-face-attribute 'italic nil
 		    :underline nil
