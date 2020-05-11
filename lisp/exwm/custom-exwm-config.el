@@ -37,14 +37,6 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
-;; quit EXWM, but keep the server going.
-(defun exwm-quit ()
-  "quit EXWM, but keep the server going. Then start twm."
-  (interactive)
-  (exwm-exit)
-  (delete-frame)
-  (start-process-shell-command "twm" nil "sleep 1; DISPLAY=:0 twm"))
-
 ;;; Toggle fullscreen
 (defvar exwm-fullscreen--old-window nil
   "The last window to be focused before
@@ -97,106 +89,81 @@ output."
 ;; Prefix keys
 (defun custom-exwm-prefix-keys ()
   "Sets up prefix keys for exwm."
-  (custom-set-variables
-   '(exwm-input-prefix-keys
-     `([XF86AudioMute]
-       [XF86AudioLowerVolume]
-       [XF86AudioRaiseVolume]
-       [XF86Back]
-       [XF86Forward]
-       [?\M-!]
-       [?\M-&]
-       [?\M-`]
-       [?\M-:]
-       [?\M-x]
-       [?\C-x]
-       [?\C-z]
-       [?\C-u]
-       [?\C-h]
-       [?\s-m]
-       [?\s-a]
-       [menu]
-       [f8]
+  (customize-set-variable
+   'exwm-input-prefix-keys
+   `([XF86AudioMute]
+     [XF86AudioLowerVolume]
+     [XF86AudioRaiseVolume]
+     [XF86Back]
+     [XF86Forward]
+     [?\M-!]
+     [?\M-&]
+     [?\M-`]
+     [?\M-:]
+     [?\M-x]
+     [?\C-x]
+     [?\C-z]
+     [?\C-u]
+     [?\C-h]
+     [menu]
+     [f8]
 
-       ,(kbd "s-e")
-       ,(kbd "s-b")
-       
-       ;; For edwina-mode
-       ,(kbd "s-r")
-       ,(kbd "s-j")
-       ,(kbd "s-k")
-       ,(kbd "s-S-j")
-       ,(kbd "s-J")
-       ,(kbd "s-S-k")
-       ,(kbd "s-K")
-       ,(kbd "s-h")
-       ,(kbd "s-l")
-       ,(kbd "s-d")
-       ,(kbd "s-i")
-       ,(kbd "s-S-c")
-       ,(kbd "s-C")
-       ,(kbd "<s-RET>")
-       ,(kbd "<s-return>")
-       ,(kbd "<s-S-RET>")
-       ,(kbd "<s-S-return>")))))
+     ;; Open up potential for keybindings with super modifier
+     ;; (there must be a better way to do this)
+     ,@(mapcar (lambda (k)
+		 (kbd (format "s-%s" k)))
+	       '("'" "," "." "p" "y" "f" "g" "c" "r" "l" "/" "=" "\\"
+		 "a" "o" "e" "u" "i" "d" "h" "t" "n" "s" "-" "RET" "SPC"
+		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "DEL"))
 
+     ;; s-0 to s-9, used for `tab-bar-select-tab'
+     ,@(mapcar (lambda (k)
+		 (kbd (format "s-%s" k)))
+	       (number-sequence 0 9)))))
 
 ;; Global keybindings.
 
 (defun custom-exwm-input-global-keys ()
-  (custom-set-variables
-   '(exwm-input-global-keys
-     `(;; 'C-x C-c': delete all frames and start another window manager
-       (,(kbd "C-x C-c") . exwm-quit)
-       ;; 's-f' and '<f11>': Toggle fullscreen.
-       (,(kbd "s-f") . exwm-fullscreen-or-reset)
-       (,(kbd "<f11>") . exwm-fullscreen-or-reset)
-       ;; 's-w': Switch workspace.
-       (,(kbd "s-w") . exwm-workspace-switch)
-       ;; 's-&': Launch application.
-       (,(kbd "s-&") . exwm-shell-command)
-
-       ;; 's-N': Switch to certain workspace.
-       ,@(mapcar (lambda (i)
-		   `(,(kbd (format "s-%d" i)) .
-		     (lambda ()
-		       (interactive)
-		       (exwm-workspace-switch-create ,i))))
-		 (number-sequence 0 4))))))
-
+  (customize-set-variable
+   'exwm-input-global-keys
+   `(;; 's-f' and '<f11>': Toggle fullscreen.
+     (,(kbd "s-f") . exwm-fullscreen-or-reset)
+     (,(kbd "<f11>") . exwm-fullscreen-or-reset)
+     ;; 's-&': Launch application.
+     (,(kbd "s-&") . exwm-shell-command))))
 
 ;; Line-editing shortcuts
 (defun custom-exwm-input-simulation-keys ()
-  (custom-set-variables
-   '(exwm-input-simulation-keys
-     `(;; Basic movement
-       (,(kbd "C-b") . [left])
-       (,(kbd "C-f") . [right])
-       (,(kbd "C-p") . [up])
-       (,(kbd "C-n") . [down])
-       
-       (,(kbd "M-f") . [C-right])
-       (,(kbd "M-b") . [C-left])
+  (customize-set-variable
+   'exwm-input-simulation-keys
+   `(;; Basic movement
+     (,(kbd "C-b") . [left])
+     (,(kbd "C-f") . [right])
+     (,(kbd "C-p") . [up])
+     (,(kbd "C-n") . [down])
 
-       (,(kbd "C-a") . [home])
-       (,(kbd "C-e") . [end])
+     (,(kbd "M-f") . [C-right])
+     (,(kbd "M-b") . [C-left])
 
-       (,(kbd "M-v") . [prior])
-       (,(kbd "C-v") . [next])
+     (,(kbd "C-a") . [home])
+     (,(kbd "C-e") . [end])
 
-       ;; Deleting text
-       (,(kbd "C-d") . [delete])
-       (,(kbd "C-k") . [S-end delete])
-       (,(kbd "M-d") . [S-C-right delete])
-       (,(kbd "<M-DEL>") . [C-DEL])
-       
-       (,(kbd "C-x h") . [C-a])
-       (,(kbd "C-/") . [C-z])
+     (,(kbd "M-v") . [prior])
+     (,(kbd "C-v") . [next])
 
-       ;; clipboard/kill-ring
-       (,(kbd "C-w") . [C-x])
-       (,(kbd "M-w") . [C-c])
-       (,(kbd "C-y") . [C-v])))))
+     ;; Deleting text
+     (,(kbd "C-d") . [delete])
+     (,(kbd "C-k") . [S-end delete])
+     (,(kbd "M-d") . [S-C-right delete])
+     (,(kbd "<M-DEL>") . [C-DEL])
+
+     (,(kbd "C-x h") . [C-a])
+     (,(kbd "C-/") . [C-z])
+
+     ;; clipboard/kill-ring
+     (,(kbd "C-w") . [C-x])
+     (,(kbd "M-w") . [C-c])
+     (,(kbd "C-y") . [C-v]))))
 
 
 
@@ -209,8 +176,5 @@ output."
   (custom-exwm-buffer-name)
   (custom-exwm-window-setup))
 
-
-
 (provide 'custom-exwm-config)
-
 ;;; custom-exwm-config.el ends here

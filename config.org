@@ -965,19 +965,54 @@ keys.
 *** Windmove
 
 Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so
-this is like ={i,j,k,l}= on a qwerty keyboard.  Load this after exwm
-so that I can bind the keys in exwm-mode as well.
+this is like ={i,j,k,l}= on a qwerty keyboard.
 
 #+begin_src emacs-lisp
   (use-package windmove
-    :after exwm
+    :defer t
+    :bind
+    ("s-c" . windmove-up)
+    ("s-h" . windmove-left)
+    ("s-t" . windmove-down)
+    ("s-n" . windmove-right))
+#+end_src
+
+*** Tab-bar
+
+I've started using =tab-bar-mode= instead of exwm workspaces.  I don't
+like the tab bar to be shown all the time, so I hide it.
+
+I also add advice to show the current tab and index in the echo area.
+Somewhat awkwardly, a similar message is also shown by default when
+=tab-bar-mode= is nil.  I prefer my less subtle message, but I might
+remove this in the future -- maybe show it in the mode-line instead?
+
+The keybindings =s-g= and =s-r= move to the previous or next tab
+respectively, which fits well with my windmove keybindings.  =s-w= is
+the default keybinding in exwm to switch workspace, so I reuse the key
+to switch tab.
+
+#+begin_src emacs-lisp
+  (use-package tab-bar
+    :defer t
+    :custom
+    (tab-bar-show nil)
+    :init
+    (dolist (k (number-sequence 0 9))
+      (bind-key (kbd (format "s-%s" k)) 'tab-bar-select-tab))
+    :bind
+    ("s-g" . tab-previous)
+    ("s-r" . tab-next)
+    ("s-w" . tab-bar-switch-to-tab)
     :config
-    (dolist (a '(("s-c" . windmove-up)
-                 ("s-h" . windmove-left)
-                 ("s-t" . windmove-down)
-                 ("s-n" . windmove-right)))
-      (bind-key (car a) (cdr a))
-      (bind-key (car a) (cdr a) exwm-mode-map)))
+    (defadvice tab-bar-select-tab
+        (after show-tab-name activate)
+      "Show the tab name and index+1 in the echo area."
+      (message "Switched to tab: %s (%s)"
+               (propertize
+                (cdr (assoc 'name (tab-bar--tab)))
+                'face 'error)
+               (1+ (tab-bar--current-tab-index)))))
 #+end_src
 
 ** View-mode
@@ -1943,6 +1978,13 @@ no initial input.
     "Like `notmuch-address-selection-function', but without initial-input.
 
   PROMPT and COLLECTION are both passed to `completing-read'."
+    (unless collection
+      (pcase (car notmuch-address-internal-completion)
+        ('sent (setcar notmuch-address-internal-completion 'received))
+        ('received (setcar notmuch-address-internal-completion 'sent)))
+      (setq notmuch-address-last-harvest 0
+            notmuch-address-completions (clrhash notmuch-address-completions)
+            notmuch-address-full-harvest-finished nil))
     (completing-read
      prompt collection nil nil nil 'notmuch-address-history))
 #+end_src
