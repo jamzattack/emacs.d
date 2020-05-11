@@ -786,7 +786,7 @@ problems with Helm not loading the recentf list, so it is done here.
     :config (recentf-load-list))
 #+end_src
 
-*** COMMENT Desktop
+*** Desktop
 
 Save list of buffers and some variables when exiting Emacs.  Don't
 save a list of frames, that just ends up spamming me with extra frames
