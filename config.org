@@ -786,7 +786,7 @@ problems with Helm not loading the recentf list, so it is done here.
     :config (recentf-load-list))
 #+end_src
 
-*** Desktop
+*** COMMENT Desktop
 
 Save list of buffers and some variables when exiting Emacs.  Don't
 save a list of frames, that just ends up spamming me with extra frames
@@ -1188,18 +1188,6 @@ Located [[file:lisp/lilypond-mode][here]].
       (setq-local comment-column 0))
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
-#+end_src
-
-*** lilypond-skel
-
-My small package that provides an auto-insert skeleton for lilypond.
-
-Located [[file:lisp/skeletons/lilypond-skel.el][here]].
-
-#+begin_src emacs-lisp
-  (use-package lilypond-skel
-    :load-path "lisp/skeletons/"
-    :defer t)
 #+end_src
 
 ** Arch Linux settings
