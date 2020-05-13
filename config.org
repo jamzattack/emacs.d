@@ -1942,7 +1942,8 @@ I have a habit of hitting =C-x C-s= more than I should.
     (:map notmuch-show-mode-map
           ("u" . eww-follow-link)
           ("M-p" . backward-paragraph)
-          ("M-n" . forward-paragraph))
+          ("M-n" . forward-paragraph)
+          ("i" . notmuch-show-toggle-thread-indentation))
     (:map notmuch-message-mode-map
           ("C-x C-s" . ignore))
     (:map notmuch-common-keymap
