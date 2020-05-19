@@ -129,6 +129,8 @@ output."
    `(;; 's-f' and '<f11>': Toggle fullscreen.
      (,(kbd "s-f") . exwm-fullscreen-or-reset)
      (,(kbd "<f11>") . exwm-fullscreen-or-reset)
+     (,(kbd "s-r") . tab-next)
+     (,(kbd "s-g") . tab-previous)
      ;; 's-&': Launch application.
      (,(kbd "s-&") . exwm-shell-command))))
 
