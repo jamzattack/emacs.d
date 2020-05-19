@@ -1527,7 +1527,11 @@ epubs, and set the default width to 80 columns.
     :straight t
     :custom
     (nov-text-width 80)
-    :mode ("\\.epub\\'" . nov-mode))
+    :mode ("\\.epub\\'" . nov-mode)
+    :bind
+    (:map nov-mode-map
+          ("M-n" . forward-paragraph)
+          ("M-p" . backward-paragraph)))
 #+end_src
 
 *** PDF-tools
