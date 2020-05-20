@@ -952,14 +952,18 @@ with the operating system.
 
 *** Window
 
-These functions are both quite useful, so I bound them to similar
-keys.
+=bury-buffer= is a very useful function so I bind it to =C-z C-z=, a
+pretty accessible key.
+
+For purely pedantic reasons, I also bind =C-x _= to =shrink-window=.
+Why does =shrink-window-horizontally= have a keybinding by default but
+=shrink-window= doesn't?
 
 #+begin_src emacs-lisp
   (use-package window
     :bind
     ("C-z C-z" . bury-buffer)
-    ("C-z z" . kill-buffer-and-window))
+    ("C-x _" . shrink-window))
 #+end_src
 
 *** Windmove
