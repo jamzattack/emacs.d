@@ -1001,6 +1001,9 @@ to switch tab.
     :defer t
     :custom
     (tab-bar-show nil)
+    (tab-bar-close-button-show nil)
+    (tab-bar-new-button-show nil)
+    (tab-bar-tab-hints t)
     :init
     (dolist (k (number-sequence 0 9))
       (bind-key (kbd (format "s-%s" k)) 'tab-bar-select-tab))
