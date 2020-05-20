@@ -12,6 +12,9 @@
    `(secondary-selection ((,class (:background "gray9" :extend t))))
    ;; `(scroll-bar ((,class (:foreground "white" :background "black"))))
    `(mode-line ((,class (:foreground "black" :background "sky blue"))))
-   `(helm-source-header ((,class (:inherit 'bold))))))
+   `(helm-source-header ((,class (:inherit 'bold))))
+   `(tab-bar ((,class (:inherit mode-line-inactive :box nil))))
+   `(tab-bar-tab ((,class (:inherit default))))
+   `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive :box nil))))))
 
 (provide-theme 'custom-dark)
