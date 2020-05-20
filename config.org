@@ -1926,6 +1926,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     (autoload 'notmuch-mua-mail "notmuch-mua")
     <<notmuch-select-address-please>>
     <<notmuch-new-async>>
+    <<notmuch-tree-scroll-back-or-previous>>
     :custom
     (notmuch-archive-tags '("-unread" "-inbox" "+archive"))
     (mail-user-agent 'notmuch-user-agent)
@@ -1950,6 +1951,8 @@ I have a habit of hitting =C-x C-s= more than I should.
           ("i" . notmuch-show-toggle-thread-indentation))
     (:map notmuch-message-mode-map
           ("C-x C-s" . ignore))
+    (:map notmuch-tree-mode-map
+          ("DEL" . notmuch-tree-scroll-back-or-previous))
     (:map notmuch-common-keymap
           ("G" . notmuch-new-async)))
 #+end_src
@@ -2016,6 +2019,21 @@ all notmuch buffers when finished.
            (notmuch-refresh-all-buffers))))))
 #+end_src
 
+***** Scroll back or previous message
+
+In a tree search, =SPC= is bound to =notmuch-tree-scroll-or-next=.  I
+very much like the way this works, but =DEL= is just bound to a dumb
+scroll.  This is a similar function, in reverse.
+
+#+name: notmuch-tree-scroll-back-or-previous
+#+begin_src emacs-lisp :tangle no
+  (defun notmuch-tree-scroll-back-or-previous ()
+    "Scroll the message window back.  If it's already at the
+  beginning, go to previous message."
+    (interactive)
+    (when (notmuch-tree-scroll-message-window-back)
+      (notmuch-tree-prev-matching-message)))
+#+end_src
 **** Saved mail searches
 
 A list of saved notmuch searches.  The =:key= section defines a
