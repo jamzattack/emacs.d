@@ -1952,7 +1952,8 @@ I have a habit of hitting =C-x C-s= more than I should.
           ("u" . eww-follow-link)
           ("M-p" . backward-paragraph)
           ("M-n" . forward-paragraph)
-          ("i" . notmuch-show-toggle-thread-indentation))
+          ("i" . notmuch-show-toggle-thread-indentation)
+          ("SPC" . notmuch-show-advance))
     (:map notmuch-search-mode-map
           ("RET" . notmuch-search-show-thread-maybe-tree))
     (:map notmuch-message-mode-map
