@@ -1927,6 +1927,7 @@ I have a habit of hitting =C-x C-s= more than I should.
     <<notmuch-select-address-please>>
     <<notmuch-new-async>>
     <<notmuch-tree-scroll-back-or-previous>>
+    <<notmuch-search-show-thread-maybe-tree>>
     :custom
     (notmuch-archive-tags '("-unread" "-inbox" "+archive"))
     (mail-user-agent 'notmuch-user-agent)
@@ -1949,6 +1950,8 @@ I have a habit of hitting =C-x C-s= more than I should.
           ("M-p" . backward-paragraph)
           ("M-n" . forward-paragraph)
           ("i" . notmuch-show-toggle-thread-indentation))
+    (:map notmuch-search-mode-map
+          ("RET" . notmuch-search-show-thread-maybe-tree))
     (:map notmuch-message-mode-map
           ("C-x C-s" . ignore))
     (:map notmuch-tree-mode-map
@@ -2034,7 +2037,47 @@ scroll.  This is a similar function, in reverse.
     (when (notmuch-tree-scroll-message-window-back)
       (notmuch-tree-prev-matching-message)))
 #+end_src
-**** Saved mail searches
+***** Show thread in tree when thread is large
+
+When reading large threads (i.e. from mailing lists),
+=notmuch-show-mode= gets really slow.  A simple solution is to show
+large threads in =notmuch-tree-mode=.
+
+#+name: notmuch-search-show-thread-maybe-tree
+#+begin_src emacs-lisp :tangle no
+  (defun notmuch-search-show-thread-maybe-tree (&optional choice)
+    "Display the currently selected thread.
+
+  If the thread length is greater than 40 or if prefix arg CHOICE
+  is positive, show it in `notmuch-tree-mode'.
+
+  If the thread length is less than 40 or if prefix arg CHOICE is
+  negative, show it in `notmuch-show-mode'."
+    (interactive "p")
+    (let* ((results (notmuch-search-get-result))
+           (thread-id (concat "thread:" (plist-get results :thread)))
+           (subject (plist-get results :subject))
+           (buffer (format "*%s*" (truncate-string-to-width subject 30 nil nil t)))
+           (length (plist-get results :total))
+           (use-tree (cond
+                      ((< choice 0) nil)
+                      ((> choice 1) t)
+                      ((> length 40) t))))
+      (when (null thread-id)
+        (user-error "End of search results."))
+      (if use-tree
+          ;; Use `notmuch-tree-mode'
+          (notmuch-tree thread-id
+                        notmuch-search-query-string
+                        nil buffer t)
+        ;; Use `notmuch-show-mode'
+        (notmuch-show thread-id nil
+                      (current-buffer)
+                      notmuch-search-query-string
+                      buffer))))
+#+end_src
+
+***** Saved mail searches
 
 A list of saved notmuch searches.  The =:key= section defines a
 shortcut key to jump to the search.  My main interface with notmuch is
