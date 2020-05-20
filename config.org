@@ -1584,11 +1584,10 @@ Awkward hacky workaround to get LilyPond's links to open properly.
                     (car extras)))
                   (buffer
                    (find-file-noselect file)))
-             (with-current-buffer buffer
-               (goto-char (point-min))
-               (forward-line (1+ line))
-               (move-to-column column))
-             (pop-to-buffer buffer)))
+             (pop-to-buffer buffer)
+             (goto-char (point-min))
+             (forward-line (1- line))
+             (move-to-column column)))
           (t
            (pdf-links-browse-uri-default uri))))
 #+end_src
