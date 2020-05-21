@@ -112,14 +112,10 @@ output."
      ;; (there must be a better way to do this)
      ,@(mapcar (lambda (k)
 		 (kbd (format "s-%s" k)))
-	       '("'" "," "." "p" "y" "f" "g" "c" "r" "l" "/" "=" "\\"
+	       `(,@(number-sequence 0 9)
+		 "'" "," "." "p" "y" "f" "g" "c" "r" "l" "/" "=" "\\"
 		 "a" "o" "e" "u" "i" "d" "h" "t" "n" "s" "-" "RET" "SPC"
-		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "DEL"))
-
-     ;; s-0 to s-9, used for `tab-bar-select-tab'
-     ,@(mapcar (lambda (k)
-		 (kbd (format "s-%s" k)))
-	       (number-sequence 0 9)))))
+		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "DEL")))))
 
 ;; Global keybindings.
 
@@ -129,10 +125,16 @@ output."
    `(;; 's-f' and '<f11>': Toggle fullscreen.
      (,(kbd "s-f") . exwm-fullscreen-or-reset)
      (,(kbd "<f11>") . exwm-fullscreen-or-reset)
+
+     ;; 's-&': Launch application.
+     (,(kbd "s-&") . exwm-shell-command)
+
+     ;; Tab movement
      (,(kbd "s-r") . tab-next)
      (,(kbd "s-g") . tab-previous)
-     ;; 's-&': Launch application.
-     (,(kbd "s-&") . exwm-shell-command))))
+     ,@(mapcar (lambda (k)
+		 (cons (kbd (format "s-%s" k)) 'tab-bar-select-tab))
+	       (number-sequence 0 9)))))
 
 ;; Line-editing shortcuts
 (defun custom-exwm-input-simulation-keys ()
