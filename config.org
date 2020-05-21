@@ -1947,6 +1947,8 @@ I have a habit of hitting =C-x C-s= more than I should.
     (mail-envelope-from 'header)
     (notmuch-saved-searches
      <<notmuch-saved-searches>>)
+    (notmuch-tagging-keys
+     <<notmuch-tagging-keys>>)
     :bind
     ("C-x m" . notmuch-mua-mail)
     ("C-z C-n" . notmuch)
@@ -1967,10 +1969,9 @@ I have a habit of hitting =C-x C-s= more than I should.
           ("G" . notmuch-new-async)))
 #+end_src
 
-**** Notmuch functions
+**** Notmuch extras
 
-A couple of functions for notmuch.  These go in the =:init= section
-above.
+A bunch of notmuch-related snippets.  Functions should go in =:init=.
 
 ***** Normal completing-read for addresses
 
@@ -2044,6 +2045,7 @@ scroll.  This is a similar function, in reverse.
     (when (notmuch-tree-scroll-message-window-back)
       (notmuch-tree-prev-matching-message)))
 #+end_src
+
 ***** Show thread in tree when thread is large
 
 When reading large threads (i.e. from mailing lists),
@@ -2110,6 +2112,30 @@ through these shortcuts (with =notmuch-jump-search= bound to =C-z j=).
     (:name "mailing lists" :query "tag:list" :key "ll")
     (:name "lilypond" :query "tag:lilypond" :key "lp")
     (:name "emacs" :query "tag:emacs" :key "le"))
+#+end_src
+
+***** Tagging keys
+
+Notmuch provides a facility to quickly tag messages or threads.
+=notmuch-tag-jump= is bound to =k=, and can be customised with the
+variable =notmuch-tagging-keys=.  Similar to =notmuch-jump=.
+
+#+name: notmuch-tagging-keys
+#+begin_src emacs-lisp :tangle no
+  '(("a" ("+archive")
+     "Archive")
+    ("u" ("-unread")
+     "Mark read")
+    ("f" ("+flagged")
+     "Flag")
+    ("s" ("+spam")
+     "Mark as spam")
+    ("d" ("+deleted")
+     "Delete")
+    ("D" ("+deleted" "-inbox" "-unread")
+     "Delete!")
+    ("A" ("+archive" "-inbox" "-unread")
+     "Archive!"))
 #+end_src
 
 **** ol-notmuch
