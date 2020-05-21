@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
+(with-eval-after-load 'epg-config
+  (setq epg-pinentry-mode 'loopback))
+
 ;; Temporarily disable GC
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6)
