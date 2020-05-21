@@ -29,12 +29,15 @@ then load config.el."
 	(org-babel-tangle-file org)
 	(load "config" t))
     (unless (load "config" t)
-      (config-load t)))
+      (config-load t))))
+
+;; Enable all local variables temporarily, for `desktop-read'
+(let ((enable-local-variables :all))
+  ;; Load config.org
+  (config-load)
+  ;; Load custom.el
   (when (file-exists-p custom-file)
     (load-file custom-file)))
-
-;; Load config.org
-(config-load)
 
 ;; Revert GC settings
 (setq gc-cons-threshold 800000
