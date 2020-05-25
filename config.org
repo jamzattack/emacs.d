@@ -1348,6 +1348,7 @@ replace =yank-pop= but the latter is too engrained in my fingers.
 #+end_src
 
 *** Functions
+
 **** Kill buffer
 
 I rebind =C-x k= to kill the current buffer, because =helm-mini= is so
@@ -1404,6 +1405,38 @@ predictable function selects the largest non-exwm window.
          best-window))))
 #+end_src
 
+*** Helm Imenu
+
+Helm's interface to imenu.  It shows more information than =imenu=
+does, and also provides a way to access an imenu for multiple buffers.
+
+Note: I use =:bind*= because LilyPond-mode tries to bind =C-c i=.
+
+#+begin_src emacs-lisp
+  (use-package helm-imenu
+    :straight helm
+    :defer t
+    :bind*
+    ("C-c i" . helm-imenu)
+    ("C-c I" . helm-imenu-in-all-buffers))
+#+end_src
+
+*** Helm man
+
+Remap =C-h C-m= to =helm-man-woman=, a Helm interface for selecting
+manpages.
+
+#+begin_src emacs-lisp
+  (use-package helm-man
+    :defer t
+    :straight helm
+    :custom
+    (man-width 80)
+    :bind
+    (:map help-map
+          ("C-m" . helm-man-woman)))
+#+end_src
+
 *** Helm system packages
 
 Provides an abstraction layer for viewing and installing system
@@ -1426,21 +1459,6 @@ course).
   (use-package helm-notmuch
     :straight t
     :defer t)
-#+end_src
-
-*** Helm man
-
-Remap =C-h C-m= to =helm-man-woman=, a Helm interface for selecting
-manpages.
-
-#+begin_src emacs-lisp
-  (use-package helm-man
-    :defer t
-    :custom
-    (man-width 80)
-    :bind
-    (:map help-map
-          ("C-m" . helm-man-woman)))
 #+end_src
 
 *** Helm eww
