@@ -1646,6 +1646,23 @@ for looking at READMEs though, so I add view-mode to the hook.
     :hook (markdown-mode . view-mode))
 #+end_src
 
+*** GNU APL mode
+
+I've been trying to learn a bit of APL recently, and =gnu-apl-mode= is
+an excellent way to get into it.  It tries to use the super modifier
+to insert special characters, but I use it for my own functions so I
+set the prefix to ". ".
+
+#+begin_src emacs-lisp
+  (use-package gnu-apl-mode
+    :straight t
+    :mode
+    "\\.apl'"
+    :custom
+    (gnu-apl-interactive-mode-map-prefix ". ")
+    (gnu-apl-mode-map-prefix ". "))
+#+end_src
+
 ** Programming
 
 *** Geiser
