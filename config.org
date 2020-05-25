@@ -1094,6 +1094,23 @@ themes to be loaded, then load my [[file:lisp/themes/custom-theme.el][custom the
     (custom-enabled-themes '(custom)))
 #+end_src
 
+** Convenience
+
+Some convenience features.
+
+*** Hippie expand
+
+Hippie-expand is a slightly more useful replacement for
+dabbrev-expand.  It can make use of multiple sources, including
+filenames, kill-ring, and dabbrev.
+
+#+begin_src emacs-lisp
+ (use-package hippie-expand
+   :defer t
+   :bind
+   ("M-/" . hippie-expand))
+#+end_src
+
 * My packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
