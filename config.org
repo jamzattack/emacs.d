@@ -1105,10 +1105,175 @@ dabbrev-expand.  It can make use of multiple sources, including
 filenames, kill-ring, and dabbrev.
 
 #+begin_src emacs-lisp
- (use-package hippie-expand
-   :defer t
-   :bind
-   ("M-/" . hippie-expand))
+  (use-package hippie-expand
+    :defer t
+    :bind
+    ("M-/" . hippie-expand))
+#+end_src
+
+** Mail
+
+*** Gnus
+
+I've finally managed to make the switch to gnus.  Frankly, my main
+motivation was to avoid setting up notmuch again with my university
+email.
+
+As far as I can tell, using a maildir with gnus is a hassle -- so I'm
+just using IMAP.
+
+#+begin_src emacs-lisp
+  (use-package gnus
+    :custom
+    (gnus-select-method
+     '(nntp "news.gwene.org"))
+    (gnus-secondary-select-methods
+     '((nnimap "gmail"
+               (nnimap-address "imap.gmail.com"))
+       (nnimap "university"
+               (nnimap-address "outlook.office365.com"))))
+    :bind
+    ("C-z C-n" . gnus-unplugged)
+    ("C-z n" . gnus))
+#+end_src
+
+**** Gnus-sum
+
+Nicer summary & thread formatting.  Credit to [[https:protesilaos.com][Protesilaos Stavrou]]
+
+#+begin_src emacs-lisp
+  (use-package gnus-sum
+    :defer t
+    :custom
+    (gnus-summary-line-format "%U%R%z %-16,16&user-date;  %4L:%-30,30f  %B%s\n")
+    (gnus-summary-mode-line-format "%p")
+    (gnus-sum-thread-tree-false-root "─┬> ")
+    (gnus-sum-thread-tree-indent " ")
+    (gnus-sum-thread-tree-leaf-with-other "├─> ")
+    (gnus-sum-thread-tree-root "")
+    (gnus-sum-thread-tree-single-leaf "└─> ")
+    (gnus-sum-thread-tree-vertical "│"))
+#+end_src
+
+**** Gnus-msg
+
+Gnus' library for sending messages.  =gnus-posting-styles= allows you
+to adjust headers, signatures, etc. based on how you got to the
+composition buffer.  All messages composed from my university mailbox
+will be sent from my university address.  Very nice!
+
+[[info:gnus#Posting Styles][Posting Styles in the gnus manual]]
+
+#+begin_src emacs-lisp
+  (use-package gnus-msg
+    :defer t
+    :custom
+    (gnus-posting-styles
+     '(("nnimap\\+university:.*"
+        (From "Jamie Beardslee <beardsjami@myvuw.ac.nz>")
+        (signature "Jamie Beardslee (300484191)")))))
+#+end_src
+
+**** Gnus-art
+
+Article stuff.  Gnus tries to use the =smiley= library to convert
+emoticons into images -- I turned it off becaus it looks terrible.
+
+I also want some buttons to show signature status and alternative MIME
+types, which is achieved with =gnus-buttonized-mime-types=.
+
+#+begin_src emacs-lisp
+  (use-package gnus-art
+    :defer t
+    :custom
+    (gnus-treat-display-smileys nil)
+    (gnus-buttonized-mime-types
+     '("multipart/signed" "multipart/alternative")))
+#+end_src
+
+**** Gnus-topic
+
+Gnus can sort your groups by topic, which I enable in
+=gnus-group-mode-hook=.
+
+It shows titles for empty topics by default, which I find to get in
+the way.  I set the variable =gnus-topic-display-empty-topics= to
+disable this.  Default behaviour can be restored with =T H=.
+
+#+begin_src emacs-lisp
+  (use-package gnus-topic
+    :defer t
+    :custom
+    (gnus-topic-display-empty-topics nil)
+    :hook
+    (gnus-group-mode . gnus-topic-mode))
+#+end_src
+
+**** Gnus-start
+
+Just getting rid of a couple of extra files in $HOME.
+
+- Gnus by default creates =~/.newsrc= in a format compatible with
+  other newsreaders, but I don't use any so it's just an extra line in
+  my ls.
+- Move the /dribble/ (i.e. auto-save) files to =~/.cache=.
+
+#+begin_src emacs-lisp
+  (use-package gnus-start
+    :defer t
+    :custom
+    (gnus-save-newsrc-file nil)
+    (gnus-dribble-directory "~/.cache/"))
+#+end_src
+
+*** Sendmail
+
+Sending mail.  I use [[https://marlam.de/msmtp/][msmtp]] to send mail because it works well with
+multiple smtp servers.  I tried using [[info:smtpmail#Top][smtpmail]] but couldn't get it to
+switch between the two easily.
+
+I set it up to use the from header to determine how to send mail.
+
+#+begin_src emacs-lisp
+  (use-package sendmail
+    :defer t
+    :custom
+    (send-mail-function 'sendmail-send-it)
+    (sendmail-program (or "msmtp"
+                          "sendmail"))
+    (mail-envelope-from 'header))
+#+end_src
+
+*** MIME
+
+Stuff to do with MIME
+
+**** mm-decode
+
+The library responsible for decoding mime parts.  I prefer reading
+text/plain, so discourage the other common alternatives.  I also want
+to verify messages that have a signature, so I set =mm-verify-option=.
+
+#+begin_src emacs-lisp
+  (use-package mm-decode
+    :defer t
+    :custom
+    (mm-discouraged-alternatives
+     '("text/html" "text/richtext"))
+    (mm-verify-option 'known))
+#+end_src
+
+**** mml-sec
+
+Yay for encryption.  I set up messages to encrypt to myself as well as
+the recipient, and sign with the sender.
+
+#+begin_src emacs-lisp
+  (use-package mml-sec
+    :defer t
+    :custom
+    (mml-secure-openpgp-encrypt-to-self t)
+    (mml-secure-openpgp-sign-with-sender t))
 #+end_src
 
 * My packages
