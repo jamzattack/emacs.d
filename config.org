@@ -601,7 +601,7 @@ this if you use a different version.
   (use-package dired
     :defer t
     :custom
-    (dired-listing-switches "-lah --group-directories-first")
+    (dired-listing-switches "-lahv --group-directories-first")
     (delete-by-moving-to-trash t)
     :bind
     ("C-x C-d" . dired-jump))
