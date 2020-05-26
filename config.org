@@ -1968,7 +1968,7 @@ A more flexible mpd client than mingus.
           ("C-d" . mpdel-core-open-directories)))
 #+end_src
 
-*** Notmuch
+*** COMMENT Notmuch
 
 A simple email client, with emphasis on searching.  Customise some
 generic mail variables, change the order in which Notmuch displays
