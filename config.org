@@ -1125,15 +1125,17 @@ just using IMAP.
 #+begin_src emacs-lisp
   (use-package gnus
     :custom
+    (mail-user-agent
+     'gnus-user-agent)
     (gnus-select-method
      '(nntp "news.gwene.org"))
     (gnus-secondary-select-methods
      '((nnimap "gmail"
                (nnimap-address "imap.gmail.com"))
        (nnimap "university"
-               (nnimap-address "outlook.office365.com"))))
-    (mail-user-agent
-     'gnus-user-agent)
+               (nnimap-address "outlook.office365.com"))
+       (nntp "news.eternal-september.org"
+             (nntp-authinfo-file "~/.authinfo.gpg"))))
     :bind
     ("C-z C-n" . gnus-unplugged)
     ("C-z n" . gnus))
