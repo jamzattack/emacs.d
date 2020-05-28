@@ -2246,6 +2246,40 @@ the entry at point.
         (elfeed-search-show-entry entry))))
 #+end_src
 
+*** EBDB
+
+EBDB is a contact management system for Emacs.  BBDB is used more
+often, but I chose EBDB because it has plenty of [[info:ebdb#Top][documentation]].
+
+I set up =ebdb-gnus= and =ebdb-message= to activate when gnus and
+message are loaded, because EBDB provides integration with these
+libraries.  By default, it gets in the way a lot -- opening up buffers
+of contacts whenever you read or write mail.
+
+- Setting =ebdb-mua-pop-up= to nil means that a buffer will only show
+  in gnus when =; ;= is pressed.
+- Setting =ebdb-completion-display-record= to nil stops the buffer
+  from showing when using address completion while composing mail.
+
+I also prefer to keep my contacts file encrypted, so I set
+=ebdb-sources= accordingly.
+
+#+begin_src emacs-lisp
+  (use-package ebdb
+    :straight t
+    :custom
+    (ebdb-mua-pop-up nil)
+    (ebdb-sources
+     (expand-file-name
+      "ebdb.gpg" user-emacs-directory))
+    (ebdb-completion-display-record nil)
+    :config
+    (with-eval-after-load "gnus"
+      (require 'ebdb-gnus))
+    (with-eval-after-load "message"
+      (require 'ebdb-message)))
+#+end_src
+
 *** Magit
 
 I've finally been convinced that Magit is the one true way to use git.
