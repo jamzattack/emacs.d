@@ -30,7 +30,7 @@
 
 ;;; Code:
 
-(defvar reddit-url-format-string "https://old.reddit.com/%s/.mobile"
+(defvar reddit-url-format-string "https://old.reddit.com/%s/.mobile?keep_extension=True"
   "The format string used for going to a subreddit. Stick with
 the default if you use eww, otherwise change it to your liking.")
 
