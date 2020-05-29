@@ -2204,6 +2204,27 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
     (elfeed-update))
 #+end_src
 
+*** Elpher
+
+Elpher is a gopher and gemini browser for Emacs.
+
+I add an entry in =browse-url-handlers= so that gopher links are
+opened in Elpher (this does not work from eww).  This requires
+creating a new function which can accept the extra arguments.
+
+#+begin_src emacs-lisp
+  (use-package elpher
+    :straight t
+    :defer t
+    :init
+    (defun elpher-go-please (url &rest _ignore)
+      "Like `elpher-go', but allows extra arguments.
+  This is useful for `browse-url-handlers'"
+      (elpher-go url))
+    (add-to-list 'browse-url-handlers
+                 '("^\\(gopher\\|gemini\\)://" . elpher-go-please)))
+#+end_src
+
 **** Elfeed functions
 
 ***** Create new search functions
