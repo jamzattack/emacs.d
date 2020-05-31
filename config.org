@@ -670,7 +670,8 @@ delete-char or kill-buffer like a "normal" shell.
     ("s-e" . open-or-bury-eshell)
     (:map eshell-mode-map
           ("C-d" . eshell-delete-or-quit)
-          ("C-c M-l" . eshell/clear-please))
+          ("C-c M-m" . eshell-mark-output)
+          ("C-c M-o" . eshell/clear-please))
     :config
     (require 'esh-mode))
 #+end_src
