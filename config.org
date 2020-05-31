@@ -499,12 +499,15 @@ browser, and change the width to 80 columns.
   (use-package eww
     :defer t
     :custom
-    (browse-url-browser-function 'eww-browse-url)
-    (browse-url-secondary-browser-function 'browse-url-externally-please)
-    (eww-bookmarks-directory (expand-file-name "eww" user-emacs-directory))
-    (shr-width 80)
-    (shr-use-colors nil)
+    (eww-bookmarks-directory
+     (expand-file-name "eww" user-emacs-directory))
     :init
+    (with-eval-after-load "browse-url"
+      (setq browse-url-browser-function 'eww-browse-url
+            browse-url-secondary-browser-function 'browse-url-externally-please))
+    (with-eval-after-load "shr"
+      (setq shr-width 80
+            shr-use-colors nil))
     <<browse-url-externally-please>>
     :bind
     (:map eww-mode-map
@@ -600,9 +603,10 @@ this if you use a different version.
 #+begin_src emacs-lisp
   (use-package dired
     :defer t
-    :custom
-    (dired-listing-switches "-lahv --group-directories-first")
-    (delete-by-moving-to-trash t)
+    :config
+    (setq dired-listing-switches "-lahv --group-directories-first")
+    :init
+    (setq delete-by-moving-to-trash t)
     :bind
     ("C-x C-d" . dired-jump))
 #+end_src
@@ -1125,18 +1129,18 @@ just using IMAP.
 
 #+begin_src emacs-lisp
   (use-package gnus
-    :custom
-    (mail-user-agent
-     'gnus-user-agent)
-    (gnus-select-method
-     '(nntp "news.gwene.org"))
-    (gnus-secondary-select-methods
-     '((nnimap "gmail"
-               (nnimap-address "imap.gmail.com"))
-       (nnimap "university"
-               (nnimap-address "outlook.office365.com"))
-       (nntp "news.eternal-september.org"
-             (nntp-authinfo-file "~/.authinfo.gpg"))))
+    :init
+    (setq mail-user-agent 'gnus-user-agent)
+    :config
+    (setq gnus-select-method
+          '(nntp "news.gwene.org"))
+    (setq gnus-secondary-select-methods
+          '((nnimap "gmail"
+                    (nnimap-address "imap.gmail.com"))
+            (nnimap "university"
+                    (nnimap-address "outlook.office365.com"))
+            (nntp "news.eternal-september.org"
+                  (nntp-authinfo-file "~/.authinfo.gpg"))))
     :bind
     ("C-z C-n" . gnus-unplugged)
     ("C-z n" . gnus))
@@ -1242,11 +1246,11 @@ I set it up to use the from header to determine how to send mail.
 #+begin_src emacs-lisp
   (use-package sendmail
     :defer t
-    :custom
-    (send-mail-function 'sendmail-send-it)
-    (sendmail-program (or "msmtp"
-                          "sendmail"))
-    (mail-envelope-from 'header))
+    :config
+    (setq send-mail-function 'sendmail-send-it
+          sendmail-program (or "msmtp"
+                               "sendmail")
+          mail-envelope-from 'header))
 #+end_src
 
 *** MIME
@@ -2176,17 +2180,6 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
   (use-package elfeed
     :straight t
     :defer t
-    :custom
-    (elfeed-db-directory (expand-file-name
-                          "elfeed" user-emacs-directory))
-    (elfeed-search-remain-on-entry t)
-    (elfeed-feeds
-     (let ((file (expand-file-name
-                  "elfeed/feeds.gpg" user-emacs-directory)))
-       (when (file-exists-p file)
-         (with-temp-buffer
-           (insert-file-contents file)
-           (eval (read (current-buffer)))))))
     :bind
     (:map elfeed-show-mode-map
           ("M-p" . backward-paragraph)
@@ -2200,6 +2193,16 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
     (:map elfeed-search-mode-map
           ("r" . elfeed-switch-to-entry))
     :config
+    (setq elfeed-feeds
+          (let ((file (expand-file-name
+                       "elfeed/feeds.gpg" user-emacs-directory)))
+            (when (file-exists-p file)
+              (with-temp-buffer
+                (insert-file-contents file)
+                (eval (read (current-buffer))))))
+          elfeed-search-remain-on-entry t
+          elfeed-db-directory (expand-file-name
+                               "elfeed" user-emacs-directory))
     <<elfeed-macro>>
     <<elfeed-switch-to-entry>>
     (elfeed-update))
@@ -2222,8 +2225,9 @@ creating a new function which can accept the extra arguments.
       "Like `elpher-go', but allows extra arguments.
   This is useful for `browse-url-handlers'"
       (elpher-go url))
-    (add-to-list 'browse-url-handlers
-                 '("^\\(gopher\\|gemini\\)://" . elpher-go-please)))
+    (with-eval-after-load "browse-url"
+      (add-to-list 'browse-url-handlers
+                   '("^\\(gopher\\|gemini\\)://" . elpher-go-please))))
 #+end_src
 
 **** Elfeed functions
