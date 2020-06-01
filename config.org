@@ -507,7 +507,8 @@ browser, and change the width to 80 columns.
             browse-url-secondary-browser-function 'browse-url-externally-please))
     (with-eval-after-load "shr"
       (setq shr-width 80
-            shr-use-colors nil))
+            shr-use-colors nil
+            shr-use-fonts nil))
     <<browse-url-externally-please>>
     :bind
     (:map eww-mode-map
@@ -516,7 +517,8 @@ browser, and change the width to 80 columns.
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
           ("A" . plumb-audio)
-          ("m" . transmission-add-url-at-point)))
+          ("m" . transmission-add-url-at-point)
+          ("V" . variable-pitch-mode)))
 #+end_src
 
 **** External browser
