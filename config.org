@@ -1785,11 +1785,12 @@ provides some note-taking facilities.
   (use-package pdf-tools
     :straight t
     :magic ("%PDF" . pdf-view-mode)
-    :init
-    <<pdf-links-open-please>>
     :custom
     (pdf-links-browse-uri-function #'pdf-links-open-please)
+    :hook
+    (pdf-view-mode . auto-revert-mode)
     :config
+    <<pdf-links-open-please>>
     (pdf-tools-install))
 #+end_src
 
