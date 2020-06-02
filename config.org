@@ -131,11 +131,10 @@ installed using [[*Straight][straight]], so disable the function =package-instal
 #+begin_src emacs-lisp
   (use-package package
     :no-require t
-    :custom
-    (package-archives
+    :config
+    (setq package-archives
      '(("gnu" . "http://elpa.gnu.org/packages/")
        ("melpa" . "http://melpa.org/packages/")))
-    :config
     (fmakunbound 'package-install))
 #+end_src
 
@@ -152,6 +151,7 @@ and use eww for html instead of mhtml-mode.
 
 #+begin_src emacs-lisp
   (use-package org
+    :defer t
     :custom
     (org-src-window-setup 'current-window)
     (org-src-tab-acts-natively t)
@@ -162,9 +162,6 @@ and use eww for html instead of mhtml-mode.
                             (eww-open-file file)))))
     :delight
     (org-src-mode " #+src")
-    :config
-    (when (featurep 'org-tempo)
-      (require 'org-tempo))
     :bind
     (:map org-mode-map
           ("M-h" . mark-paragraph)
@@ -368,7 +365,7 @@ macros when writing something, but I usually just use org-mode anyway.
 #+begin_src emacs-lisp
   (use-package nroff-mode
     :defer t
-    :init
+    :config
     <<nroff-mode-compile>>
     :hook (nroff-mode . nroff-mode-compile))
 #+end_src
@@ -398,7 +395,7 @@ org-mode, but compiling latex on its own is sometimes useful.
 #+begin_src emacs-lisp
   (use-package tex-mode
     :defer t
-    :init
+    :config
     <<latex-compile-command>>
     :hook (latex-mode . latex-compile-command))
 #+end_src
@@ -541,6 +538,7 @@ The only reason for this to be here is to set my nick.
 
 #+begin_src emacs-lisp
   (use-package erc
+    :defer t
     :custom
     (erc-nick "jamzattack")
     (erc-hide-list '("JOIN" "PART" "QUIT"))
@@ -652,6 +650,7 @@ I don't want the shell buffer to open a new window, so add an entry in
 
 #+begin_src emacs-lisp
   (use-package shell
+    :defer t
     :config
     (add-to-list 'display-buffer-alist
                  '("^\\*shell\\*$" display-buffer-same-window)))
@@ -1011,14 +1010,13 @@ to switch tab.
     (tab-bar-close-button-show nil)
     (tab-bar-new-button-show nil)
     (tab-bar-tab-hints t)
-    :init
-    (dolist (k (number-sequence 0 9))
-      (bind-key (kbd (format "s-%s" k)) 'tab-bar-select-tab))
     :bind
     ("s-g" . tab-previous)
     ("s-r" . tab-next)
     ("s-w" . tab-bar-switch-to-tab)
     :config
+    (dolist (k (number-sequence 0 9))
+      (bind-key (kbd (format "s-%s" k)) 'tab-bar-select-tab))
     (defadvice tab-bar-select-tab
         (after show-tab-name activate)
       "Show the tab name and index+1 in the echo area."
@@ -1112,7 +1110,7 @@ dabbrev-expand.  It can make use of multiple sources, including
 filenames, kill-ring, and dabbrev.
 
 #+begin_src emacs-lisp
-  (use-package hippie-expand
+  (use-package hippie-exp
     :defer t
     :bind
     ("M-/" . hippie-expand))
@@ -2298,13 +2296,14 @@ I also prefer to keep my contacts file encrypted, so I set
 #+begin_src emacs-lisp
   (use-package ebdb
     :straight t
+    :defer t
     :custom
     (ebdb-mua-pop-up nil)
     (ebdb-sources
      (expand-file-name
       "ebdb.gpg" user-emacs-directory))
     (ebdb-completion-display-record nil)
-    :config
+    :init
     (with-eval-after-load "gnus"
       (require 'ebdb-gnus))
     (with-eval-after-load "message"
