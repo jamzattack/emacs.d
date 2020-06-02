@@ -1501,7 +1501,9 @@ replace =yank-pop= but the latter is too engrained in my fingers.
        ("jpg" . "sxiv")
        ("gif" . "mpv -L")
        ("mp4" . "mpv")
-       ("mkv" . "mpv")))
+       ("mkv" . "mpv")
+       ("avi" . "mpv")
+       ("webm" . "mpv")))
     :init
     <<kill-this-buffer-please>>
     <<helm-split-window-please>>
