@@ -668,18 +668,18 @@ delete-char or kill-buffer like a "normal" shell.
     (eshell-history-size 1000)
     :init
     <<open-or-bury-eshell>>
-    <<eshell-delete-or-quit>>
-    <<eshell/clear-please>>
-    <<eshell/e>>
-    <<eshell/comint>>
     :bind
     ("s-e" . open-or-bury-eshell)
     (:map eshell-mode-map
           ("C-d" . eshell-delete-or-quit)
-          ("C-c M-m" . eshell-mark-output)
+          ([remap eshell-display-modifier-help] . eshell-mark-output)
           ("C-c M-o" . eshell/clear-please))
     :config
-    (require 'esh-mode))
+    (require 'esh-mode)
+    <<eshell-delete-or-quit>>
+    <<eshell/clear-please>>
+    <<eshell/e>>
+    <<eshell/comint>>)
 #+end_src
 
 **** Eshell functions
@@ -1506,8 +1506,8 @@ replace =yank-pop= but the latter is too engrained in my fingers.
        ("webm" . "mpv")))
     :init
     <<kill-this-buffer-please>>
-    <<helm-split-window-please>>
     :config
+    <<helm-split-window-please>>
     (require 'helm-config)
     (delight '((helm-mode "")))
     (helm-mode t)
@@ -1685,7 +1685,7 @@ library).
              :host gitlab
              :repo "jamzattack/helpful"
              :branch "no-f")
-    :init
+    :config
     <<helpful-edit-source-temporarily>>
     <<helpful-copy-to-kill-ring>>
     :bind
@@ -2059,8 +2059,8 @@ colour.
     :straight t
     :delight
     :init
-    <<custom-screenlock-command>>
     :config
+    <<custom-screenlock-command>>
     (defadvice desktop-environment-lock-screen
         (before change-bg-color activate)
       (custom-screenlock-command))
