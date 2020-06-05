@@ -107,7 +107,7 @@ optional arguments ARGS."
 (defun indent-region-or-defun-please (&optional whole-buffer)
   "Indent region if it is active, otherwise indent defun.  With
 prefix arg, indent the whole buffer."
-  (interactive "P")
+  (interactive "*P")
   (let ((bounds (cond
   		 (whole-buffer
   		  (cons (point-min) (point-max)))
