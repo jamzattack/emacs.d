@@ -133,8 +133,8 @@ installed using [[*Straight][straight]], so disable the function =package-instal
     :no-require t
     :config
     (setq package-archives
-     '(("gnu" . "http://elpa.gnu.org/packages/")
-       ("melpa" . "http://melpa.org/packages/")))
+          '(("gnu" . "http://elpa.gnu.org/packages/")
+            ("melpa" . "http://melpa.org/packages/")))
     (fmakunbound 'package-install))
 #+end_src
 
