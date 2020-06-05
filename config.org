@@ -375,16 +375,16 @@ macros when writing something, but I usually just use org-mode anyway.
 #+name: nroff-mode-compile
 #+begin_src emacs-lisp :tangle no
   (defun nroff-mode-compile ()
-    "Set the compile command for nroff files. (using the ms
-  macros)"
+    "Set the compile command for nroff files.
+
+  It will choose the macro set based on the file extension."
     (let* ((in (buffer-file-name))
            (out (concat (file-name-sans-extension in)
                         ".pdf")))
       (setq-local
        compile-command
-       (format "groff -ms -Tpdf %s > %s"
-               (shell-quote-argument in)
-               (shell-quote-argument out)))))
+       (format "groff -%s -Tpdf '%s' > '%s'"
+               (file-name-extension in) in out))))
 #+end_src
 
 **** LaTeX
