@@ -509,8 +509,6 @@ browser, and change the width to 80 columns.
     <<browse-url-externally-please>>
     :bind
     (:map eww-mode-map
-          ("M-n" . forward-paragraph)
-          ("M-p" . backward-paragraph)
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
           ("A" . plumb-audio)
@@ -559,19 +557,6 @@ unless a notification daemon is active.
     :config
     (when (executable-find "dunst")
       (erc-notify-enable)))
-#+end_src
-
-*** Info
-
-Rebind M-p and M-n to move by paragraphs.  By default M-n runs
-=clone-buffer=, which I find to be completely useless.
-
-#+begin_src emacs-lisp
-  (use-package info
-    :bind
-    (:map Info-mode-map
-          ("M-p" . backward-paragraph)
-          ("M-n" . forward-paragraph)))
 #+end_src
 
 *** Ibuffer
@@ -1043,9 +1028,7 @@ Also bind some keys to simplify movement.
     (:map view-mode-map
           ("l" . recenter-top-bottom)
           ("f" . forward-sexp)
-          ("b" . backward-sexp)
-          ("M-p" . backward-paragraph)
-          ("M-n" . forward-paragraph)))
+          ("b" . backward-sexp)))
 #+end_src
 
 ** Fixing some default behaviour
@@ -1114,6 +1097,20 @@ filenames, kill-ring, and dabbrev.
     :defer t
     :bind
     ("M-/" . hippie-expand))
+#+end_src
+
+*** Paragraphs
+
+Bind =M-n= and =M-p= to move by paragraph.  I used to do this on a
+per-mode basis, but that got annoying.  These functions are defined in
+=paragraphs.el= which isn't a loadable feature, so I use =(use-package
+emacs)= instead.
+
+#+begin_src emacs-lisp
+  (use-package emacs
+    :bind
+    ("M-n" . forward-paragraph)
+    ("M-p" . backward-paragraph))
 #+end_src
 
 ** Mail
@@ -1771,11 +1768,7 @@ epubs, and set the default width to 80 columns.
     :straight t
     :custom
     (nov-text-width 80)
-    :mode ("\\.epub\\'" . nov-mode)
-    :bind
-    (:map nov-mode-map
-          ("M-n" . forward-paragraph)
-          ("M-p" . backward-paragraph)))
+    :mode ("\\.epub\\'" . nov-mode))
 #+end_src
 
 *** PDF-tools
@@ -2185,8 +2178,6 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
     :defer t
     :bind
     (:map elfeed-show-mode-map
-          ("M-p" . backward-paragraph)
-          ("M-n" . forward-paragraph)
           ("l" . elfeed)
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
