@@ -1913,12 +1913,13 @@ move the history file out of =$HOME=.
      (or (executable-find "sbcl")
          (executable-find "ccl")
          (executable-find "clisp")
-         (executable-find "lisp")))
+         "lisp"))
     (slime-contribs '(slime-fancy))
     (slime-repl-history-file "~/.cache/slime/history")
     (common-lisp-hyperspec-root
-     (when (file-exists-p "/usr/share/doc/HyperSpec/")
-       "file:///usr/share/doc/HyperSpec/"))
+     (if (file-exists-p "/usr/share/doc/HyperSpec/")
+         "file:///usr/share/doc/HyperSpec/"
+       "http://clhs.lisp.se/"))
     (slime-auto-start 'ask)
     :bind
     (:map slime-mode-map
