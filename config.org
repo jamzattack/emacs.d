@@ -509,6 +509,8 @@ browser, and change the width to 80 columns.
     <<browse-url-externally-please>>
     :bind
     (:map eww-mode-map
+          ("M-n" . forward-paragraph)
+          ("M-p" . backward-paragraph)
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
           ("A" . plumb-audio)
@@ -557,6 +559,19 @@ unless a notification daemon is active.
     :config
     (when (executable-find "dunst")
       (erc-notify-enable)))
+#+end_src
+
+*** Info
+
+Rebind M-p and M-n to move by paragraphs.  By default M-n runs
+=clone-buffer=, which I find to be completely useless.
+
+#+begin_src emacs-lisp
+  (use-package info
+    :bind
+    (:map Info-mode-map
+          ("M-p" . backward-paragraph)
+          ("M-n" . forward-paragraph)))
 #+end_src
 
 *** Ibuffer
