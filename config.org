@@ -1638,17 +1638,6 @@ packages.
           ("C-p" . helm-system-packages)))
 #+end_src
 
-*** Helm Notmuch
-
-A Helm interface for Notmuch.  Load it after both Helm and Notmuch (of
-course).
-
-#+begin_src emacs-lisp
-  (use-package helm-notmuch
-    :straight t
-    :defer t)
-#+end_src
-
 *** Helm eww
 
 Some Helm functions for eww.  I replace all the default functions with
