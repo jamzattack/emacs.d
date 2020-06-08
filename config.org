@@ -423,7 +423,7 @@ Bind =C-z RET= and =f9= to compile.
   (use-package compile
     :bind
     ("C-z C-m" . compile)
-    ("<f9>" . compile))
+    ("<f9>" . recompile))
 #+end_src
 
 *** Hi-lock
