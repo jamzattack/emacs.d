@@ -1522,14 +1522,14 @@ replace =yank-pop= but the latter is too engrained in my fingers.
     (delight '((helm-mode "")))
     (helm-mode t)
     :bind
-    ("M-x" . helm-M-x)
+    ([remap execute-extended-command] . helm-M-x)
     ("<menu><menu>" . helm-M-x)
     ("M-o" . helm-occur)
     ("s-b" . helm-mini)
-    ("C-x b" . helm-mini)
+    ([remap switch-to-buffer] . helm-mini)
     ("C-x k" . kill-this-buffer-please)
-    ("C-x C-f" . helm-find-files)
-    ("C-x r b" . helm-filtered-bookmarks)
+    ([remap find-file] . helm-find-files)
+    ([remap bookmark-jump] . helm-filtered-bookmarks)
     ("M-C-y" . helm-show-kill-ring)
     (:map helm-map
           ("C-h c" . describe-key-briefly)))
