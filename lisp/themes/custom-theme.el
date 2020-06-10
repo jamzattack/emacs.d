@@ -17,6 +17,8 @@
    `(dired-async-mode-message ((,class (:foreground "darkred"))))
    `(tab-bar ((,class (:inherit mode-line-inactive :box nil))))
    `(tab-bar-tab ((,class (:inherit default))))
-   `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive :box nil))))))
+   `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive :box nil))))
+   `(ruler-mode-default ((,class (:inherit header-line :box nil))))
+   ))
 
 (provide-theme 'custom)
