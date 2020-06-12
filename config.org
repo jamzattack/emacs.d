@@ -1467,6 +1467,7 @@ Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
     :custom
     (helm-bookmark-default-filtered-sources
      '(helm-source-bookmark-university
+       helm-source-bookmark-gnus
        helm-source-bookmark-config
        helm-source-bookmark-org-misc
        helm-source-bookmark-elisp

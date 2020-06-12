@@ -140,6 +140,7 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
  dired "Bookmarked directories"
  (and (file-directory-p filename)
       (not (helm-bookmark-elfeed-p bookmark))
+      (not (helm-bookmark-gnus-p bookmark))
       (not (helm-bookmark-magit-p bookmark))))
 
 ;;; Elfeed
@@ -148,11 +149,19 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
  (or (eq (bookmark-get-handler bookmark) 'elfeed-show-bookmark-handler)
      (eq (bookmark-get-handler bookmark) 'elfeed-search-bookmark-handler)))
 
+;;; Mail
+;; Gnus can create "normal" bookmarks, but it also provides a library
+;; specifically for gnus bookmarks.  I'm on the fence about which to use.
+(helm-bookmark-create-source-please
+ gnus "Gnus Articles"
+ (eq (bookmark-get-handler bookmark) 'gnus-summary-bookmark-jump))
+
 ;;; Other bookmarks
 (helm-bookmark-create-source-please
  other "Other bookmarks"
  (and (not (file-directory-p filename))
-      (cl-loop for pred in '(helm-bookmark-university-p
+      (cl-loop for pred in '(helm-bookmark-gnus-p
+			     helm-bookmark-university-p
 			     helm-bookmark-elisp-p
 			     helm-bookmark-config-p
 			     helm-bookmark-org-misc-p
