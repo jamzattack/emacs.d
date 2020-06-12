@@ -809,6 +809,17 @@ everywhere.
     (add-to-list 'desktop-globals-to-save 'extended-command-history))
 #+end_src
 
+*** Save Place
+
+Like [[*Desktop][desktop-save-mode]], but saves the place in buffers between Emacs
+sessions, rather than the list of buffers.
+
+#+begin_src emacs-lisp
+  (use-package saveplace
+    :config
+    (save-place-mode t))
+#+end_src
+
 *** Winner-mode
 
 Saves window configurations so that you can use =C-c <left>= to undo
