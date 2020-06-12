@@ -54,27 +54,27 @@ optional arguments ARGS."
 ;;; use helm to open files externally.
 ;;;###autoload
 (defun list-documents (&optional dir)
-  "Using `find-dired', list all the postscript and pdf files a
-  specified directory.  If called interactively, prompt for
-  Directory. Else, DIR will default to ~/Documents/."
+  "Using `find-dired', list all ps or pdf files in DIR.
+If called interactively, prompt for directory.  Else, DIR will
+default to ~/Documents/."
   (interactive (list (read-directory-name "Find videos where: " "~/Documents/")))
   (unless dir
     (setq dir "~/Documents/"))
   (find-dired dir
-              "\\( -iname \\*.ps -o -iname \\*.pdf \\)")
+              "-regex \".*\\\\.\\\\(ps\\\\|pdf\\\\)\"")
   (dired-hide-details-mode t)
   (setq truncate-lines t))
 
 ;;;###autoload
 (defun list-videos (&optional dir)
-  "Using `find-dired', list all the videos a specified directory.
-  If called interactively, prompt for Directory. Else, DIR will
-  default to ~/Downloads/."
+  "Using `find-dired', list all the videos in DIR.
+If called interactively, prompt for directory.  Else, DIR will
+default to ~/Downloads/."
   (interactive (list (read-directory-name "Find videos where: " "~/Downloads/")))
   (unless dir
     (setq dir "~/Downloads/"))
   (find-dired dir
-              "\\( -iname \\*.mkv -o -iname \\*.avi -o -iname \\*.mp4 -o -iname \\*.webm -o -iname \\*.m4v \\)")
+              "-regex  \".*\\\\.\\\\(mkv\\\\|mp4\\\\|webm\\\\|avi\\\\|m4v\\\\)\"")
   (dired-hide-details-mode t)
   (setq truncate-lines t))
 
@@ -121,6 +121,23 @@ prefix arg, indent the whole buffer."
 				(forward-paragraph 1)
 				(point))))))))
     (indent-region (car bounds) (cdr bounds))))
+
+
+
+;;;###autoload
+; TODO create version if it doesn't exist.
+(defun update-elisp-version ()
+  "Update a version number in an Elisp file.
+Uses the current date formatted as %Y.%m.%d (e.g. 1970.01.01)"
+  (interactive "P")
+  (let ((new-version (format-time-string " %Y.%m.%d")))
+    (save-excursion
+      (save-restriction
+	(widen)
+	(goto-char (point-min))
+	(re-search-forward "^;; Version:")
+	(kill-line)
+	(insert new-version)))))
 
 (provide 'my-misc-defuns)
 ;;; my-misc-defuns.el ends here
