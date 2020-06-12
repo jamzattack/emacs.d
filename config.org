@@ -2157,10 +2157,13 @@ eww-mode.
     :defer t
     :commands transmission-mode
     :init
-    (defun transmission-add-url-at-point (url)
-      "Adds torrent if point is on a magnet link"
-      (interactive (list (shr-url-at-point nil)))
-      (transmission-add url))
+    (defun transmission-add-url-at-point (url &optional directory)
+      "Adds torrent if point is on a magnet or torrent link.
+  With prefix arg, prompt for DIRECTORY in which to download."
+      (interactive (list (shr-url-at-point nil)
+                         (when current-prefix-arg
+                           (read-directory-name "Download in: " "~/Downloads/"))))
+      (transmission-add url directory))
     (defun open-transmission-in-this-window ()
       (interactive)
       (let ((buffer (get-buffer-create "*transmission*")))
