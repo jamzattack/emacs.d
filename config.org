@@ -52,6 +52,7 @@ This snippet clones and loads straight, stolen from the README.
 
   (setq straight-vc-git-default-protocol 'ssh)
   (add-to-list 'straight-built-in-pseudo-packages 'org)
+  (fset 'try #'straight-use-package)
 #+end_src
 
 ** Use-package and dependencies
