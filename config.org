@@ -508,10 +508,12 @@ browser, and change the width to 80 columns.
             shr-use-colors nil
             shr-use-fonts nil))
     <<browse-url-externally-please>>
+    <<eww-edit-current-url>>
     :bind
     (:map eww-mode-map
           ("M-n" . forward-paragraph)
           ("M-p" . backward-paragraph)
+          ("e" . eww-edit-current-url)
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
           ("A" . plumb-audio)
@@ -531,6 +533,25 @@ browser, and change the width to 80 columns.
                       (executable-find "surf")
                       (executable-find "xdg-open"))
                   nil 0 nil url))
+#+end_src
+
+**** Edit current URL
+
+Useful command to edit the current URL.  With prefix arg, open the
+edited URL in a new buffer.  Bound to =e= in eww-mode.
+
+#+name: eww-edit-current-url
+#+begin_src emacs-lisp :tangle no
+  (defun eww-edit-current-url (&optional arg)
+    "Edit the current URL.
+  With prefix ARG, open in a new buffer."
+    (interactive "p")
+    (let ((url
+           (read-string (if (= arg 1)
+                            "URL: "
+                          "URL (new buffer): ")
+                        (eww-current-url))))
+      (eww url arg)))
 #+end_src
 
 *** ERC
