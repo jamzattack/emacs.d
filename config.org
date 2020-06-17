@@ -1371,7 +1371,8 @@ Located [[file:lisp/search-query/search-query.el][here]].
     ("C-z t" . tpb-search)
     ("C-z y" . invidio-search) ; just youtube really
     ("C-z w" . wikipedia-search)
-    ("C-z C-w" . wiktionary-word))
+    ("C-z C-w" . wiktionary-word)
+    ("C-z C-e" . etymology-word))
 #+end_src
 
 *** Reddit-browse

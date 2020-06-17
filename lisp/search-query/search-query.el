@@ -96,5 +96,15 @@ prefix arg LANGUAGE, prompt for language code."
 		"en")
 	    word))))
 
+;;;###autoload
+(defun etymology-word (word)
+  "Show the etymology of WORD.  Called interactively, prompt for
+WORD with the default input being the word at point."
+  (interactive (list (read-string "Etymology: "
+				  (thing-at-point 'word t))))
+  (browse-url
+   (url-encode-url
+    (concat "https://www.etymonline.com/word/" word))))
+
 (provide 'search-query)
 ;;; search-query.el ends here
