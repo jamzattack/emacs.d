@@ -57,6 +57,16 @@ host."
     (format "https://youtube.com/search?q=%s&disable_polymer=1" query))))
 
 ;;;###autoload
+(defun invidio-search (query)
+  "Search invidio.us. Called interactively, prompt for a QUERY.
+
+invidio.us is a more eww-friendly frontend for youtube."
+  (interactive (list (read-string "Youtube: ")))
+  (browse-url
+   (url-encode-url
+    (format "https://invidio.us/search?q=%s" query))))
+
+;;;###autoload
 (defun wikipedia-search (query &optional language)
   "Search wikipedia.  Called interactively, prompt for a QUERY.
 With prefix arg LANGUAGE, prompt for language code."

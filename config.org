@@ -1369,7 +1369,7 @@ Located [[file:lisp/search-query/search-query.el][here]].
     (tpb-mirror "piratebay.live")
     :bind
     ("C-z t" . tpb-search)
-    ("C-z y" . youtube-search)
+    ("C-z y" . invidio-search) ; just youtube really
     ("C-z w" . wikipedia-search)
     ("C-z C-w" . wiktionary-word))
 #+end_src
