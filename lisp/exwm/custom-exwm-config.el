@@ -171,12 +171,18 @@ output."
      (,(kbd "M-w") . [C-c])
      (,(kbd "C-y") . [C-v]))))
 
+(defun custom-exwm-input-terminal-keys ()
+  "Disable simulation keys for my terminals."
+  (when (string-match "\\(st-.*\\|XTerm\\)" exwm-class-name)
+    (exwm-input-set-local-simulation-keys nil)))
+
 
 
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
   (setq exwm-workspace-number 1)
   (exwm-xim-enable)
+  (add-hook 'exwm-manage-finish-hook 'custom-exwm-input-terminal-keys)
   (custom-exwm-input-global-keys)
   (custom-exwm-input-simulation-keys)
   (custom-exwm-prefix-keys)
