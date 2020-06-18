@@ -29,6 +29,7 @@
 ;;; Code:
 
 (require 'exwm)
+(require 'exwm-xim)
 
 (defun custom-exwm-window-setup ()
   "Other configurations."
@@ -107,6 +108,7 @@ output."
      [?\C-h]
      [menu]
      [f8]
+     [?\C-\\]
 
      ;; Open up potential for keybindings with super modifier
      ;; (there must be a better way to do this)
@@ -174,6 +176,7 @@ output."
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
   (setq exwm-workspace-number 1)
+  (exwm-xim-enable)
   (custom-exwm-input-global-keys)
   (custom-exwm-input-simulation-keys)
   (custom-exwm-prefix-keys)
