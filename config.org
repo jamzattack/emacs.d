@@ -1428,8 +1428,13 @@ Located [[file:lisp/lilypond-mode][here]].
       (unless (or (file-exists-p "Makefile")
                   (local-variable-p 'compile-command (current-buffer)))
         (setq-local compile-command
-                    (format "lilypond %s" buffer-file-name)))
-      (setq-local comment-column 0))
+                    (format "lilypond \"%s\"" buffer-file-name)))
+      (setq-local comment-column 0)
+      (setq-local imenu-generic-expression
+                  '(("Bar" "^% bar \\([0-9]+\\)" 1)
+                    ("Page" "^% PAGE \\([A-Z0-9]+\\)" 1)
+                    ("TODO" "^%?.*TODO[: ]?*\\(.*\\)" 1)
+                    ("Variables" "^\\([a-zA-Z]+\\) *=" 1))))
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
