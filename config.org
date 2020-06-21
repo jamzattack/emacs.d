@@ -1187,6 +1187,7 @@ just using IMAP.
                     (nnimap-address "imap.gmail.com"))
             (nnimap "university"
                     (nnimap-address "outlook.office365.com"))
+            (nnimap "mail.jamzattack.xyz")
             (nntp "news.eternal-september.org"
                   (nntp-authinfo-file "~/.authinfo.gpg"))))
     (defun gnus-group-set-up-imenu-please ()
@@ -1233,7 +1234,9 @@ will be sent from my university address.  Very nice!
     (gnus-posting-styles
      '(("nnimap\\+university:.*"
         (From "Jamie Beardslee <beardsjami@myvuw.ac.nz>")
-        (signature "Jamie Beardslee (300484191)")))))
+        (signature "Jamie Beardslee (300484191)"))
+       ("nnimap\\+mail\\.jamzattack\\.xyz:.*"
+        (From "Jamie Beardslee <jdb@jamzattack.xyz>")))))
 #+end_src
 
 **** Gnus-art
