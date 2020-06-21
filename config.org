@@ -2309,6 +2309,7 @@ creating a new function which can accept the extra arguments.
   (use-package elpher
     :straight t
     :defer t
+    :commands elpher-go
     :init
     (defun elpher-go-please (url &rest _ignore)
       "Like `elpher-go', but allows extra arguments.
