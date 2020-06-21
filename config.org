@@ -1186,6 +1186,11 @@ just using IMAP.
                     (nnimap-address "outlook.office365.com"))
             (nntp "news.eternal-september.org"
                   (nntp-authinfo-file "~/.authinfo.gpg"))))
+    (defun gnus-group-set-up-imenu-please ()
+      (setq imenu-generic-expression
+            '(("Topic" "\\[ \\(.*?\\) -- [0-9]+ \\]" 1)
+              ("Unread" "[1-9]+.*: \\(.*\\)" 1))))
+    (add-hook 'gnus-group-mode-hook 'gnus-group-set-up-imenu-please)
     :bind
     ("C-z C-n" . gnus-unplugged)
     ("C-z n" . gnus))
