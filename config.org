@@ -299,6 +299,111 @@ my window configuration.
     ("C-z C-a" . org-agenda))
 #+end_src
 
+**** Org publish
+
+I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lot going on:
+
+1. I set some [[my-org-publish-default-options][default options]] for publishing projects.
+2. I use a [[*Generate postamble][custom function]] to generate postamble.
+3. Include my three sites in [[help:org-publish-project-alist][org-publish-project-alist]].
+
+#+begin_src emacs-lisp
+  (use-package ox-publish
+    :defer t
+    :config
+    <<my-org-html-postamble-format>>
+    (defvar my-org-publish-default-options
+      '(
+        <<my-org-publish-default-options>>
+        )
+      "Default options for `org-publish-project-alist'.
+
+  This variable must be spliced into `org-publish-project-alist'
+  when set, i.e.
+      (setq org-publish-project-alist
+              `((\"project\"
+                 ,@my-org-publish-default-options)))")
+    (setq
+     org-html-postamble-format
+     (my-org-html-postamble-format
+      "Author: %a"
+      "Email: %e")
+     org-publish-timestamp-directory "~/.cache/org/timestamps/"
+     org-publish-project-alist
+     `(("blog"
+        ,@my-org-publish-default-options
+        :base-directory "~/jamzattack.xyz/blog"
+        :publishing-directory "/ssh:jamzattack.xyz:/var/www/blog"
+        :html-postamble-format ,(my-org-html-postamble-format
+                                 "Author: %a"
+                                 "Email: %e"
+                                 "Date: %d (modified %C)")
+        :sitemap-filename "index.org"
+        :sitemap-title "The Yeet Log"
+        :sitemap-format-entry-format "%t %d"
+        :sitemap-sort-files anti-chronologically)
+       ("music"
+        ,@my-org-publish-default-options
+        :base-directory "~/jamzattack.xyz/music"
+        :recursive t
+        :publishing-directory "/ssh:jamzattack.xyz:/var/www/music"
+        :sitemap-title "My Music Projects")
+       ("html"
+        ,@my-org-publish-default-options
+        :base-directory "~/jamzattack.xyz/html"
+        :publishing-directory "/ssh:jamzattack.xyz:/var/www/html"))))
+      #+end_src
+
+***** Generate postamble
+
+A little function to generate postamble.
+
+#+name: my-org-html-postamble-format
+#+begin_src emacs-lisp :tangle no
+  (defun my-org-html-postamble-format (&rest args)
+    "Generate an html postamble using ARGS.
+
+  This generates a paragraph for each item in ARGS.  For format
+  strings, see the docstring of `org-html-postamble-format'."
+    (unless args
+      (setq args '("Author: %a <%e>")))
+    (list (list "en"
+                (mapconcat (lambda (str)
+                             (format "<p>%s</p>" str))
+                           args
+                           "\n"))))
+#+end_src
+
+****** TODO change [[my-org-html-postamble-format][this]] to a function
+
+This would involve:
+1. Defining a [[help:org-html-format-spec][format spec]].
+2. Replacing [[help:org-html-postamble][org-html-postamble]] with a function that uses the above.
+3. Probably moving to its own file ([[file:lisp/publish.el][publish.el]] is free real estate)
+
+Reasons for doing so:
+1. Ability to org file via [[https://git.jamzattack.xyz][stagit]].
+2. %e is a link, meaning I can't do ~<a href="mailto:%e">%a</>~
+3. Use git for timestamps
+
+See [[https://gitlab.com/ambrevar/ambrevar.gitlab.io/-/raw/master/publish.el][Ambrevar's publish script (L82)]] for inspiration.
+
+***** Default export options
+
+A list of default export options.
+
+#+name: my-org-publish-default-options
+#+begin_src emacs-lisp :tangle no
+  :auto-sitemap t
+  :publishing-function org-html-publish-to-html
+  :html-metadata-timestamp-format "%Y-%m-%d"
+  :with-toc nil
+  :with-email t
+  :with-drawers nil
+  :section-numbers nil
+  :with-todo-keywords nil
+#+end_src
+
 *** Prolog
 
 Major mode for editing prolog files.  Files ending in =.pl= open in
