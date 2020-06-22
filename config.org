@@ -1195,6 +1195,8 @@ just using IMAP.
             '(("Topic" "\\[ \\(.*?\\) -- [0-9]+ \\]" 1)
               ("Unread" "[1-9]+.*: \\(.*\\)" 1))))
     (add-hook 'gnus-group-mode-hook 'gnus-group-set-up-imenu-please)
+    (with-eval-after-load "message"
+      (define-key message-mode-map (kbd "C-c $") #'ispell-message))
     :bind
     ("C-z C-n" . gnus-unplugged)
     ("C-z n" . gnus))
