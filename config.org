@@ -57,9 +57,9 @@ This snippet clones and loads straight, stolen from the README.
 
 ** Use-package and dependencies
 
-Install use-package using =straight-use-package=, and load both
-=use-package= and =bind-key=.  Note =bind-key= is a dependency of
-=use-package=, so I don't need to install it manually.
+Install use-package using [[help:straight-use-package][straight-use-package]], and load both
+[[help:use-package][use-package]] and [[help:bind-key][bind-key]].  Note [[help:bind-key][bind-key]] is a dependency of
+[[help:use-package][use-package]], so I don't need to install it manually.
 
 I also use use-package's =:delight= keyword, so install that as well.
 I don't need to use =(require delight)= as use-package handles that.
@@ -74,7 +74,7 @@ I don't need to use =(require delight)= as use-package handles that.
 
 ** Fonts
 
-The function =set-up-font-please= loads my [[file:lisp/fonts.el][font settings]].  Call it
+The function [[help:set-up-font-please][set-up-font-please]] loads my [[file:lisp/fonts.el][font settings]].  Call it
 when creating a new frame or starting emacs.
 
 #+begin_src emacs-lisp
@@ -112,8 +112,8 @@ Make the menu key do the same as =C-x=.
 
 *** Reloading config file
 
-Reload [[file:lisp/config.el][config file]].  This is done with =bind-key= so that it is
-recorded in the variable =personal-keybindings=.
+Reload [[file:lisp/config.el][config file]].  This is done with [[help:bind-key][bind-key]] so that it is
+recorded in the variable [[help:personal-keybindings][personal-keybindings]].
 
 #+begin_src emacs-lisp
   (bind-key "C-c r" 'config-load)
@@ -126,8 +126,8 @@ This is the section for built-in packages.
 ** package.el
 
 It's useful to keep =package.el= updated for the functions
-=describe-package= and =list-packages=.  All my packages are now
-installed using [[*Straight][straight]], so disable the function =package-install=.
+[[help:describe-package][describe-package]] and [[help:list-packages][list-packages]].  All my packages are now
+installed using [[*Straight][straight]], so disable the function [[help:package-install][package-install]].
 
 #+begin_src emacs-lisp
   (use-package package
@@ -249,7 +249,7 @@ awkward and slow, but evaluating scheme is useful.
 ***** Common Lisp
 
 Execute Common Lisp source blocks.  This depends on [[*SLIME][Slime]], which
-doesn't start automatically (see the variable =slime-auto-start=).
+doesn't start automatically (see the variable [[help:slime-auto-start][slime-auto-start]]).
 
 #+begin_src emacs-lisp
   (use-package ob-lisp
@@ -284,7 +284,7 @@ to generate a link from the current position.
 
 **** Org agenda
 
-Use all files in =org-directory= to get my agenda.  And don't disrupt
+Use all files in [[help:org-directory][org-directory]] to get my agenda.  And don't disrupt
 my window configuration.
 
 #+begin_src emacs-lisp
@@ -407,7 +407,7 @@ A list of default export options.
 *** Prolog
 
 Major mode for editing prolog files.  Files ending in =.pl= open in
-=prolog-mode=.
+[[help:prolog-mode][prolog-mode]].
 
 #+begin_src emacs-lisp
   (use-package prolog
@@ -430,7 +430,7 @@ Java/Awk files.
 
 *** Emacs Lisp mode
 
-Make the scratch buffer use =emacs-lisp-mode=.  Note: Most of my Elisp
+Make the scratch buffer use [[help:emacs-lisp-mode][emacs-lisp-mode]].  Note: Most of my Elisp
 keybindings are now in my package [[https://gitlab.com/jamzattack/selime][selime]].
 
 #+begin_src emacs-lisp
@@ -447,8 +447,8 @@ keybindings are now in my package [[https://gitlab.com/jamzattack/selime][selime
 **** Find-func
 
 A package that defines a few functions for editing Elisp source code.
-It provides the function =find-function-setup-keys= which binds some
-keys in =ctl-x-map=, but I prefer to have them under =C-h=.
+It provides the function [[help:find-function-setup-keys][find-function-setup-keys]] which binds some
+keys in [[help:ctl-x-map][ctl-x-map]], but I prefer to have them under =C-h=.
 
 #+begin_src emacs-lisp
   (use-package find-func
@@ -535,7 +535,7 @@ Bind =C-z RET= and =f9= to compile.
 *** Hi-lock
 
 I often use =M-s h .= to see where variables, functions, etc. are
-used.  However, paredit remaps =M-s= to =paredit-splice-sexp=, so I
+used.  However, paredit remaps =M-s= to [[help:paredit-splice-sexp][paredit-splice-sexp]], so I
 turn on hi-lock-mode which enables the =C-x w= prefix.
 
 #+begin_src emacs-lisp
@@ -691,7 +691,7 @@ unless a notification daemon is active.
 *** Info
 
 Rebind M-p and M-n to move by paragraphs.  By default M-n runs
-=clone-buffer=, which I find to be completely useless.
+[[help:clone-buffer][clone-buffer]], which I find to be completely useless.
 
 #+begin_src emacs-lisp
   (use-package info
@@ -773,7 +773,7 @@ Shells in Emacs - both shell and eshell settings are here.
 *** Shell
 
 I don't want the shell buffer to open a new window, so add an entry in
-=display-buffer-alist=.
+[[help:display-buffer-alist][display-buffer-alist]].
 
 #+begin_src emacs-lisp
   (use-package shell
@@ -1066,10 +1066,10 @@ doesn't slow down Emacs as much.
 
 **** Cycle spacing
 
-By default, =M-SPC= is bound to the less powerful =just-one-space=.  I
-rebind that key to =cycle-spacing=, which does the same thing but on
+By default, =M-SPC= is bound to the less powerful [[help:just-one-space][just-one-space]].  I
+rebind that key to [[help:cycle-spacing][cycle-spacing]], which does the same thing but on
 successive invocations switches between one space and no spaces.
-Thus, =M-SPC M-SPC= acts like =M-\= (=delete-horizontal-space=)
+Thus, =M-SPC M-SPC= acts like =M-\= ([[help:delete-horizontal-space][delete-horizontal-space]])
 
 #+begin_src emacs-lisp
   (use-package simple
@@ -1099,12 +1099,12 @@ with the operating system.
 
 *** Window
 
-=bury-buffer= is a very useful function so I bind it to =C-z C-z=, a
+[[help:bury-buffer][bury-buffer]] is a very useful function so I bind it to =C-z C-z=, a
 pretty accessible key.
 
-For purely pedantic reasons, I also bind =C-x _= to =shrink-window=.
-Why does =shrink-window-horizontally= have a keybinding by default but
-=shrink-window= doesn't?
+For purely pedantic reasons, I also bind =C-x _= to [[help:shrink-window][shrink-window]].
+Why does [[help:shrink-window-horizontally][shrink-window-horizontally]] have a keybinding by default but
+[[help:shrink-window][shrink-window]] doesn't?
 
 #+begin_src emacs-lisp
   (use-package window
@@ -1130,12 +1130,12 @@ this is like ={i,j,k,l}= on a qwerty keyboard.
 
 *** Tab-bar
 
-I've started using =tab-bar-mode= instead of exwm workspaces.  I don't
+I've started using [[help:tab-bar-mode][tab-bar-mode]] instead of exwm workspaces.  I don't
 like the tab bar to be shown all the time, so I hide it.
 
 I also add advice to show the current tab and index in the echo area.
 Somewhat awkwardly, a similar message is also shown by default when
-=tab-bar-mode= is nil.  I prefer my less subtle message, but I might
+[[help:tab-bar-mode][tab-bar-mode]] is nil.  I prefer my less subtle message, but I might
 remove this in the future -- maybe show it in the mode-line instead?
 
 The keybindings =s-g= and =s-r= move to the previous or next tab
@@ -1327,7 +1327,7 @@ Nicer summary & thread formatting.  Credit to [[https:protesilaos.com][Protesila
 
 **** Gnus-msg
 
-Gnus' library for sending messages.  =gnus-posting-styles= allows you
+Gnus' library for sending messages.  [[help:gnus-posting-styles][gnus-posting-styles]] allows you
 to adjust headers, signatures, etc. based on how you got to the
 composition buffer.  All messages composed from my university mailbox
 will be sent from my university address.  Very nice!
@@ -1352,7 +1352,7 @@ Article stuff.  Gnus tries to use the =smiley= library to convert
 emoticons into images -- I turned it off becaus it looks terrible.
 
 I also want some buttons to show signature status and alternative MIME
-types, which is achieved with =gnus-buttonized-mime-types=.
+types, which is achieved with [[help:gnus-buttonized-mime-types][gnus-buttonized-mime-types]].
 
 #+begin_src emacs-lisp
   (use-package gnus-art
@@ -1366,10 +1366,10 @@ types, which is achieved with =gnus-buttonized-mime-types=.
 **** Gnus-topic
 
 Gnus can sort your groups by topic, which I enable in
-=gnus-group-mode-hook=.
+[[help:gnus-group-mode-hook][gnus-group-mode-hook]].
 
 It shows titles for empty topics by default, which I find to get in
-the way.  I set the variable =gnus-topic-display-empty-topics= to
+the way.  I set the variable [[help:gnus-topic-display-empty-topics][gnus-topic-display-empty-topics]] to
 disable this.  Default behaviour can be restored with =T H=.
 
 #+begin_src emacs-lisp
@@ -1424,7 +1424,7 @@ Stuff to do with MIME
 
 The library responsible for decoding mime parts.  I prefer reading
 text/plain, so discourage the other common alternatives.  I also want
-to verify messages that have a signature, so I set =mm-verify-option=.
+to verify messages that have a signature, so I set [[help:mm-verify-option][mm-verify-option]].
 
 #+begin_src emacs-lisp
   (use-package mm-decode
@@ -1559,7 +1559,7 @@ Located [[file:lisp/lilypond-mode][here]].
 
 ** Arch Linux settings
 
-This file just adds a few =auto-mode-alist= entries for systemd and
+This file just adds a few [[help:auto-mode-alist][auto-mode-alist]] entries for systemd and
 pacman files.
 
 Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here]].
@@ -1572,8 +1572,8 @@ Located [[file:lisp/arch-linux-settings/arch-linux-settings.el][here]].
 ** Custom EXWM config
 
 My custom settings for EXWM - not much different from the
-=exwm-config-default=, but doesn't get in my way as much.  It provides
-the function =custom-exwm-config= which is run when exwm starts.
+[[help:exwm-config-default][exwm-config-default]], but doesn't get in my way as much.  It provides
+the function [[help:custom-exwm-config][custom-exwm-config]] which is run when exwm starts.
 
 Note: this doesn't actually start EXWM, so this needs to be done in
 your [[file:~/.xinitrc][xinitrc]].
@@ -1647,11 +1647,11 @@ if they aren't already.
 ** HELM
 
 Rebind a few keys in order to make use of Helm's features.  Stuff like
-=find-file= and =switch-to-buffer=.  Also remap =C-x k= to
+[[help:find-file][find-file]] and [[help:switch-to-buffer][switch-to-buffer]].  Also remap =C-x k= to
 kill-this-buffer, because I use helm-mini to kill other buffers.
 
-I also bind =M-C-y= to =helm-show-kill-ring=.  I tried to use this to
-replace =yank-pop= but the latter is too engrained in my fingers.
+I also bind =M-C-y= to [[help:helm-show-kill-ring][helm-show-kill-ring]].  I tried to use this to
+replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my fingers.
 
 #+begin_src emacs-lisp
   (use-package helm
@@ -1697,8 +1697,8 @@ replace =yank-pop= but the latter is too engrained in my fingers.
 
 **** Kill buffer
 
-I rebind =C-x k= to kill the current buffer, because =helm-mini= is so
-useful.  If buffer is in the list =buffers-to-bury=, bury it instead
+I rebind =C-x k= to kill the current buffer, because [[help:helm-mini][helm-mini]] is so
+useful.  If buffer is in the list [[help:buffers-to-bury][buffers-to-bury]], bury it instead
 of killing.
 
 #+name: kill-this-buffer-please
@@ -1753,7 +1753,7 @@ predictable function selects the largest non-exwm window.
 
 *** Helm Imenu
 
-Helm's interface to imenu.  It shows more information than =imenu=
+Helm's interface to imenu.  It shows more information than [[help:imenu][imenu]]
 does, and also provides a way to access an imenu for multiple buffers.
 
 Note: I use =:bind*= because LilyPond-mode tries to bind =C-c i=.
@@ -1769,7 +1769,7 @@ Note: I use =:bind*= because LilyPond-mode tries to bind =C-c i=.
 
 *** Helm man
 
-Remap =C-h C-m= to =helm-man-woman=, a Helm interface for selecting
+Remap =C-h C-m= to [[help:helm-man-woman][helm-man-woman]], a Helm interface for selecting
 manpages.
 
 #+begin_src emacs-lisp
@@ -1814,8 +1814,8 @@ the Helm alternatives.
 
 *** Helm org
 
-=C-c M-o= in org-mode runs the function =helm-org-in-buffer-headings=.
-Similar to =occur=, but only shows headings.
+=C-c M-o= in org-mode runs the function [[help:helm-org-in-buffer-headings][helm-org-in-buffer-headings]].
+Similar to [[help:occur][occur]], but only shows headings.
 
 #+begin_src emacs-lisp
   (use-package helm-org
@@ -2006,7 +2006,7 @@ for looking at READMEs though, so I add view-mode to the hook.
 
 *** GNU APL mode
 
-I've been trying to learn a bit of APL recently, and =gnu-apl-mode= is
+I've been trying to learn a bit of APL recently, and [[help:gnu-apl-mode][gnu-apl-mode]] is
 an excellent way to get into it.  It tries to use the super modifier
 to insert special characters, but I use it for my own functions so I
 set the prefix to ". ".
@@ -2140,7 +2140,7 @@ Hosted [[https://gitlab.com/jamzattack/selime][here]].
 *** LilyPond auto-insert
 
 My own package to handle auto-insertions for LilyPond-mode.  I add it
-to =LilyPond-mode-hook=.
+to [[help:LilyPond-mode-hook][LilyPond-mode-hook]].
 
 Hosted [[https://gitlab.com/jamzattack/lilypond-auto-insert][here]].
 
@@ -2194,7 +2194,7 @@ org-mode.  I use it in my package [[*Plumb][plumb]].
 ** EXWM - Emacs X Window Manager
 
 Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM config][earlier]], you need
-to enable exwm (via =exwm-init=) when creating the Emacs frame.
+to enable exwm (via [[help:exwm-init][exwm-init]]) when creating the Emacs frame.
 
 #+begin_src emacs-lisp
   (use-package exwm
@@ -2304,7 +2304,7 @@ A more flexible mpd client than mingus.
 *** Transmission
 
 An Emacs front-end for the [[http://www.transmissionbt.com/][Transmission]] BitTorrent daemon.  In the [[*EWW][EWW]]
-section, I bind the function =transmission-add-url-at-point= in
+section, I bind the function [[help:transmission-add-url-at-point][transmission-add-url-at-point]] in
 eww-mode.
 
 #+begin_src emacs-lisp
@@ -2375,7 +2375,7 @@ similarly to Notmuch.  To get the list of feeds, I decrypt the file
 A macro to search for a specific tag, and a handful of functions to
 search for my most useful tags.  Note: it's not possible to define a
 macro and use it within a progn, the macro is wrapped in
-=eval-when-compile=.
+[[help:eval-when-compile][eval-when-compile]].
 
 #+name: elfeed-macro
 #+begin_src emacs-lisp :tangle no
@@ -2414,7 +2414,7 @@ the entry at point.
 
 Elpher is a gopher and gemini browser for Emacs.
 
-I add an entry in =browse-url-handlers= so that gopher links are
+I add an entry in [[help:browse-url-handlers][browse-url-handlers]] so that gopher links are
 opened in Elpher (this does not work from eww).  This requires
 creating a new function which can accept the extra arguments.
 
@@ -2443,13 +2443,13 @@ message are loaded, because EBDB provides integration with these
 libraries.  By default, it gets in the way a lot -- opening up buffers
 of contacts whenever you read or write mail.
 
-- Setting =ebdb-mua-pop-up= to nil means that a buffer will only show
+- Setting [[help:ebdb-mua-pop-up][ebdb-mua-pop-up]] to nil means that a buffer will only show
   in gnus when =; ;= is pressed.
-- Setting =ebdb-completion-display-record= to nil stops the buffer
+- Setting [[help:ebdb-completion-display-record][ebdb-completion-display-record]] to nil stops the buffer
   from showing when using address completion while composing mail.
 
 I also prefer to keep my contacts file encrypted, so I set
-=ebdb-sources= accordingly.
+[[help:ebdb-sources][ebdb-sources]] accordingly.
 
 #+begin_src emacs-lisp
   (use-package ebdb
@@ -2545,7 +2545,7 @@ your choice.
 *** Edwina
 
 Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  The function
-=edwina-setup-dwm-keys= binds similar keys to what dwm actually uses.
+[[help:edwina-setup-dwm-keys][edwina-setup-dwm-keys]] binds similar keys to what dwm actually uses.
 
 #+begin_src emacs-lisp
   (use-package edwina
