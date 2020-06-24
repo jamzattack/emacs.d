@@ -806,6 +806,8 @@ delete-char or kill-buffer like a "normal" shell.
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
     <<eshell/e>>
+    <<eshell/ssh>>
+    <<eshell/su>>
     <<eshell/comint>>)
 #+end_src
 
@@ -903,6 +905,41 @@ comint ed ~/.bashrc
                         (user-error "Executable %s not found" (car args)))
                     nil
                     program-args))))
+#+end_src
+
+***** ssh via tramp
+
+A simple ssh wrapper that uses tramp.  ~ssh user@host~ will always be
+run as the current user via local ssh.
+
+#+name: eshell/ssh
+#+begin_src emacs-lisp
+  (defun eshell/ssh (&rest args)
+    "Use tramp to move into an ssh directory.
+
+  Usage: ssh [USER@]HOST [PATH]"
+    (let ((host (car args))
+          (path (or (cadr args) "")))
+      (eshell/cd (format "/ssh:%s:%s" host path))))
+#+end_src
+
+***** su via tramp
+
+A simple sudo wrapper that uses tramp.  Works from remote hosts as
+well.
+
+#+name: eshell/su
+#+begin_src emacs-lisp
+(defun eshell/su (&rest args)
+  (let ((user (or (car args) "root")))
+    (eshell/cd
+     (if (string-prefix-p "/ssh:" default-directory)
+	 (format (replace-regexp-in-string
+		  "/ssh:\\(.*@\\)?:?+\\(.*\\):.*" ;regex
+		  "/ssh:\\1\\2|sudo:%s@\\2:"	  ;replacement
+		  default-directory)		  ;string
+		 user)
+       (format "/sudo:%s@localhost:" user)))))
 #+end_src
 
 ** Saving the state of Emacs
