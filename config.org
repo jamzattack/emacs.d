@@ -1435,7 +1435,7 @@ either fills or unfills the message, and =C-c $= to check spelling.
         (message-fill-yanked-message)))
     :bind
     (:map message-mode-map
-          ("C-c C-q" . fill-message)
+          ("C-c C-q" . fill-message-please)
           ("C-c $" . ispell-message)))
 #+end_src
 
