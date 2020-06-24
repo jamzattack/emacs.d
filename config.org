@@ -1301,8 +1301,6 @@ just using IMAP.
             '(("Topic" "\\[ \\(.*?\\) -- [0-9]+ \\]" 1)
               ("Unread" "[1-9]+.*: \\(.*\\)" 1))))
     (add-hook 'gnus-group-mode-hook 'gnus-group-set-up-imenu-please)
-    (with-eval-after-load "message"
-      (define-key message-mode-map (kbd "C-c $") #'ispell-message))
     :bind
     ("C-z C-n" . gnus-unplugged)
     ("C-z n" . gnus))
@@ -1416,6 +1414,31 @@ I set it up to use the from header to determine how to send mail.
                                "sendmail")
           mail-envelope-from 'header))
 #+end_src
+
+*** Message
+
+The mode for editing messages.  I bind =C-c C-q= to a function that
+either fills or unfills the message, and =C-c $= to check spelling.
+
+#+begin_src emacs-lisp
+  (use-package message
+    :config
+    (defun fill-message-please (&optional unfill)
+      "Fill the whole message.
+
+  With prefix arg UNFILL, unfill the message (i.e. paragraphs will
+  all be on one line)"
+      (interactive "P")
+      (let ((fill-column (if unfill
+                             (point-max)
+                           fill-column)))
+        (message-fill-yanked-message)))
+    :bind
+    (:map message-mode-map
+          ("C-c C-q" . fill-message)
+          ("C-c $" . ispell-message)))
+#+end_src
+
 
 *** MIME
 
