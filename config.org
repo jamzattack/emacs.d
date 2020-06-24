@@ -324,6 +324,7 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
               `((\"project\"
                  ,@my-org-publish-default-options)))")
     (setq
+     org-html-postamble t ; needed to use custom format
      org-html-postamble-format
      (my-org-html-postamble-format
       "Author: %a"
@@ -352,7 +353,7 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         ,@my-org-publish-default-options
         :base-directory "~/jamzattack.xyz/html"
         :publishing-directory "/ssh:jamzattack.xyz:/var/www/html"))))
-      #+end_src
+#+end_src
 
 ***** Generate postamble
 
