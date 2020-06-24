@@ -3,7 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "search-query" "search-query.el" (0 0 0 0))
+;;;### (autoloads nil "search-query" "search-query.el" (24307 9692
+;;;;;;  611482 420000))
 ;;; Generated autoloads from search-query.el
 
 (autoload 'torrentz2-search "search-query" "\
@@ -23,6 +24,13 @@ Search youtube. Called interactively, prompt for a QUERY.
 
 \(fn QUERY)" t nil)
 
+(autoload 'invidio-search "search-query" "\
+Search invidio.us. Called interactively, prompt for a QUERY.
+
+invidio.us is a more eww-friendly frontend for youtube.
+
+\(fn QUERY)" t nil)
+
 (autoload 'wikipedia-search "search-query" "\
 Search wikipedia.  Called interactively, prompt for a QUERY.
 With prefix arg LANGUAGE, prompt for language code.
@@ -35,6 +43,17 @@ for a WORD with the default input being the word at point.  With
 prefix arg LANGUAGE, prompt for language code.
 
 \(fn WORD &optional LANGUAGE)" t nil)
+
+(autoload 'etymology-word "search-query" "\
+Show the etymology of WORD.  Called interactively, prompt for
+WORD with the default input being the word at point.
+
+\(fn WORD)" t nil)
+
+(autoload 'nethack-search "search-query" "\
+Search nethack wiki.  Called interactively, prompt for a QUERY.
+
+\(fn QUERY)" t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "search-query" '("tpb-mirror")))
 

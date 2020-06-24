@@ -106,5 +106,14 @@ WORD with the default input being the word at point."
    (url-encode-url
     (concat "https://www.etymonline.com/word/" word))))
 
+;;;###autoload
+(defun nethack-search (query)
+  "Search nethack wiki.  Called interactively, prompt for a QUERY."
+  (interactive (list (read-string "Nethack: ")))
+  (browse-url
+   (url-encode-url
+    (format "https://nethackwiki.com/wiki/Special:Search?search=%s"
+	    query))))
+
 (provide 'search-query)
 ;;; search-query.el ends here
