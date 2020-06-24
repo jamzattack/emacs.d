@@ -2440,6 +2440,20 @@ creating a new function which can accept the extra arguments.
                    '("^\\(gopher\\|gemini\\)://" . elpher-go-please))))
 #+end_src
 
+**** Elpher org-link support
+
+My own library to provide org-link support for elpher.
+
+Hosted [[https://git.jamzattack.xyz/ol-elpher][here]].
+
+#+begin_src emacs-lisp
+  (use-package ol-elpher
+    :straight
+    (ol-elpher :type git
+               :repo "git://git.jamzattack.xyz/ol-elpher")
+    :after elpher)
+#+end_src
+
 *** EBDB
 
 EBDB is a contact management system for Emacs.  BBDB is used more
