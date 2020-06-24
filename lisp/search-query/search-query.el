@@ -115,5 +115,14 @@ WORD with the default input being the word at point."
     (format "https://nethackwiki.com/wiki/Special:Search?search=%s"
 	    query))))
 
+;;;###autoload
+(defun archwiki-search (query)
+  "Search Arch wiki.  Called interactively, prompt for a QUERY."
+  (interactive (list (read-string "Arch Wiki: ")))
+  (browse-url
+   (url-encode-url
+    (format "https://wiki.archlinux.org/index.php?search=%s"
+	    query))))
+
 (provide 'search-query)
 ;;; search-query.el ends here

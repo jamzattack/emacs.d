@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "search-query" "search-query.el" (24307 9692
-;;;;;;  611482 420000))
+;;;### (autoloads nil "search-query" "search-query.el" (24307 9993
+;;;;;;  986764 149000))
 ;;; Generated autoloads from search-query.el
 
 (autoload 'torrentz2-search "search-query" "\
@@ -52,6 +52,11 @@ WORD with the default input being the word at point.
 
 (autoload 'nethack-search "search-query" "\
 Search nethack wiki.  Called interactively, prompt for a QUERY.
+
+\(fn QUERY)" t nil)
+
+(autoload 'archwiki-search "search-query" "\
+Search Arch wiki.  Called interactively, prompt for a QUERY.
 
 \(fn QUERY)" t nil)
 
