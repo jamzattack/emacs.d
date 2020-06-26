@@ -2714,6 +2714,28 @@ Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
     ("C-z C-d" . plumb))
 #+end_src
 
+*** Narrow-x
+
+My own package providing a few extra [[info:emacs#Narrowing][narrowing]] commands.
+
+Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
+
+#+begin_src emacs-lisp
+  (use-package narrow-x
+    :straight
+    (narrow-x :type git
+              :repo "git@jamzattack.xyz:narrow-x.git")
+    :bind
+    (:map narrow-map
+          ("h" . narrow-to-paragraph)
+          ("M-n" . narrow-to-next-paragraph)
+          ("M-p" . narrow-to-prev-paragraph)
+          ("DEL" . narrow-to-prev-page)
+          ("SPC" . narrow-to-next-page)
+          ("b" . narrow-to-prev-defun)
+          ("f" . narrow-to-next-defun)))
+#+end_src
+
 ** Dired
 
 A couple of packages that enhance dired.
