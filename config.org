@@ -847,15 +847,29 @@ Open an eshell buffer or bury the current one.
   (defun open-or-bury-eshell (&optional arg)
     "Launch or bury an eshell buffer.
 
-  Prefix arg ARG is passed to `eshell'.  If current buffer is an
-  eshell buffer, bury it."
+  If prefix ARG is a number, pass it to `eshell'.  If it is not a
+  number i.e. C-u, you will be prompted for an eshell buffer.  With
+  no argument, this command will either open eshell or bury the
+  buffer if it is in eshell-mode."
     (interactive "P")
-    (cond (arg
-           (eshell arg))
-          ((equal major-mode 'eshell-mode)
-           (bury-buffer))
-          (t
-           (eshell arg))))
+    (let ((buffer
+           (when (and (listp arg)
+                      (not (null arg)))
+             (get-buffer-create
+              (read-buffer
+               "Switch to eshell: " "*eshell*" nil
+               (lambda (buffer)
+                 (eq (buffer-local-value
+                      'major-mode (get-buffer buffer))
+                     'eshell-mode)))))))
+      (cond (buffer
+             (progn
+               (switch-to-buffer buffer)
+               (unless eshell-mode
+                 (eshell-mode))))
+            ((or (not eshell-mode) arg)
+             (eshell arg))
+            (t (bury-buffer)))))
 #+end_src
 
 ***** Delete or quit
