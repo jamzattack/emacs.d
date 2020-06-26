@@ -1,6 +1,6 @@
 #+title: Emacs Configuration
 #+author: Jamie Beardslee
-#+email: beardsleejamie@gmail.com
+#+email: jdb@jamzattack.xyz
 #+property: header-args:emacs-lisp :tangle lisp/config.el :noweb yes :results none
 
 This is my Emacs config file.  It is written in org-mode so that I can
