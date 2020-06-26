@@ -341,7 +341,19 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
                                  "Date: %d (modified %C)")
         :sitemap-filename "index.org"
         :sitemap-title "The Yeet Log"
-        :sitemap-format-entry-format "%t %d"
+        :sitemap-format-entry
+        (lambda (entry style project)
+          (cond ((not (directory-name-p entry))
+                 (format "%s [[file:%s][%s]]"
+                         (format-time-string
+                          "%Y-%m-%d"
+                          (org-publish-find-date entry project))
+                         entry
+                         (org-publish-find-title entry project)))
+                ((eq style 'tree)
+                 ;; Return only last subdir.
+                 (file-name-nondirectory (directory-file-name entry)))
+                (t entry)))
         :sitemap-sort-files anti-chronologically)
        ("music"
         ,@my-org-publish-default-options
