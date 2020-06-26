@@ -746,7 +746,20 @@ this if you use a different version.
     :config
     (setq dired-listing-switches "-lahv --group-directories-first")
     :init
-    (setq delete-by-moving-to-trash t)
+    (setq delete-by-moving-to-trash t))
+#+end_src
+
+**** Dired-x
+
+I load [[info:dired-x#Top][dired-x]] after dired, to enable some useful commands such as
+[[help:dired-mark-extension][dired-mark-extension]] and [[help:dired-mark-sexp][dired-mark-sexp]].
+
+I bind =C-x C-d= to [[help:dired-jump][dired-jump]], instead of the useless [[help:list-directory][list-directory]].
+
+#+begin_src emacs-lisp
+  (use-package dired-x
+    :after dired
+    :demand t
     :bind
     ("C-x C-d" . dired-jump))
 #+end_src
