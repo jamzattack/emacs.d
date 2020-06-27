@@ -852,6 +852,8 @@ Open an eshell buffer or bury the current one.
   no argument, this command will either open eshell or bury the
   buffer if it is in eshell-mode."
     (interactive "P")
+    (unless (boundp 'eshell-mode)
+      (require 'eshell))
     (let ((buffer
            (when (and (listp arg)
                       (not (null arg)))
