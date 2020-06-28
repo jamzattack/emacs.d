@@ -2104,8 +2104,9 @@ Awkward hacky workaround to get LilyPond's links to open properly.
                   (split
                    (split-string path ":"))
                   (file
-                   (apply #'concat
-                          (butlast split 3)))
+                   (url-unhex-string
+                    (apply #'concat
+                           (butlast split 3))))
                   (extras
                    (reverse
                     (cdr split)))
