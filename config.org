@@ -1680,7 +1680,10 @@ Located [[file:lisp/lilypond-mode][here]].
                     ("Page" "^% PAGE \\([A-Z0-9]+\\)" 1)
                     ("Movement" "^% \\([Mm]o?ve?m?e?n?t\\) \\([A-Za-z0-9]+\\)" 2)
                     ("TODO" "^%?.*TODO[: ]?*\\(.*\\)" 1)
-                    ("Variables" "^\\([a-zA-Z]+\\) *=" 1))))
+                    ("Variables" "^\\([a-zA-Z]+\\) *=" 1)))
+      (when (fboundp 'display-fill-column-indicator-mode)
+        (setq fill-column 80)
+        (display-fill-column-indicator-mode)))
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
