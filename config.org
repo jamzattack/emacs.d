@@ -2288,11 +2288,12 @@ Hosted [[https://gitlab.com/jamzattack/lilypond-auto-insert][here]].
                           :host gitlab
                           :flavor melpa
                           :repo "jamzattack/lilypond-auto-insert")
-    :defer t
+    :after lilypond-mode
     :custom
     (lilypond-auto-insert-language "english")
-    :hook
-    (LilyPond-mode . lilypond-auto-insert-on-empty-buffer))
+    :bind
+    (:map LilyPond-mode-map
+          ("C-c a" . lilypond-auto-insert)))
 #+end_src
 
 ** Org
