@@ -1667,25 +1667,47 @@ Located [[file:lisp/lilypond-mode][here]].
     (LilyPond-mode "ly" :major)
     :init
     (defalias 'lilypond-mode 'LilyPond-mode)
-    (defun custom-lilypond-setup ()
-      "Sets the buffer's compile command and comment-column."
-      (hack-local-variables)
-      (unless (or (file-exists-p "Makefile")
-                  (local-variable-p 'compile-command (current-buffer)))
-        (setq-local compile-command
-                    (format "lilypond \"%s\"" buffer-file-name)))
-      (setq-local comment-column 0)
-      (setq-local imenu-generic-expression
-                  '(("Bar" "^% bar \\([0-9]+\\)" 1)
-                    ("Page" "^% PAGE \\([A-Z0-9]+\\)" 1)
-                    ("Movement" "^% \\([Mm]o?ve?m?e?n?t\\) \\([A-Za-z0-9]+\\)" 2)
-                    ("TODO" "^%?.*TODO[: ]?*\\(.*\\)" 1)
-                    ("Variables" "^\\([a-zA-Z]+\\) *=" 1)))
-      (when (fboundp 'display-fill-column-indicator-mode)
-        (setq fill-column 80)
-        (display-fill-column-indicator-mode)))
+    <<custom-lilypond-setup>>
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
+#+end_src
+
+*** Custom lilypond setup
+
+A few miscellaneous things to add to [[help:LilyPond-mode-hook][LilyPond-mode-hook]].
+
+- Loads local variables ([[help:LilyPond-mode][LilyPond-mode]] missed this somehow)
+- Set [[help:compile-command][compile-command]] if there's no Makefile or local variable
+- Sets the [[help:comment-column][comment-column]] to 0
+- Sets up imenu regexps to show:
+  - Bar numbers
+  - Page numbers
+  - Movement numbers
+  - TODOs
+  - Definitions
+- Turns on [[help:display-fill-column-indicator-mode][display-fill-column-indicator-mode]] if it's available
+  (currently on master branch)
+
+#+name: custom-lilypond-setup
+#+begin_src emacs-lisp :tangle no
+  (defun custom-lilypond-setup ()
+    "Sets a bunch of things up for `LilyPond-mode'."
+    (interactive)
+    (hack-local-variables)
+    (unless (or (file-exists-p "Makefile")
+                (local-variable-p 'compile-command (current-buffer)))
+      (setq-local compile-command
+                  (format "lilypond \"%s\"" buffer-file-name)))
+    (setq-local comment-column 0)
+    (setq-local imenu-generic-expression
+                '(("Bar" "^% bar \\([0-9]+\\)" 1)
+                  ("Page" "^% PAGE \\([A-Z0-9]+\\)" 1)
+                  ("Movement" "^% \\([Mm]o?ve?m?e?n?t\\) \\([A-Za-z0-9]+\\)" 2)
+                  ("TODO" "^%?.*TODO[: ]?*\\(.*\\)" 1)
+                  ("Variables" "^\\([a-zA-Z]+\\) *=" 1)))
+    (when (fboundp 'display-fill-column-indicator-mode)
+      (setq fill-column 80)
+      (display-fill-column-indicator-mode)))
 #+end_src
 
 ** Arch Linux settings
