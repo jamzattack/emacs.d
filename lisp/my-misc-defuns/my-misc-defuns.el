@@ -125,7 +125,6 @@ prefix arg, indent the whole buffer."
 
 
 ;;;###autoload
-; TODO create version if it doesn't exist.
 (defun update-elisp-version ()
   "Update a version number in an Elisp file.
 Uses the current date formatted as %Y.%m.%d (e.g. 1970.01.01)"
@@ -138,6 +137,28 @@ Uses the current date formatted as %Y.%m.%d (e.g. 1970.01.01)"
 	(re-search-forward "^;; Version:")
 	(kill-line)
 	(insert new-version)))))
+
+
+;;;###autoload
+(defun audacity (&rest args)
+  "Start up audacity, the audio editor.
+
+This runs in a modified environment, with all environment
+variables related to input method removed.  This is because
+audacity is buggy with these variables."
+  (interactive)
+  (let ((process-environment
+         (cl-remove-if
+          (lambda (string)
+            (string-match-p "\\(IM_MODULE\\|XMODIFIERS\\)" string))
+          process-environment)))
+    (make-process
+     :name "audacity"
+     :buffer " audacity"
+     :command `("audacity" ,@args))))
+
+;;;###autoload
+(fset 'eshell/audacity #'audacity)
 
 (provide 'my-misc-defuns)
 ;;; my-misc-defuns.el ends here
