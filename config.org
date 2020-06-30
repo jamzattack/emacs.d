@@ -887,8 +887,7 @@ char.
     (interactive "p")
     (if (=
          (save-excursion
-           (eshell-bol)
-           (point))
+           (eshell-bol))
          (point)
          (point-max))
         (kill-buffer (current-buffer))
@@ -905,12 +904,13 @@ running, keep the output of that command on screen.
   (defun eshell/clear-please ()
     "Similar to `eshell/clear', but keeps the current input."
     (interactive)
-    (save-excursion
-      (if (equal eshell-command-running-string "**")
-          (eshell-next-prompt -1)
-        (eshell-bol))
-      (end-of-line 0)
-      (insert (make-string (window-height) ?\n))))
+    (when eshell-mode
+      (save-excursion
+        (if (equal eshell-command-running-string "**")
+            (eshell-next-prompt -1)
+          (eshell-bol))
+        (end-of-line 0)
+        (insert (make-string (window-height) ?\n)))))
 #+end_src
 
 ***** Edit a file
