@@ -626,7 +626,9 @@ browser, and change the width to 80 columns.
             shr-use-colors nil
             shr-use-fonts nil))
     <<browse-url-externally-please>>
+    :config
     <<eww-edit-current-url>>
+    <<eww-set-width>>
     :bind
     (:map eww-mode-map
           ("M-n" . forward-paragraph)
@@ -636,7 +638,8 @@ browser, and change the width to 80 columns.
           ("D" . plumb-download-video)
           ("A" . plumb-audio)
           ("m" . transmission-add-url-at-point)
-          ("V" . variable-pitch-mode)))
+          ("V" . variable-pitch-mode)
+          ("C-x f" . eww-set-width)))
 #+end_src
 
 **** External browser
@@ -670,6 +673,27 @@ edited URL in a new buffer.  Bound to =e= in eww-mode.
                           "URL (new buffer): ")
                         (eww-current-url))))
       (eww url arg)))
+#+end_src
+
+**** Set eww width
+
+This command sets [[help:shr-width][shr-width]] to a value read from the minibuffer.  Very
+useful in eww, and a fitting replacement for [[help:set-fill-column][set-fill-column]].
+
+#+name: eww-set-width
+#+begin_src emacs-lisp :tangle no
+  (defun eww-set-width (width)
+    "Set the html rendering width to WIDTH.
+
+  If prefix arg is a number, use it.  Otherwise, read number from
+  the minibuffer."
+    (interactive (list
+                  (if (numberp current-prefix-arg)
+                      current-prefix-arg
+                    (read-number "Set width: "
+                                 (- (window-width) 5)))))
+    (setq shr-width width)
+    (eww-reload t))
 #+end_src
 
 *** ERC
