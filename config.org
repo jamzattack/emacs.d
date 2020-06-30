@@ -6,15 +6,15 @@
 This is my Emacs config file.  It is written in org-mode so that I can
 brag about how dope org-mode is.  [[file:README.org][This file]] contains my main
 configuration, which is tangled to [[file:lisp/config.el][config.el]].  [[file:init.el][init.el]] sets the
-variable =custom-file= to [[file:lisp/custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
+variable [[help:custom-file][custom-file]] to [[file:lisp/custom.el][custom.el]], loads [[file:lisp/config.el][config.el]], and then loads
 [[file:lisp/custom.el][custom.el]].
 
 Note: [[file:lisp/custom.el][custom.el]] should not be edited manually, as it is used by Emacs
 for settings changed using the customisation interface.
 
-My own packages and other things that I need to =require= are housed
-in [[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so the first
-startup will take some time.
+My own packages and other things that I need to [[help:require][require]] are housed in
+[[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so the first startup
+will take some time.
 
 * Startup
 
@@ -102,7 +102,7 @@ key.
   (global-unset-key (kbd "C-z"))
 #+end_src
 
-**** Alias <menu> to C-x
+**** Alias =<menu>= to =C-x=
 
 Make the menu key do the same as =C-x=.
 
@@ -112,8 +112,8 @@ Make the menu key do the same as =C-x=.
 
 *** Reloading config file
 
-Reload [[file:lisp/config.el][config file]].  This is done with [[help:bind-key][bind-key]] so that it is
-recorded in the variable [[help:personal-keybindings][personal-keybindings]].
+Reload [[file:lisp/config.el][config file]].  This is done with [[help:bind-key][bind-key]] so that it is recorded
+in the variable [[help:personal-keybindings][personal-keybindings]].
 
 #+begin_src emacs-lisp
   (bind-key "C-c r" 'config-load)
@@ -126,8 +126,8 @@ This is the section for built-in packages.
 ** package.el
 
 It's useful to keep =package.el= updated for the functions
-[[help:describe-package][describe-package]] and [[help:list-packages][list-packages]].  All my packages are now
-installed using [[*Straight][straight]], so disable the function [[help:package-install][package-install]].
+[[help:describe-package][describe-package]] and [[help:list-packages][list-packages]].  All my packages are now installed
+using [[*Straight][straight]], so disable the function [[help:package-install][package-install]].
 
 #+begin_src emacs-lisp
   (use-package package
@@ -146,9 +146,9 @@ Major modes for text editing.  For non-editing major modes, see
 
 *** Org Mode
 
-Open source blocks and stuff in the current window.  Use tab from the
-language's major mode inside source blocks.  Open everything in Emacs,
-and use eww for html instead of mhtml-mode.
+Open source blocks and stuff in the current window.  Use =TAB= from
+the language's major mode inside source blocks.  Open everything in
+Emacs, and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
 
 #+begin_src emacs-lisp
   (use-package org
@@ -171,8 +171,8 @@ and use eww for html instead of mhtml-mode.
 
 **** Org Capture
 
-Take notes in org-mode with specific templates and write them to a
-file.  Similar to remember.
+Take notes in [[help:org-mode][org-mode]] with specific templates and write them to a
+file.  Similar to [[help:remember][remember]].
 
 #+begin_src emacs-lisp
   (use-package org-capture
@@ -273,7 +273,7 @@ functions.
 
 **** Org links
 
-The library org-mode uses to create and store links.  I bind =C-x M-l=
+The library [[help:org-mode][org-mode]] uses to create and store links.  I bind =C-x M-l=
 to generate a link from the current position.
 
 #+begin_src emacs-lisp
@@ -284,8 +284,8 @@ to generate a link from the current position.
 
 **** Org agenda
 
-Use all files in [[help:org-directory][org-directory]] to get my agenda.  And don't disrupt
-my window configuration.
+Use all files in [[help:org-directory][org-directory]] to get my agenda.  And don't disrupt my
+window configuration.
 
 #+begin_src emacs-lisp
   (use-package org-agenda
@@ -396,7 +396,7 @@ This would involve:
 
 Reasons for doing so:
 1. Ability to org file via [[https://git.jamzattack.xyz][stagit]].
-2. %e is a link, meaning I can't do ~<a href="mailto:%e">%a</>~
+2. ~%e~ is a link, meaning I can't do ~<a href="mailto:%e">%a</>~
 3. Use git for timestamps
 
 See [[https://gitlab.com/ambrevar/ambrevar.gitlab.io/-/raw/master/publish.el][Ambrevar's publish script (L82)]] for inspiration.
@@ -580,7 +580,7 @@ Instead of "Fill", show "^M" (carriage return) in the mode-line.
 
 *** Isearch
 
-Instead of "ISearch", show "^S" =(kbd "C-s")= in the mode-line.
+Instead of "ISearch", show =^S= (=C-s=) in the mode-line.
 
 #+begin_src emacs-lisp
   (use-package isearch
@@ -2284,15 +2284,14 @@ This is my package to make Elisp evaluation and documentation lookup a
 bit more like Slime.  It's often not necessary, but sometimes I find
 myself using =C-c C-d C-f= to describe an Elisp function, etc.
 
-Hosted [[https://gitlab.com/jamzattack/selime][here]].
+Hosted [[https://git.jamzattack.xyz/selime][here]].
 
 #+begin_src emacs-lisp
   (use-package selime
     :straight
     (selime :type git
             :flavor melpa
-            :host gitlab
-            :repo "jamzattack/selime")
+            :repo "git@jamzattack.xyz:selime.git")
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
@@ -2301,15 +2300,14 @@ Hosted [[https://gitlab.com/jamzattack/selime][here]].
 My own package to handle auto-insertions for LilyPond-mode.  I add it
 to [[help:LilyPond-mode-hook][LilyPond-mode-hook]].
 
-Hosted [[https://gitlab.com/jamzattack/lilypond-auto-insert][here]].
+Hosted [[https://git.jamzattack.xyz/lilypond-auto-insert][here]].
 
 #+begin_src emacs-lisp
   (use-package lilypond-auto-insert
     :straight
     (lilypond-auto-insert :type git
-                          :host gitlab
                           :flavor melpa
-                          :repo "jamzattack/lilypond-auto-insert")
+                          :repo "git@jamzattack.xyz:lilypond-auto-insert.git")
     :after lilypond-mode
     :custom
     (lilypond-auto-insert-language "english")
@@ -2603,7 +2601,7 @@ Hosted [[https://git.jamzattack.xyz/ol-elpher][here]].
   (use-package ol-elpher
     :straight
     (ol-elpher :type git
-               :repo "git://git.jamzattack.xyz/ol-elpher")
+               :repo "git@jamzattack.xyz:ol-elpher.git")
     :after elpher)
 #+end_src
 
@@ -2744,15 +2742,14 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
 A way to open URLs the way I want.  I bind it to =C-z d=.  Some
 commands from this package are bound in the [[*EWW][EWW]] and [[*Elfeed][Elfeed]].
 
-Hosted [[https://gitlab.com/jamzattack/plumb.el][here]].
+Hosted [[https://git.jamzattack.xyz/plumb][here]].
 
 #+begin_src emacs-lisp
   (use-package plumb
     :straight
     (plumb :type git
            :flavor melpa
-           :host gitlab
-           :repo "jamzattack/plumb.el")
+           :repo "git@jamzattack.xyz:plumb.git")
     :bind
     ("C-z d" . plumb)
     ("C-z C-d" . plumb))
