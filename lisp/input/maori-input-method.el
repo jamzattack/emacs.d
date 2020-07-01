@@ -1,8 +1,8 @@
 ;;; maori-input-method.el --- Māori input method for Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  
+;; Copyright (C) 2020 Jamie Beardslee
 
-;; Author:  <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: i18n
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,17 @@
 
 ;;; Commentary:
 
-;; 
+;; This library defines two simple input methods: `maori-prefix' and
+;; `maori-postfix'.  They provide a way to insert Māori macrons atop
+;; vowels by either using a hyphen or doubling the vowel.  To get a
+;; literal hyphen or vowel, double it.
+;;
+;; For example, using `maori-postfix':
+;; a   -> a
+;; aa  -> ā
+;; a-  -> ā
+;; aaa -> aa
+;; a-- -> a-
 
 ;;; Code:
 
