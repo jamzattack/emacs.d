@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2020  Jamie Beardslee
 
-;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: convenience, helm, completion
 
 ;; This file is not part of GNU Emacs.

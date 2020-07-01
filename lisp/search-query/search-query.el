@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2020  Jamie Beardslee
 
-;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -85,7 +85,7 @@ With prefix arg LANGUAGE, prompt for language code."
   "Search wiktionary for a word.  Called interactively, prompt
 for a WORD with the default input being the word at point.  With
 prefix arg LANGUAGE, prompt for language code."
-  (interactive (list (read-string "Wiktionary: " 
+  (interactive (list (read-string "Wiktionary: "
 				  (thing-at-point 'word t))
 		     (when current-prefix-arg
 		       (read-string "Language: "))))

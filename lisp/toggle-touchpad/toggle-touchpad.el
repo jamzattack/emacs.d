@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2019 Jamie Beardslee
 
-;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Version: 2020.06.07
 
 ;; This program is free software; you can redistribute it and/or modify

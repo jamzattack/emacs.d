@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2020  Jamie Beardslee
 
-;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
-;; Keywords: 
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
+;; Keywords: net
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@
 ;;
 ;; (use-package reddit-browse
 ;;   :custom (reddit-subreddit-list '("emacs" "lisp" "lispmemes"
-;; 				   "vxjunkies" "linux" "nethack"
-;; 				   "cello" "throwers"))
+;; 				      "vxjunkies" "linux" "nethack"
+;; 				      "cello" "throwers"))
 ;;   :bind ("C-z r" . reddit-goto-subreddit))
 
 ;;; Code:

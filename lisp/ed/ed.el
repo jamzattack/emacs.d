@@ -1,7 +1,7 @@
 ;;; ed.el --- a decent editor within GNU Emacs
 ;; Copyright (C) 2018 Jamie Beardslee
 
-;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: convenience
 
 ;; This program is free software; you can redistribute it and/or modify

@@ -1,8 +1,8 @@
 ;;; library-genesis.el --- Search a Library Genesis mirror  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  
+;; Copyright (C) 2020  Jamie Beardslee
 
-;; Author: Jamie Beardslee <beardsleejamie@gmail.com>
+;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
 ;; Keywords: multimedia, hypertext, hypermedia
 
 ;; This program is free software; you can redistribute it and/or modify
