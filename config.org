@@ -2389,7 +2389,10 @@ to enable exwm (via [[help:exwm-init][exwm-init]]) when creating the Emacs frame
 
 #+begin_src emacs-lisp
   (use-package exwm
-    :straight t
+    :straight
+    (exwm :type git
+          :host github
+          :repo "ch11ng/exwm")
     :defer t)
 #+end_src
 
