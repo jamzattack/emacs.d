@@ -399,12 +399,12 @@ A little function to generate postamble.
 ****** TODO change [[my-org-html-postamble-format][this]] to a function
 
 This would involve:
-1. Defining a [[help:org-html-format-spec][format spec]].
-2. Replacing [[help:org-html-postamble][org-html-postamble]] with a function that uses the above.
+1. Defining a [[help:org-html-format-spec][format spec]]
+2. Replacing [[help:org-html-postamble][org-html-postamble]] with a function that uses the above
 3. Probably moving to its own file ([[file:lisp/publish.el][publish.el]] is free real estate)
 
 Reasons for doing so:
-1. Ability to org file via [[https://git.jamzattack.xyz][stagit]].
+1. Ability to link to raw file via [[https://git.jamzattack.xyz][stagit]]
 2. ~%e~ is a link, meaning I can't do ~<a href="mailto:%e">%a</>~
 3. Use git for timestamps
 
