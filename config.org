@@ -2053,34 +2053,44 @@ library).
 A function that opens up a new buffer with the source shown in the
 current =helpful= buffer.
 
-I still want to make this work with C source code, but that's not
-nearly as useful anyway.
+This now works with both Elisp and C source code.
 
 #+name: helpful-edit-source-temporarily
 #+begin_src emacs-lisp :tangle no
   (defun helpful-edit-source-temporarily ()
-    "Edit the source of a function, variable, or macro in its own
-  buffer.  You need to already be in a helpful buffer."
+    "Edit the source shown in the current helpful buffer.
+
+  This pops open a buffer with only the symbol's source, rather
+  than taking you to its file.
+
+  Works with both elisp and C source code."
     (interactive)
+    (unless (derived-mode-p 'helpful-mode)
+      (user-error "Not in a helpful buffer"))
     (save-excursion
-      (let* ((name
-              (format "*%s <helpful edit>"
-                      helpful--sym))
-             (buffer (get-buffer-create name))
+      (let* ((buffer
+              (get-buffer-create
+               (format "*%s (source)*"
+                       helpful--sym)))
              (min (progn
                     (goto-char (point-min))
-                    (re-search-forward "^Source Code$")
+                    (or (re-search-forward "^Source Code$" nil t)
+                        (error "No source available"))
                     (forward-line 1)
                     (point)))
              (max (progn
                     (goto-char min)
                     (end-of-defun)
-                    (point))))
+                    (point)))
+             (primitive-p
+              (helpful--primitive-p helpful--sym helpful--callable-p)))
         (copy-to-buffer buffer
                         min
                         max)
         (pop-to-buffer buffer)
-        (emacs-lisp-mode))))
+        (if primitive-p
+            (c-mode)
+          (emacs-lisp-mode)))))
 #+end_src
 
 *** Save symbol to kill ring
