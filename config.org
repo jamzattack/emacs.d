@@ -643,12 +643,18 @@ browser, and change the width to 80 columns.
           ("M-n" . forward-paragraph)
           ("M-p" . backward-paragraph)
           ("e" . eww-edit-current-url)
+          ("V" . variable-pitch-mode)
+          ("C-x f" . eww-set-width)
+          ;; plumb
           ("f" . plumb-stream)
           ("D" . plumb-download-video)
           ("A" . plumb-audio)
+          ;; transmission
           ("m" . transmission-add-url-at-point)
-          ("V" . variable-pitch-mode)
-          ("C-x f" . eww-set-width)))
+          ;; helm-eww
+          ("B" . helm-eww-bookmarks)
+          ("H" . helm-eww-history)
+          ("S" . helm-eww-buffers)))
 #+end_src
 
 **** External browser
@@ -1985,17 +1991,13 @@ packages.
 *** Helm eww
 
 Some Helm functions for eww.  I replace all the default functions with
-the Helm alternatives.
+the Helm alternatives [[*EWW][here]].
 
 #+begin_src emacs-lisp
   (use-package helm-eww
     :straight t
     :bind
-    ("C-x r e" . helm-eww-bookmarks)
-    (:map eww-mode-map
-          ("B" . helm-eww-bookmarks)
-          ("H" . helm-eww-history)
-          ("S" . helm-eww-buffers)))
+    ("C-x r e" . helm-eww-bookmarks))
 #+end_src
 
 *** Helm org
