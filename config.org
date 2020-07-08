@@ -1137,12 +1137,39 @@ time.
 
 **** Battery
 
-Show battery information with =C-z b=.
+Show battery information with =C-z b=.  Configuration for showing
+battery status in the mode-line is in a separate [[*Battery info in mode-line][heading]].
 
 #+begin_src emacs-lisp
   (use-package battery
+    :config
+    <<battery-mode-line>>
     :bind
     ("C-z b" . battery))
+#+end_src
+
+***** Battery info in mode-line
+
+Every time [[help:battery][battery]] is called (with =C-z b=), check if
+[[help:display-battery-mode][display-battery-mode]] should be turned on or off.
+
+I also adjust [[help:battery-mode-line-format][battery-mode-line-format]] to add an extra space between
+the battery and time.  By default, these push up against each other
+which I do not like.
+
+#+name: battery-mode-line
+#+begin_src emacs-lisp :tangle no
+  (setq battery-mode-line-format " [%b%p%%]")
+
+  (defun set-display-battery-mode-accordingly ()
+    "Enable `display-battery-mode' if battery is being used.
+  If connected to power, or no battery is detected, disable it."
+    (if (and battery-status-function
+             (rassoc "discharging" (funcall battery-status-function)))
+        (display-battery-mode t)
+      (display-battery-mode 0)))
+
+  (advice-add 'battery :after #'set-display-battery-mode-accordingly)
 #+end_src
 
 **** Show the column
