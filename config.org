@@ -654,7 +654,7 @@ browser, and change the width to 80 columns.
           ;; helm-eww
           ("B" . helm-eww-bookmarks)
           ("H" . helm-eww-history)
-          ("S" . helm-eww-buffers)))
+          ("s" . helm-eww-buffers)))
 #+end_src
 
 **** External browser
