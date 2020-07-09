@@ -901,7 +901,7 @@ Open an eshell buffer or bury the current one.
   (defun open-or-bury-eshell (&optional arg)
     "Launch or bury an eshell buffer.
 
-  If prefix ARG is (16) i.e. C-u C-u, call `switch-to-eshell'.  If If
+  If prefix ARG is (16) i.e. C-u C-u, call `switch-to-eshell'.  If
   the current buffer is an eshell, bury it."
     (interactive "P")
     (cond ((equal arg '(16))
