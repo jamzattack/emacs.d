@@ -95,6 +95,8 @@ output."
    `([XF86AudioMute]
      [XF86AudioLowerVolume]
      [XF86AudioRaiseVolume]
+     [XF86TouchpadToggle]
+     [XF86Launch1]
      [XF86Back]
      [XF86Forward]
      [?\M-!]
@@ -114,10 +116,15 @@ output."
      ;; (there must be a better way to do this)
      ,@(mapcar (lambda (k)
 		 (kbd (format "s-%s" k)))
-	       `(,@(number-sequence 0 9)
+	       `(,@(number-sequence 0 9) "`"
 		 "'" "," "." "p" "y" "f" "g" "c" "r" "l" "/" "=" "\\"
 		 "a" "o" "e" "u" "i" "d" "h" "t" "n" "s" "-" "RET" "SPC"
-		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "DEL")))))
+		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "DEL"
+
+		 "!" "@" "#" "$" "%" "^" "&" "*" "(" ")" "~"
+		 "\"" "<" ">" "P" "Y" "F" "G" "C" "R" "L" "?" "+" "|"
+		 "A" "O" "E" "U" "I" "D" "H" "T" "N" "S" "_" "S-RET" "S-SPC"
+		 ":" "Q" "J" "K" "X" "B" "M" "W" "V" "Z" "{" "}" "S-DEL")))))
 
 ;; Global keybindings.
 
