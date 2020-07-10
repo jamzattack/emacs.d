@@ -45,11 +45,3 @@ then load config.el."
 ;; Revert GC settings
 (setq gc-cons-threshold 800000
       gc-cons-percentage 0.1)
-
-;;; temporary
-
-(use-package keyfreq
-  :straight t
-  :config
-  (keyfreq-mode)
-  (keyfreq-autosave-mode))
