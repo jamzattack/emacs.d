@@ -865,12 +865,14 @@ delete-char or kill-buffer like a "normal" shell.
     (:map eshell-mode-map
           ("C-d" . eshell-delete-or-quit)
           ([remap eshell-display-modifier-help] . eshell-mark-output)
-          ("C-c M-o" . eshell/clear-please))
+          ("C-c M-o" . eshell/clear-please)
+          ("C-c r" . eshell/r))
     :config
     (require 'esh-mode)
     <<eshell-delete-or-quit>>
     <<eshell/clear-please>>
     <<eshell/e>>
+    <<eshell/r>>
     <<eshell/ssh>>
     <<eshell/su>>
     <<eshell/comint>>)
@@ -1019,6 +1021,52 @@ well.
                     default-directory)		  ;string
                    user)
          (format "/sudo:%s@localhost:" user)))))
+#+end_src
+
+***** rename eshell buffer
+
+Rename the current eshell.  Bound to =C-c r=, but can also be used
+from eshell with or without an argument.
+#+begin_example
+  r "my buffer's new name"
+#+end_example
+
+With an argument, the buffer will be renamed that argument.  This is
+achieved interactively with a prefix argument.
+
+Otherwise, it will be named according to:
+- The current process
+- TRAMP user@host
+- The current working directory
+
+#+name: eshell/r
+#+begin_src emacs-lisp :tangle no
+  (defun eshell/r (&optional name &rest _ignored)
+    "Rename the current buffer.
+
+  This will use (in order) one of:
+  - the first argument
+  - the current process
+  - the TRAMP user@host
+  - the current working directory
+
+  If a buffer of the chosen name already exists, rename it
+  uniquely."
+    (interactive (list (when current-prefix-arg
+                         (read-string "New name: "))))
+    (let ((name
+           (concat "*eshell* "
+                   (or name
+                       (let ((proc (eshell-interactive-process)))
+                         (when proc
+                           (process-name proc)))
+                       (let ((dir (eshell/pwd)))
+                         (if (string-match-p tramp-file-name-regexp dir)
+                             (replace-regexp-in-string
+                              ".*:\\(.*\\):.*" "\\1" dir)
+                           (replace-regexp-in-string
+                            abbreviated-home-dir "~/" dir)))))))
+      (rename-buffer name (get-buffer name))))
 #+end_src
 
 ** Saving the state of Emacs
