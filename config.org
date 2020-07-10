@@ -1728,6 +1728,9 @@ Located [[file:lisp/lilypond-mode][here]].
 #+begin_src emacs-lisp
   (use-package lilypond-mode
     :load-path "lisp/lilypond-mode"
+    :straight
+    (lilypond-mode :type git
+                   :repo "git@jamzattack.xyz:lilypond-mode.git")
     :delight
     (LilyPond-mode "ly" :major)
     :init
