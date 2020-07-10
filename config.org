@@ -112,11 +112,11 @@ Make the menu key do the same as =C-x=.
 
 *** Reloading config file
 
-Reload [[file:lisp/config.el][config file]].  This is done with [[help:bind-key][bind-key]] so that it is recorded
-in the variable [[help:personal-keybindings][personal-keybindings]].
+Reload [[file:lisp/config.el][config file]] with =C-z C-r=.  This is done with [[help:bind-key][bind-key]] so that
+it is recorded in the variable [[help:personal-keybindings][personal-keybindings]].
 
 #+begin_src emacs-lisp
-  (bind-key "C-c r" 'config-load)
+  (bind-key "C-z C-r" 'config-load)
 #+end_src
 
 * Built-in packages
