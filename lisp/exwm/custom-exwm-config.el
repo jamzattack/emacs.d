@@ -181,7 +181,10 @@ output."
 (defun custom-exwm-input-terminal-keys ()
   "Disable simulation keys for my terminals."
   (when (string-match "\\(st-.*\\|XTerm\\)" exwm-class-name)
-    (exwm-input-set-local-simulation-keys nil)))
+    (exwm-input-set-local-simulation-keys
+     (list (cons (kbd "C-c C-c") (kbd "C-c"))
+	   (cons (kbd "C-c C-k") (kbd "C-c"))
+	   (cons (kbd "C-c C-z") (kbd "C-z"))))))
 
 
 
