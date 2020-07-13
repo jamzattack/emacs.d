@@ -1023,7 +1023,7 @@ well.
          (format "/sudo:%s@localhost:" user)))))
 #+end_src
 
-***** rename eshell buffer
+***** Rename eshell buffer
 
 Rename the current eshell.  Bound to =C-c r=, but can also be used
 from eshell with or without an argument.
@@ -1044,29 +1044,43 @@ Otherwise, it will be named according to:
   (defun eshell/r (&optional name &rest _ignored)
     "Rename the current buffer.
 
-  This will use (in order) one of:
-  - the first argument
+  This will be (in order):
+  - [eshell] the first argument
+  - [interactive] numeric prefix arg
+  - [interactive] read from minibuffer with non-numeric prefix arg
   - the current process
   - the TRAMP user@host
   - the current working directory
 
   If a buffer of the chosen name already exists, rename it
   uniquely."
-    (interactive (list (when current-prefix-arg
-                         (read-string "New name: "))))
-    (let ((name
-           (concat "*eshell* "
-                   (or name
-                       (let ((proc (eshell-interactive-process)))
-                         (when proc
-                           (process-name proc)))
-                       (let ((dir (eshell/pwd)))
-                         (if (string-match-p tramp-file-name-regexp dir)
-                             (replace-regexp-in-string
-                              ".*:\\(.*\\):.*" "\\1" dir)
+    (interactive (list (let ((arg current-prefix-arg))
+                         (cond
+                          ((numberp arg)
+                           arg)
+                          (arg
+                           (read-string "New name: "))))))
+    (setq name
+          (if (numberp name)
+              ;; If NAME is a number (either from eshell or via prefix
+              ;; arg), format it like eshell does.
+              (format "<%d>" name)
+            ;; Otherwise, add an extra space before.
+            (format " %s"
+                    (or
+                     name
+                     (let ((proc (eshell-interactive-process)))
+                       (when proc
+                         (process-name proc)))
+                     (let ((dir (eshell/pwd)))
+                       (if (string-match-p tramp-file-name-regexp dir)
                            (replace-regexp-in-string
-                            abbreviated-home-dir "~/" dir)))))))
-      (rename-buffer name (get-buffer name))))
+                            ".*:\\(.*\\):.*" "\\1" dir)
+                         (replace-regexp-in-string
+                          abbreviated-home-dir "~/" dir)))))))
+    (let ((buffer
+           (concat eshell-buffer-name name)))
+      (rename-buffer buffer (get-buffer buffer))))
 #+end_src
 
 ** Saving the state of Emacs
