@@ -1964,6 +1964,8 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
        ("mkv" . "mpv")
        ("avi" . "mpv")
        ("webm" . "mpv")))
+    (helm-ff-cache-mode-lighter-sleep "")
+    (helm-ff-cache-mode-lighter-updating "")
     :init
     <<kill-this-buffer-please>>
     :config
