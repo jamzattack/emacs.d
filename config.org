@@ -1211,7 +1211,8 @@ battery status in the mode-line is in a separate [[*Battery info in mode-line][h
     :config
     <<battery-mode-line>>
     :bind
-    ("C-z b" . battery))
+    ("C-z b" . battery)
+    ("<XF86Battery>" . battery))
 #+end_src
 
 ***** Battery info in mode-line
