@@ -1317,11 +1317,15 @@ For purely pedantic reasons, I also bind =C-x _= to [[help:shrink-window][shrink
 Why does [[help:shrink-window-horizontally][shrink-window-horizontally]] have a keybinding by default but
 [[help:shrink-window][shrink-window]] doesn't?
 
+A further useful keybinding is for [[help:quit-window][quit-window]], which sometimes isn't
+bound even when it should be.  I bind it to =s-DEL=.
+
 #+begin_src emacs-lisp
   (use-package window
     :bind
     ("C-z C-z" . bury-buffer)
-    ("C-x _" . shrink-window))
+    ("C-x _" . shrink-window)
+    ("<s-backspace>" . quit-window))
 #+end_src
 
 *** Windmove
