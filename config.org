@@ -169,9 +169,14 @@ Emacs, and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mo
 
   Interactively, this prompts from all symbols in `obarray'."
       (interactive (list
-                    (completing-read "Help link: " obarray)))
-      (insert (format "[[help:%s][%s]]" symbol symbol)))
-    :bind
+                    (completing-read
+                     "Help link: "
+                     obarray
+                     (lambda (sym)
+                       (or (boundp sym)
+                           (fboundp sym))))))
+      (insert (format "[[help:%s][%s]]" symbol bind)))
+    :symbol
     (:map org-mode-map
           ("M-h" . mark-paragraph)
           ("C-M-h" . org-mark-element)
