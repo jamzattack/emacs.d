@@ -28,14 +28,23 @@
 (require 'url-util)
 (require 'browse-url)
 
+(defun search-query-eww (url &optional buffer-name)
+  "Open URL in an eww buffer named BUFFER-NAME."
+  (if buffer-name
+      (with-current-buffer (get-buffer-create buffer-name)
+	(eww-setup-buffer)
+	(eww url))
+    (eww url current-prefix-arg)))
+
 ;;;###autoload
 (defun torrentz2-search (query)
   "Search torrentz2.eu. Called interactively, prompt for a
 QUERY."
   (interactive (list (read-string "Torrent: ")))
-  (browse-url
+  (search-query-eww
    (url-encode-url
-    (format "https://torrentz2.eu/search?f=%s" query))))
+    (format "https://torrentz2.eu/search?f=%s" query))
+   "*eww torrentz2*"))
 
 (defvar tpb-mirror "thepiratebay.org" "The Pirate Bay URL")
 
@@ -44,17 +53,19 @@ QUERY."
   "Search The Pirate Bay for QUERY.  Uses `tpb-mirror' as the
 host."
   (interactive (list (read-string "Torrent: ")))
-  (browse-url
+  (search-query-eww
    (url-encode-url
-    (format "https://%s/search/%s/0/99/0" tpb-mirror query))))
+    (format "https://%s/search/%s/0/99/0" tpb-mirror query))
+   "*eww piratebay*"))
 
 ;;;###autoload
 (defun youtube-search (query)
   "Search youtube. Called interactively, prompt for a QUERY."
   (interactive (list (read-string "Youtube: ")))
-  (browse-url
+  (search-query-eww
    (url-encode-url
-    (format "https://youtube.com/search?q=%s&disable_polymer=1" query))))
+    (format "https://youtube.com/search?q=%s&disable_polymer=1" query))
+   "*eww youtube*"))
 
 ;;;###autoload
 (defun invidio-search (query)
@@ -62,9 +73,10 @@ host."
 
 invidio.us is a more eww-friendly frontend for youtube."
   (interactive (list (read-string "Youtube: ")))
-  (browse-url
+  (search-query-eww
    (url-encode-url
-    (format "https://invidio.us/search?q=%s" query))))
+    (format "https://invidio.us/search?q=%s" query))
+   "*eww invidio*"))
 
 ;;;###autoload
 (defun wikipedia-search (query &optional language)
@@ -73,12 +85,13 @@ With prefix arg LANGUAGE, prompt for language code."
   (interactive (list (read-string "Wikipedia: ")
 		     (when current-prefix-arg
 		       (read-string "Language: "))))
-  (browse-url
+  (search-query-eww
    (url-encode-url
     (format "https://%s.wikipedia.org/wiki/Special:Search?search=%s"
 	    (or language
 		"en")
-	    query))))
+	    query))
+   "*eww wikipedia*"))
 
 ;;;###autoload
 (defun wiktionary-word (word &optional language)
@@ -89,12 +102,13 @@ prefix arg LANGUAGE, prompt for language code."
 				  (thing-at-point 'word t))
 		     (when current-prefix-arg
 		       (read-string "Language: "))))
-  (browse-url
+  (search-query-eww
    (url-encode-url
     (format "https://%s.wiktionary.org/wiki/%s"
 	    (or language
 		"en")
-	    word))))
+	    word))
+   "*eww wiktionary*"))
 
 ;;;###autoload
 (defun etymology-word (word)
@@ -102,27 +116,30 @@ prefix arg LANGUAGE, prompt for language code."
 WORD with the default input being the word at point."
   (interactive (list (read-string "Etymology: "
 				  (thing-at-point 'word t))))
-  (browse-url
+  (search-query-eww
    (url-encode-url
-    (concat "https://www.etymonline.com/word/" word))))
+    (concat "https://www.etymonline.com/word/" word))
+   "*eww etymology*"))
 
 ;;;###autoload
 (defun nethack-search (query)
   "Search nethack wiki.  Called interactively, prompt for a QUERY."
   (interactive (list (read-string "Nethack: ")))
-  (browse-url
+  (search-query-eww
    (url-encode-url
     (format "https://nethackwiki.com/wiki/Special:Search?search=%s"
-	    query))))
+	    query))
+   "*eww nethack*"))
 
 ;;;###autoload
 (defun archwiki-search (query)
   "Search Arch wiki.  Called interactively, prompt for a QUERY."
   (interactive (list (read-string "Arch Wiki: ")))
-  (browse-url
+  (search-query-eww
    (url-encode-url
     (format "https://wiki.archlinux.org/index.php?search=%s"
-	    query))))
+	    query))
+   "*eww archwiki*"))
 
 (provide 'search-query)
 ;;; search-query.el ends here
