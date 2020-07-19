@@ -175,7 +175,7 @@ Emacs, and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mo
                      (lambda (sym)
                        (or (boundp sym)
                            (fboundp sym))))))
-      (insert (format "[[help:%s][%s]]" symbol bind)))
+      (insert (format "[[help:%s][%s]]" symbol)))
     :bind
     (:map org-mode-map
           ("M-h" . mark-paragraph)
