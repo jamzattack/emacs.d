@@ -932,7 +932,8 @@ char.
     (interactive "p")
     (if (=
          (save-excursion
-           (eshell-bol))
+           (or (eshell-bol)
+               -1))
          (point)
          (point-max))
         (kill-buffer (current-buffer))
