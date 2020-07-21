@@ -1712,6 +1712,153 @@ the recipient, and sign with the sender.
     (mml-secure-openpgp-sign-with-sender t))
 #+end_src
 
+** Quail
+
+#+begin_src emacs-lisp
+  (use-package quail
+    :defer t
+    :config
+    <<dvorak-keyboard-layout>>
+    <<maori-input-method>>
+    <<hangul-input-method>>
+    )
+#+end_src
+
+*** Dvorak keyboard layout
+
+Define a dvorak keyboard layout and enable it.
+
+Quail keyboard layouts are laid out in six 30-column blocks.  The
+first and last are above and below the alphanumeric keys.  Each key is
+represented by a pair of its non-shifted and shifted variants
+i.e. =aA= for the =a= key.
+
+This allows me to use another input method's physical layout rather
+than just the keys themselves.
+
+In the =korean-hangul= input method though, characters' positions are
+laid out according to the physical position, so I want that to be
+taken into account.  In other words, I want to use the "qwerty k"
+rather than the "dvorak k".
+
+| Qwerty | Dvorak | Hangul |
+|--------+--------+--------|
+| k      | t      | ㅏ     |
+| p      | r      | ㄱ     |
+
+Unfortunately, whether a keyboard layout actually uses this system is
+totally random.  See the examples in the following table, where a
+"layout dependent" input method means that it uses the keyboard
+translation according to [[help:quail-keyboard-layout][quail-keyboard-layout]].
+
+| Layout            | Layout dependent? | Should be? |
+|-------------------+-------------------+------------|
+| cyrillic-translit | t                 | nil        |
+| programmer-dvorak | nil               | t          |
+| korean-hangul     | nil               | t          |
+| japanese          | nil               | nil        |
+
+Because of this mess, I also define the function
+[[help:toggle-quail-keyboard-layout][toggle-quail-keyboard-layout]], which switches between the two and is
+bound to =s-\=
+
+#+name: dvorak-keyboard-layout
+#+begin_src emacs-lisp :tangle no
+  (push
+   (cons "dvorak"
+         (concat
+          "                              "
+          "`~1!2@3#4$5%6^7&8*9(0)[{]}    "  ; numbers
+          "  '\",<.>pPyYfFgGcCrRlL/?=+\\|  " ; qwerty
+          "  aAoOeEuUiIdDhHtTnNsS-_      "   ; asdf
+          "  ;:qQjJkKxXbBmMwWvVzZ        "   ; zxcv
+          "                              "))
+   quail-keyboard-layout-alist)
+
+  (defun toggle-quail-keyboard-layout ()
+    "Toggle the keyboard layout between dvorak and qwerty.
+
+  This sets `quail-keyboard-layout-type' to the opposite of what is
+  currently selected."
+    (interactive)
+    (if (string-equal quail-keyboard-layout-type "dvorak")
+        (quail-set-keyboard-layout "standard")
+      (quail-set-keyboard-layout "dvorak"))
+    (message "Switched to layout: %s"
+             (propertize quail-keyboard-layout-type
+                         'face 'bold)))
+
+  (bind-key "s-\\" 'toggle-quail-keyboard-layout)
+#+end_src
+
+*** Māori
+
+My own input method for Māori.  It provides prefix and postfix
+variants.
+
+- Postfix:
+| aa  | ā  |
+| a-  | ā  |
+| aaa | aa |
+| a-- | a- |
+
+- Prefix:
+| aa  | ā  |
+| -a  | ā  |
+| aaa | aa |
+| --a | -a |
+
+#+name: maori-input-method
+#+begin_src emacs-lisp :tangle no
+  (use-package maori-input-method
+    :load-path "lisp/input")
+#+end_src
+
+*** Hangul
+
+An adjustment to the hangul input method that uses
+[[help:quail-keyboard-translate][quail-keyboard-translate]] to determine the character, rather than
+assuming the standard layout.
+
+For more information, see [[*Dvorak keyboard layout][this section]] and [[https://blog.jamzattack.xyz/emacs-hangul-input.html][my blog post about the
+subject]].
+
+#+name: hangul-input-method
+#+begin_src emacs-lisp :tangle no
+  (with-eval-after-load "hangul"
+    (defun hangul2-input-method (key)
+      "2-Bulsik input method."
+      (setq key (quail-keyboard-translate key))
+      (if (or buffer-read-only (not (alphabetp key)))
+          (list key)
+        (quail-setup-overlays nil)
+        (let ((input-method-function nil)
+              (echo-keystrokes 0)
+              (help-char nil))
+          (setq hangul-queue (make-vector 6 0))
+          (hangul2-input-method-internal key)
+          (unwind-protect
+              (catch 'exit-input-loop
+                (while t
+                  (let* ((seq (read-key-sequence nil))
+                         (cmd (lookup-key hangul-im-keymap seq))
+                         key)
+                    (cond
+                     ((and (stringp seq)
+                           (= 1 (length seq))
+                           (setq key (quail-keyboard-translate (aref seq 0)))
+                           (alphabetp key))
+                      (hangul2-input-method-internal key))
+                     ((commandp cmd)
+                      (call-interactively cmd))
+                     (t
+                      (setq unread-command-events
+                            (nconc (listify-key-sequence seq)
+                                   unread-command-events))
+                      (throw 'exit-input-loop nil))))))
+            (quail-delete-overlays))))))
+#+end_src
+
 * Local packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
