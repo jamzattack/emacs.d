@@ -35,7 +35,7 @@
 ;;; Code:
 
 (quail-define-package
- "maori-prefix" "Latin-3" "MA>" t
+ "maori-prefix" "Māori" "MA>" t
  "Māori input method with postfix modifiers
 
 A following - or doubled letter will produce an accented
@@ -93,7 +93,7 @@ dash., e.g. aaa -> aa e-- -> e-.
  )
 
 (quail-define-package
- "maori-postfix" "Latin-3" "MA<" t
+ "maori-postfix" "Māori" "MA<" t
  "Māori input method with postfix modifiers
 
 A following - or doubled letter will produce an accented
