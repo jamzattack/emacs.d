@@ -1333,7 +1333,8 @@ bound even when it should be.  I bind it to =s-DEL=.
 *** Windmove
 
 Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so
-this is like ={i,j,k,l}= on a qwerty keyboard.
+this is like ={i,j,k,l}= on a qwerty keyboard.  The shifted keys swap
+rather than moving.
 
 #+begin_src emacs-lisp
   (use-package windmove
@@ -1342,7 +1343,11 @@ this is like ={i,j,k,l}= on a qwerty keyboard.
     ("s-c" . windmove-up)
     ("s-h" . windmove-left)
     ("s-t" . windmove-down)
-    ("s-n" . windmove-right))
+    ("s-n" . windmove-right)
+    ("s-C" . windmove-swap-states-up)
+    ("s-H" . windmove-swap-states-left)
+    ("s-T" . windmove-swap-states-down)
+    ("s-N" . windmove-swap-states-right))
 #+end_src
 
 *** Tab-bar
