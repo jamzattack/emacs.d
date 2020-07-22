@@ -32,8 +32,10 @@
 (require 'exwm-xim)
 
 (defun custom-exwm-window-setup ()
-  "Other configurations."
-  ;; Make more room
+  "Make some extra room in the frame.
+
+This disables `menu-bar-mode', `tool-bar-mode', and
+`scroll-bar-mode'"
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
@@ -86,6 +88,7 @@ output."
 	       (format "%s <%s>" exwm-title exwm-class-name)))))
 
 
+;;; Keybindings
 
 ;; Prefix keys
 (defun custom-exwm-prefix-keys ()
@@ -127,7 +130,6 @@ output."
 		 ":" "Q" "J" "K" "X" "B" "M" "W" "V" "Z" "{" "}" "S-DEL")))))
 
 ;; Global keybindings.
-
 (defun custom-exwm-input-global-keys ()
   (customize-set-variable
    'exwm-input-global-keys
@@ -176,15 +178,19 @@ output."
      ;; clipboard/kill-ring
      (,(kbd "C-w") . [C-x])
      (,(kbd "M-w") . [C-c])
-     (,(kbd "C-y") . [C-v]))))
+     (,(kbd "C-y") . [C-v])
+     (,(kbd "C-c C-y") . [S-insert]))))
 
 (defun custom-exwm-input-terminal-keys ()
-  "Disable simulation keys for my terminals."
+  "Disable most simulation keys.
+
+Also adds keys for sending C-c and C-z, as well as S-insert."
   (when (string-match "\\(st-.*\\|XTerm\\)" exwm-class-name)
     (exwm-input-set-local-simulation-keys
      (list (cons (kbd "C-c C-c") (kbd "C-c"))
 	   (cons (kbd "C-c C-k") (kbd "C-c"))
-	   (cons (kbd "C-c C-z") (kbd "C-z"))))))
+	   (cons (kbd "C-c C-z") (kbd "C-z"))
+	   (cons (kbd "C-c C-y") (kbd "S-<insert>"))))))
 
 
 
