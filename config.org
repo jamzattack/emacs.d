@@ -2049,6 +2049,7 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
     (helm-buffer-max-length 24)
     (helm-split-window-preferred-function
      #'helm-split-window-please)
+    (helm-ff-keep-cached-candidates 'remote)
     (helm-external-programs-associations
      '(("midi" . "timidity")
        ("png" . "sxiv")
