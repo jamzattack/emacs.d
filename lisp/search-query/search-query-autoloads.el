@@ -3,64 +3,69 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "search-query" "search-query.el" (24307 9993
-;;;;;;  986764 149000))
+;;;### (autoloads nil "search-query" "search-query.el" (24344 11903
+;;;;;;  705351 684000))
 ;;; Generated autoloads from search-query.el
 
-(autoload 'torrentz2-search "search-query" "\
-Search torrentz2.eu. Called interactively, prompt for a
-QUERY.
+(autoload 'search-torrentz2 "search-query" "\
+Search torrentz2.eu for QUERY.
 
 \(fn QUERY)" t nil)
 
-(autoload 'tpb-search "search-query" "\
-Search The Pirate Bay for QUERY.  Uses `tpb-mirror' as the
-host.
+(autoload 'search-tpb "search-query" "\
+Search The Pirate Bay for QUERY.
+
+Uses `search-query-tpb-mirror' as the host.
 
 \(fn QUERY)" t nil)
 
-(autoload 'youtube-search "search-query" "\
-Search youtube. Called interactively, prompt for a QUERY.
+(autoload 'search-youtube "search-query" "\
+Search YouTube for QUERY.
 
 \(fn QUERY)" t nil)
 
-(autoload 'invidio-search "search-query" "\
-Search invidio.us. Called interactively, prompt for a QUERY.
+(make-obsolete 'search-youtube '"YouTube doesn't work with `eww' anymore --\nuse `search-invidious' instead." '"23 Jul 2020")
+
+(autoload 'search-invidious "search-query" "\
+Search `search-query-invidious-mirror' for QUERY.
 
 invidio.us is a more eww-friendly frontend for youtube.
 
 \(fn QUERY)" t nil)
 
-(autoload 'wikipedia-search "search-query" "\
-Search wikipedia.  Called interactively, prompt for a QUERY.
-With prefix arg LANGUAGE, prompt for language code.
+(autoload 'search-wikipedia "search-query" "\
+Search wikipedia for QUERY.
+
+With prefix arg, prompt for LANGUAGE.
 
 \(fn QUERY &optional LANGUAGE)" t nil)
 
-(autoload 'wiktionary-word "search-query" "\
-Search wiktionary for a word.  Called interactively, prompt
-for a WORD with the default input being the word at point.  With
-prefix arg LANGUAGE, prompt for language code.
+(autoload 'search-wiktionary "search-query" "\
+Search wiktionary for a WORD.
+
+With prefix arg, prompt for LANGUAGE.
 
 \(fn WORD &optional LANGUAGE)" t nil)
 
-(autoload 'etymology-word "search-query" "\
-Show the etymology of WORD.  Called interactively, prompt for
-WORD with the default input being the word at point.
+(autoload 'search-etymonline "search-query" "\
+Search etymonline.com for a WORD.
+
+Called interactively, prompt for a word with the default input
+being the word at point.
 
 \(fn WORD)" t nil)
 
-(autoload 'nethack-search "search-query" "\
-Search nethack wiki.  Called interactively, prompt for a QUERY.
+(autoload 'search-nethack "search-query" "\
+Search nethack wiki for QUERY.
 
 \(fn QUERY)" t nil)
 
-(autoload 'archwiki-search "search-query" "\
-Search Arch wiki.  Called interactively, prompt for a QUERY.
+(autoload 'search-archwiki "search-query" "\
+Search Arch wiki for QUERY.
 
 \(fn QUERY)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "search-query" '("tpb-mirror")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "search-query" '("search-query-")))
 
 ;;;***
 

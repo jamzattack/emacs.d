@@ -37,51 +37,65 @@
     (eww url current-prefix-arg)))
 
 ;;;###autoload
-(defun torrentz2-search (query)
-  "Search torrentz2.eu. Called interactively, prompt for a
-QUERY."
+(defun search-torrentz2 (query)
+  "Search torrentz2.eu for QUERY."
   (interactive (list (read-string "Torrent: ")))
   (search-query-eww
    (url-encode-url
     (format "https://torrentz2.eu/search?f=%s" query))
    "*eww torrentz2*"))
 
-(defvar tpb-mirror "thepiratebay.org" "The Pirate Bay URL")
+(defvar search-query-tpb-mirror "thepiratebay.org"
+  "The Pirate Bay URL.")
 
 ;;;###autoload
-(defun tpb-search (query)
-  "Search The Pirate Bay for QUERY.  Uses `tpb-mirror' as the
-host."
+(defun search-tpb (query)
+  "Search The Pirate Bay for QUERY.
+
+Uses `search-query-tpb-mirror' as the host."
   (interactive (list (read-string "Torrent: ")))
   (search-query-eww
    (url-encode-url
-    (format "https://%s/search/%s/0/99/0" tpb-mirror query))
+    (format "https://%s/search/%s/0/99/0"
+	    search-query-tpb-mirror
+	    query))
    "*eww piratebay*"))
 
 ;;;###autoload
-(defun youtube-search (query)
-  "Search youtube. Called interactively, prompt for a QUERY."
+(defun search-youtube (query)
+  "Search YouTube for QUERY."
+  (declare (obsolete "YouTube doesn't work with `eww' anymore --
+use `search-invidious' instead." "23 Jul 2020"))
   (interactive (list (read-string "Youtube: ")))
   (search-query-eww
    (url-encode-url
     (format "https://youtube.com/search?q=%s&disable_polymer=1" query))
    "*eww youtube*"))
 
+(defvar search-query-invidious-mirror "invidio.us"
+  "Your preferred invidious instance.
+
+For a full list of instances, see
+https://github.com/iv-org/invidious/wiki/Invidious-Instances")
+
 ;;;###autoload
-(defun invidio-search (query)
-  "Search invidio.us. Called interactively, prompt for a QUERY.
+(defun search-invidious (query)
+  "Search `search-query-invidious-mirror' for QUERY.
 
 invidio.us is a more eww-friendly frontend for youtube."
-  (interactive (list (read-string "Youtube: ")))
+  (interactive (list (read-string "Invidious: ")))
   (search-query-eww
    (url-encode-url
-    (format "https://invidio.us/search?q=%s" query))
-   "*eww invidio*"))
+    (format "https://%s/search?q=%s"
+	    search-query-invidious-mirror
+	    query))
+   "*eww invidious*"))
 
 ;;;###autoload
-(defun wikipedia-search (query &optional language)
-  "Search wikipedia.  Called interactively, prompt for a QUERY.
-With prefix arg LANGUAGE, prompt for language code."
+(defun search-wikipedia (query &optional language)
+  "Search wikipedia for QUERY.
+
+With prefix arg, prompt for LANGUAGE."
   (interactive (list (read-string "Wikipedia: ")
 		     (when current-prefix-arg
 		       (read-string "Language: "))))
@@ -94,10 +108,10 @@ With prefix arg LANGUAGE, prompt for language code."
    "*eww wikipedia*"))
 
 ;;;###autoload
-(defun wiktionary-word (word &optional language)
-  "Search wiktionary for a word.  Called interactively, prompt
-for a WORD with the default input being the word at point.  With
-prefix arg LANGUAGE, prompt for language code."
+(defun search-wiktionary (word &optional language)
+  "Search wiktionary for a WORD.
+
+With prefix arg, prompt for LANGUAGE."
   (interactive (list (read-string "Wiktionary: "
 				  (thing-at-point 'word t))
 		     (when current-prefix-arg
@@ -111,9 +125,11 @@ prefix arg LANGUAGE, prompt for language code."
    "*eww wiktionary*"))
 
 ;;;###autoload
-(defun etymology-word (word)
-  "Show the etymology of WORD.  Called interactively, prompt for
-WORD with the default input being the word at point."
+(defun search-etymonline (word)
+  "Search etymonline.com for a WORD.
+
+Called interactively, prompt for a word with the default input
+being the word at point."
   (interactive (list (read-string "Etymology: "
 				  (thing-at-point 'word t))))
   (search-query-eww
@@ -122,8 +138,8 @@ WORD with the default input being the word at point."
    "*eww etymology*"))
 
 ;;;###autoload
-(defun nethack-search (query)
-  "Search nethack wiki.  Called interactively, prompt for a QUERY."
+(defun search-nethack (query)
+  "Search nethack wiki for QUERY."
   (interactive (list (read-string "Nethack: ")))
   (search-query-eww
    (url-encode-url
@@ -132,8 +148,8 @@ WORD with the default input being the word at point."
    "*eww nethack*"))
 
 ;;;###autoload
-(defun archwiki-search (query)
-  "Search Arch wiki.  Called interactively, prompt for a QUERY."
+(defun search-archwiki (query)
+  "Search Arch wiki for QUERY."
   (interactive (list (read-string "Arch Wiki: ")))
   (search-query-eww
    (url-encode-url

@@ -1902,12 +1902,12 @@ Located [[file:lisp/search-query/search-query.el][here]].
     :custom
     (tpb-mirror "piratebay.live")
     :bind
-    ("C-z a" . archwiki-search)
-    ("C-z t" . tpb-search)
-    ("C-z y" . invidio-search) ; just youtube really
-    ("C-z w" . wikipedia-search)
-    ("C-z C-w" . wiktionary-word)
-    ("C-z C-e" . etymology-word))
+    ("C-z a" . search-archwiki)
+    ("C-z t" . search-tpb)
+    ("C-z y" . search-invidious) ; just youtube really
+    ("C-z w" . search-wikipedia)
+    ("C-z C-w" . search-wiktionary)
+    ("C-z C-e" . search-etymonline))
 #+end_src
 
 *** Reddit-browse
