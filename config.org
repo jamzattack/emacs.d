@@ -458,7 +458,7 @@ Java/Awk files.
 *** Emacs Lisp mode
 
 Make the scratch buffer use [[help:emacs-lisp-mode][emacs-lisp-mode]].  Note: Most of my Elisp
-keybindings are now in my package [[https://gitlab.com/jamzattack/selime][selime]].
+keybindings are now in my package [[https://git.jamzattack.xyz/selime][selime]].
 
 #+begin_src emacs-lisp
   (use-package elisp-mode
