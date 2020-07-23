@@ -1900,7 +1900,7 @@ Located [[file:lisp/search-query/search-query.el][here]].
   (use-package search-query
     :load-path "lisp/search-query"
     :custom
-    (tpb-mirror "piratebay.live")
+    (search-query-tpb-mirror "piratebay.live")
     :bind
     ("C-z a" . search-archwiki)
     ("C-z t" . search-tpb)
