@@ -141,7 +141,7 @@ output."
      (,(kbd "s-&") . exwm-shell-command)
 
      ;; Don't accidentally suspend Emacs
-     ([remap suspend-frame] . ignore)
+     (,(kbd "C-x C-z") . ignore)
 
      ;; Tab movement
      (,(kbd "s-r") . tab-next)
