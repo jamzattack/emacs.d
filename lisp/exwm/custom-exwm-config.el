@@ -140,6 +140,9 @@ output."
      ;; 's-&': Launch application.
      (,(kbd "s-&") . exwm-shell-command)
 
+     ;; Don't accidentally suspend Emacs
+     ([remap suspend-frame] . ignore)
+
      ;; Tab movement
      (,(kbd "s-r") . tab-next)
      (,(kbd "s-g") . tab-previous)
