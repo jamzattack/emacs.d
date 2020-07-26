@@ -5,16 +5,19 @@
       (almost-white "#FFFFD0"))
   (custom-theme-set-faces
    'custom
+   ;; Text
    `(default ((,class (:background ,almost-white :foreground "black" :weight normal))))
    `(line-number-current-line ((,class (:inherit 'secondary-selection))))
    `(secondary-selection ((,class (:background "khaki1" :extend t))))
    `(helm-source-header ((,class (:inherit 'bold))))
+   `(font-lock-doc-face ((,class (:slant italic :inherit font-lock-string-face))))
+   `(dired-async-mode-message ((,class (:foreground "darkred"))))
+
+   ;; Not really text
    `(tooltip ((,class (:inherit 'default))))
-   ;; `(scroll-bar ((,class (:foreground "peru" :background ,almost-white :box nil))))
    `(region ((,class (:background "lightgoldenrod2"))))
    `(fringe ((,class (:inherit 'default))))
    `(mode-line ((,class (:background "sky blue"))))
-   `(dired-async-mode-message ((,class (:foreground "darkred"))))
    `(tab-bar ((,class (:inherit mode-line-inactive :box nil))))
    `(tab-bar-tab ((,class (:inherit default))))
    `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive :box nil))))
