@@ -1888,28 +1888,6 @@ Located [[file:lisp/library-genesis/library-genesis.el][here]].
     ("C-z l" . library-genesis-search))
 #+end_src
 
-*** Search-query
-
-My own search query package.  It simply provides a few functions so
-that I don't need to use DuckDuckGo's bangs, and for websites that
-don't have a bang.
-
-Located [[file:lisp/search-query/search-query.el][here]].
-
-#+begin_src emacs-lisp
-  (use-package search-query
-    :load-path "lisp/search-query"
-    :custom
-    (search-query-tpb-mirror "piratebay.live")
-    :bind
-    ("C-z a" . search-archwiki)
-    ("C-z t" . search-tpb)
-    ("C-z y" . search-invidious) ; just youtube really
-    ("C-z w" . search-wikipedia)
-    ("C-z C-w" . search-wiktionary)
-    ("C-z C-e" . search-etymonline))
-#+end_src
-
 *** Reddit-browse
 
 This is a very minimal package to ease the use of reddit within eww.
@@ -3079,6 +3057,30 @@ Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
           ("SPC" . narrow-to-next-page)
           ("b" . narrow-to-prev-defun)
           ("f" . narrow-to-next-defun)))
+#+end_src
+
+*** Search-query
+
+My own search query package.  It simply provides a few functions so
+that I don't need to use DuckDuckGo's bangs, and for websites that
+don't have a bang.
+
+Hosted [[https://git.jamzattack.xyz/search-query][here]].
+
+#+begin_src emacs-lisp
+  (use-package search-query
+    :straight
+    (search-query :type git
+                  :repo "git@jamzattack.xyz:search-query")
+    :custom
+    (search-query-tpb-mirror "piratebay.live")
+    :bind
+    ("C-z a" . search-archwiki)
+    ("C-z t" . search-tpb)
+    ("C-z y" . search-invidious) ; just youtube really
+    ("C-z w" . search-wikipedia)
+    ("C-z C-w" . search-wiktionary)
+    ("C-z C-e" . search-etymonline))
 #+end_src
 
 ** Dired
