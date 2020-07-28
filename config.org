@@ -24,8 +24,8 @@ Get some things out of the way early.  Without [[*Straight][straight]] or
 ** Straight
 
 Install [[https://github.com/raxod502/straight.el][straight.el]].  It gets a lot of hype, so I'm trying to use it
-instead of the built-in =package.el=.  It has a use-package keyword,
-so you can simply (re)define a package like so:
+instead of the built-in =package.el=.  It has a use-package keyword, so
+you can simply (re)define a package like so:
 
 #+begin_src emacs-lisp :tangle no
   (use-package package-name
@@ -61,8 +61,8 @@ Install use-package using [[help:straight-use-package][straight-use-package]], a
 [[help:use-package][use-package]] and [[help:bind-key][bind-key]].  Note [[help:bind-key][bind-key]] is a dependency of
 [[help:use-package][use-package]], so I don't need to install it manually.
 
-I also use use-package's =:delight= keyword, so install that as well.
-I don't need to use =(require delight)= as use-package handles that.
+I also use use-package's =:delight= keyword, so install that as well.  I
+don't need to use =(require delight)= as use-package handles that.
 
 #+begin_src emacs-lisp
   (straight-use-package 'use-package)
@@ -74,8 +74,8 @@ I don't need to use =(require delight)= as use-package handles that.
 
 ** Fonts
 
-The function [[help:set-up-font-please][set-up-font-please]] loads my [[file:lisp/fonts.el][font settings]].  Call it
-when creating a new frame or starting emacs.
+The function [[help:set-up-font-please][set-up-font-please]] loads my [[file:lisp/fonts.el][font settings]].  Call it when
+creating a new frame or starting emacs.
 
 #+begin_src emacs-lisp
   (defun set-up-fonts-please ()
@@ -95,8 +95,7 @@ you don't get any errors i.e "C-z is not a valid prefix key".
 
 **** Remove =C-z=
 
-Unbind =C-z= before anything else, so that I can use it as a prefix
-key.
+Unbind =C-z= before anything else, so that I can use it as a prefix key.
 
 #+begin_src emacs-lisp
   (global-unset-key (kbd "C-z"))
@@ -146,9 +145,9 @@ Major modes for text editing.  For non-editing major modes, see
 
 *** Org Mode
 
-Open source blocks and stuff in the current window.  Use =TAB= from
-the language's major mode inside source blocks.  Open everything in
-Emacs, and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
+Open source blocks and stuff in the current window.  Use =TAB= from the
+language's major mode inside source blocks.  Open everything in Emacs,
+and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
 
 #+begin_src emacs-lisp
   (use-package org
@@ -157,6 +156,7 @@ Emacs, and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mo
     (org-src-window-setup 'current-window)
     (org-src-tab-acts-natively t)
     (org-adapt-indentation nil)
+    (org-hide-emphasis-markers t)
     (org-file-apps
      '((auto-mode . emacs)
        ("\\.x?html?\\'" . (lambda (file &optional ignore)
@@ -273,8 +273,7 @@ doesn't start automatically (see the variable [[help:slime-auto-start][slime-aut
 
 ***** Shell
 
-Execute shell source blocks.  Autoload =sh=, =shell=, and =bash=
-functions.
+Execute shell source blocks.  Autoload =sh=, =shell=, and =bash= functions.
 
 #+begin_src emacs-lisp
   (use-package ob-shell
@@ -561,9 +560,9 @@ Bind =C-z RET= and =f9= to compile.
 
 *** Hi-lock
 
-I often use =M-s h .= to see where variables, functions, etc. are
-used.  However, paredit remaps =M-s= to [[help:paredit-splice-sexp][paredit-splice-sexp]], so I
-turn on hi-lock-mode which enables the =C-x w= prefix.
+I often use =M-s h .= to see where variables, functions, etc. are used.
+However, paredit remaps =M-s= to [[help:paredit-splice-sexp][paredit-splice-sexp]], so I turn on
+hi-lock-mode which enables the =C-x w= prefix.
 
 #+begin_src emacs-lisp
   (use-package hi-lock
@@ -733,7 +732,7 @@ The only reason for this to be here is to set my nick.
 
 **** ERC notifications
 
-erc-notify enables notifications for erc conversations.  I only enable
+[[help:erc-notify-enable][erc-notify]] enables notifications for erc conversations.  I only enable
 it if the executable "dunst" is found, because it will crash Emacs
 unless a notification daemon is active.
 
@@ -825,8 +824,8 @@ with EXWM, so I disable that feature.
 
 **** Smerge
 
-Easily merge git conflicts.  The prefix is =C-c ^= which works fine,
-but I also bind =C-c n= and =C-c p= to go to the next/previous hunk.
+Easily merge git conflicts.  The prefix is =C-c ^= which works fine, but
+I also bind =C-c n= and =C-c p= to go to the next/previous hunk.
 
 #+begin_src emacs-lisp
   (use-package smerge-mode
@@ -1031,8 +1030,8 @@ well.
 
 ***** Rename eshell buffer
 
-Rename the current eshell.  Bound to =C-c r=, but can also be used
-from eshell with or without an argument.
+Rename the current eshell.  Bound to =C-c r=, but can also be used from
+eshell with or without an argument.
 #+begin_example
   r "my buffer's new name"
 #+end_example
@@ -1294,9 +1293,9 @@ Thus, =M-SPC M-SPC= acts like =M-\= ([[help:delete-horizontal-space][delete-hori
 
 Set the =$EDITOR= to =emacsclient=.  Because I (almost) only use other
 programs from within Emacs, this works.  If you don't use EXWM it
-would be advisable to set this in =~/.xinitrc=.  Also set =$PAGER= to
-=cat= for programs launched from Emacs, helpful with eshell because
-some programs automatically output to the pager.
+would be advisable to set this in =~/.xinitrc=.  Also set =$PAGER= to =cat=
+for programs launched from Emacs, helpful with eshell because some
+programs automatically output to the pager.
 
 #+begin_src emacs-lisp
   (use-package env
@@ -1307,16 +1306,16 @@ some programs automatically output to the pager.
 
 ** Windows
 
-Libraries related to Emacs windows.  Not to be confused
-with the operating system.
+Libraries related to Emacs windows.  Not to be confused with the
+operating system.
 
 *** Window
 
 [[help:bury-buffer][bury-buffer]] is a very useful function so I bind it to =C-z C-z=, a
 pretty accessible key.
 
-For purely pedantic reasons, I also bind =C-x _= to [[help:shrink-window][shrink-window]].
-Why does [[help:shrink-window-horizontally][shrink-window-horizontally]] have a keybinding by default but
+For purely pedantic reasons, I also bind =C-x _= to [[help:shrink-window][shrink-window]].  Why
+does [[help:shrink-window-horizontally][shrink-window-horizontally]] have a keybinding by default but
 [[help:shrink-window][shrink-window]] doesn't?
 
 A further useful keybinding is for [[help:quit-window][quit-window]], which sometimes isn't
@@ -1332,9 +1331,9 @@ bound even when it should be.  I bind it to =s-DEL=.
 
 *** Windmove
 
-Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so
-this is like ={i,j,k,l}= on a qwerty keyboard.  The shifted keys swap
-rather than moving.
+Bind =s-{c,h,t,n}= to switch window more easily.  I use dvorak, so this
+is like ={i,j,k,l}= on a qwerty keyboard.  The shifted keys swap rather
+than moving.
 
 #+begin_src emacs-lisp
   (use-package windmove
@@ -1547,8 +1546,8 @@ Nicer summary & thread formatting.  Credit to [[https:protesilaos.com][Protesila
 
 **** Gnus-msg
 
-Gnus' library for sending messages.  [[help:gnus-posting-styles][gnus-posting-styles]] allows you
-to adjust headers, signatures, etc. based on how you got to the
+Gnus' library for sending messages.  [[help:gnus-posting-styles][gnus-posting-styles]] allows you to
+adjust headers, signatures, etc. based on how you got to the
 composition buffer.  All messages composed from my university mailbox
 will be sent from my university address.  Very nice!
 
@@ -1605,9 +1604,9 @@ disable this.  Default behaviour can be restored with =T H=.
 
 Just getting rid of a couple of extra files in $HOME.
 
-- Gnus by default creates =~/.newsrc= in a format compatible with
-  other newsreaders, but I don't use any so it's just an extra line in
-  my ls.
+- Gnus by default creates =~/.newsrc= in a format compatible with other
+  newsreaders, but I don't use any so it's just an extra line in my
+  ls.
 - Move the /dribble/ (i.e. auto-save) files to =~/.cache=.
 
 #+begin_src emacs-lisp
@@ -1735,8 +1734,8 @@ Define a dvorak keyboard layout and enable it.
 
 Quail keyboard layouts are laid out in six 30-column blocks.  The
 first and last are above and below the alphanumeric keys.  Each key is
-represented by a pair of its non-shifted and shifted variants
-i.e. =aA= for the =a= key.
+represented by a pair of its non-shifted and shifted variants i.e. =aA=
+for the =a= key.
 
 This allows me to use another input method's physical layout rather
 than just the keys themselves.
@@ -1773,7 +1772,7 @@ bound to =s-\=
    (cons "dvorak"
          (concat
           "                              "
-          "`~1!2@3#4$5%6^7&8*9(0)[{]}    "  ; numbers
+          "`~1!2@3#4$5%6^7&8*9(0)[{]}    "   ; numbers
           "  '\",<.>pPyYfFgGcCrRlL/?=+\\|  " ; qwerty
           "  aAoOeEuUiIdDhHtTnNsS-_      "   ; asdf
           "  ;:qQjJkKxXbBmMwWvVzZ        "   ; zxcv
@@ -1822,11 +1821,12 @@ variants.
 *** Hangul
 
 An adjustment to the hangul input method that uses
-[[help:quail-keyboard-translate][quail-keyboard-translate]] to determine the character, rather than
-assuming the standard layout.
+[[help:quail-keyboard-translate][quail-keyboard-translate]] to
+determine the character, rather than assuming the standard layout.
 
-For more information, see [[*Dvorak keyboard layout][this section]] and [[https://blog.jamzattack.xyz/emacs-hangul-input.html][my blog post about the
-subject]].
+For more information, see [[*Dvorak keyboard layout][this section]]
+and [[https://blog.jamzattack.xyz/emacs-hangul-input.html][my blog
+post about the subject]].
 
 #+name: hangul-input-method
 #+begin_src emacs-lisp :tangle no
@@ -1955,8 +1955,8 @@ Located [[file:lisp/exwm/custom-exwm-config.el][here]].
 ** Miscellaneous functions
 
 A number of functions that don't necessarily have a proper home.  Bind
-=C-c p= to open the pdf output of a typesetting program, and =C-h M-a=
-to run the external "apropos" command (not to be confused with Elisp
+=C-c p= to open the pdf output of a typesetting program, and =C-h M-a= to
+run the external "apropos" command (not to be confused with Elisp
 apropos).
 
 Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
@@ -2005,14 +2005,14 @@ Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
 * Third party packages
 
 This is where the packages installed with [[https://github.com/raxod502/straight.el][straight.el]] are located.
-All of these use the =:straight= keyword, so that they are downloaded
-if they aren't already.
+All of these use the =:straight= keyword, so that they are downloaded if
+they aren't already.
 
 ** HELM
 
 Rebind a few keys in order to make use of Helm's features.  Stuff like
-[[help:find-file][find-file]] and [[help:switch-to-buffer][switch-to-buffer]].  Also remap =C-x k= to
-kill-this-buffer, because I use helm-mini to kill other buffers.
+[[help:find-file][find-file]] and [[help:switch-to-buffer][switch-to-buffer]].  Also remap =C-x k= to kill-this-buffer,
+because I use helm-mini to kill other buffers.
 
 I also bind =M-C-y= to [[help:helm-show-kill-ring][helm-show-kill-ring]].  I tried to use this to
 replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my fingers.
@@ -2065,8 +2065,8 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
 **** Kill buffer
 
 I rebind =C-x k= to kill the current buffer, because [[help:helm-mini][helm-mini]] is so
-useful.  If buffer is in the list [[help:buffers-to-bury][buffers-to-bury]], bury it instead
-of killing.
+useful.  If buffer is in the list [[help:buffers-to-bury][buffers-to-bury]], bury it instead of
+killing.
 
 #+name: kill-this-buffer-please
 #+begin_src emacs-lisp :tangle no
@@ -2120,8 +2120,8 @@ predictable function selects the largest non-exwm window.
 
 *** Helm Imenu
 
-Helm's interface to imenu.  It shows more information than [[help:imenu][imenu]]
-does, and also provides a way to access an imenu for multiple buffers.
+Helm's interface to imenu.  It shows more information than [[help:imenu][imenu]] does,
+and also provides a way to access an imenu for multiple buffers.
 
 Note: I use =:bind*= because LilyPond-mode tries to bind =C-c i=.
 
@@ -2177,7 +2177,8 @@ the Helm alternatives [[*EWW][here]].
 
 *** Helm org
 
-=C-c M-o= in org-mode runs the function [[help:helm-org-in-buffer-headings][helm-org-in-buffer-headings]].
+=C-c M-o= in org-mode runs the function
+[[help:helm-org-in-buffer-headings][helm-org-in-buffer-headings]].
 Similar to [[help:occur][occur]], but only shows headings.
 
 #+begin_src emacs-lisp
@@ -2595,7 +2596,7 @@ Hosted [[https://git.jamzattack.xyz/lilypond-auto-insert][here]].
           ("C-c a" . lilypond-auto-insert)))
 #+end_src
 
-** Org
+** Extra org packages
 
 *** Github markdown
 
@@ -2836,8 +2837,8 @@ macro and use it within a progn, the macro is wrapped in
 
 ***** Switch to entry buffer
 
-If there is an =elfeed-entry= buffer, switch to it.  Otherwise, open
-the entry at point.
+If there is an =elfeed-entry= buffer, switch to it.  Otherwise, open the
+entry at point.
 
 #+name: elfeed-switch-to-entry
 #+begin_src emacs-lisp :tangle no
@@ -2854,9 +2855,9 @@ the entry at point.
 
 Elpher is a gopher and gemini browser for Emacs.
 
-I add an entry in [[help:browse-url-handlers][browse-url-handlers]] so that gopher links are
-opened in Elpher (this does not work from eww).  This requires
-creating a new function which can accept the extra arguments.
+I add an entry in [[help:browse-url-handlers][browse-url-handlers]] so that gopher links are opened
+in Elpher (this does not work from eww).  This requires creating a new
+function which can accept the extra arguments.
 
 #+begin_src emacs-lisp
   (use-package elpher
@@ -2890,17 +2891,20 @@ Hosted [[https://git.jamzattack.xyz/ol-elpher][here]].
 *** EBDB
 
 EBDB is a contact management system for Emacs.  BBDB is used more
-often, but I chose EBDB because it has plenty of [[info:ebdb#Top][documentation]].
+often, but I chose EBDB because it has plenty of
+[[info:ebdb#Top][documentation]].
 
 I set up =ebdb-gnus= and =ebdb-message= to activate when gnus and
 message are loaded, because EBDB provides integration with these
 libraries.  By default, it gets in the way a lot -- opening up buffers
 of contacts whenever you read or write mail.
 
-- Setting [[help:ebdb-mua-pop-up][ebdb-mua-pop-up]] to nil means that a buffer will only show
-  in gnus when =; ;= is pressed.
-- Setting [[help:ebdb-completion-display-record][ebdb-completion-display-record]] to nil stops the buffer
-  from showing when using address completion while composing mail.
+- Setting [[help:ebdb-mua-pop-up][ebdb-mua-pop-up]] to nil means that
+  a buffer will only show in gnus when =; ;= is pressed.
+- Setting
+  [[help:ebdb-completion-display-record][ebdb-completion-display-record]]
+  to nil stops the buffer from showing when using address completion
+  while composing mail.
 
 I also prefer to keep my contacts file encrypted, so I set
 [[help:ebdb-sources][ebdb-sources]] accordingly.
@@ -2998,8 +3002,10 @@ your choice.
 
 *** Edwina
 
-Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  The function
-[[help:edwina-setup-dwm-keys][edwina-setup-dwm-keys]] binds similar keys to what dwm actually uses.
+Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]]
+emulation.  The function
+[[help:edwina-setup-dwm-keys][edwina-setup-dwm-keys]] binds similar
+keys to what dwm actually uses.
 
 #+begin_src emacs-lisp
   (use-package edwina
@@ -3022,7 +3028,8 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
 *** Plumb
 
 A way to open URLs the way I want.  I bind it to =C-z d=.  Some
-commands from this package are bound in the [[*EWW][EWW]] and [[*Elfeed][Elfeed]].
+commands from this package are bound in the [[*EWW][EWW]] and
+[[*Elfeed][Elfeed]].
 
 Hosted [[https://git.jamzattack.xyz/plumb][here]].
 
@@ -3039,7 +3046,8 @@ Hosted [[https://git.jamzattack.xyz/plumb][here]].
 
 *** Narrow-x
 
-My own package providing a few extra [[info:emacs#Narrowing][narrowing]] commands.
+My own package providing a few extra
+[[info:emacs#Narrowing][narrowing]] commands.
 
 Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
 
@@ -3077,7 +3085,7 @@ Hosted [[https://git.jamzattack.xyz/search-query][here]].
     :bind
     ("C-z a" . search-archwiki)
     ("C-z t" . search-tpb)
-    ("C-z y" . search-invidious) ; just youtube really
+    ("C-z y" . search-invidious)		; just youtube really
     ("C-z w" . search-wikipedia)
     ("C-z C-w" . search-wiktionary)
     ("C-z C-e" . search-etymonline))
@@ -3118,8 +3126,8 @@ show/hide a subtree, and disable the predefined faces.  Part of the
 
 ** Fish completion
 
-Fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
-completion.  Fish must be installed.
+Fish completion allows eshell and shell buffers to use
+[[https://fishshell.com/][fish]] completion.  Fish must be installed.
 
 #+begin_src emacs-lisp
   (use-package fish-completion
