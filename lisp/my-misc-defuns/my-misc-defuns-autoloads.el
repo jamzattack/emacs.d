@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "my-misc-defuns" "my-misc-defuns.el" (24315
-;;;;;;  18897 864585 393000))
+;;;### (autoloads nil "my-misc-defuns" "my-misc-defuns.el" (24351
+;;;;;;  62244 459629 114000))
 ;;; Generated autoloads from my-misc-defuns.el
 
 (autoload 'system-apropos "my-misc-defuns" "\

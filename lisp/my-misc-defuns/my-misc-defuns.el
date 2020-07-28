@@ -128,7 +128,7 @@ prefix arg, indent the whole buffer."
 (defun update-elisp-version ()
   "Update a version number in an Elisp file.
 Uses the current date formatted as %Y.%m.%d (e.g. 1970.01.01)"
-  (interactive "P")
+  (interactive)
   (let ((new-version (format-time-string " %Y.%m.%d")))
     (save-excursion
       (save-restriction
