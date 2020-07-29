@@ -53,8 +53,11 @@ window or the first exwm window found."
 			  (selected-window)
 			(let ((ht (make-hash-table)))
 			  (dolist (window (window-list))
-			    (with-current-buffer (window-buffer window)
-			      (puthash major-mode window ht)))
+			    (puthash
+			     (buffer-local-value 'major-mode
+						 (window-buffer window))
+			     window
+			     ht))
 			  (or (gethash 'exwm-mode ht)
 			      (user-error "No EXWM windows")))))
 	 (exwm-buffer (window-buffer exwm-window))
