@@ -1129,10 +1129,7 @@ sessions, rather than the list of buffers.
 #+begin_src emacs-lisp
   (use-package saveplace
     :config
-    (save-place-mode t)
-    (with-eval-after-load "bookmark"
-      (add-hook 'bookmark-after-jump-hook
-                #'save-place-find-file-hook)))
+    (save-place-mode t))
 #+end_src
 
 *** Winner-mode
