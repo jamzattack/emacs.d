@@ -2911,7 +2911,8 @@ I also prefer to keep my contacts file encrypted, so I set
 
 #+begin_src emacs-lisp
   (use-package ebdb
-    :straight t
+    :straight
+    (:host github :repo "girzel/ebdb")
     :defer t
     :custom
     (ebdb-mua-pop-up nil)
