@@ -1864,6 +1864,108 @@ post about the subject]].
             (quail-delete-overlays))))))
 #+end_src
 
+** Printing
+
+Library for printing things as postscript.
+
+The =header= variables are related to the automatically generated header
+that shows the buffer name, file name, date, and page number.  I end
+up disabling this feature by setting [[help:ps-print-header][ps-print-header]] to =nil=, but
+nonetheless want it to look nicer in case I want to print buffer that
+needs pages numbers.  I can do this with the function
+[[help:please-print-buffer-with-header][please-print-buffer-with-header]] defined [[please-print-buffer][here]].
+
+The [[https://en.wikipedia.org/wiki/N-up][n-up]] variables are for printing multiple pages on a single sheet
+of paper.  I use this via [[help:please-print-buffer-side-by-side][please-print-buffer-side-by-side]] also
+defined [[please-print-buffer][here]].  I set [[help:ps-n-up-margin][ps-n-up-margin]] to 7, which is roughly 2.5mm.
+This allows for two 70-character wide pages to be printed side by
+side.
+
+#+begin_src emacs-lisp
+  (use-package ps-print
+    :defer t
+    :init
+    <<please-print-buffer>>
+    :config
+    (setq ps-print-header nil
+          ps-print-header-frame nil
+          ps-header-lines 1
+          ps-header-font-size ps-font-size
+          ps-header-title-font-size ps-font-size
+          ps-n-up-border-p nil
+          ps-left-margin (/ (* 72 1.0) 2.54) ; 1 cm
+          ps-right-margin (/ (* 72 1.0) 2.54) ; 1 cm
+          ps-n-up-margin (/ (* 72 0.5) 2.54))) ; 5 mm
+#+end_src
+
+*** Printing functions
+
+[[help:please-print-buffer][please-print-buffer]] is a big printing function that asks a few
+[[help:y-or-n-p][y-or-n-p]]s to determine some commonly used settings.
+
+A couple of separate functions for invidual options are also defined:
+[[help:please-print-buffer-with-header][please-print-buffer-with-header]] and [[help:please-print-buffer-side-by-side][please-print-buffer-side-by-side]].
+
+I autoload [[help:ps-print-preprint][ps-print-preprint]] rather than using [[help:require][require]], as this goes
+in the =:init= section.
+
+#+name: please-print-buffer
+#+begin_src emacs-lisp :tangle no
+  (autoload 'ps-print-preprint "ps-print")
+
+  (defun please-print-buffer (&optional file color header side-by-side)
+    "Print the current BUFFER.
+
+  FILE is a filename to save the generated postscript in.  If this
+  is provided, it will NOT be sent to the printer.
+
+  The arguments COLOR and SIDE-BY-SIDE are straightforward -- they
+  will be determined via `y-or-n-p'.
+
+  HEADER works weirdly interactively -- I don't usually want the
+  header printed so the `y-or-n-p' asks whether to remove it."
+    (interactive
+     (list
+      ;; `ps-print-preprint' needs a list or number argument
+      (ps-print-preprint (when (y-or-n-p "Save to file? ") 1))
+      (y-or-n-p "Color? ")
+      (not (y-or-n-p "Remove header? "))
+      (y-or-n-p "Side by side? ")))
+    (let* ((ps-font-size
+            (if side-by-side
+                '(10 . 12)
+              ps-font-size))
+           (ps-n-up-printing
+            (if side-by-side
+                2
+              1))
+           (ps-print-header header)
+           (ps-print-color-p (if color
+                                 t
+                               'black-white)))
+      (ps-print-buffer-with-faces file)))
+
+  (defun please-print-buffer-side-by-side (file &optional color)
+    "Print the current buffer, split into two subpages.
+
+  This calls `ps-print-buffer-with-faces' with the variable
+  `ps-n-up-printing' set to 2."
+    (interactive
+     (list (ps-print-preprint current-prefix-arg)
+           (y-or-n-p "Color? ")))
+    (please-print-buffer file color ps-print-header t))
+
+  (defun please-print-buffer-with-header (file &optional color)
+    "Print the current buffer with a header.
+
+  This calls `ps-print-buffer-with-faces' with the variable
+  `ps-print-header' set to t."
+    (interactive
+     (list (ps-print-preprint current-prefix-arg)
+           (y-or-n-p "Color? ")))
+    (please-print-buffer file color t))
+#+end_src
+
 * Local packages
 
 Not necessarily /my/ packages, but packages that are in the [[file:lisp/][lisp]]
