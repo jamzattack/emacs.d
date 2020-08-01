@@ -173,8 +173,9 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
                      "Help link: "
                      obarray
                      (lambda (sym)
-                       (or (boundp sym)
-                           (fboundp sym))))))
+                       (and (or (boundp sym)
+                                (fboundp sym))
+                            (not (keywordp sym)))))))
       (insert (format "[[help:%s][%s]]" symbol symbol)))
     :bind
     (:map org-mode-map
