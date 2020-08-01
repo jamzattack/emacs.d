@@ -2756,7 +2756,8 @@ colour.
   (use-package desktop-environment
     :straight t
     :delight
-    :init
+    :hook
+    (exwm-init . desktop-environment-mode)
     :config
     <<custom-screenlock-command>>
     (defadvice desktop-environment-lock-screen
