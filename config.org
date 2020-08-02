@@ -1714,7 +1714,7 @@ the recipient, and sign with the sender.
     (mml-secure-openpgp-sign-with-sender t))
 #+end_src
 
-** Quail
+** Input methods
 
 #+begin_src emacs-lisp
   (use-package quail
@@ -1746,7 +1746,7 @@ rather than the "dvorak k".
 | Qwerty | Dvorak | Hangul |
 |--------+--------+--------|
 | k      | t      | ㅏ     |
-| p      | r      | ㄱ     |
+| r      | p      | ㄱ     |
 
 Unfortunately, whether a keyboard layout actually uses this system is
 totally random.  See the examples in the following table, where a
@@ -1860,6 +1860,44 @@ post about the subject]].
                                    unread-command-events))
                       (throw 'exit-input-loop nil))))))
             (quail-delete-overlays))))))
+#+end_src
+
+*** Fixing various input methods
+
+As said [[*Dvorak keyboard layout][above]], some input methods don't work the way they should with
+a custom [[help:quail-keyboard-layout][quail-keyboard-layout]].
+
+The variable [[help:quail-package-alist][quail-package-alist]] is an alist of the following values:
+| Index | Description                 |
+|-------+-----------------------------|
+|     0 | NAME                        |
+|     1 | TITLE                       |
+|     2 | QUAIL-MAP                   |
+|     3 | GUIDANCE                    |
+|     4 | DOCSTRING                   |
+|     5 | TRANSLATION-KEYS            |
+|     6 | FORGET-LAST-SELECTION       |
+|     7 | DETERMINISTIC               |
+|     8 | KBD-TRANSLATE               |
+|     9 | SHOW-LAYOUT                 |
+|    10 | DECODE-MAP                  |
+|    11 | MAXIMUM-SHORTEST            |
+|    12 | OVERLAY-PLIST               |
+|    13 | UPDATE-TRANSLATION-FUNCTION |
+|    14 | CONVERSION-KEYS             |
+|    15 | SIMPLE                      |
+
+The elements I'm mostly interested in are 8 (=KBD-TRANSLATE=) and 9
+(=SHOW-LAYOUT=).
+
+#+begin_src emacs-lisp
+  (with-eval-after-load "quail/cyrillic"	; no kbd-translate
+    (setf (nth 8 (assoc "cyrillic-translit" quail-package-alist)) nil
+          (nth 9 (assoc "cyrillic-translit" quail-package-alist)) t))
+
+  (with-eval-after-load "quail/programmer-dvorak"	; kbd-translate
+    (setf (nth 8 (assoc "programmer-dvorak" quail-package-alist)) t
+          (nth 9 (assoc "programmer-dvorak" quail-package-alist)) t))
 #+end_src
 
 ** Printing
