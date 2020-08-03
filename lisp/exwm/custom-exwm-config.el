@@ -66,7 +66,8 @@ window or the first exwm window found."
 	(progn
 	  (exwm-input-grab-keyboard id)
 	  (exwm-layout-unset-fullscreen id)
-	  (select-window exwm-fullscreen--old-window))
+	  (when (window-live-p exwm-fullscreen--old-window)
+	    (select-window exwm-fullscreen--old-window)))
       (progn
 	(setq exwm-fullscreen--old-window (selected-window))
 	(select-window exwm-window)
