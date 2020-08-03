@@ -189,14 +189,26 @@ output."
      (,(kbd "C-c C-y") . [S-insert]))))
 
 (defun custom-exwm-input-terminal-keys ()
-  "Disable most simulation keys.
+  "Set up simulation keys for terminal programs.
 
-Also adds keys for sending C-c and C-z, as well as S-insert."
+When `exwm-class-name' matches \"st\" or \"XTerm\", the following
+simulation keys are defined:
+
+C-c C-c		C-c
+C-c C-k		C-c
+C-c C-z		C-z
+C-c C-o		C-l
+C-c C-y		S-insert
+
+These keybindings are to aid with muscle memory from using
+`comint' and `eshell', as well as some keys (C-c and C-z) being
+somewhat awkward because they're used as prefix keys."
   (when (string-match "\\(st-.*\\|XTerm\\)" exwm-class-name)
     (exwm-input-set-local-simulation-keys
      (list (cons (kbd "C-c C-c") (kbd "C-c"))
 	   (cons (kbd "C-c C-k") (kbd "C-c"))
 	   (cons (kbd "C-c C-z") (kbd "C-z"))
+	   (cons (kbd "C-c M-o") (kbd "C-l"))
 	   (cons (kbd "C-c C-y") (kbd "S-<insert>"))))))
 
 
