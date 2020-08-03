@@ -1824,9 +1824,8 @@ An adjustment to the hangul input method that uses
 [[help:quail-keyboard-translate][quail-keyboard-translate]] to
 determine the character, rather than assuming the standard layout.
 
-For more information, see [[*Dvorak keyboard layout][this section]]
-and [[https://blog.jamzattack.xyz/emacs-hangul-input.html][my blog
-post about the subject]].
+For more information, see [[*Dvorak keyboard layout][this section]] and [[https://blog.jamzattack.xyz/emacs-hangul-input.html][my blog post about the
+subject]].
 
 #+name: hangul-input-method
 #+begin_src emacs-lisp :tangle no
@@ -2449,7 +2448,32 @@ epubs, and set the default width to 80 columns.
     :straight t
     :custom
     (nov-text-width 80)
-    :mode ("\\.epub\\'" . nov-mode))
+    (nov-variable-pitch nil)
+    :mode ("\\.epub\\'" . nov-mode)
+    :bind
+    (:map nov-mode-map
+          ([remap set-fill-column] . nov-set-width))
+    :config
+    <<nov-set-text-width>>
+    )
+#+end_src
+
+**** Set text width in nov buffer
+
+#+begin_src emacs-lisp :tangle no
+  (defun nov-set-width (width)
+    "Set the nov rendering width to WIDTH.
+
+  If prefix arg is a number, use it.  Otherwise, read number from
+  the minibuffer."
+    (interactive (list
+                  (if (numberp current-prefix-arg)
+                      current-prefix-arg
+                    (read-number "Set width: "
+                                 (- (window-width) 5)))))
+    (when (derived-mode-p 'nov-mode)
+      (setq nov-text-width width)
+      (nov-render-document)))
 #+end_src
 
 *** PDF-tools
