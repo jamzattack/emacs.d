@@ -2765,7 +2765,7 @@ often, but it's nice to be able to see what a program does sometimes.
     :magic ("ELF" . elf-mode))
 #+end_src
 
-*** Selime
+*** Selime                                                             :mine:
 
 This is my package to make Elisp evaluation and documentation lookup a
 bit more like Slime.  It's often not necessary, but sometimes I find
@@ -2782,7 +2782,7 @@ Hosted [[https://git.jamzattack.xyz/selime][here]].
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
-*** LilyPond auto-insert
+*** LilyPond auto-insert                                               :mine:
 
 My own package to handle auto-insertions for LilyPond-mode.  I add it
 to [[help:LilyPond-mode-hook][LilyPond-mode-hook]].
@@ -3082,7 +3082,7 @@ function which can accept the extra arguments.
                    '("^\\(gopher\\|gemini\\)://" . elpher-go-please))))
 #+end_src
 
-**** Elpher org-link support
+**** Elpher org-link support                                           :mine:
 
 My own library to provide org-link support for elpher.
 
@@ -3225,7 +3225,7 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
     :defer t)
 #+end_src
 
-*** Plumb
+*** Plumb                                                              :mine:
 
 A way to open URLs the way I want.  I bind it to =C-z d=.  Some
 commands from this package are bound in the [[*EWW][EWW]] and
@@ -3244,7 +3244,7 @@ Hosted [[https://git.jamzattack.xyz/plumb][here]].
     ("C-z C-d" . plumb))
 #+end_src
 
-*** Narrow-x
+*** Narrow-x                                                           :mine:
 
 My own package providing a few extra
 [[info:emacs#Narrowing][narrowing]] commands.
@@ -3267,7 +3267,7 @@ Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
           ("f" . narrow-to-next-defun)))
 #+end_src
 
-*** Search-query
+*** Search-query                                                       :mine:
 
 My own search query package.  It simply provides a few functions so
 that I don't need to use DuckDuckGo's bangs, and for websites that
@@ -3332,7 +3332,7 @@ show/hide a subtree, and disable the predefined faces.  Part of the
 
 Eshell packages
 
-*** Eshell outline mode
+*** Eshell outline mode                                                :mine:
 
 My own package to integrate [[help:outline-minor-mode][outline-minor-mode]] with [[*Eshell][eshell]].
 
