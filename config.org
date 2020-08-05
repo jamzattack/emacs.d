@@ -906,17 +906,17 @@ Open an eshell buffer or bury the current one.
       (switch-to-buffer (current-buffer))))
 
   (defun open-or-bury-eshell (&optional arg)
-    "Launch or bury an eshell buffer.
+    "Open or bury an eshell.
 
   If prefix ARG is (16) i.e. C-u C-u, call `switch-to-eshell'.  If
   the current buffer is an eshell, bury it."
     (interactive "P")
     (cond ((equal arg '(16))
            (call-interactively #'switch-to-eshell))
-          ((derived-mode-p 'eshell-mode)
-           (bury-buffer))
+          ((or arg (not (derived-mode-p 'eshell-mode)))
+           (eshell arg))
           (t
-           (eshell arg))))
+           (bury-buffer))))
 #+end_src
 
 ***** Delete or quit
