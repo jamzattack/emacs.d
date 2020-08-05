@@ -2182,6 +2182,28 @@ Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
        helm-source-bookmark-set)))
 #+end_src
 
+** Minibuffer hacks
+
+A very tiny package, just defining two functions to make the
+minibuffer a bit nicer.
+
+[[help:increase-minibuffer-size-please][increase-minibuffer-size-please]] increases the font size a bit, I add
+it to [[help:minibuffer-setup-hook][minibuffer-setup-hook]].
+
+[[help:exit-minibuffer-other-window][exit-minibuffer-other-window]] exits the minibuffer in another window.
+This requires Emacs 28, as it uses [[help:other-window-prefix][other-window-prefix]].  I bind it to
+=M-RET=.  e.g. =M-x eww emacs M-RET= will open [[help:eww][eww]] in another window.
+
+#+begin_src emacs-lisp
+  (use-package minibuffer-hacks
+    :load-path "lisp/minibuffer-hacks"
+    :bind
+    (:map minibuffer-local-map
+          ("M-RET" . exit-minibuffer-other-window))
+    :hook
+    (minibuffer-setup . increase-minibuffer-size-please))
+#+end_src
+
 * Third party packages
 
 This is where the packages installed with [[https://github.com/raxod502/straight.el][straight.el]] are located.
