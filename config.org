@@ -947,11 +947,14 @@ running, keep the output of that command on screen.
 
 #+name: eshell/clear-please
 #+begin_src emacs-lisp :tangle no
-  (defun eshell/clear-please ()
-    "Similar to `eshell/clear', but keeps the current input."
-    (interactive)
+  (defun eshell/clear-please (&optional n)
+    "Similar to `eshell/clear', but keep the current input.
+
+  The text below the Nth last prompt will be kept."
+    (interactive "p")
     (when eshell-mode
       (save-excursion
+        (eshell-previous-prompt (1- n))
         (if (equal eshell-command-running-string "**")
             (eshell-next-prompt -1)
           (eshell-bol))
