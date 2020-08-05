@@ -3154,20 +3154,6 @@ buffer, and show 20 recent commits instead of 10.
 
 ** Appearance
 
-*** Rainbow-mode
-
-This package highlights hex colours (also install =xterm-color= to use
-in a terminal emulator).
-
-#+begin_src emacs-lisp
-  (use-package rainbow-mode
-    :straight t
-    :delight
-    (rainbow-mode " 🌈")
-    :bind
-    ("C-c h" . rainbow-mode))
-#+end_src
-
 *** Rainbow-delimiters
 
 Minor mode that highlights parentheses well.
