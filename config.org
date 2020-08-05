@@ -3149,10 +3149,15 @@ you're in (sometimes the mode-line just doesn't cut it).
 #+begin_src emacs-lisp
   (use-package dimmer
     :straight t
-    :custom
-    (dimmer-fraction 0.3)
+    :hook
+    (after-init . dimmer-mode)
     :config
-    (dimmer-mode t))
+    (setq dimmer-fraction 0.3)
+    (dimmer-mode t)
+    (dimmer-configure-org)
+    (dimmer-configure-magit)
+    (dimmer-configure-helm)
+    (dimmer-configure-gnus))
 #+end_src
 
 ** Quality of life
