@@ -1251,6 +1251,44 @@ Show the current column in the mode-line.  This is provided by the
     (column-number-mode t))
 #+end_src
 
+*** Indicate empty lines
+
+This displays a bunch of little lines in the fringe where there are
+empty lines.  I decided that I want more stuff in my fringe, and have
+been experimenting with it recently.
+
+It's entirely useless in non-editing modes, so I add it only to
+[[help:prog-mode-hook][prog-mode-hook]] and [[help:text-mode-hook][text-mode-hook]].
+
+The state is actually controlled by the buffer-local variable
+[[help:indicate-empty-lines][indicate-empty-lines]].  In order to add it to hooks, I need to define a
+wrapper function (although called [[help:indicate-empty-lines-mode][indicate-empty-lines-mode]], this
+function is not officially a minor mode--I just named it such for
+consistency's sake).
+
+#+begin_src emacs-lisp
+  (defun indicate-empty-lines-mode (&optional arg)
+    (interactive (list (or current-prefix-arg 'toggle)))
+    "Indicate empty lines in the fringe.
+
+  This is not actually a minor mode, just a wrapper function to set
+  the variable `indicate-empty-lines'.
+
+  If called interactively, enable indicaty-empty-lines-mode if ARG
+  is positive, and disable it if ARG is zero or negative.  If
+  called from Lisp, also enable the mode if ARG is omitted or nil,
+  and toggle it if ARG is toggle; disable the mode otherwise."
+    (setq indicate-empty-lines
+          (cond ((eq arg 'toggle)
+                 (not indicate-empty-lines))
+                ((numberp arg)
+                 (< 1 arg))
+                (t t))))
+
+  (add-hook 'text-mode-hook #'indicate-empty-lines-mode)
+  (add-hook 'prog-mode-hook #'indicate-empty-lines-mode)
+#+end_src
+
 *** Keybindings
 
 A couple of keybindings to change the way lines are displayed.
