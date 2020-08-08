@@ -2086,7 +2086,7 @@ Located [[file:lisp/reddit-browse/reddit-browse.el][here]].
     ("C-z r" . reddit-goto-subreddit))
 #+end_src
 
-** Toggle-touchpad
+** Toggle touchpad
 
 A simple package I wrote to toggle the touchpad/trackpoint on my
 ThinkPad
@@ -2150,11 +2150,7 @@ Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
     ("C-c p" . open-pdf-of-current-file))
 #+end_src
 
-** Helm
-
-My own bits of Lisp to enhance Helm.
-
-*** Bookmarks
+** Custom Helm bookmarks
 
 This package defines a macro to create new bookmark sources, and adds
 a few.
