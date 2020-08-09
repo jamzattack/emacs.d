@@ -1032,6 +1032,24 @@ well.
          (format "/sudo:%s@localhost:" user)))))
 #+end_src
 
+***** Describe symbol
+
+A wee eshell interface to [[help:helpful-symbol][helpful-symbol]].  Falls back to
+[[help:describe-symbol][describe-symbol]] if the above isn't available somehow.
+
+#+name: eshell/h
+#+begin_src emacs-lisp :tangle no
+  (defun eshell/h (symbol-name &rest _ignored)
+    "Show help for SYMBOL-NAME.
+
+  If `helpful-symbol' is available, use it.  Otherwise, fall back
+  to `describe-symbol'."
+    (let ((function (if (fboundp 'helpful-symbol)
+                        #'helpful-symbol
+                      #'describe-symbol)))
+      (funcall function (intern symbol-name))))
+#+end_src
+
 ***** Rename eshell buffer
 
 Rename the current eshell.  Bound to =C-c r=, but can also be used from
