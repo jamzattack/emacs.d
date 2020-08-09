@@ -880,6 +880,7 @@ delete-char or kill-buffer like a "normal" shell.
     <<eshell/e>>
     <<eshell/r>>
     <<eshell/ssh>>
+    <<eshell/h>>
     <<eshell/su>>
     <<eshell/comint>>)
 #+end_src
