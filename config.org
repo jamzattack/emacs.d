@@ -1774,7 +1774,9 @@ the recipient, and sign with the sender.
     (mml-secure-openpgp-sign-with-sender t))
 #+end_src
 
-** Input methods
+** Typing
+
+*** Input methods
 
 #+begin_src emacs-lisp
   (use-package quail
@@ -1786,7 +1788,7 @@ the recipient, and sign with the sender.
     )
 #+end_src
 
-*** Dvorak keyboard layout
+**** Dvorak keyboard layout
 
 Define a dvorak keyboard layout and enable it.
 
@@ -1853,7 +1855,7 @@ bound to =s-\=
   (bind-key "s-\\" 'toggle-quail-keyboard-layout)
 #+end_src
 
-*** Māori
+**** Māori
 
 My own input method for Māori.  It provides prefix and postfix
 variants.
@@ -1878,7 +1880,7 @@ Located [[file:lisp/input/maori-input-method.el][here]].
     :load-path "lisp/input")
 #+end_src
 
-*** Hangul
+**** Hangul
 
 An adjustment to the hangul input method that uses
 [[help:quail-keyboard-translate][quail-keyboard-translate]] to
@@ -1923,7 +1925,7 @@ subject]].
             (quail-delete-overlays))))))
 #+end_src
 
-*** Fixing various input methods
+**** Fixing various input methods
 
 As said [[*Dvorak keyboard layout][above]], some input methods don't work the way they should with
 a custom [[help:quail-keyboard-layout][quail-keyboard-layout]].
@@ -1959,6 +1961,27 @@ The elements I'm mostly interested in are 8 (=KBD-TRANSLATE=) and 9
   (with-eval-after-load "quail/programmer-dvorak"	; kbd-translate
     (setf (nth 8 (assoc "programmer-dvorak" quail-package-alist)) t
           (nth 9 (assoc "programmer-dvorak" quail-package-alist)) t))
+#+end_src
+
+*** Abbrevs
+
+#+begin_src emacs-lisp
+  (use-package abbrev
+    :hook
+    (text-mode . abbrev-mode)
+    :delight
+    :config
+    (setq save-abbrevs nil)
+    <<text-mode-abbrevs>>
+    )
+#+end_src
+
+**** My text-mode abbrevs
+
+#+name: text-mode-abbrevs
+#+begin_src emacs-lisp :tangle no
+  (use-package text-mode-abbrevs
+    :load-path "lisp/abbrev")
 #+end_src
 
 ** Printing
