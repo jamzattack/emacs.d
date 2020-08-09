@@ -1286,7 +1286,6 @@ consistency's sake).
 
 #+begin_src emacs-lisp
   (defun indicate-empty-lines-mode (&optional arg)
-    (interactive (list (or current-prefix-arg 'toggle)))
     "Indicate empty lines in the fringe.
 
   This is not actually a minor mode, just a wrapper function to set
@@ -1296,6 +1295,7 @@ consistency's sake).
   is positive, and disable it if ARG is zero or negative.  If
   called from Lisp, also enable the mode if ARG is omitted or nil,
   and toggle it if ARG is toggle; disable the mode otherwise."
+    (interactive (list (or current-prefix-arg 'toggle)))
     (setq indicate-empty-lines
           (cond ((eq arg 'toggle)
                  (not indicate-empty-lines))
