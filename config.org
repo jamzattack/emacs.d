@@ -50,9 +50,10 @@ This snippet clones and loads straight, stolen from the README.
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
 
-  (setq straight-vc-git-default-protocol 'ssh)
-  (add-to-list 'straight-built-in-pseudo-packages 'org)
-  (fset 'try #'straight-use-package)
+  (with-eval-after-load "straight"
+    (setq straight-vc-git-default-protocol 'ssh)
+    (add-to-list 'straight-built-in-pseudo-packages 'org)
+    (fset 'try #'straight-use-package))
 #+end_src
 
 ** Use-package and dependencies
