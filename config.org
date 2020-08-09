@@ -80,6 +80,7 @@ creating a new frame or starting emacs.
 
 #+begin_src emacs-lisp
   (defun set-up-fonts-please ()
+    "Load font settings in `user-emacs-directory'/lisp/fonts.el."
     (interactive)
     (load (expand-file-name "lisp/fonts.el" user-emacs-directory)))
 
