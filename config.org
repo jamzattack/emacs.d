@@ -308,8 +308,7 @@ window configuration.
     :defer t
     :after org
     :custom
-    (org-agenda-files (list (or org-directory
-                                "~/org")))
+    (org-agenda-files '("~/org" "~/org/uni"))
     (org-agenda-window-setup 'current-window)
     :bind
     ("C-z C-a" . org-agenda))
