@@ -186,7 +186,26 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
           ("C-c h" . org-insert-emacs-help)))
 #+end_src
 
-**** Org Capture
+**** Org Indent
+
+I used to use [[help:org-indent-mode][org-indent-mode]] a while back, but ditched it for reasons
+I can't remember.  I set the [[help:org-indent-indentation-per-level][indentation level]] to 1 character instead
+of its default value of 2.  This helps to keep the text within a
+manageable width and is probably the reason I disabled it.
+
+I find org-mode looks a bit cleaner and more "open" with this mode
+enabled.  Without it, the window can get cluttered pretty easily.
+
+#+begin_src emacs-lisp
+  (use-package org-indent
+    :hook
+    (org-mode . org-indent-mode)
+    :delight
+    :config
+    (setq org-indent-indentation-per-level 1))
+#+end_src
+
+**** Org capture
 
 Take notes in [[help:org-mode][org-mode]] with specific templates and write them to a
 file.  Similar to [[help:remember][remember]].
