@@ -878,6 +878,8 @@ I don't want the shell buffer to open a new window, so add an entry in
 Change the history size to 1000, custom keybinding to either
 delete-char or kill-buffer like a "normal" shell.
 
+Much of my eshell workflow is now housed in [[*Eshell outline mode][Eshell outline mode]].
+
 #+begin_src emacs-lisp
   (use-package eshell
     :custom
@@ -888,14 +890,9 @@ delete-char or kill-buffer like a "normal" shell.
     ("s-e" . open-or-bury-eshell)
     ("s-E" . switch-to-eshell)
     (:map eshell-mode-map
-          ("C-d" . eshell-delete-or-quit)
-          ([remap eshell-display-modifier-help] . eshell-mark-output)
-          ("C-c M-o" . eshell/clear-please)
           ("C-c r" . eshell/r))
     :config
     (require 'esh-mode)
-    <<eshell-delete-or-quit>>
-    <<eshell/clear-please>>
     <<eshell/e>>
     <<eshell/r>>
     <<eshell/ssh>>
@@ -938,49 +935,6 @@ Open an eshell buffer or bury the current one.
            (eshell arg))
           (t
            (bury-buffer))))
-#+end_src
-
-***** Delete or quit
-
-If point is at an empty prompt, kill the buffer.  Otherwise, delete
-char.
-
-#+name: eshell-delete-or-quit
-#+begin_src emacs-lisp :tangle no
-  (defun eshell-delete-or-quit (arg)
-    "If point is at the end of the buffer and input is empty,
-  kill the buffer.  Just like giving EOF to a normal shell."
-    (interactive "p")
-    (if (=
-         (save-excursion
-           (or (eshell-bol)
-               -1))
-         (point)
-         (point-max))
-        (kill-buffer (current-buffer))
-      (delete-char arg)))
-#+end_src
-
-***** Clear screen
-
-Clear the screen, but keep current input intact.  If a command is
-running, keep the output of that command on screen.
-
-#+name: eshell/clear-please
-#+begin_src emacs-lisp :tangle no
-  (defun eshell/clear-please (&optional n)
-    "Similar to `eshell/clear', but keep the current input.
-
-  The text below the Nth last prompt will be kept."
-    (interactive "p")
-    (when eshell-mode
-      (save-excursion
-        (eshell-previous-prompt (1- n))
-        (if (equal eshell-command-running-string "**")
-            (eshell-next-prompt -1)
-          (eshell-bol))
-        (end-of-line 0)
-        (insert (make-string (window-height) ?\n)))))
 #+end_src
 
 ***** Edit a file
