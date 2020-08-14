@@ -875,15 +875,16 @@ I don't want the shell buffer to open a new window, so add an entry in
 
 *** Eshell
 
-Change the history size to 1000, custom keybinding to either
-delete-char or kill-buffer like a "normal" shell.
+A bunch of new eshell functions for my convenience; see their
+docstrings or org headings for more details.
 
-Much of my eshell workflow is now housed in [[*Eshell outline mode][Eshell outline mode]].
+Much of my eshell workflow is now housed in [[*Eshell outline mode][Eshell outline mode]], so a
+few customisations have been removed recently.
 
 #+begin_src emacs-lisp
   (use-package eshell
     :custom
-    (eshell-history-size 1000)
+    (eshell-history-size 10000)
     :init
     <<open-or-bury-eshell>>
     :bind
