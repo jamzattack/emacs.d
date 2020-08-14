@@ -782,7 +782,7 @@ Rebind M-p and M-n to move by paragraphs.  By default M-n runs
 *** Ibuffer
 
 Ibuffer is an interface similar to dired, but for editing your open
-buffers.  I don't use it much now in favour of [[*Helm][Helm]], but it can be
+buffers.  I don't use it much now in favour of [[*HELM][Helm]], but it can be
 useful for more complex filtering.
 
 #+begin_src emacs-lisp
