@@ -625,14 +625,14 @@ Instead of "ISearch", show =^S= (=C-s=) in the mode-line.
 
 Eldoc is what provides the function signature in the mode-line when
 editing Elisp.  By default, it waits for 0.5 seconds so I bump the
-delay down to 0.
+delay down to 0.1.
 
 #+begin_src emacs-lisp
   (use-package eldoc
     :delight
     :defer t
     :custom
-    (eldoc-idle-delay 0))
+    (eldoc-idle-delay 0.1))
 #+end_src
 
 ** Applications
