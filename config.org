@@ -570,7 +570,8 @@ emails, or anything else that Emacs can do.
 
 *** Compile
 
-Bind =C-z RET= and =f9= to compile.
+Bind =C-z RET= to [[help:compile][compile]] and =f9= to [[help:recompile][recompile]] (like [[help:compile][compile]], but no need
+to press =RET=).
 
 #+begin_src emacs-lisp
   (use-package compile
@@ -582,8 +583,8 @@ Bind =C-z RET= and =f9= to compile.
 *** Hi-lock
 
 I often use =M-s h .= to see where variables, functions, etc. are used.
-However, paredit remaps =M-s= to [[help:paredit-splice-sexp][paredit-splice-sexp]], so I turn on
-hi-lock-mode which enables the =C-x w= prefix.
+However, [[*Paredit][paredit]] remaps =M-s= to [[help:paredit-splice-sexp][paredit-splice-sexp]], so I turn on
+[[help:hi-lock-mode][hi-lock-mode]] which enables the =C-x w= prefix.
 
 #+begin_src emacs-lisp
   (use-package hi-lock
@@ -604,7 +605,7 @@ Highlight matching parens everywhere.
 
 *** Auto fill
 
-Instead of "Fill", show "^M" (carriage return) in the mode-line.
+Instead of "Fill", show =^M= (carriage return) in the mode-line.
 
 #+begin_src emacs-lisp
   (use-package simple
@@ -832,7 +833,7 @@ I bind =C-x C-d= to [[help:dired-jump][dired-jump]], instead of the useless [[he
 
 **** Ediff
 
-By default, Ediff tries to open its own frame.  This doesn't work well
+By default, [[info:ediff#Top][Ediff]] tries to open its own frame.  This doesn't work well
 with EXWM, so I disable that feature.
 
 #+begin_src emacs-lisp
