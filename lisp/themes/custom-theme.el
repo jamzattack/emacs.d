@@ -12,6 +12,7 @@
    `(helm-source-header ((,class (:inherit 'bold))))
    `(font-lock-doc-face ((,class (:slant italic :inherit font-lock-string-face))))
    `(dired-async-mode-message ((,class (:foreground "darkred"))))
+   `(org-hide ((,class (:foreground ,almost-white))))
 
    ;; Not really text
    `(tooltip ((,class (:inherit 'default))))
