@@ -2687,7 +2687,7 @@ for looking at READMEs though, so I add view-mode to the hook.
 #+begin_src emacs-lisp
   (use-package markdown-mode
     :straight t
-    :mode "*\\.md'"
+    :mode "\\.md\\'"
     :hook (markdown-mode . view-mode))
 #+end_src
 
