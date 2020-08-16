@@ -903,6 +903,7 @@ few customisations have been removed recently.
     <<eshell/e>>
     <<eshell/r>>
     <<eshell/ssh>>
+    <<eshell/c>>
     <<eshell/h>>
     <<eshell/su>>
     <<eshell/comint>>)
@@ -1090,6 +1091,86 @@ Otherwise, it will be named according to:
     (let ((buffer
            (concat eshell-buffer-name name)))
       (rename-buffer buffer (get-buffer buffer))))
+#+end_src
+
+***** eshell/c
+
+[[help:eshell/c][eshell/c]] is a super beefy function that supersedes [[help:eshell/cat][eshell/cat]].  It
+uses the GUI to its advantage to show:
+- [[help:eshell/img][images]]
+- [[help:eshell/ls][directories]]
+- [[help:eshell/shr][rendered html]]
+- [[help:eshell/fontify][fontified source code]]
+
+#+begin_src emacs-lisp
+  (defun eshell/img (&rest files)
+    "Insert FILES into the buffer as images.
+
+  If a file does not match `image-file-name-regexp', nothing
+  happens."
+    (dolist (file (mapcar #'expand-file-name (flatten-tree files)))
+      (when (string-match-p (image-file-name-regexp) file)
+        (goto-char (1- (point)))
+        (insert "\n")
+        (insert-image (create-image file nil nil
+                                    :max-height (* 2 (/ (window-pixel-height) 3))
+                                    :max-width (* 2 (/ (window-pixel-width) 3))))))
+    (goto-char (point-max))
+    nil)
+
+  (defun eshell/shr (&rest files)
+    "Insert FILES into the buffer as rendered HTML."
+    (dolist (file (mapcar #'expand-file-name (flatten-tree files)))
+      (when (string-match-p "\\.html\\'" file)
+        (goto-char (1- (point)))
+        (shr-insert-document
+         (with-temp-buffer
+           (insert-file-contents file)
+           (libxml-parse-html-region (point-min) (point-max))))))
+    (goto-char (point-max))
+    nil)
+
+  (defun eshell/fontify (&rest files)
+    "Insert FILES into the buffer.
+
+  Like `eshell/cat', but fontifies the text as it would be if it
+  were visited normally."
+    (dolist (file (mapcar #'expand-file-name (flatten-tree files)))
+      (goto-char (1- (point)))
+      (insert "\n")
+      (insert
+       (with-temp-buffer
+         (insert-file-contents file)
+         (setq buffer-file-name file)
+         (normal-mode)
+         (font-lock-ensure)
+         (delete-region (1- (point-max)) (point-max))
+         (set-buffer-modified-p nil)
+         (buffer-string)))
+      (goto-char (point-max)))
+    nil)
+
+  (defun eshell/c (&rest files)
+    "My overpowered version of `eshell/cat'.
+
+  This command show FILES as:
+  - images (`eshell/img')
+  - directories (`eshell/ls')
+  - rendered html (`eshell/shr')
+  - fontified source code (`eshell/fontify')"
+    (dolist (file (mapcar (lambda (file)
+                            (let ((expanded (expand-file-name file)))
+                              (when (file-exists-p file)
+                                expanded)))
+                          (flatten-tree files)))
+      (cond ((string-match-p (image-file-name-regexp) file)
+             (eshell/img file))
+            ((file-directory-p file)
+             (eshell/ls "-lah" file))
+            ((string-match-p "\\.html\\'" file)
+             (eshell/shr file))
+            (t
+             (eshell/fontify file)))))
 #+end_src
 
 ** Saving the state of Emacs
