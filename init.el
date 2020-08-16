@@ -23,8 +23,9 @@
 ;; Define a function that loads my config file
 (defun config-load (&optional tangle)
   "Load my config file.
-If config.el exists, load it.  Otherwise tangle config.org and
-then load config.el."
+
+Load \"config.el\".  If \"config.el\" doesn't exist, or if prefix
+arg TANGLE is non-nil, tangle \"config.org\" first."
   (interactive "P")
   (if tangle
       (let ((org (expand-file-name "config.org" user-emacs-directory)))
