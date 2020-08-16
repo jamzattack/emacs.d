@@ -75,7 +75,7 @@ don't need to use =(require delight)= as use-package handles that.
 
 ** Fonts
 
-The function [[help:set-up-font-please][set-up-font-please]] loads my [[file:lisp/fonts.el][font settings]].  Call it when
+The function [[help:set-up-fonts-please][set-up-fonts-please]] loads my [[file:lisp/fonts.el][font settings]].  Call it when
 creating a new frame or starting emacs.
 
 #+begin_src emacs-lisp
