@@ -372,7 +372,8 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         :html-postamble-format ,(my-org-html-postamble-format
                                  "Author: %a"
                                  "Email: %e"
-                                 "Date: %d (modified %C)")
+                                 "Date: %d (modified %C)"
+                                 "Top: <a href=\"/index.html\">The Yeet Log</a>")
         :sitemap-filename "index.org"
         :sitemap-title "The Yeet Log"
         :sitemap-format-entry
@@ -393,6 +394,10 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         ,@my-org-publish-default-options
         :base-directory "~/jamzattack.xyz/music"
         :recursive t
+        :html-postamble-format ,(my-org-html-postamble-format
+                                 "Author: %a"
+                                 "Email: %e"
+                                 "Top: <a href=\"/sitemap.html\">All projects</a>")
         :publishing-directory "/ssh:jamzattack.xyz:/var/www/music"
         :sitemap-title "My Music Projects")
        ("html"
