@@ -2518,6 +2518,14 @@ library).
         "Open a \"help\" type link.
   PATH is a symbol name, as a string."
         (helpful-symbol (intern str))))
+    (with-eval-after-load "erc-button"
+      (defun erc-button-describe-symbol (str)
+        "Describe the symbol named STR.
+  This uses the `helpful' library instead of `describe-*'"
+        (let ((symbol (intern-soft str)))
+          (if symbol
+              (helpful-symbol symbol)
+            (apropos str)))))
     :bind
     (:map help-map
           ("f" . helpful-callable)
