@@ -7,8 +7,9 @@
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6)
 
-;; Disable the small delay for frame creation
-(setq x-wait-for-event-timeout nil)
+;; Settings for graphical instance
+(setq x-wait-for-event-timeout nil	; remove frame creation delay
+      frame-resize-pixelwise t)		; frames resize by pixel
 
 ;; Prefer newer files rather than old byte-compiled ones
 (setq load-prefer-newer t)
