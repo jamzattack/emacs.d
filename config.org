@@ -1610,6 +1610,23 @@ emacs)= instead.
     ("M-p" . backward-paragraph))
 #+end_src
 
+*** Project
+
+[[info:emacs#Projects][project.el]] is Emacs' builtin library of convenience functions for
+working on a "project", which is really just a directory with version
+control.
+
+By default, the project-specific Eshells open in another window, so I
+adjust [[help:display-buffer-alist][display-buffer-alist]] to display them in the [[help:display-buffer-same-window][same window]].
+
+#+begin_src emacs-lisp
+  (use-package project
+    :defer t
+    :config
+    (add-to-list 'display-buffer-alist
+                 '("-eshell\\*\\'" display-buffer-same-window)))
+#+end_src
+
 ** Mail
 
 *** Gnus
