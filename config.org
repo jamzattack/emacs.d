@@ -371,7 +371,7 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         ,@my-org-publish-default-options
         :base-directory "~/jamzattack.xyz/blog"
         :with-toc t
-        :publishing-directory "/ssh:jamzattack.xyz:/var/www/blog"
+        :publishing-directory "~/jamzattack.xyz/out/blog"
         :html-postamble-format ,(my-org-html-postamble-format
                                  "Author: %a"
                                  "Email: %e"
@@ -401,12 +401,12 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
                                  "Author: %a"
                                  "Email: %e"
                                  "Top: <a href=\"/sitemap.html\">All projects</a>")
-        :publishing-directory "/ssh:jamzattack.xyz:/var/www/music"
+        :publishing-directory "~/jamzattack.xyz/out/music"
         :sitemap-title "My Music Projects")
        ("html"
         ,@my-org-publish-default-options
         :base-directory "~/jamzattack.xyz/html"
-        :publishing-directory "/ssh:jamzattack.xyz:/var/www/html"))))
+        :publishing-directory "~/jamzattack.xyz/out/html"))))
 #+end_src
 
 ***** Generate postamble
