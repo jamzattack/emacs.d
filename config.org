@@ -359,15 +359,18 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
                  ,@my-org-publish-default-options)))")
     (setq
      org-html-postamble t ; needed to use custom format
+     org-export-headline-levels 6
      org-html-postamble-format
      (my-org-html-postamble-format
       "Author: %a"
       "Email: %e")
      org-publish-timestamp-directory "~/.cache/org/timestamps/"
+     org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\"/>"
      org-publish-project-alist
      `(("blog"
         ,@my-org-publish-default-options
         :base-directory "~/jamzattack.xyz/blog"
+        :with-toc t
         :publishing-directory "/ssh:jamzattack.xyz:/var/www/blog"
         :html-postamble-format ,(my-org-html-postamble-format
                                  "Author: %a"
