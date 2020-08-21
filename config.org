@@ -345,6 +345,11 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
   (use-package ox-publish
     :defer t
     :config
+    (use-package ox-jamzattack
+      :demand
+      :straight
+      (ox-jamzattack :type git
+                     :repo "git@jamzattack.xyz:ox-jamzattack.git"))
     <<my-org-html-postamble-format>>
     (defvar my-org-publish-default-options
       '(
@@ -362,8 +367,7 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
      org-export-headline-levels 6
      org-html-postamble-format
      (my-org-html-postamble-format
-      "Author: %a"
-      "Email: %e")
+      "Author: %A")
      org-publish-timestamp-directory "~/.cache/org/timestamps/"
      org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\"/>"
      org-publish-project-alist
@@ -373,9 +377,8 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         :with-toc t
         :publishing-directory "~/jamzattack.xyz/out/blog"
         :html-postamble-format ,(my-org-html-postamble-format
-                                 "Author: %a"
-                                 "Email: %e"
-                                 "Date: %d (modified %C)"
+                                 "Author: %A"
+                                 "Date: %d (modified %M)"
                                  "Top: <a href=\"/index.html\">The Yeet Log</a>")
         :sitemap-filename "index.org"
         :sitemap-title "The Yeet Log"
@@ -398,8 +401,7 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         :base-directory "~/jamzattack.xyz/music"
         :recursive t
         :html-postamble-format ,(my-org-html-postamble-format
-                                 "Author: %a"
-                                 "Email: %e"
+                                 "Author: %A"
                                  "Top: <a href=\"/sitemap.html\">All projects</a>")
         :publishing-directory "~/jamzattack.xyz/out/music"
         :sitemap-title "My Music Projects")
@@ -428,20 +430,6 @@ A little function to generate postamble.
                            args
                            "\n"))))
 #+end_src
-
-****** TODO change [[my-org-html-postamble-format][this]] to a function
-
-This would involve:
-1. Defining a [[help:org-html-format-spec][format spec]]
-2. Replacing [[help:org-html-postamble][org-html-postamble]] with a function that uses the above
-3. Probably moving to its own file ([[file:lisp/publish.el][publish.el]] is free real estate)
-
-Reasons for doing so:
-1. Ability to link to raw file via [[https://git.jamzattack.xyz][stagit]]
-2. ~%e~ is a link, meaning I can't do ~<a href="mailto:%e">%a</>~
-3. Use git for timestamps
-
-See [[https://gitlab.com/ambrevar/ambrevar.gitlab.io/-/raw/master/publish.el][Ambrevar's publish script (L82)]] for inspiration.
 
 ***** Default export options
 
