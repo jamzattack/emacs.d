@@ -653,9 +653,7 @@ browser, and change the width to 80 columns.
       (setq browse-url-browser-function 'eww-browse-url
             browse-url-secondary-browser-function 'browse-url-externally-please))
     (with-eval-after-load "shr"
-      (setq shr-width 80
-            shr-use-colors nil
-            shr-use-fonts nil))
+      (setq shr-width 80))
     <<browse-url-externally-please>>
     :config
     <<eww-edit-current-url>>
