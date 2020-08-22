@@ -1414,9 +1414,10 @@ The library =mb-depth= provides a [[help:minibuffer-depth-indicate-mode][minor m
 you are in the minibuffer "stack".
 
 #+begin_src emacs-lisp
-(use-package mb-depth
-  (setq enable-recursive-minibuffers t)
-  (minibuffer-depth-indicate-mode))
+  (use-package mb-depth
+    :config
+    (setq enable-recursive-minibuffers t)
+    (minibuffer-depth-indicate-mode))
 #+end_src
 
 ** Environment variables
