@@ -426,7 +426,14 @@ A little function to generate postamble.
       (setq args '("Author: %a <%e>")))
     (list (list "en"
                 (mapconcat (lambda (str)
-                             (format "<p>%s</p>" str))
+                             (format (cond
+                                      ((string-match-p "%d" str)
+                                       "<p class=\"date\">%s</p>")
+                                      ((string-match-p "%A" str)
+                                       "<p class=\"author\">%s</p>")
+                                      (t
+                                       "<p>%s</p>"))
+                                     str))
                            args
                            "\n"))))
 #+end_src
