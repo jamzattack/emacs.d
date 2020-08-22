@@ -1398,6 +1398,20 @@ Thus, =M-SPC M-SPC= acts like =M-\= ([[help:delete-horizontal-space][delete-hori
     ("M-SPC" . cycle-spacing))
 #+end_src
 
+*** Minibuffer
+
+I set the variable [[help:enable-recursive-minibuffers][enable-recursive-minibuffers]] to allow recursive
+minibuffers.  e.g. =M-!= rm -rf =C-u M-:= user-emacs-directory =RET= =RET=
+
+The library =mb-depth= provides a [[help:minibuffer-depth-indicate-mode][minor mode]] that that shows how deep
+you are in the minibuffer "stack".
+
+#+begin_src emacs-lisp
+(use-package mb-depth
+  (setq enable-recursive-minibuffers t)
+  (minibuffer-depth-indicate-mode))
+#+end_src
+
 ** Environment variables
 
 Set the =$EDITOR= to =emacsclient=.  Because I (almost) only use other
