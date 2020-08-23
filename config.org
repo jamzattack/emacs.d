@@ -2358,6 +2358,20 @@ This requires Emacs 28, as it uses [[help:other-window-prefix][other-window-pref
     (minibuffer-setup . increase-minibuffer-size-please))
 #+end_src
 
+** Custom bitmaps
+
+The default fringe bitmaps aren't that pretty, so I define a few of my
+own.
+
+Currently, it's only:
+- left/right arrows (truncated lines)
+- left/right curly arrows (wrapped lines)
+
+#+begin_src emacs-lisp
+  (use-package my-bitmaps
+    :load-path "bitmaps")
+#+end_src
+
 * Third party packages
 
 This is where the packages installed with [[https://github.com/raxod502/straight.el][straight.el]] are located.
