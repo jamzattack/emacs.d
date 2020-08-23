@@ -23,6 +23,10 @@
                     :font "DejaVu Sans Mono"
                     :height 1.0)
 
+(set-fontset-font t 'unicode "Noto Color Emoji" nil 'append)
+;; Free Mono for APl: life←{↑1 ⍵∨.∧3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}
+(set-fontset-font t 'unicode "Free Mono" nil 'prepend)
+
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
 ;;
 ;; Make sure you use the right font. See
@@ -31,8 +35,6 @@
 (set-fontset-font t 'kana "Noto Sans Mono CJK JP")
 (set-fontset-font t 'hangul "Noto Sans Mono CJK KR")
 (set-fontset-font t 'cjk-misc "Noto Sans Mono CJK KR Bold")
-
-(set-fontset-font t 'unicode "Noto Color Emoji" nil 'append)
 
 ;; South East Asia: ជំរាបសួរ, ສະບາຍດີ, မင်္ဂလာပါ, สวัสดีครับ
 (set-fontset-font t 'khmer "Noto Sans Khmer")
