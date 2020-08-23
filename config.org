@@ -585,6 +585,8 @@ errors and warnings.  I enable it in both [[*Shell][Shell]] and [[*Eshell][Eshel
     :bind
     ("C-z C-m" . compile)
     ("<f9>" . recompile)
+    :delight
+    (compilation-shell-minor-mode " ¢")	; "C" for compile...
     :hook
     (eshell-mode . compilation-shell-minor-mode)
     (shell-mode . compilation-shell-minor-mode))
