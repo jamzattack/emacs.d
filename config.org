@@ -576,11 +576,18 @@ emails, or anything else that Emacs can do.
 Bind =C-z RET= to [[help:compile][compile]] and =f9= to [[help:recompile][recompile]] (like [[help:compile][compile]], but no need
 to press =RET=).
 
+Also provided by this library is [[help:compilation-shell-minor-mode][compilation-shell-minor-mode]], a minor
+mode designed for [[*Shell][Shell]] that provides highlighting and navigation for
+errors and warnings.  I enable it in both [[*Shell][Shell]] and [[*Eshell][Eshell]].
+
 #+begin_src emacs-lisp
   (use-package compile
     :bind
     ("C-z C-m" . compile)
-    ("<f9>" . recompile))
+    ("<f9>" . recompile)
+    :hook
+    (eshell-mode . compilation-shell-minor-mode)
+    (shell-mode . compilation-shell-minor-mode))
 #+end_src
 
 *** Hi-lock
