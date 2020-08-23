@@ -23,9 +23,9 @@
    `(region ((,class (:background ,background2))))
    `(fringe ((,class (:inherit 'default))))
    `(mode-line ((,class (:background ,modeline))))
-   `(tab-bar ((,class (:inherit mode-line-inactive :box nil))))
-   `(tab-bar-tab ((,class (:inherit default))))
-   `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive :box nil))))
+   `(tab-bar ((,class (:inherit mode-line-inactive))))
+   `(tab-bar-tab ((,class (:inherit default :height 80))))
+   `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive))))
    `(ruler-mode-default ((,class (:inherit header-line :box nil))))
    ))
 
