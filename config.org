@@ -2369,7 +2369,7 @@ Currently, it's only:
 
 #+begin_src emacs-lisp
   (use-package my-bitmaps
-    :load-path "bitmaps")
+    :load-path "lisp/bitmaps")
 #+end_src
 
 * Third party packages
