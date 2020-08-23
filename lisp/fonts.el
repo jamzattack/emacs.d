@@ -23,9 +23,15 @@
                     :font "DejaVu Sans Mono"
                     :height 1.0)
 
+;; Misc
 (set-fontset-font t 'unicode "Noto Color Emoji" nil 'append)
-;; Free Mono for APl: life←{↑1 ⍵∨.∧3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}
-(set-fontset-font t 'unicode "Free Mono" nil 'prepend)
+(set-fontset-font t 'unicode "Free Mono" nil 'append)
+
+;; normal-ish scripts that aren't using the default font
+(set-fontset-font t 'cyrillic "Go Mono")
+(set-fontset-font t 'greek "Go Mono")
+
+(set-fontset-font t 'phonetic "DejaVu Sans Mono")
 
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
 ;;
@@ -62,3 +68,10 @@
 (set-fontset-font t 'telugu "Noto Sans Telugu")
 (set-fontset-font t 'tibetan "Noto Sans Tibetan")
 (set-fontset-font t 'bengali "Noto Sans Bengali")
+
+
+(set-fontset-font t 'cherokee "Noto Sans Cherokee")
+(set-fontset-font t 'georgian "Noto Sans Georgian")
+(set-fontset-font t 'armenian "Noto Sans Armenian")
+
+(set-fontset-font t 'tai-viet "Noto Sans Tai Viet")
