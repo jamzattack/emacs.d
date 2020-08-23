@@ -454,16 +454,6 @@ A list of default export options.
   :with-todo-keywords nil
 #+end_src
 
-*** Prolog
-
-Major mode for editing prolog files.  Files ending in =.pl= open in
-[[help:prolog-mode][prolog-mode]].
-
-#+begin_src emacs-lisp
-  (use-package prolog
-    :mode ("\\.pl\\'" . prolog-mode))
-#+end_src
-
 *** Cc-mode
 
 Set the C style to bsd, which uses tabs.  Use Java/Awk indentation for
