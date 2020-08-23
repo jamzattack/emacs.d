@@ -1452,12 +1452,38 @@ does [[help:shrink-window-horizontally][shrink-window-horizontally]] have a keyb
 A further useful keybinding is for [[help:quit-window][quit-window]], which sometimes isn't
 bound even when it should be.  I bind it to =s-DEL=.
 
+I set the variable [[help:switch-to-prev-buffer-skip][switch-to-prev-buffer-skip]] to a custom function,
+which means that [[help:switch-to-prev-buffer][switch-to-prev/next-buffer]] and [[help:bury-buffer][bury-buffer]] won't
+switch to a buffer that I consider boring.  This includes:
+- helm, helpful, help buffers
+- empty buffers (but _not_ exwm buffers)
+
 #+begin_src emacs-lisp
   (use-package window
     :bind
     ("C-z C-z" . bury-buffer)
     ("C-x _" . shrink-window)
-    ("<s-backspace>" . quit-window))
+    ("<s-backspace>" . quit-window)
+    ("s-s" . next-buffer)
+    ("s-d" . previous-buffer)
+    :config
+    (defun skip-boring-buffer-please (_window buffer _bury-or-kill)
+      "Return non-nil if BUFFER is boring.
+  A buffer is \"boring\" if one of the following is true:
+  - it is in `helm-major-mode', `helpful-mode', or `help-mode'
+  - it is empty
+  - it is _not_ in `exwm-mode'"
+      (or (member (buffer-local-value 'major-mode buffer)
+                  '(helm-major-mode
+                    helpful-mode
+                    help-mode))
+          (not
+           (equal (buffer-local-value 'major-mode buffer)
+                  'exwm-mode))
+          (with-current-buffer buffer
+            (= (point-min) (point-max)))))
+    (setq switch-to-prev-buffer-skip
+          #'skip-boring-buffer-please))
 #+end_src
 
 *** Windmove
