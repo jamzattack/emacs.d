@@ -2417,6 +2417,7 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
     <<kill-this-buffer-please>>
     :config
     <<helm-split-window-please>>
+    <<un-helmify>>
     (require 'helm-config)
     (delight '((helm-mode "")))
     (helm-mode t)
@@ -2432,6 +2433,26 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
     ("M-C-y" . helm-show-kill-ring)
     (:map helm-map
           ("C-h c" . describe-key-briefly)))
+#+end_src
+
+*** un-helmifying some commands
+
+Helm provides the variable [[help:helm-completing-read-handlers-alist][helm-completing-read-handlers-alist]] to
+determine which commands use helm for completing-read.
+
+I disable helm for [[info:emacs#Highlight Interactively][hi-lock]] functions, as they read a face name which
+is pretty slow, and [[help:insert-char][insert-char]].
+
+#+name: un-helmify
+#+begin_src emacs-lisp :tangle no
+  (with-eval-after-load "helm-mode"
+    (dolist (f '(highlight-symbol-at-point
+                 highlight-regexp
+                 highlight-lines-matching-regexp
+                 highlight-phrase
+                 insert-char))
+      (add-to-list 'helm-completing-read-handlers-alist
+                   (list f))))
 #+end_src
 
 *** Functions
