@@ -882,7 +882,7 @@ I don't want the shell buffer to open a new window, so add an entry in
     :defer t
     :config
     (add-to-list 'display-buffer-alist
-                 '("^\\*shell\\*$" display-buffer-same-window)))
+                 '("\\`\\*shell\\*\\'" display-buffer-same-window)))
 #+end_src
 
 *** Eshell
