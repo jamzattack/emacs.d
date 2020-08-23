@@ -662,6 +662,7 @@ browser, and change the width to 80 columns.
     :custom
     (eww-bookmarks-directory
      (expand-file-name "eww" user-emacs-directory))
+    (eww-browse-url-new-window-is-tab nil)
     :init
     (with-eval-after-load "browse-url"
       (setq browse-url-browser-function 'eww-browse-url
