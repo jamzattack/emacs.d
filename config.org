@@ -1460,6 +1460,8 @@ switch to a buffer that I consider boring.  This includes:
 
 #+begin_src emacs-lisp
   (use-package window
+    :no-require
+    :demand
     :bind
     ("C-z C-z" . bury-buffer)
     ("C-x _" . shrink-window)
@@ -1477,11 +1479,11 @@ switch to a buffer that I consider boring.  This includes:
                   '(helm-major-mode
                     helpful-mode
                     help-mode))
-          (not
+          (or
            (equal (buffer-local-value 'major-mode buffer)
-                  'exwm-mode))
-          (with-current-buffer buffer
-            (= (point-min) (point-max)))))
+                  'exwm-mode)
+           (with-current-buffer buffer
+             (= (point-min) (point-max))))))
     (setq switch-to-prev-buffer-skip
           #'skip-boring-buffer-please))
 #+end_src
