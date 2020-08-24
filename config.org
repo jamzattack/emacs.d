@@ -2329,7 +2329,6 @@ Located [[file:lisp/helm/custom-helm-bookmark.el][here]].
        helm-source-bookmark-elisp
        helm-source-bookmark-downloads
        helm-source-bookmark-magit
-       helm-source-bookmark-elfeed
        helm-source-bookmark-dired
        helm-source-bookmark-info
        helm-source-bookmark-man
@@ -3369,9 +3368,8 @@ Provides some functions to upload to [[http://0x0.st][0x0.st]].
 
 *** Plumb                                                              :mine:
 
-A way to open URLs the way I want.  I bind it to =C-z d=.  Some
-commands from this package are bound in the [[*EWW][EWW]] and
-[[*Elfeed][Elfeed]].
+A way to open URLs the way I want.  I bind it to =C-z d=.  Some commands
+from this package are bound in the [[*EWW][EWW]] section.
 
 Hosted [[https://git.jamzattack.xyz/plumb][here]].
 
