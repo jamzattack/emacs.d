@@ -1478,11 +1478,11 @@ switch to a buffer that I consider boring.  This includes:
                   '(helm-major-mode
                     helpful-mode
                     help-mode))
-          (or
-           (equal (buffer-local-value 'major-mode buffer)
-                  'exwm-mode)
-           (with-current-buffer buffer
-             (= (point-min) (point-max))))))
+          (unless
+              (equal (buffer-local-value 'major-mode buffer)
+                     'exwm-mode)
+            (with-current-buffer buffer
+              (= (point-min) (point-max))))))
     (setq switch-to-prev-buffer-skip
           #'skip-boring-buffer-please))
 #+end_src
