@@ -3,40 +3,39 @@
 .\#*
 
 # Eww files
-url
-eww
+/url
+/eww
 
 # Eshell files
-eshell/history
-eshell/lastdir
+/eshell
 
 # desktop/bookmark/etc
-bookmarks
-recentf
-.emacs.desktop*
+/bookmarks
+/recentf
+/.emacs.desktop*
 
 # files created from config.org
 lisp/config.el
 lisp/custom.el
 
 # compiled packages
-lisp/*/*.elc
-lisp/*.elc
-straight
-elpa
+*.elc
+/straight
+/elpa
 
 # files
-helm-adaptive-history
-nov-places
-.org-id-locations
-network-security.data
-ebdb.gpg
-elpher-bookmarks
-places
-projects
+/helm-adaptive-history
+/nov-places
+/.org-id-locations
+/network-security.data
+/ebdb.gpg
+/elpher-bookmarks
+/places
+/projects
 
 # directories
-eaf
-elfeed
-tramp
-transient
+/eaf
+/elfeed
+/tramp
+/transient
+/eln-cache/
