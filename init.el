@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
+(when (boundp 'comp-deferred-compilation)
+  (setq comp-deferred-compilation t))
+
 (with-eval-after-load 'epg-config
   (setq epg-pinentry-mode 'loopback))
 
