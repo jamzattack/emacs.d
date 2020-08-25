@@ -2378,6 +2378,30 @@ This is where the packages installed with [[https://github.com/raxod502/straight
 All of these use the =:straight= keyword, so that they are downloaded if
 they aren't already.
 
+** epkg
+
+Since I don't use the built-in =package= library, [[https://emacsmirror.net/][epkg]] is a nice
+replacement for the UI (paired with [[*Straight][straight]] for installing).  It
+provides functions to describe, list, search by author.
+
+One of the biggest advantages is that is shows way more information in
+the *describe* buffer, including:
+- dependencies
+- reverse dependencies
+- downloads
+- github stars
+- when last updated
+
+It also comes with an [[info:epkg#Top][info manual]], yippee!
+
+#+begin_src emacs-lisp
+  (use-package epkg
+    :straight t
+    :bind
+    ([remap describe-package] . epkg-describe-package)
+    ([remap finder-by-keyword] . epkg-list-packages))
+#+end_src
+
 ** HELM
 
 Rebind a few keys in order to make use of Helm's features.  Stuff like
