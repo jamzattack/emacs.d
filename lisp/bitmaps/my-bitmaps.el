@@ -24,45 +24,45 @@
 
 ;;; Code:
 
-(define-fringe-bitmap 'right-curly-arrow
-  [#b00110000
-   #b00011000
-   #b00001100
-   #b00000110
-   #b01001100
-   #b01111000
-   #b01110000
-   #b01111000])
-
-(define-fringe-bitmap 'left-curly-arrow
-  [#b00001100
-   #b00011000
-   #b00110000
-   #b01100000
-   #b00110010
-   #b00011110
-   #b00001110
-   #b00011110])
-
-(define-fringe-bitmap 'right-arrow
-  [#b01100000
-   #b00110000
-   #b00011000
-   #b00001100
-   #b00001100
-   #b00011000
-   #b00110000
-   #b01100000])
-
-(define-fringe-bitmap 'left-arrow
-  [#b00000110
-   #b00001100
-   #b00011000
-   #b00110000
-   #b00110000
-   #b00011000
-   #b00001100
-   #b00000110])
+(defun my-bitmaps-enable ()
+  "Enable some custom bitmaps."
+  (interactive)
+  (define-fringe-bitmap 'right-curly-arrow
+    [#b00110000
+     #b00011000
+     #b00001100
+     #b00000110
+     #b01001100
+     #b01111000
+     #b01110000
+     #b01111000])
+  (define-fringe-bitmap 'left-curly-arrow
+    [#b00001100
+     #b00011000
+     #b00110000
+     #b01100000
+     #b00110010
+     #b00011110
+     #b00001110
+     #b00011110])
+  (define-fringe-bitmap 'right-arrow
+    [#b01100000
+     #b00110000
+     #b00011000
+     #b00001100
+     #b00001100
+     #b00011000
+     #b00110000
+     #b01100000])
+  (define-fringe-bitmap 'left-arrow
+    [#b00000110
+     #b00001100
+     #b00011000
+     #b00110000
+     #b00110000
+     #b00011000
+     #b00001100
+     #b00000110]))
 
 (provide 'my-bitmaps)
 ;;; my-bitmaps.el ends here
