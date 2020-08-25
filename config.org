@@ -2632,6 +2632,28 @@ Similar to [[help:occur][occur]], but only shows headings.
           ("C-c M-o" . helm-org-in-buffer-headings)))
 #+end_src
 
+*** Helm color
+
+The default action of [[help:helm-colors][helm-colors]] is [[help:customize-face][customize-face]].  I rarely find it
+more convenient than [[help:describe-face][describe-face]], so I replace it.
+
+Note: this comes with [[*HELM][Helm]].
+
+#+begin_src emacs-lisp
+  (use-package helm-color
+    :defer t
+    :config
+    (setf (alist-get 'action helm-source-customize-face)
+          '(("Describe". (lambda (line)
+                           (describe-face
+                            (intern (car (split-string line))))))
+            ("Customize". (lambda (line)
+                            (customize-face
+                             (intern (car (split-string line))))))
+            ("Copy name" . (lambda (line)
+                             (kill-new (car (split-string line " " t))))))))
+#+end_src
+
 ** Helpful
 
 Helpful gives a whole lot more information than =describe-*=.  I also
