@@ -2397,9 +2397,34 @@ It also comes with an [[info:epkg#Top][info manual]], yippee!
 #+begin_src emacs-lisp
   (use-package epkg
     :straight t
+    :config
+    <<epkg-straight>>
     :bind
     ([remap describe-package] . epkg-describe-package)
     ([remap finder-by-keyword] . epkg-list-packages))
+#+end_src
+
+*** "Install with straight" button
+
+Advise [[help:epkg-describe-package][epkg-describe-package]] to add a button for installation with
+straight.
+
+#+name: epkg-straight
+#+begin_src emacs-lisp :tangle no
+  (defun add-straight-button-to-epkg-describe (pkg &rest _ignored)
+    (when (member pkg (straight-recipes-list))
+      (let ((inhibit-read-only t))
+        (with-current-buffer (help-buffer)
+          (goto-char (point-min))
+          (forward-line 1)
+          (insert "\n")
+          (insert-button (format "Install %s with straight"
+                                 (propertize pkg 'face '(:inherit bold)))
+                         'action `(lambda (&rest _ignored)
+                                    (straight-use-package ',(intern pkg))))
+          (insert "\n")))))
+
+  (advice-add 'epkg-describe-package :after #'add-straight-button-to-epkg-describe)
 #+end_src
 
 ** HELM
