@@ -3305,7 +3305,7 @@ Hosted [[https://git.jamzattack.xyz/ol-elpher][here]].
     :straight
     (ol-elpher :type git
                :repo "git@jamzattack.xyz:ol-elpher.git")
-    :after elpher)
+    :after ol)
 #+end_src
 
 *** EBDB
