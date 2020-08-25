@@ -50,7 +50,7 @@ This snippet clones and loads straight, stolen from the README.
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
 
-  (with-eval-after-load "straight"
+  (with-eval-after-load 'straight
     (setq straight-vc-git-default-protocol 'ssh)
     (add-to-list 'straight-built-in-pseudo-packages 'org)
     (fset 'try #'straight-use-package))
@@ -655,10 +655,10 @@ browser, and change the width to 80 columns.
      (expand-file-name "eww" user-emacs-directory))
     (eww-browse-url-new-window-is-tab nil)
     :init
-    (with-eval-after-load "browse-url"
+    (with-eval-after-load 'browse-url
       (setq browse-url-browser-function 'eww-browse-url
             browse-url-secondary-browser-function 'browse-url-externally-please))
-    (with-eval-after-load "shr"
+    (with-eval-after-load 'shr
       (setq shr-width 80))
     <<browse-url-externally-please>>
     :config
@@ -2008,7 +2008,7 @@ subject]].
 
 #+name: hangul-input-method
 #+begin_src emacs-lisp :tangle no
-  (with-eval-after-load "hangul"
+  (with-eval-after-load 'hangul
     (defun hangul2-input-method (key)
       "2-Bulsik input method."
       (setq key (quail-keyboard-translate key))
@@ -2443,7 +2443,7 @@ is pretty slow, and [[help:insert-char][insert-char]].
 
 #+name: un-helmify
 #+begin_src emacs-lisp :tangle no
-  (with-eval-after-load "helm-mode"
+  (with-eval-after-load 'helm-mode
     (dolist (f '(highlight-symbol-at-point
                  highlight-regexp
                  highlight-lines-matching-regexp
@@ -2602,12 +2602,12 @@ library).
     :config
     <<helpful-edit-source-temporarily>>
     <<helpful-copy-to-kill-ring>>
-    (with-eval-after-load "ol"
+    (with-eval-after-load 'ol
       (defun org-link--open-help (str)
         "Open a \"help\" type link.
   PATH is a symbol name, as a string."
         (helpful-symbol (intern str))))
-    (with-eval-after-load "erc-button"
+    (with-eval-after-load 'erc-button
       (defun erc-button-describe-symbol (str)
         "Describe the symbol named STR.
   This uses the `helpful' library instead of `describe-*'"
@@ -3218,7 +3218,7 @@ function which can accept the extra arguments.
       "Like `elpher-go', but allows extra arguments.
   This is useful for `browse-url-handlers'"
       (elpher-go url))
-    (with-eval-after-load "browse-url"
+    (with-eval-after-load 'browse-url
       (add-to-list 'browse-url-handlers
                    '("^\\(gopher\\|gemini\\)://" . elpher-go-please))))
 #+end_src
@@ -3270,9 +3270,9 @@ I also prefer to keep my contacts file encrypted, so I set
       "ebdb.gpg" user-emacs-directory))
     (ebdb-completion-display-record nil)
     :init
-    (with-eval-after-load "gnus"
+    (with-eval-after-load 'gnus
       (require 'ebdb-gnus))
-    (with-eval-after-load "message"
+    (with-eval-after-load 'message
       (require 'ebdb-message)))
 #+end_src
 
