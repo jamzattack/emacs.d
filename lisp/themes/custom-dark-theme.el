@@ -17,6 +17,7 @@
    `(font-lock-doc-face ((,class (:slant italic :inherit font-lock-string-face))))
    `(dired-async-mode-message ((,class (:foreground "darkred"))))
    `(org-hide ((,class (:foreground ,background))))
+   `(erc-current-nick-face ((,class (:foreground "OrangeRed2"))))
 
    ;; Not really text
    `(tooltip ((,class (:inherit 'default))))
@@ -29,8 +30,8 @@
    `(ruler-mode-default ((,class (:inherit header-line :box nil))))
    ))
 
-(when (and (member 'dimmer-mode minor-mode-list)
-	   (fboundp 'dimmer-mode))
+(when (and (fboundp 'dimmer-mode)
+	   dimmer-mode)
   (dimmer-mode -1)
   (dimmer-mode))
 
