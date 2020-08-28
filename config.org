@@ -658,8 +658,6 @@ browser, and change the width to 80 columns.
     (with-eval-after-load 'browse-url
       (setq browse-url-browser-function 'eww-browse-url
             browse-url-secondary-browser-function 'browse-url-externally-please))
-    (with-eval-after-load 'shr
-      (setq shr-width 80))
     <<browse-url-externally-please>>
     :config
     <<eww-edit-current-url>>
@@ -735,6 +733,51 @@ useful in eww, and a fitting replacement for [[help:set-fill-column][set-fill-co
                                  (- (window-width) 5)))))
     (setq shr-width width)
     (eww-reload t))
+#+end_src
+
+*** SHR
+
+#+begin_src emacs-lisp
+  (use-package shr
+    :defer t
+    :custom
+    (shr-width 80)
+    :config
+    <<un-duckduckgo-url>>
+    :bind
+    (:map shr-map
+          ("f" . plumb-stream)
+          ("A" . plumb-audio)
+          ("D" . plumb-download-video))
+#+end_src
+
+**** Remove duckduckgo tracking from url
+
+Duckduckgo does a very sinful thing -- instead of linking to
+=https://url.com=, it links to:
+: https://duckduckgo.com/l/?kh=-1&uddg=https%3A%2F%2Furl.com
+
+Here, I define a function that removes all this junk, and use [[info:elisp#Advising Named Functions][advice]]
+to filter the arguments given to [[help:shr-urlify][shr-urlify]].  Because this is
+relatively low-level, all occurences of duckduckgo's redirects that
+are parsed with =shr= are replaced with the clean version.
+
+#+name: un-duckduckgo-url
+#+begin_src emacs-lisp :tangle no
+  (defun un-duckduckgo-url (args)
+    "Cleanse a url from duckduckgo's janky redirect.
+  This takes the same args as `shr-urlify', passed as a list."
+    (let ((start (nth 0 args))
+          (url (nth 1 args))
+          (title (nth 2 args)))
+      (list start
+            (let ((unhexed (url-unhex-string url)))
+              (if (string-match "\\`.*&uddg=" unhexed)
+                  (replace-match "" nil nil unhexed)
+                url))
+            title)))
+
+  (advice-add 'shr-urlify :filter-args #'un-duckduckgo-url)
 #+end_src
 
 *** ERC
