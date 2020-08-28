@@ -3535,11 +3535,13 @@ show/hide a subtree, and disable the predefined faces.  Part of the
 #+begin_src emacs-lisp
   (use-package dired-subtree
     :straight dired-hacks
+    :after dired
+    :demand t
     :custom
     (dired-subtree-use-backgrounds nil)
     :bind
     (:map dired-mode-map
-          ("<tab>" . dired-subtree-toggle)))
+          ("TAB" . dired-subtree-cycle)))
 #+end_src
 
 ** Eshell
