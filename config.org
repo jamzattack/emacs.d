@@ -2700,6 +2700,20 @@ Note: this comes with [[*HELM][Helm]].
                              (kill-new (car (split-string line " " t))))))))
 #+end_src
 
+*** Helm epa mode
+
+Since quite recently ([2020-08-15 Sat 07:22], commit =caf78b98=) helm
+has included an interface for [[info:epa#Top][epa]].  I enable it, of course, not only
+because Helm makes for a convenient completing-read, but because the
+stock key/recipient selection _sucks_.
+
+#+begin_src emacs-lisp
+  (use-package helm-misc
+    :after helm epa
+    :config
+    (helm-epa-mode))
+#+end_src
+
 ** Helpful
 
 Helpful gives a whole lot more information than =describe-*=.  I also
