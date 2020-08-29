@@ -2458,7 +2458,7 @@ It also comes with an [[info:epkg#Top][info manual]], yippee!
     <<epkg-straight>>
     :bind
     ([remap describe-package] . epkg-describe-package)
-    ([remap finder-by-keyword] . epkg-list-packages))
+    ([remap finder-by-keyword] . epkg-list-matching-packages))
 #+end_src
 
 *** "Install with straight" button
