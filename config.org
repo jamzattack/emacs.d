@@ -637,17 +637,6 @@ delay down to 0.1.
     (eldoc-idle-delay 0.1))
 #+end_src
 
-*** Hl-line
-
-Highlight the current line in all modes derived from
-[[info:elisp#Tabulated List Mode][tabulated-list-mode]].
-
-#+begin_src emacs-lisp
-  (use-package hl-line
-    :hook
-    (tabulated-list-mode . hl-line-mode))
-#+end_src
-
 ** Applications
 
 This section is for Elisp programs that have an interface of their
