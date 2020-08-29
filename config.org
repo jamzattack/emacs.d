@@ -759,7 +759,7 @@ useful in eww, and a fitting replacement for [[help:set-fill-column][set-fill-co
     (:map shr-map
           ("f" . plumb-stream)
           ("A" . plumb-audio)
-          ("D" . plumb-download-video))
+          ("D" . plumb-download-video)))
 #+end_src
 
 **** Remove duckduckgo tracking from url
