@@ -3104,6 +3104,8 @@ globally.
     ("C-)" . paredit-forward-slurp-sexp)
     ("C-{" . paredit-backward-barf-sexp)
     ("C-}" . paredit-forward-barf-sexp)
+    (:map paredit-mode-map
+          ("M-R" . paredit-splice-sexp-killing-backward))
     :hook
     (emacs-lisp-mode . paredit-mode)
     (lisp-interaction-mode . paredit-mode)
