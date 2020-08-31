@@ -2525,6 +2525,8 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
     ([remap bookmark-jump] . helm-filtered-bookmarks)
     ("M-C-y" . helm-show-kill-ring)
     (:map helm-map
+          ("C-x C-t" . helm-toggle-resplit-and-swap-windows)
+          ("C-t" . transpose-chars)
           ("C-h c" . describe-key-briefly)))
 #+end_src
 
