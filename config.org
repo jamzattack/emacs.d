@@ -3087,13 +3087,23 @@ move the history file out of =$HOME=.
 *** Paredit
 
 Efficient and clever editing commands for working with s-expressions.
-Enabled for Lisp modes only.
+Only fully enabled in Lisp modes, but I also define a few useful keys
+globally.
+
+- [ ] TODO replace all these hooks with [[help:lisp-data-mode-hook][lisp-data-mode]], added in 28.
 
 #+begin_src emacs-lisp
   (use-package paredit
     :straight t
     :defer t
     :delight
+    :bind
+    ("M-\"" . paredit-meta-doublequote)
+    ("M-(" . paredit-open-round)
+    ("C-(" . paredit-backward-slurp-sexp)
+    ("C-)" . paredit-forward-slurp-sexp)
+    ("C-{" . paredit-backward-barf-sexp)
+    ("C-}" . paredit-forward-barf-sexp)
     :hook
     (emacs-lisp-mode . paredit-mode)
     (lisp-interaction-mode . paredit-mode)
