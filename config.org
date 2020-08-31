@@ -1140,7 +1140,8 @@ uses the GUI to its advantage to show:
 - [[help:eshell/shr][rendered html]]
 - [[help:eshell/fontify][fontified source code]]
 
-#+begin_src emacs-lisp
+#+name: eshell/c
+#+begin_src emacs-lisp :tangle no
   (defun eshell/img (&rest files)
     "Insert FILES into the buffer as images.
 
