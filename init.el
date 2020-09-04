@@ -6,10 +6,6 @@
 (with-eval-after-load 'epg-config
   (setq epg-pinentry-mode 'loopback))
 
-;; Temporarily disable GC
-(setq gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.6)
-
 ;; Settings for graphical instance
 (setq x-wait-for-event-timeout nil	; remove frame creation delay
       frame-resize-pixelwise t)		; frames resize by pixel
@@ -46,7 +42,3 @@ arg TANGLE is non-nil, tangle \"config.org\" first."
     (load-file custom-file))
   ;; Load config.org
   (config-load))
-
-;; Revert GC settings
-(setq gc-cons-threshold 800000
-      gc-cons-percentage 0.1)
