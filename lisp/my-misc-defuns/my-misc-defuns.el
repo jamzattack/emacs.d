@@ -3,6 +3,7 @@
 ;; Copyright (C) 2020  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
+;; Version: 2020.09.10
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -122,21 +123,6 @@ prefix arg, indent the whole buffer."
 				(point))))))))
     (indent-region (car bounds) (cdr bounds))))
 
-
-
-;;;###autoload
-(defun update-elisp-version ()
-  "Update a version number in an Elisp file.
-Uses the current date formatted as %Y.%m.%d (e.g. 1970.01.01)"
-  (interactive)
-  (let ((new-version (format-time-string " %Y.%m.%d")))
-    (save-excursion
-      (save-restriction
-	(widen)
-	(goto-char (point-min))
-	(re-search-forward "^;; Version:")
-	(kill-line)
-	(insert new-version)))))
 
 
 ;;;###autoload
