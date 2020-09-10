@@ -28,10 +28,10 @@
 (set-fontset-font t 'unicode "Free Mono" nil 'append)
 
 ;; normal-ish scripts that aren't using the default font
-(set-fontset-font t 'cyrillic "Go Mono")
-(set-fontset-font t 'greek "Go Mono")
-
-(set-fontset-font t 'phonetic "DejaVu Sans Mono")
+(set-fontset-font t 'cyrillic "Go Mono") ; русский
+(set-fontset-font t 'greek "Go Mono")	; ελληνικά
+(set-fontset-font t 'braille "Iosevka") ; ⠓⠑⠇⠇⠕
+(set-fontset-font t 'phonetic "DejaVu Sans Mono") ; /ˈɪŋɡlɪʃ/
 
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
 ;;
