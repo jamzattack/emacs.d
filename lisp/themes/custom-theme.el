@@ -2,7 +2,7 @@
   "Not much but changing the background colour to off-white")
 
 (let ((class '((class color) (min-colors 89)))
-      (foreground "black")
+      (foreground "#2b0000")
       (background "#FFFFD0")
       (background2 "lightgoldenrod")
       (background3 "khaki1")
