@@ -3148,6 +3148,28 @@ Hosted [[https://git.jamzattack.xyz/selime][here]].
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
+*** Lex-hl                                                             :mine:
+
+My little package to highlight lexically bound variables.  It provides
+a minor mode to add keybindings, but I bind them in [[help:emacs-lisp-mode-map][elisp mode map]]
+instead of using a [[help:emacs-lisp-mode-hook][hook]], so that loading is deferred.
+
+Hosted [[https://git.jamzattack.xyz/lex-hl][here]].
+
+#+begin_src emacs-lisp
+  (use-package lex-hl
+    :straight
+    (lex-hl :type git
+            :flavor melpa
+            :repo "git@jamzattack.xyz:lex-hl.git")
+    :bind
+    (:map emacs-lisp-mode-map
+          ("C-c `" . lex-hl-unhighlight)
+          ("C-c '" . lex-hl-top-level)
+          ("C-c ," . lex-hl-prompt)
+          ("C-c ." . lex-hl-nearest)))
+#+end_src
+
 *** LilyPond auto-insert                                               :mine:
 
 My own package to handle auto-insertions for LilyPond-mode.  I add it
