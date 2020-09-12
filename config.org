@@ -3236,6 +3236,7 @@ Hosted [[https://git.jamzattack.xyz/org-el-index][here]].
     :straight
     (org-el-index :type git
                   :repo "git@jamzattack.xyz:org-el-index.git")
+    :after org
     :bind
     (:map org-mode-map
           ("C-c M-i" . org-el-index-file-small)))
