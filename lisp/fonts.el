@@ -3,12 +3,13 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-                    :font "Go Mono"
+		    :foundry "BE5N"
+                    :family "Iosevka"
 		    :weight 'normal
 		    :height 80)
 
 (set-face-attribute 'fixed-pitch nil
-		    :family "Go Mono"
+		    :family "Iosevka"
 		    :height 1.0)
 
 (set-face-attribute 'italic nil
@@ -20,6 +21,7 @@
                     :height 1.1)
 
 (set-face-attribute 'fixed-pitch-serif nil
+		    :foundry "PfEd"
                     :font "DejaVu Sans Mono"
                     :height 1.0)
 
@@ -28,19 +30,19 @@
 (set-fontset-font t 'unicode "Free Mono" nil 'append)
 
 ;; normal-ish scripts that aren't using the default font
-(set-fontset-font t 'cyrillic "Go Mono") ; русский
-(set-fontset-font t 'greek "Go Mono")	; ελληνικά
+(set-fontset-font t 'cyrillic "Iosevka") ; русский
+(set-fontset-font t 'greek "Iosevka")	; ελληνικά
 (set-fontset-font t 'braille "Iosevka") ; ⠓⠑⠇⠇⠕
-(set-fontset-font t 'phonetic "DejaVu Sans Mono") ; /ˈɪŋɡlɪʃ/
+(set-fontset-font t 'phonetic "Iosevka") ; /ˈɪŋɡlɪʃ/
 
 ;; East Asia: 你好, 早晨, こんにちは, 안녕하세요
 ;;
 ;; Make sure you use the right font. See
 ;; https://www.google.com/get/noto/help/cjk/.
-(set-fontset-font t 'han "Noto Sans Mono CJK SC")
-(set-fontset-font t 'kana "Noto Sans Mono CJK JP")
-(set-fontset-font t 'hangul "Noto Sans Mono CJK KR")
-(set-fontset-font t 'cjk-misc "Noto Sans Mono CJK KR Bold")
+(set-fontset-font t 'han "Sarasa Mono HC")
+(set-fontset-font t 'kana "Sarasa Mono J")
+(set-fontset-font t 'hangul "Sarasa Mono K")
+(set-fontset-font t 'cjk-misc "Sarasa Mono CL")
 
 ;; South East Asia: ជំរាបសួរ, ສະບາຍດີ, မင်္ဂလာပါ, สวัสดีครับ
 (set-fontset-font t 'khmer "Noto Sans Khmer")
