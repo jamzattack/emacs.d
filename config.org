@@ -3604,6 +3604,27 @@ Hosted [[https://git.jamzattack.xyz/search-query][here]].
     ("C-z C-e" . search-etymonline))
 #+end_src
 
+*** Insert Date                                                        :mine:
+
+My wee package to insert the date/time in a few different formats.  I
+define =C-c d= as a prefix map.
+
+Hosted [[https://git.jamzattack.xyz/insert-date][here]].
+
+#+begin_src emacs-lisp
+  (use-package insert-date
+    :straight
+    (insert-date :type git
+                 :repo "git@jamzattack.xyz:insert-date.git")
+    :bind
+    (:prefix "C-c d" :prefix-map insert-date-map
+             ("v" . insert-date-version)
+             ("d" . insert-date-only-date)
+             ("t" . insert-date-time-only)
+             ("l" . insert-date-locale)
+             ("i" . insert-date-iso8601)))
+#+end_src
+
 ** Dired
 
 A couple of packages that enhance dired.
