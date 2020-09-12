@@ -3224,6 +3224,23 @@ org-mode.  I use it in my package [[*Plumb][plumb]].
     :defer t)
 #+end_src
 
+*** Org Elisp index                                                    :mine:
+
+My package to insert a function/variable index from an elisp file into
+an org buffer.  See its homepage for a demo.
+
+Hosted [[https://git.jamzattack.xyz/org-el-index][here]].
+
+#+begin_src emacs-lisp
+  (use-package org-el-index
+    :straight
+    (org-el-index :type git
+                  :repo "git@jamzattack.xyz:org-el-index.git")
+    :bind
+    (:map org-mode-map
+          ("C-c M-i" . org-el-index-file-small)))
+#+end_src
+
 ** EXWM - Emacs X Window Manager
 
 Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM config][earlier]], you need
