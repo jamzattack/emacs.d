@@ -39,3 +39,5 @@ lisp/custom.el
 /tramp
 /transient
 /eln-cache/
+
+*-autoloads.el
