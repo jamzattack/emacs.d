@@ -180,11 +180,11 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
                             (not (keywordp sym)))))))
       (insert (format "[[help:%s][%s]]" symbol symbol)))
     :bind
+    ("C-c M-." . org-time-stamp)
     (:map org-mode-map
           ("M-h" . mark-paragraph)
           ("C-M-h" . org-mark-element)
-          ("C-c h" . org-insert-emacs-help))
-    ("C-c M-." . org-time-stamp))
+          ("C-c h" . org-insert-emacs-help)))
 #+end_src
 
 **** Org Indent
