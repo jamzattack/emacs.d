@@ -146,5 +146,16 @@ audacity is buggy with these variables."
 ;;;###autoload
 (fset 'eshell/audacity #'audacity)
 
+
+
+;;;###autoload
+(defun copy-gpl-here ()
+  (interactive)
+  (if (file-exists-p "LICENSE")
+      (user-error "File \"LICENSE\" already exists"))
+  (with-temp-file "LICENSE"
+    (insert-file-contents
+     (expand-file-name "COPYING" data-directory))))
+
 (provide 'my-misc-defuns)
 ;;; my-misc-defuns.el ends here
