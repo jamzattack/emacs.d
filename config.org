@@ -793,6 +793,7 @@ The only reason for this to be here is to set my nick.
     (erc-hide-list '("JOIN" "PART" "QUIT"))
     :config
     (add-to-list 'erc-modules 'notifications)
+    (erc-update-modules)
     (erc-track-mode))
 #+end_src
 
