@@ -3638,8 +3638,9 @@ Hosted [[https://git.jamzattack.xyz/insert-date][here]].
     (:prefix "C-c d" :prefix-map insert-date-map
              ("v" . insert-date-version)
              ("d" . insert-date-only-date)
-             ("t" . insert-date-time-only)
+             ("t" . insert-date-only-time)
              ("l" . insert-date-locale)
+             ("b" . insert-date-both)
              ("i" . insert-date-iso8601)))
 #+end_src
 
