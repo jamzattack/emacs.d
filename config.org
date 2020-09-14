@@ -2902,36 +2902,28 @@ Awkward hacky workaround to get LilyPond's links to open properly.
     "Open \"textedit://\" links via `find-file', and jump to the
   right point.  I use this because lilypond output contains such
   links."
-    (cond ((string-match "textedit://" uri)
-           (let* ((path
-                   ;; get rid of textedit://
-                   (replace-regexp-in-string
-                    "^textedit://"
-                    ""
-                    uri))
-                  (split
-                   (split-string path ":"))
-                  (file
-                   (url-unhex-string
-                    (apply #'concat
-                           (butlast split 3))))
-                  (extras
-                   (reverse
-                    (cdr split)))
-                  (line
-                   (string-to-number
-                    (caddr extras)))
-                  (column
-                   (string-to-number
-                    (car extras)))
-                  (buffer
-                   (find-file-noselect file)))
-             (pop-to-buffer buffer)
-             (goto-char (point-min))
-             (forward-line (1- line))
-             (move-to-column column)))
-          (t
-           (pdf-links-browse-uri-default uri))))
+    (if (string-match "textedit://" uri)
+        (let* ((path
+                ;; get rid of textedit://
+                (replace-regexp-in-string
+                 "\\`textedit://" "" uri))
+               (split
+                (split-string path ":"))
+               (file
+                (url-unhex-string
+                 (apply #'concat (butlast split 3))))
+               (extras
+                (reverse (cdr split)))
+               (line
+                (string-to-number (caddr extras)))
+               (column
+                (string-to-number (car extras)))
+               (buffer (find-file-noselect file)))
+          (pop-to-buffer buffer)
+          (goto-char (point-min))
+          (forward-line (1- line))
+          (move-to-column column))
+      (pdf-links-browse-uri-default uri)))
 #+end_src
 
 *** LilyPond-mode
