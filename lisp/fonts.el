@@ -3,7 +3,6 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-		    :foundry "BE5N"
                     :family "Iosevka"
 		    :weight 'normal
 		    :height 80)
@@ -21,8 +20,7 @@
                     :height 1.1)
 
 (set-face-attribute 'fixed-pitch-serif nil
-		    :foundry "PfEd"
-                    :font "DejaVu Sans Mono"
+                    :font "Go Mono"
                     :height 1.0)
 
 ;; Misc
