@@ -3186,16 +3186,6 @@ Hosted [[https://git.jamzattack.xyz/lilypond-auto-insert][here]].
 
 ** Extra org packages
 
-*** Github markdown
-
-Export to markdown.
-
-#+begin_src emacs-lisp
-  (use-package ox-gfm
-    :straight t
-    :defer t)
-#+end_src
-
 *** Html export
 
 Export to html.
