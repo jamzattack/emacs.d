@@ -2670,9 +2670,11 @@ the Helm alternatives [[*EWW][here]].
 
 *** Helm org
 
-=C-c M-o= in org-mode runs the function
-[[help:helm-org-in-buffer-headings][helm-org-in-buffer-headings]].
-Similar to [[help:occur][occur]], but only shows headings.
+=C-c i= in org-mode runs the function [[help:helm-org-in-buffer-headings][helm-org-in-buffer-headings]].
+
+I'm not quite sure about the mechanics, but org-mode's imenu sometimes
+works exactly like this (just a [[help:completing-read][completing-read]] of all headings), and
+sometimes only shows the first couple.
 
 #+begin_src emacs-lisp
   (use-package helm-org
@@ -2680,7 +2682,7 @@ Similar to [[help:occur][occur]], but only shows headings.
     :after org
     :bind
     (:map org-mode-map
-          ("C-c M-o" . helm-org-in-buffer-headings)))
+          ("C-c i" . helm-org-in-buffer-headings)))
 #+end_src
 
 *** Helm color
