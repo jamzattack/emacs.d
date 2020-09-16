@@ -2822,10 +2822,9 @@ This now works with both Elisp and C source code.
                       (read-buffer "Copy symbol from buffer: "
                                    (current-buffer)
                                    t
-                                   (lambda (name)
-                                     (string-match
-                                      "^\\*helpful"
-                                      name)))
+                                   (lambda (buffer)
+                                     (with-current-buffer buffer
+                                       (derived-mode-p 'helpful-mode))))
                     (current-buffer))))
     (with-current-buffer buffer
       (unless (eq major-mode 'helpful-mode)
