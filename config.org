@@ -3596,7 +3596,7 @@ Hosted [[https://git.jamzattack.xyz/search-query][here]].
                   :repo "git@jamzattack.xyz:search-query")
     :custom
     (search-query-tpb-mirror "piratebay.live")
-    (search-query-invidious-mirror "invidious.13ad.de")
+    (search-query-invidious-mirror "invidiou.site")
     :bind
     ("C-z a" . search-archwiki)
     ("C-z t" . search-tpb)
