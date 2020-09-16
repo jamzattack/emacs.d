@@ -1779,11 +1779,13 @@ will be sent from my university address.  Very nice!
     :defer t
     :custom
     (gnus-posting-styles
-     '(("nnimap\\+university:.*"
-        (From "Jamie Beardslee <beardsjami@myvuw.ac.nz>")
+     `(("nnimap\\+university:.*"
+        (From ,(format "%s <%s@%s>" user-full-name "beardsjami" "myvuw.ac.nz"))
         (signature "Jamie Beardslee (300484191)"))
+       ("nnimap\\+gmail:.*"
+        (From ,(format "%s <%s@%s>" user-full-name "beardsleejamie" "gmail.com")))
        ("nnimap\\+mail\\.jamzattack\\.xyz:.*"
-        (From "Jamie Beardslee <jdb@jamzattack.xyz>")))))
+        (From ,(format "%s <%s@%s>" user-full-name "jdb" "jamzattack.xyz"))))))
 #+end_src
 
 **** Gnus-art
