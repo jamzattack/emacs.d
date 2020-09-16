@@ -3,6 +3,7 @@
 ;; Copyright (C) 2020  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
+;; Version: 2020.09.16
 ;; Keywords: multimedia, hypertext, hypermedia
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -31,13 +32,14 @@
 (require 'browse-url)
 (require 'url-util)
 
-(defvar library-genesis-mirror "gen.lib.rus.ec"
+(defcustom library-genesis-mirror "gen.lib.rus.ec"
   "The mirror for Library Genesis.
 Other potential values if this one doesn't work:
 libgen.is
 libgen.lc
 libgen.pw
-bookfi.net")
+bookfi.net"
+  :type 'string)
 
 (defvar library-genesis-search-types '("LibGen"
                                        "Scientific"
