@@ -783,18 +783,40 @@ are parsed with =shr= are replaced with the clean version.
 
 *** ERC
 
-The only reason for this to be here is to set my nick.
+[[info:erc#Top][ERC]] is perhaps the greatest IRC client ever made.  I use [[https://znc.in][ZNC]] on my
+server, so I connect to that, and set my password in my [[info:auth#Top][authinfo]] file.
 
 #+begin_src emacs-lisp
   (use-package erc
     :defer t
     :custom
+    (erc-server "jamzattack.xyz")
     (erc-nick "jamzattack")
     (erc-hide-list '("JOIN" "PART" "QUIT"))
     :config
+    <<znc-detach-channel>>
     (add-to-list 'erc-modules 'notifications)
     (erc-update-modules)
     (erc-track-mode))
+#+end_src
+
+**** Detach instead of parting when buffer is killed
+
+I've just started using [[https://znc.in][ZNC]], an IRC bouncer.  ERC, however tries to
+part from a channel when its buffer is killed.  Instead, I want to
+detach so that I can reattach later.  Here, I override
+[[help:erc-kill-channel][erc-kill-channel]], resulting in the wanted behaviour.
+
+#+name: znc-detach-channel
+#+begin_src emacs-lisp :tangle no
+  (defun znc-detach-channel ()
+    "Hook that handles ZNC-specific channel killing behavior"
+    (when (erc-server-process-alive)
+      (when-let ((tgt (erc-default-target)))
+        (erc-server-send (format "DETACH %s" tgt)
+                         nil tgt))))
+
+  (advice-add 'erc-kill-channel :override #'znc-detach-channel)
 #+end_src
 
 **** ERC notifications
