@@ -172,19 +172,7 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
           '("hidelinks" "hyperref" nil)
           (car org-latex-default-packages-alist)
           '("utf8x" "inputenc" "pdflatex"))
-    (defun org-insert-emacs-help (symbol)
-      "Insert a help link to SYMBOL.
-
-  Interactively, this prompts from all symbols in `obarray'."
-      (interactive (list
-                    (completing-read
-                     "Help link: "
-                     obarray
-                     (lambda (sym)
-                       (and (or (boundp sym)
-                                (fboundp sym))
-                            (not (keywordp sym)))))))
-      (insert (format "[[help:%s][%s]]" symbol symbol)))
+    <<org-insert-emacs-help>>
     :bind
     ("C-c M-." . org-time-stamp)
     (:map org-mode-map
@@ -192,6 +180,45 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
           ("M-h" . mark-paragraph)
           ("C-M-h" . org-mark-element)
           ("C-c h" . org-insert-emacs-help)))
+#+end_src
+
+**** Insert help link
+
+A function to insert an org-mode help link.  This uses the symbol at
+point if it's a defined variable or function.  Otherwise, it prompts
+from all [[help:boundp][bound]] or [[help:fboundp][fbound]] symbols.
+
+#+name: org-insert-emacs-help
+#+begin_src emacs-lisp :tangle no
+  (defun org-insert-emacs-help (&optional prompt)
+    "Insert a help link to a symbol.
+  If the symbol at point is bound, it is replaced by the link.
+  Otherwise, or with prefix arg, PROMPT from all bound symbols in
+  `obarray'."
+    (interactive "*P")
+    (when (eq (get-text-property (point) 'face)
+              'org-link)
+      (user-error "Text at point is already a link--don't want to mangle the buffer"))
+    (cl-labels ((predicate (sym)
+                           (and (or (boundp sym)
+                                    (fboundp sym))
+                                (not (keywordp sym))))
+                (prompt ()
+                        (completing-read
+                         "Help link: "
+                         obarray
+                         #'predicate
+                         t)))
+      (let ((symbol
+             (or (when prompt
+                   (prompt))
+                 (let ((symbol (symbol-at-point))
+                       (bounds (bounds-of-thing-at-point 'symbol)))
+                   (when (predicate symbol)
+                     (delete-region (car bounds) (cdr bounds))
+                     symbol))
+                 (prompt))))
+        (insert (format "[[help:%s][%s]]" symbol symbol)))))
 #+end_src
 
 **** Org Indent
