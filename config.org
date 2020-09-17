@@ -214,7 +214,8 @@ from all [[help:boundp][bound]] or [[help:fboundp][fbound]] symbols.
                    (prompt))
                  (let ((symbol (symbol-at-point))
                        (bounds (bounds-of-thing-at-point 'symbol)))
-                   (when (predicate symbol)
+                   (when (and symbol
+                              (predicate symbol))
                      (delete-region (car bounds) (cdr bounds))
                      symbol))
                  (prompt))))
