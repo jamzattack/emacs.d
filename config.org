@@ -3001,6 +3001,7 @@ Located [[https://git.jamzattack.xyz/lilypond-mode][here]].
     :init
     (defalias 'lilypond-mode 'LilyPond-mode)
     <<custom-lilypond-setup>>
+    <<lilypond-insert-repeat>>
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
@@ -3041,6 +3042,32 @@ A few miscellaneous things to add to [[help:LilyPond-mode-hook][LilyPond-mode-ho
     (when (fboundp 'display-fill-column-indicator-mode)
       (setq fill-column 80)
       (display-fill-column-indicator-mode)))
+#+end_src
+
+**** Fancy repeat command
+
+Nice little command to insert a repeat.  Wraps the region in =\repeat=
+and prompts for the type and number.
+
+#+name: lilypond-insert-repeat
+#+begin_src emacs-lisp :tangle no
+  (defun lilypond-insert-repeat (&optional beg end)
+    "Insert a repeat around BEG and END.
+  Interactively, this is the selected region.  Prompt for the
+  type (volta or unfold) and number."
+    (interactive "*r")
+    (setq beg (copy-marker (or beg (point)))
+          end (copy-marker (or end (1+ (point)))))
+    (save-excursion
+      (goto-char beg)
+      (insert (format "\\repeat %s %s {\n"
+                      (completing-read "Repeat type: " '("volta" "unfold"))
+                      (read-number "Repeat number: " 2)))
+      (goto-char end)
+      (insert "}\n")
+      (indent-region beg (1+ end))))
+
+  (define-key LilyPond-mode-map (kbd "C-c C-r") #'lilypond-insert-repeat)
 #+end_src
 
 *** Markdown
