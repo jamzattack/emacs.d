@@ -169,7 +169,9 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
     ;; Quite ugly: (setf (last ...)) doesn't exist, and can't use
     ;; assoc/alist-get because the package name is the cadr
     (setf (car (reverse org-latex-default-packages-alist))
-          '("hidelinks" "hyperref" nil))
+          '("hidelinks" "hyperref" nil)
+          (car org-latex-default-packages-alist)
+          '("utf8x" "inputenc" "pdflatex"))
     (defun org-insert-emacs-help (symbol)
       "Insert a help link to SYMBOL.
 
