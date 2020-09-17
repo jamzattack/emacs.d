@@ -182,6 +182,7 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
     :bind
     ("C-c M-." . org-time-stamp)
     (:map org-mode-map
+          ("C-c C-v h" . org-hide-block-all)
           ("M-h" . mark-paragraph)
           ("C-M-h" . org-mark-element)
           ("C-c h" . org-insert-emacs-help)))
