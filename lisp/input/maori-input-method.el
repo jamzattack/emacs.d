@@ -3,6 +3,7 @@
 ;; Copyright (C) 2020 Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
+;; Version: 2020.09.18
 ;; Keywords: i18n
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -38,15 +39,14 @@
  "maori-prefix" "Māori" "MA>" t
  "Māori input method with postfix modifiers
 
-A following - or doubled letter will produce an accented
-character, e.g. aa -> ā oo -> ō o- -> ō.
+A prefixed - or doubled letter will produce an accented
+character, e.g. aa -> ā oo -> ō -o -> ō.
 
 Tripling the letter inserts two letters, and -- inserts a real
-dash., e.g. aaa -> aa e-- -> e-.
+dash, e.g. aaa -> aa --e -> -e.
 " nil t nil nil nil nil nil nil nil nil t)
 
 (quail-define-rules
-
  ("aa" ?\ā)
  ("AA" ?\Ā)
  ("ee" ?\ē)
@@ -89,8 +89,7 @@ dash., e.g. aaa -> aa e-- -> e-.
  ("--o" ["-o"])
  ("--O" ["-O"])
  ("--u" ["-u"])
- ("--U" ["-U"])
- )
+ ("--U" ["-U"]))
 
 (quail-define-package
  "maori-postfix" "Māori" "MA<" t
@@ -100,11 +99,10 @@ A following - or doubled letter will produce an accented
 character, e.g. aa -> ā oo -> ō o- -> ō.
 
 Tripling the letter inserts two letters, and -- inserts a real
-dash., e.g. aaa -> aa e-- -> e-.
+dash, e.g. aaa -> aa e-- -> e-.
 " nil t nil nil nil nil nil nil nil nil t)
 
 (quail-define-rules
-
  ("aa" ?\ā)
  ("AA" ?\Ā)
  ("ee" ?\ē)
@@ -147,8 +145,7 @@ dash., e.g. aaa -> aa e-- -> e-.
  ("o--" ["o-"])
  ("O--" ["O-"])
  ("u--" ["u-"])
- ("U--" ["U-"])
- )
+ ("U--" ["U-"]))
 
 
 (provide 'maori-input-method)
