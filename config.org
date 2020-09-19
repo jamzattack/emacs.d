@@ -3002,6 +3002,7 @@ Located [[https://git.jamzattack.xyz/lilypond-mode][here]].
     :init
     (defalias 'lilypond-mode 'LilyPond-mode)
     <<custom-lilypond-setup>>
+    :config
     <<lilypond-insert-repeat>>
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
