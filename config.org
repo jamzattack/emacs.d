@@ -289,7 +289,41 @@ Execute LilyPond source blocks.  For notes about exporting to pdf, see
   (use-package ob-lilypond
     :when (executable-find "lilypond")
     :defer t
+    :config
+    <<ob-lilypond-pdf-or-png>>
     :commands org-babel-execute:lilypond)
+#+end_src
+
+****** Replace =:file= argument in lilypond source blocks
+
+This little bit of hackery to adjust the =:file= argument for lilypond
+source blocks.
+
+- pdf works great with latex export, but doesn't work with html.
+- png works great with html export, but looks fuzzy with latex.
+
+This [[info:elisp#Advising Functions][advice]] checks the backend of the export to determine which to
+use.
+
+#+name: ob-lilypond-pdf-or-png
+#+begin_src emacs-lisp :tangle no
+  (defun ob-lilypond-pdf-or-png (backend &rest _args)
+    "Replace the lilypond source blocks' :file argument.
+  This will turn them all into .png files if BACKEND is html, and
+  .pdf files in BACKEND is latex."
+    (when (member backend '(latex html))
+     (let ((case-fold-search t))
+       (save-excursion
+         (goto-char (point-min))
+         (while (re-search-forward
+                 "^\\(#\\+begin_src lilypond .*:file \\)\\(.*\\)\\.[a-z]+"
+                 nil :noerror)
+           (replace-match (pcase backend
+                            ('latex "\\1\\2.pdf")
+                            ('html "\\1\\2.png")))))
+       (save-buffer))))
+
+  (advice-add 'org-export-to-file :before #'ob-lilypond-pdf-or-png)
 #+end_src
 
 ***** C
