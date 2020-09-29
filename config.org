@@ -312,16 +312,16 @@ use.
   This will turn them all into .png files if BACKEND is html, and
   .pdf files in BACKEND is latex."
     (when (member backend '(latex html))
-     (let ((case-fold-search t))
-       (save-excursion
-         (goto-char (point-min))
-         (while (re-search-forward
-                 "^\\(#\\+begin_src lilypond .*:file \\)\\(.*\\)\\.[a-z]+"
-                 nil :noerror)
-           (replace-match (pcase backend
-                            ('latex "\\1\\2.pdf")
-                            ('html "\\1\\2.png")))))
-       (save-buffer))))
+      (let ((case-fold-search t))
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward
+                  "^\\(#\\+begin_src lilypond .*:file \\)\\(.*\\)\\.[a-z]+"
+                  nil :noerror)
+            (replace-match (pcase backend
+                             ('latex "\\1\\2.pdf")
+                             ('html "\\1\\2.png")))))
+        (save-buffer))))
 
   (advice-add 'org-export-to-file :before #'ob-lilypond-pdf-or-png)
 #+end_src
