@@ -2813,6 +2813,20 @@ stock key/recipient selection _sucks_.
     (helm-epa-mode))
 #+end_src
 
+*** Helm Files
+
+Helm binds =C-c d= to delete the selected file(s) when reading a file
+name.  This interferes with my [[*Insert Date][own keybindings]], so I move it to =C-c
+C-d=.
+
+#+begin_src emacs-lisp
+  (use-package helm-files
+    :defer t
+    :config
+    (define-key helm-find-files-map (kbd "C-c d") nil)
+    (define-key helm-find-files-map (kbd "C-c C-d") #'helm-ff-persistent-delete))
+#+end_src
+
 ** Helpful
 
 Helpful gives a whole lot more information than =describe-*=.  I also
