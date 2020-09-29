@@ -3442,36 +3442,90 @@ The function =eshell/vterm= starts a program in vterm from eshell.
       (vterm)))
 #+end_src
 
-*** Libmpdee
+*** Music
 
-An mpd library.  I use it only for random/shuffle.
+The following packages all provide some interface to playing music.  I
+create my own keymap, and bind it to =s-m=, so that I have somewhere to
+put all my music keybindings.
+
+#+begin_src emacs-lisp
+  (defvar my-music-map (make-sparse-keymap)
+    "My keymap for playing music.")
+
+  (global-set-key (kbd "s-m") my-music-map)
+#+end_src
+
+**** Libmpdee
+
+An mpd library.  I use it only for random/shuffle, because [[*MPDel][MPDel]]
+doesn't support that somehow.
 
 #+begin_src emacs-lisp
   (use-package libmpdee
     :straight t
     :when (executable-find "mpd")
-    :defer t)
+    :bind
+    (:map my-music-map
+          ("z" . mpd-toggle-random)))
 #+end_src
 
-*** MPDel
+**** MPDel
 
-A more flexible mpd client than mingus.
+A small and flexible mpd client.  I bind a bunch of keys in [[help:my-music-map][my music
+map]], loosely based on [[help:mpdel-core-map][mpdel-core-map]] because I used to just use that
+directly.
 
 #+begin_src emacs-lisp
   (use-package mpdel
     :straight t
     :when (executable-find "mpd")
-    :bind-keymap
-    ("s-m" . mpdel-core-map)
     :bind
-    ("s-a" . mpdel-core-open-albums)
-    ("<XF86AudioPlay>" . libmpdel-playback-play-pause)
-    ("<XF86AudioPrev>" . libmpdel-playback-previous)
-    ("<XF86AudioNext>" . libmpdel-playback-next)
-    (:map mpdel-core-map
-          ("Z" . mpd-shuffle-playlist)
-          ("z" . mpd-toggle-random)
-          ("C-d" . mpdel-core-open-directories)))
+    (:map my-music-map
+          ;; Playing music
+          ("SPC" . libmpdel-playback-play-pause)
+          ("n" . libmpdel-playback-next)
+          ("p" . libmpdel-playback-previous)
+          ("f" . mpdel-song-normal-increment)
+          ("b" . mpdel-song-normal-decrement)
+          ;; Choosing music
+          ("l" . mpdel-playlist-open)
+          ("L" . mpdel-core-open-stored-playlists)
+          ("a" . mpdel-core-open-albums)
+          (":" . mpdel-browser-open)
+          ("?" . mpdel-song-open)
+          ;; Searching
+          ("s s" . mpdel-core-search-by-title)
+          ("s l" . mpdel-core-search-by-album)
+          ("s r" . mpdel-core-search-by-artist)
+          ;; Volume
+          ("+" . mpdel-core-volume-increase)
+          ("-" . mpdel-core-volume-decrease)))
+#+end_src
+
+**** Eradio
+
+A very simple internet radio player.  It just prompts for a station
+from [[help:eradio-channels][eradio-channels]] and streams it via a specified media player.
+
+I've started getting into electronic music, so I've added a few
+synth/vaporwave/lofi channels, as well as the national news and
+classical channels.
+
+#+begin_src emacs-lisp
+  (use-package eradio
+    :straight t
+    :config
+    (setq eradio-channels
+          '(("RNZ Concert" . "https://radionz-ice.streamguys.com/concert.mp3")
+            ("RNZ National" . "https://radionz-ice.streamguys.com/national.mp3")
+            ("Melancholy Corner" . "https://melancholy.xyz:8443/mp3")
+            ("SG Radio" . "http://stream.laut.fm/synthesizergreatest")
+            ("Chilled Cow" . "https://youtube.com/watch?v=5qap5aO4i9A"))
+          eradio-player '("mpv" "--no-video" "--speed=1"))
+    :bind
+    (:map my-music-map
+          ("r" . eradio-play)
+          ("DEL" . eradio-stop)))
 #+end_src
 
 *** Transmission
