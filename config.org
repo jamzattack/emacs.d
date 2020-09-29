@@ -3773,7 +3773,7 @@ that I don't need to use DuckDuckGo's bangs, and for websites that
 don't have a bang.
 
 Unfortunately, [[https://invidio.us][invidio.us]] is due to [[https://omar.yt/posts/stepping-away-from-open-source][shut down]] on <2020-09-01 Tue>, so
-I use a mirror.
+I use an ever-changing mirror.
 
 Hosted [[https://git.jamzattack.xyz/search-query][here]].
 
@@ -3784,7 +3784,7 @@ Hosted [[https://git.jamzattack.xyz/search-query][here]].
                   :repo "git@jamzattack.xyz:search-query")
     :custom
     (search-query-tpb-mirror "piratebay.live")
-    (search-query-invidious-mirror "invidiou.site")
+    (search-query-invidious-mirror "invidious.snopyta.org")
     :bind
     ("C-z a" . search-archwiki)
     ("C-z t" . search-tpb)
