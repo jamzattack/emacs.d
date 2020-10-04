@@ -843,7 +843,7 @@ are parsed with =shr= are replaced with the clean version.
           (title (nth 2 args)))
       (list start
             (let ((unhexed (url-unhex-string url)))
-              (if (string-match "\\`.*&uddg=" unhexed)
+              (if (string-match "\\`.*[&\\?]uddg=" unhexed)
                   (replace-match "" nil nil unhexed)
                 url))
             title)))
