@@ -24,6 +24,7 @@
                     :height 1.0)
 
 ;; Misc
+(set-fontset-font t 'gothic "Noto Sans Gothic")
 (set-fontset-font t 'unicode "Noto Color Emoji" nil 'append)
 (set-fontset-font t 'unicode "Free Mono" nil 'append)
 
