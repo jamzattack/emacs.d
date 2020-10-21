@@ -1026,8 +1026,6 @@ few customisations have been removed recently.
     :init
     <<open-or-bury-eshell>>
     :bind
-    ("s-e" . open-or-bury-eshell)
-    ("s-E" . switch-to-eshell)
     (:map eshell-mode-map
           ("C-c r" . eshell/r))
     :config
@@ -1042,40 +1040,6 @@ few customisations have been removed recently.
 #+end_src
 
 **** Eshell functions
-
-***** Open or bury eshell
-
-Open an eshell buffer or bury the current one.
-
-#+name: open-or-bury-eshell
-#+begin_src emacs-lisp :tangle no
-  (defun switch-to-eshell (name)
-    "Switch to or create an eshell buffer called NAME."
-    (interactive (list
-                  (read-buffer
-                   "Switch to eshell: " "*eshell*" nil
-                   (lambda (buffer)
-                     (eq (buffer-local-value
-                          'major-mode (get-buffer buffer))
-                         'eshell-mode)))))
-    (with-current-buffer (get-buffer-create name)
-      (unless (derived-mode-p 'eshell-mode)
-        (eshell-mode))
-      (switch-to-buffer (current-buffer))))
-
-  (defun open-or-bury-eshell (&optional arg)
-    "Open or bury an eshell.
-
-  If prefix ARG is (16) i.e. C-u C-u, call `switch-to-eshell'.  If
-  the current buffer is an eshell, bury it."
-    (interactive "P")
-    (cond ((equal arg '(16))
-           (call-interactively #'switch-to-eshell))
-          ((or arg (not (derived-mode-p 'eshell-mode)))
-           (eshell arg))
-          (t
-           (bury-buffer))))
-#+end_src
 
 ***** Edit a file
 
@@ -3686,20 +3650,6 @@ you're in (sometimes the mode-line just doesn't cut it).
 
 ** Quality of life
 
-*** Scratch
-
-Scratch allows you to create a scratch buffer - either in the major
-mode of the current buffer, or (with prefix arg) in the major mode of
-your choice.
-
-#+begin_src emacs-lisp
-  (use-package scratch
-    :straight t
-    :bind
-    ("C-z s" . scratch)
-    ("C-z C-s" . scratch))
-#+end_src
-
 *** Edwina
 
 Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]]
@@ -3814,6 +3764,23 @@ Hosted [[https://git.jamzattack.xyz/insert-date][here]].
              ("l" . insert-date-locale)
              ("b" . insert-date-both)
              ("i" . insert-date-iso8601)))
+#+end_src
+
+*** Itch                                                               :mine:
+
+A simple package to switch to and create temporary buffers in a
+particular major mode.
+
+Hosted [[https://git.jamzattack.xyz/itch][here]].
+
+#+begin_src emacs-lisp
+  (use-package itch
+    :straight (itch :type git
+                    :repo "git@jamzattack.xyz:itch")
+    :bind
+    ("s-u" . itch-elisp)
+    ("s-e" . itch-eshell)
+    ("s-o" . itch-org))
 #+end_src
 
 ** Dired
