@@ -3779,8 +3779,11 @@ Hosted [[https://git.jamzattack.xyz/itch][here]].
                     :repo "git@jamzattack.xyz:itch")
     :bind
     ("s-u" . itch-elisp)
+    ("s-U" . itch-switch-to-elisp)
     ("s-e" . itch-eshell)
-    ("s-o" . itch-org))
+    ("s-E" . itch-switch-to-eshell)
+    ("s-o" . itch-org)
+    ("s-O" . itch-switch-to-org))
 #+end_src
 
 ** Dired
