@@ -2919,12 +2919,12 @@ epubs, and set the default width to 80 columns.
     (nov-text-width 80)
     (nov-variable-pitch nil)
     :mode ("\\.epub\\'" . nov-mode)
-    :bind
-    (:map nov-mode-map
-          ([remap set-fill-column] . nov-set-width))
+    :commands nov-bookmark-jump-handler
     :config
     <<nov-set-text-width>>
-    )
+    :bind
+    (:map nov-mode-map
+          ([remap set-fill-column] . nov-set-width)))
 #+end_src
 
 **** Set text width in nov buffer
