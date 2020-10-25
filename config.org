@@ -3484,7 +3484,8 @@ classical channels.
             ("RNZ National" . "https://radionz-ice.streamguys.com/national.mp3")
             ("Melancholy Corner" . "https://melancholy.xyz:8443/mp3")
             ("SG Radio" . "http://stream.laut.fm/synthesizergreatest")
-            ("Chilled Cow" . "https://youtube.com/watch?v=5qap5aO4i9A"))
+            ("Chilled Cow" . "https://youtube.com/watch?v=5qap5aO4i9A")
+            ("Darksynth" . "https://stream.laut.fm/darksynthradio"))
           eradio-player '("mpv" "--no-video" "--speed=1"))
     :bind
     (:map my-music-map
