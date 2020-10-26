@@ -1565,6 +1565,7 @@ switch to a buffer that I consider boring.  This includes:
     :demand
     :bind
     ("C-z C-z" . bury-buffer)
+    ("s-z" . bury-buffer)
     ("C-x _" . shrink-window)
     ("<s-backspace>" . quit-window)
     ("s-s" . next-buffer)
