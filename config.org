@@ -3029,6 +3029,9 @@ Located [[https://git.jamzattack.xyz/lilypond-mode][here]].
     <<custom-lilypond-setup>>
     :config
     <<lilypond-insert-repeat>>
+    :custom
+    (LilyPond-midi-command "timidity -Oj")
+    (LilyPond-all-midi-command "timidity -Oj -ia")
     :mode ("\\.ly\\'" . LilyPond-mode)
     :hook (LilyPond-mode . custom-lilypond-setup))
 #+end_src
