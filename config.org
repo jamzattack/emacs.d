@@ -2792,6 +2792,18 @@ C-d=.
     (define-key helm-find-files-map (kbd "C-c C-d") #'helm-ff-persistent-delete))
 #+end_src
 
+*** Helm grep
+
+Appropriating a couple of keybindings from [[help:helm-find-files][helm-find-files]], having
+some multi-file search functions easily accessible is quite handy.
+
+#+begin_src emacs-lisp
+  (use-package helm-grep
+    :bind
+    ("M-g a" . helm-grep-run-grep-ag)
+    ("M-g g" . helm-grep-do-git-grep))
+#+end_src
+
 ** Helpful
 
 Helpful gives a whole lot more information than =describe-*=.  I also
