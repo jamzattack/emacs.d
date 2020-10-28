@@ -3604,8 +3604,11 @@ I also prefer to keep my contacts file encrypted, so I set
 *** Magit
 
 I've finally been convinced that Magit is the one true way to use git.
-Currently, the config is quite simple -- open magit in the current
-buffer, and show 20 recent commits instead of 10.
+Currently, the config is quite simple -- open magit in the selected
+window, and show 20 recent commits instead of 10.  I also make sure
+that the [[help:magit-section-visibility-indicator][indicators]] show in the fringe, because it reverts to an
+ellipsis when magit is loaded before the windowed frame (i.e. from
+desktop as a daemon).
 
 #+begin_src emacs-lisp
   (use-package magit
@@ -3615,7 +3618,11 @@ buffer, and show 20 recent commits instead of 10.
      #'magit-display-buffer-same-window-except-diff-v1)
     (magit-log-section-commit-count 20)
     :bind
-    ("C-x g" . magit-status))
+    ("C-x g" . magit-status)
+    :config
+    (with-eval-after-load 'exwm
+      (setq magit-section-visibility-indicator
+            '(magit-fringe-bitmap> . magit-fringe-bitmapv))))
 #+end_src
 
 ** Appearance
