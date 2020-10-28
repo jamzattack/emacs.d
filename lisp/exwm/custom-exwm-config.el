@@ -147,6 +147,14 @@ output."
      ;; Don't accidentally suspend Emacs
      (,(kbd "C-x C-z") . ignore)
 
+     ;; Frames/workspaces
+     ,@(mapcar (lambda (i)
+		 `(,(kbd (format "<s-f%d>" i)) .
+		   (lambda ()
+		     (interactive)
+		     (exwm-workspace-switch-create ,(1- i)))))
+	       (number-sequence 1 4))
+
      ;; Tab movement
      (,(kbd "s-r") . tab-next)
      (,(kbd "s-g") . tab-previous)
