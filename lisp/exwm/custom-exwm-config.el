@@ -228,6 +228,7 @@ somewhat awkward because they're used as prefix keys."
   (add-hook 'exwm-manage-finish-hook 'custom-exwm-input-terminal-keys)
   (custom-exwm-input-global-keys)
   (custom-exwm-input-simulation-keys)
+  (define-key exwm-mode-map (kbd "C-q") #'exwm-input-send-next-key)
   (custom-exwm-prefix-keys)
   (custom-exwm-buffer-name)
   (custom-exwm-window-setup))
