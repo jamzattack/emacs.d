@@ -3530,12 +3530,16 @@ eww-mode.
                            (read-directory-name "Download in: " "~/Downloads/"))))
       (transmission-add url directory))
     (defun open-transmission-in-this-window ()
+      "Open the transmission buffer in the selected window.
+  This also sets the buffer's default directory to ~/Downloads."
       (interactive)
       (let ((buffer (get-buffer-create "*transmission*")))
-        (switch-to-buffer buffer)
-        (transmission-mode)
-        (revert-buffer)
-        (cd (expand-file-name "~/Downloads"))))
+        (with-current-buffer buffer
+          (unless (derived-mode-p 'transmission-mode)
+            (transmission-mode)
+            (revert-buffer))
+          (setq default-directory "~/Downloads/"))
+        (pop-to-buffer-same-window buffer)))
     :bind
     ("C-z C-t" . open-transmission-in-this-window))
 #+end_src
