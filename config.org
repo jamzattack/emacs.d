@@ -654,15 +654,22 @@ errors and warnings.  I enable it in both [[*Shell][Shell]] and [[*Eshell][Eshel
 
 *** Hi-lock
 
-I often use =M-s h .= to see where variables, functions, etc. are used.
-However, [[*Paredit][paredit]] remaps =M-s= to [[help:paredit-splice-sexp][paredit-splice-sexp]], so I turn on
-[[help:hi-lock-mode][hi-lock-mode]] which enables the =C-x w= prefix.
+[[help:global-hi-lock-mode][global-hi-lock-mode]] binds a bunch of useful keys, but here I bind them
+manually to allow autoloading.  I also bind =C-c .= to my most used
+command, [[help:highlight-symbol-at-point][highlight-symbol-at-point]].
 
 #+begin_src emacs-lisp
   (use-package hi-lock
     :delight
-    :config
-    (global-hi-lock-mode t))
+    :bind
+    ("C-c ." . highlight-symbol-at-point)
+    ("C-x w i" . hi-lock-find-patterns)
+    ("C-x w l" . highlight-lines-matching-regexp)
+    ("C-x w p" . highlight-phrase)
+    ("C-x w h" . highlight-regexp)
+    ("C-x w ." . highlight-symbol-at-point)
+    ("C-x w r" . unhighlight-regexp)
+    ("C-x w b" . hi-lock-write-interactive-patterns))
 #+end_src
 
 *** Parens
