@@ -125,13 +125,13 @@ output."
 		 (kbd (format "s-%s" k)))
 	       `(,@(number-sequence 0 9) "`"
 		 "'" "," "." "p" "y" "f" "g" "c" "r" "l" "/" "=" "\\"
-		 "a" "o" "e" "u" "i" "d" "h" "t" "n" "s" "-" "RET" "SPC"
-		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "DEL"
+		 "a" "o" "e" "u" "i" "d" "h" "t" "n" "s" "-" "<return>" "SPC"
+		 ";" "q" "j" "k" "x" "b" "m" "w" "v" "z" "[" "]" "<backspace>"
 
 		 "!" "@" "#" "$" "%" "^" "&" "*" "(" ")" "~"
 		 "\"" "<" ">" "P" "Y" "F" "G" "C" "R" "L" "?" "+" "|"
-		 "A" "O" "E" "U" "I" "D" "H" "T" "N" "S" "_" "S-RET" "S-SPC"
-		 ":" "Q" "J" "K" "X" "B" "M" "W" "V" "Z" "{" "}" "S-DEL")))))
+		 "A" "O" "E" "U" "I" "D" "H" "T" "N" "S" "_" "S-<return>" "S-SPC"
+		 ":" "Q" "J" "K" "X" "B" "M" "W" "V" "Z" "{" "}" "S-<backspace>")))))
 
 ;; Global keybindings.
 (defun custom-exwm-input-global-keys ()
