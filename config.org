@@ -3669,6 +3669,9 @@ Minor mode that highlights parentheses well.
 Dims inactive buffers, so that you can more clearly see which window
 you're in (sometimes the mode-line just doesn't cut it).
 
+Note: if this package ever stops working, try [[https://github.com/mina86/auto-dim-other-buffers.el/][auto-dim-other-buffers]]
+before writing your own!
+
 #+begin_src emacs-lisp
   (use-package dimmer
     :straight t
@@ -3676,7 +3679,6 @@ you're in (sometimes the mode-line just doesn't cut it).
     (after-init . dimmer-mode)
     :config
     (setq dimmer-fraction 0.3)
-    (dimmer-mode t)
     (dimmer-configure-org)
     (dimmer-configure-magit)
     (dimmer-configure-helm)
