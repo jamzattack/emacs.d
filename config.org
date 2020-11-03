@@ -2418,7 +2418,8 @@ Located [[file:lisp/my-misc-defuns/my-misc-defuns.el][here]].
     :bind
     ("C-M-\\" . indent-region-or-defun-please)
     ("C-h M-a" . system-apropos)
-    ("C-c p" . open-pdf-of-current-file))
+    ("C-c p" . open-pdf-of-current-file)
+    ("C-z C-p" . jamzattack-pastebin))
 #+end_src
 
 ** Custom Helm bookmarks

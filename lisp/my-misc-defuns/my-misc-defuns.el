@@ -29,6 +29,7 @@
 (require 'find-dired)
 (require 'eww)
 (require 'thingatpt)
+(require 'url-util)
 
 ;;; Emacs is sorely missing an interface for "apropos".  This is my
 ;;; meagre attempt at making it useful within emacs.
@@ -156,6 +157,35 @@ audacity is buggy with these variables."
   (with-temp-file "LICENSE"
     (insert-file-contents
      (expand-file-name "COPYING" data-directory))))
+
+
+
+;;;###autoload
+(defun jamzattack-pastebin (beg end &optional name)
+  "Upload the active region to a personal pastebin.
+The contents of the region BEG and END will be uploaded, or the
+whole buffer if the region is inactive.  Save the resulting url
+in the kill ring."
+  (interactive `(,@(if (region-active-p)
+		       (list (region-beginning) (region-end))
+		     '(nil nil))
+		 ,(read-string "Paste name (leave empty for autogen): ")))
+  (let* ((string
+	  (buffer-substring (or beg (point-min))
+			    (or end (point-max))))
+	 (dir "/ssh:jamzattack.xyz:/var/www/html/tmp/")
+	 (file
+	  (if (string-empty-p name)
+	      (make-temp-file dir nil ".txt" string)
+	    (expand-file-name (concat name ".txt") dir)))
+	 (url
+	  (url-encode-url
+	   (format "https://jamzattack.xyz/tmp/%s"
+		   (file-name-nondirectory file)))))
+    (with-temp-file file
+      (insert string))
+    (kill-new url)
+    (message "Pasted to: %s" url)))
 
 (provide 'my-misc-defuns)
 ;;; my-misc-defuns.el ends here
