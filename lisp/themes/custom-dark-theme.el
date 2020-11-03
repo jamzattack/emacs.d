@@ -18,6 +18,8 @@
    `(dired-async-mode-message ((,class (:foreground "darkred"))))
    `(org-hide ((,class (:foreground ,background))))
    `(erc-current-nick-face ((,class (:foreground "OrangeRed2"))))
+   `(erc-my-nick-face ((,class (:foreground "Lightskyblue3"))))
+   `(erc-input-face ((,class (:foreground "Lightskyblue3"))))
 
    ;; Not really text
    `(tooltip ((,class (:inherit 'default))))
