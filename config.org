@@ -3572,6 +3572,10 @@ function which can accept the extra arguments.
     :straight t
     :defer t
     :commands elpher-go
+    :bind
+    (:map elpher-mode-map
+          <<elpher-keybindings>>
+          )
     :init
     (defun elpher-go-please (url &rest _ignore)
       "Like `elpher-go', but allows extra arguments.
@@ -3580,6 +3584,19 @@ function which can accept the extra arguments.
     (with-eval-after-load 'browse-url
       (add-to-list 'browse-url-handlers
                    '("^\\(gopher\\|gemini\\)://" . elpher-go-please))))
+#+end_src
+
+**** Elpher keybindings
+
+#+name: elpher-keybindings
+#+begin_src emacs-lisp :tangle no
+  ("l" . elpher-back)
+  ("t" . elpher-back-to-start)
+  ("g" . elpher-reload)
+  ("G" . elpher-go)
+  ("w" . elpher-copy-link-url)
+  ("W" . elpher-copy-current-url)
+  ("v" . elpher-view-raw)
 #+end_src
 
 **** Elpher org-link support                                           :mine:
