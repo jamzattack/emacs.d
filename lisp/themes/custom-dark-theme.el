@@ -2,11 +2,11 @@
   "dark theme")
 
 (let ((class '((class color) (min-colors 89)))
-      (foreground "white")
-      (background "black")
+      (foreground "#ffffd0")
+      (background "#0a0000")
       (background2 "gray15")
       (background3 "gray9")
-      (modeline "sky blue"))
+      (modeline "#4b004b"))
   (custom-theme-set-faces
    'custom-dark
    ;; Text
@@ -23,7 +23,8 @@
    `(tooltip ((,class (:inherit 'default))))
    `(region ((,class (:background ,background2))))
    `(fringe ((,class (:inherit 'default))))
-   `(mode-line ((,class (:background ,modeline :foreground "black"))))
+   `(mode-line ((,class (:background ,modeline :foreground "white"))))
+   `(mode-line-inactive ((,class (:background ,background2 :foreground "white"))))
    `(tab-bar ((,class (:inherit mode-line-inactive))))
    `(tab-bar-tab ((,class (:inherit default :height 80))))
    `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive))))
