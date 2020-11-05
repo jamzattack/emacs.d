@@ -3513,11 +3513,12 @@ classical channels.
     (setq eradio-channels
           '(("RNZ Concert" . "https://radionz-ice.streamguys.com/concert.mp3")
             ("RNZ National" . "https://radionz-ice.streamguys.com/national.mp3")
+            ("Paekakariki FM" . "https://icecast.groundtruth.co.nz/paekakfm.mp3")
             ("Melancholy Corner" . "https://melancholy.xyz:8443/mp3")
             ("SG Radio" . "http://stream.laut.fm/synthesizergreatest")
             ("Chilled Cow" . "https://youtube.com/watch?v=5qap5aO4i9A")
             ("Darksynth" . "https://stream.laut.fm/darksynthradio"))
-          eradio-player '("mpv" "--no-video" "--speed=1"))
+          eradio-player '("mpv" "--no-video" "--speed=1" "--no-terminal"))
     :bind
     (:map my-music-map
           ("r" . eradio-play)
