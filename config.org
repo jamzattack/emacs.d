@@ -2824,8 +2824,7 @@ some multi-file search functions easily accessible is quite handy.
 Helpful gives a whole lot more information than =describe-*=.  I also
 bind =C-h SPC= to helpful-at-point, just to save a keypress here and
 there.  The =:straight= recipe uses my fork, which doesn't depend on
-=f.el=.  (I know it's minor, but I'd rather not load the extra
-library).
+=f.el=.  (I know it's minor, but I'd rather not load the extra library).
 
 #+begin_src emacs-lisp
   (use-package helpful
@@ -2835,22 +2834,11 @@ library).
              :host gitlab
              :repo "jamzattack/helpful"
              :branch "no-f")
+    :init
+    <<helpful-overrides>>
     :config
     <<helpful-edit-source-temporarily>>
     <<helpful-copy-to-kill-ring>>
-    (with-eval-after-load 'ol
-      (defun org-link--open-help (str)
-        "Open a \"help\" type link.
-  PATH is a symbol name, as a string."
-        (helpful-symbol (intern str))))
-    (with-eval-after-load 'erc-button
-      (defun erc-button-describe-symbol (str)
-        "Describe the symbol named STR.
-  This uses the `helpful' library instead of `describe-*'"
-        (let ((symbol (intern-soft str)))
-          (if symbol
-              (helpful-symbol symbol)
-            (apropos str)))))
     :bind
     (:map help-map
           ("f" . helpful-callable)
@@ -2931,6 +2919,43 @@ This now works with both Elisp and C source code.
         (user-error "%s is not a helpful buffer" (buffer-name buffer)))
       (kill-new (symbol-name helpful--sym))
       (message "\"%s\" saved to kill ring." helpful--sym)))
+#+end_src
+
+*** Replacing some describe-* functions with helpful
+
+Here I redefine and advise some functions that use the builtin
+=describe-*= functions, and make them use the helpful versions.
+
+Currently, this affects:
+- [[help:org-link--open-help][org links]]
+- [[help:erc-button-describe-symbol][erc buttons]]
+- [[help:transient--describe-function][transient menus]] (magit)
+
+#+name: helpful-overrides
+#+begin_src emacs-lisp :tangle no
+  (defun helpful-string (str)
+    "Describe the symbol named STR.
+  This uses the `helpful' library instead of `describe-*'.  If STR
+  doesn't name an existing symbol, call `apropos' on it."
+    (let ((symbol (intern-soft str)))
+      (if symbol
+          (helpful-symbol symbol)
+        (apropos str))))
+
+  ;; Org links
+  (with-eval-after-load 'ol
+    (advice-add 'org-link--open-help
+                :override #'helpful-string))
+
+  ;; Erc buttons
+  (with-eval-after-load 'erc-button
+    (advice-add 'erc-button-describe-symbol
+                :override #'helpful-string))
+
+  ;; Transient help
+  (with-eval-after-load 'transient
+    (advice-add 'transient--describe-function
+                :override #'helpful-callable))
 #+end_src
 
 ** Major Modes
