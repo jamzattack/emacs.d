@@ -1385,13 +1385,24 @@ Disable the tool bar.
 
 Display the current time in the mode-line, and make it use 24-hour
 time.  I adjust the [[help:world-clock-time-format][time format]] for the [[help:world-clock][world-clock]] so it displays the
-offset from UTC/GMT.
+offset from UTC/GMT, and change the list of timezones.
 
 #+begin_src emacs-lisp
   (use-package time
     :custom
     (display-time-24hr-format t)
     (world-clock-time-format "%A\t%d %B %R %Z\t(%z)")
+    (world-clock-list
+     '(("America/Los_Angeles" "Western US")
+       ("America/Chicago" "Central US")
+       ("America/New_York" "Eastern US")
+       ("Europe/London" "UK")
+       ("Europe/Paris" "Central Europe")
+       ("Asia/Calcutta" "India")
+       ("Asia/Chongqing" "China")
+       ("Asia/Seoul" "Korea/Japan")
+       ("Australia/Canberra" "Canberra")
+       ("Pacific/Auckland" "New Zealand")))
     :config
     (display-time-mode t))
 #+end_src
