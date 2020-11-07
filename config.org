@@ -1384,12 +1384,14 @@ Disable the tool bar.
 **** Time
 
 Display the current time in the mode-line, and make it use 24-hour
-time.
+time.  I adjust the [[help:world-clock-time-format][time format]] for the [[help:world-clock][world-clock]] so it displays the
+offset from UTC/GMT.
 
 #+begin_src emacs-lisp
   (use-package time
     :custom
     (display-time-24hr-format t)
+    (world-clock-time-format "%A\t%d %B %R %Z\t(%z)")
     :config
     (display-time-mode t))
 #+end_src
