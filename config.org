@@ -1846,7 +1846,12 @@ Nicer summary & thread formatting.  Credit to [[https:protesilaos.com][Protesila
     (gnus-sum-thread-tree-leaf-with-other "├─> ")
     (gnus-sum-thread-tree-root "")
     (gnus-sum-thread-tree-single-leaf "└─> ")
-    (gnus-sum-thread-tree-vertical "│"))
+    (gnus-sum-thread-tree-vertical "│")
+    (gnus-ignored-from-addresses
+     (mapcar #'regexp-quote
+             '("jdb@jamzattack.xyz"
+               "beardsleejamie@gmail.com"
+               "beardsjami@myvuw.ac.nz"))))
 #+end_src
 
 **** Gnus-msg
