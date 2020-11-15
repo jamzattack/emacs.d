@@ -3292,6 +3292,22 @@ often, but it's nice to be able to see what a program does sometimes.
     :magic ("\dELF" . elf-mode))
 #+end_src
 
+*** Regexp Expand
+
+A neat little package that shows the regexp at point in the [[help:rx][rx]] format
+with a nice inline interface.  Kind of like [[https://github.com/joddie/macrostep][macrostep]].
+
+#+begin_src emacs-lisp
+  (use-package regexp-expand
+    :straight
+    (regexp-expand :type git
+		   :host github
+		   :repo "danielmartin/regexp-expand")
+    :bind
+    (:map emacs-lisp-mode-map
+	  ("C-c M-r" . regexp-expand)))
+#+end_src
+
 *** Selime                                                             :mine:
 
 This is my package to make Elisp evaluation and documentation lookup a
