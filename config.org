@@ -2828,7 +2828,7 @@ some multi-file search functions easily accessible is quite handy.
 #+begin_src emacs-lisp
   (use-package helm-grep
     :bind
-    ("M-g a" . helm-grep-run-grep-ag)
+    ("M-g a" . helm-do-grep-ag)
     ("M-g g" . helm-grep-do-git-grep))
 #+end_src
 
