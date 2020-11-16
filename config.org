@@ -3964,6 +3964,8 @@ Hosted [[https://git.jamzattack.xyz/itch][here]].
     :straight (itch :type git
                     :repo "git@jamzattack.xyz:itch")
     :bind
+    ("s-a" . itch-fundamental)
+    ("s-A" . itch-switch-to-fundamental)
     ("s-u" . itch-elisp)
     ("s-U" . itch-switch-to-elisp)
     ("s-e" . itch-eshell)
