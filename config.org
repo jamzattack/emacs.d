@@ -2076,6 +2076,7 @@ the recipient, and sign with the sender.
     :config
     <<dvorak-keyboard-layout>>
     <<maori-input-method>>
+    <<shavian-input-method>>
     <<hangul-input-method>>
     )
 #+end_src
@@ -2173,6 +2174,21 @@ Hosted [[https://git.jamzattack.xyz/maori-input-method][here]].
     (maori-input-method
      :type git
      :repo "git@jamzattack.xyz:maori-input-method"))
+#+end_src
+
+**** Shavian
+
+My own input method for Shavian.
+
+Hosted [[https://git.jamzattack.xyz/shavian-input-method][here]].
+
+#+name: shavian-input-method
+#+begin_src emacs-lisp :tangle no
+  (use-package shavian-input-method
+    :straight
+    (shavian-input-method
+     :type git
+     :repo "git@jamzattack.xyz:shavian-input-method"))
 #+end_src
 
 **** Hangul
