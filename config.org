@@ -76,16 +76,23 @@ don't need to use =(require delight)= as use-package handles that.
 ** Fonts
 
 The function [[help:set-up-fonts-please][set-up-fonts-please]] loads my [[file:lisp/fonts.el][font settings]].  Call it when
-creating a new frame or starting emacs.
+creating a new frame or starting emacs.  The weird hack bit makes sure
+that [[*EXWM - Emacs X Window Manager][exwm]]'s additions are run /before/ settings the fonts.
 
 #+begin_src emacs-lisp
-  (defun set-up-fonts-please ()
+  (defun set-up-fonts-please (&optional frame)
     "Load font settings in `user-emacs-directory'/lisp/fonts.el."
     (interactive)
-    (load (expand-file-name "lisp/fonts.el" user-emacs-directory)))
+    (with-selected-frame (or frame (selected-frame))
+      (load (expand-file-name "lisp/fonts.el" user-emacs-directory))))
 
   (add-hook 'server-after-make-frame-hook 'set-up-fonts-please)
   (add-hook 'window-setup-hook 'set-up-fonts-please)
+  (add-to-list 'after-make-frame-functions 'set-up-fonts-please)
+  (with-eval-after-load 'exwm
+    (setq after-make-frame-functions
+          (cons 'set-up-fonts-please
+                (remove 'set-up-fonts-please after-make-frame-functions))))
 #+end_src
 
 ** Keybindings
