@@ -2164,12 +2164,15 @@ variants.
 | aaa | aa |
 | --a | -a |
 
-Located [[file:lisp/input/maori-input-method.el][here]].
+Hosted [[https://git.jamzattack.xyz/maori-input-method][here]].
 
 #+name: maori-input-method
 #+begin_src emacs-lisp :tangle no
   (use-package maori-input-method
-    :load-path "lisp/input")
+    :straight
+    (maori-input-method
+     :type git
+     :repo "git@jamzattack.xyz:maori-input-method"))
 #+end_src
 
 **** Hangul
