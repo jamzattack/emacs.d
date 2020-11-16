@@ -3681,7 +3681,7 @@ function which can accept the extra arguments.
       (elpher-go url))
     (with-eval-after-load 'browse-url
       (add-to-list 'browse-url-handlers
-                   '("^\\(gopher\\|gemini\\)://" . elpher-go-please))))
+                   '("\\`\\(gopher\\|gemini\\)://" . elpher-go-please))))
 #+end_src
 
 **** Elpher keybindings
