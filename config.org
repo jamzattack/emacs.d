@@ -747,6 +747,7 @@ browser, and change the width to 80 columns.
     :config
     <<eww-edit-current-url>>
     <<eww-set-width>>
+    <<eww-follow-link-with-browse-url>>
     :bind
     (:map eww-mode-map
           ("M-n" . forward-paragraph)
@@ -818,6 +819,43 @@ useful in eww, and a fitting replacement for [[help:set-fill-column][set-fill-co
                                  (- (window-width) 5)))))
     (setq shr-width width)
     (eww-reload t))
+#+end_src
+
+**** Follow links using [[help:browse-url][browse-url]]
+
+The key =RET= in eww is bound to [[help:eww-follow-link][eww-follow-link]], which bypasses
+[[help:browse-url-handlers][browse-url-handlers]] meaning you can't open non-http links (except for
+the one exception, =mailto=).  Here I [[info:elisp#Advising Functions][override]] this function to use
+[[help:browse-url][browse-url]], and ensure that eww is used [[help:browse-url-browser-function][where possible]].  In effect,
+this means I can open gopher links from eww in [[*Elpher][elpher]].
+
+#+name: eww-follow-link-with-browse-url
+#+begin_src emacs-lisp :tangle no
+  (defun eww-follow-link-with-browse-url (&optional external mouse-event)
+    "Browse the URL under point.
+  If EXTERNAL is single prefix, browse the URL using
+  `browse-url-secondary-browser-function'."
+    (interactive (list current-prefix-arg last-nonmenu-event))
+    (mouse-set-point mouse-event)
+    (let ((url (get-text-property (point) 'shr-url)))
+      (cond
+       ((not url)
+	(message "No link under point"))
+       ((and (consp external) (<= (car external) 4))
+	(funcall browse-url-secondary-browser-function url)
+	(shr--blink-link))
+       ;; This is a #target url in the same page as the current one.
+       ((and (url-target (url-generic-parse-url url))
+	     (eww-same-page-p url (plist-get eww-data :url)))
+	(let ((dom (plist-get eww-data :dom)))
+	  (eww-save-history)
+	  (plist-put eww-data :url url)
+	  (eww-display-html 'utf-8 url dom nil (current-buffer))))
+       (t
+	(let ((browse-url-browser-function #'eww-browse-url))
+	  (browse-url url external))))))
+
+  (advice-add 'eww-follow-link :override #'eww-follow-link-with-browse-url)
 #+end_src
 
 *** SHR
