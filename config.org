@@ -1892,7 +1892,7 @@ just using IMAP.
 
 **** Gnus-sum
 
-Nicer summary & thread formatting.  Credit to [[https:protesilaos.com][Protesilaos Stavrou]]
+Nicer summary & thread formatting.  Credit to [[https://protesilaos.com][Protesilaos Stavrou]]
 
 #+begin_src emacs-lisp
   (use-package gnus-sum
@@ -1939,7 +1939,7 @@ will be sent from my university address.  Very nice!
 **** Gnus-art
 
 Article stuff.  Gnus tries to use the =smiley= library to convert
-emoticons into images -- I turned it off becaus it looks terrible.
+emoticons into images -- I turned it off because it looks terrible.
 
 I also want some buttons to show signature status and alternative MIME
 types, which is achieved with [[help:gnus-buttonized-mime-types][gnus-buttonized-mime-types]].
@@ -2001,8 +2001,8 @@ I set it up to use the from header to determine how to send mail.
     :defer t
     :config
     (setq send-mail-function 'sendmail-send-it
-          sendmail-program (or "msmtp"
-                               "sendmail")
+          sendmail-program (or (executable-find "msmtp")
+                               sendmail-program)
           mail-envelope-from 'header))
 #+end_src
 
@@ -2048,11 +2048,10 @@ I can't figure out how to make my postfix server copy messages to
            (format-time-string
             "nnfolder+archive:sent.%Y-%m, nnimap+mail.jamzattack.xyz:Sent")))
       (save-excursion
-        (save-restriction
-          (goto-char (point-min))
-          (ignore-errors
-            (when (re-search-forward "^From: \\(.*\\)jamzattack.xyz>?")
-              (message-replace-header "Gcc" new-gcc)))))))
+        (goto-char (point-min))
+        (ignore-errors
+          (when (re-search-forward "^From: \\(.*\\)jamzattack.xyz>?")
+            (message-replace-header "Gcc" new-gcc))))))
 #+end_src
 
 *** MIME
@@ -2138,7 +2137,7 @@ translation according to [[help:quail-keyboard-layout][quail-keyboard-layout]].
 
 Because of this mess, I also define the function
 [[help:toggle-quail-keyboard-layout][toggle-quail-keyboard-layout]], which switches between the two and is
-bound to =s-\=
+bound to =s-\=.
 
 #+name: dvorak-keyboard-layout
 #+begin_src emacs-lisp :tangle no
@@ -2215,8 +2214,8 @@ Hosted [[https://git.jamzattack.xyz/shavian-input-method][here]].
 **** Hangul
 
 An adjustment to the hangul input method that uses
-[[help:quail-keyboard-translate][quail-keyboard-translate]] to
-determine the character, rather than assuming the standard layout.
+[[help:quail-keyboard-translate][quail-keyboard-translate]] to determine the character, rather than
+assuming the standard layout.
 
 For more information, see [[*Dvorak keyboard layout][this section]] and [[https://blog.jamzattack.xyz/emacs-hangul-input.html][my blog post about the
 subject]].
@@ -2463,7 +2462,7 @@ Located [[file:lisp/reddit-browse/reddit-browse.el][here]].
 ** Toggle touchpad
 
 A simple package I wrote to toggle the touchpad/trackpoint on my
-ThinkPad
+ThinkPad.
 
 Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
 
@@ -2649,8 +2648,8 @@ straight.
 ** HELM
 
 Rebind a few keys in order to make use of Helm's features.  Stuff like
-[[help:find-file][find-file]] and [[help:switch-to-buffer][switch-to-buffer]].  Also remap =C-x k= to kill-this-buffer,
-because I use helm-mini to kill other buffers.
+[[help:find-file][find-file]] and [[help:switch-to-buffer][switch-to-buffer]].  Also remap =C-x k= to [[help:kill-this-buffer][kill-this-buffer]],
+because I use [[help:helm-mini][helm-mini]] to kill other buffers.
 
 I also bind =M-C-y= to [[help:helm-show-kill-ring][helm-show-kill-ring]].  I tried to use this to
 replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my fingers.
@@ -2783,7 +2782,7 @@ predictable function selects the largest non-exwm window.
 
 *** Helm Imenu
 
-Helm's interface to imenu.  It shows more information than [[help:imenu][imenu]] does,
+Helm's interface to [[help:imenu][imenu]].  It shows more information than imenu does,
 and also provides a way to access an imenu for multiple buffers.
 
 #+begin_src emacs-lisp
@@ -2918,7 +2917,7 @@ some multi-file search functions easily accessible is quite handy.
 ** Helpful
 
 Helpful gives a whole lot more information than =describe-*=.  I also
-bind =C-h SPC= to helpful-at-point, just to save a keypress here and
+bind =C-h SPC= to [[help:helpful-at-point][helpful-at-point]], just to save a keypress here and
 there.  The =:straight= recipe uses my fork, which doesn't depend on
 =f.el=.  (I know it's minor, but I'd rather not load the extra library).
 
@@ -3239,7 +3238,7 @@ and prompts for the type and number.
 *** Markdown
 
 A very featureful major mode for markdown files.  I only really use it
-for looking at READMEs though, so I add view-mode to the hook.
+for looking at READMEs though, so I add [[help:view-mode][view-mode]] to the hook.
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
@@ -3591,7 +3590,7 @@ The function =eshell/vterm= starts a program in vterm from eshell.
 *** Music
 
 The following packages all provide some interface to playing music.  I
-create my own keymap, and bind it to =s-m=, so that I have somewhere to
+create my own [[help:my-music-map][keymap]], and bind it to =s-m=, so that I have somewhere to
 put all my music keybindings.
 
 #+begin_src emacs-lisp
@@ -3866,10 +3865,8 @@ before writing your own!
 
 *** Edwina
 
-Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]]
-emulation.  The function
-[[help:edwina-setup-dwm-keys][edwina-setup-dwm-keys]] binds similar
-keys to what dwm actually uses.
+Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  The function
+[[help:edwina-setup-dwm-keys][edwina-setup-dwm-keys]] binds similar keys to what dwm actually uses.
 
 #+begin_src emacs-lisp
   (use-package edwina
@@ -3909,8 +3906,7 @@ Hosted [[https://git.jamzattack.xyz/plumb][here]].
 
 *** Narrow-x                                                           :mine:
 
-My own package providing a few extra
-[[info:emacs#Narrowing][narrowing]] commands.
+My own package providing a few extra [[info:emacs#Narrowing][narrowing]] commands.
 
 Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
 
@@ -4059,7 +4055,7 @@ Hosted [[https://git.jamzattack.xyz/eshell-outline][here]].
 *** Fish completion
 
 Fish completion allows eshell and shell buffers to use [[https://fishshell.com/][fish]]
-completion.  Fish must be installed.
+completion.  I only enable it when fish is installed.
 
 #+begin_src emacs-lisp
   (use-package fish-completion
