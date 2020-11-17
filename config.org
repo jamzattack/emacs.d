@@ -1329,6 +1329,20 @@ uses the GUI to its advantage to show:
              (eshell/fontify file)))))
 #+end_src
 
+*** IELM
+
+A minor tweak for ielm, just binding =C-c C-z= to [[help:quit-window][quit-window]], as in
+[[*SLIME][slime]], [[*Geiser][geiser]], etc.  To open up an ielm buffer, I use [[help:selime-ielm][selime-ielm]] from
+my package [[*Selime][selime]], which opens it in a new window and is bound to =C-c
+C-z= in [[help:selime-mode-map][selime-mode]].
+
+#+begin_src emacs-lisp
+  (use-package ielm
+    :defer t
+    :config
+    (define-key ielm-map (kbd "C-c C-z") #'quit-window))
+#+end_src
+
 ** Saving the state of Emacs
 
 Packages that save where you were - recentf saves a list of edited
