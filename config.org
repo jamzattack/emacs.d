@@ -3375,6 +3375,20 @@ often, but it's nice to be able to see what a program does sometimes.
     :magic ("\dELF" . elf-mode))
 #+end_src
 
+*** Macrostep
+
+A library that I've been using for quite some time because it's a
+dependency of [[*SLIME][slime]].  But I figure I should give it a keybinding --
+=C-c M-e= to enter [[help:macrostep-mode][macrostep-mode]].
+
+#+begin_src emacs-lisp
+  (use-package macrostep
+    :straight t
+    :bind
+    (:map emacs-lisp-mode-map
+          ("C-c M-e" . macrostep-expand)))
+#+end_src
+
 *** Regexp Expand
 
 A neat little package that shows the regexp at point in the [[help:rx][rx]] format
