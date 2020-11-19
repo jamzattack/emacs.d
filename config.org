@@ -756,6 +756,7 @@ browser, and change the width to 80 columns.
     <<eww-set-width>>
     <<eww-follow-link-with-browse-url>>
     :bind
+    ("C-z g" . eww)
     (:map eww-mode-map
           ("M-n" . forward-paragraph)
           ("M-p" . backward-paragraph)
