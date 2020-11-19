@@ -1989,6 +1989,22 @@ Just getting rid of a couple of extra files in $HOME.
     (gnus-dribble-directory "~/.cache/"))
 #+end_src
 
+**** Gnus-notifications
+
+This library provides desktop notifications for gnus.  To enable
+notifications for a group, set its level to something lower than
+[[help:gnus-notifications-minimum-level][gnus-notifications-minimum-level]] (default 1).  This can be done from
+the =*Group*= buffer with [[help:gnus-group-set-current-level][gnus-group-set-current-level]] (=S l=).
+
+Like [[*ERC notifications][ERC notifications]], I only enable it when =dunst= is installed.
+
+#+begin_src emacs-lisp
+  (use-package gnus-notifications
+    :when (executable-find "dunst")
+    :after gnus-start
+    :hook gnus-after-getting-new-news)
+#+end_src
+
 *** Sendmail
 
 Sending mail.  I use [[https://marlam.de/msmtp/][msmtp]] to send mail because it works well with
