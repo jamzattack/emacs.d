@@ -1888,7 +1888,7 @@ just using IMAP.
     (add-hook 'gnus-group-mode-hook 'gnus-group-set-up-imenu-please)
     :bind
     ("C-z C-n" . gnus-unplugged)
-    ("C-z n" . gnus))
+    ("C-z n" . gnus-plugged))
 #+end_src
 
 **** Gnus-sum
