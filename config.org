@@ -1082,6 +1082,7 @@ few customisations have been removed recently.
   (use-package eshell
     :custom
     (eshell-history-size 10000)
+    (eshell-banner-message "")
     :init
     <<open-or-bury-eshell>>
     :bind
