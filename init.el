@@ -14,11 +14,10 @@
 (setq load-prefer-newer t)
 
 ;; Move custom-file to the lisp directory
-(setq custom-file (expand-file-name "lisp/custom.el"
-				    user-emacs-directory))
+(setq custom-file (locate-user-emacs-file "lisp/custom.el"))
 
 ;; Add the lisp directory to `load-path'
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (locate-user-emacs-file "lisp"))
 
 ;; Define a function that loads my config file
 (defun config-load (&optional tangle)
@@ -28,7 +27,7 @@ Load \"config.el\".  If \"config.el\" doesn't exist, or if prefix
 arg TANGLE is non-nil, tangle \"config.org\" first."
   (interactive "P")
   (if tangle
-      (let ((org (expand-file-name "config.org" user-emacs-directory)))
+      (let ((org (locate-user-emacs-file "config.org")))
 	(require 'org)
 	(org-babel-tangle-file org)
 	(load "config" t))
