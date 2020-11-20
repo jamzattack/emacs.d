@@ -14,7 +14,7 @@
 (setq load-prefer-newer t)
 
 ;; Move custom-file to the lisp directory
-(setq custom-file (locate-user-emacs-file "lisp/custom.el"))
+(setq custom-file (locate-user-emacs-file "lisp/custom-file.el"))
 
 ;; Add the lisp directory to `load-path'
 (add-to-list 'load-path (locate-user-emacs-file "lisp"))

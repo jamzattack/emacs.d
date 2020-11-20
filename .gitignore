@@ -16,7 +16,7 @@
 
 # files created from config.org
 lisp/config.el
-lisp/custom.el
+lisp/custom-file.el
 
 # compiled packages
 *.elc
