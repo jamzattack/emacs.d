@@ -3894,16 +3894,6 @@ Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  T
     (edwina-setup-dwm-keys 'super))
 #+end_src
 
-*** 0x0
-
-Provides some functions to upload to [[http://0x0.st][0x0.st]].
-
-#+begin_src emacs-lisp
-  (use-package 0x0
-    :straight t
-    :defer t)
-#+end_src
-
 *** Plumb                                                              :mine:
 
 A way to open URLs the way I want.  I bind it to =C-z d=.  Some commands
