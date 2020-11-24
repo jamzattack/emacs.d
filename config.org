@@ -726,7 +726,24 @@ delay down to 0.1.
     :delight
     :defer t
     :custom
-    (eldoc-idle-delay 0.1))
+    (eldoc-idle-delay 0.1)
+    :config
+    (eldoc-add-command
+     ;; Moving
+     'paredit-backward
+     'paredit-forward
+     'paredit-forward-down
+     'paredit-backward-up
+     'paredit-backward-down
+     'paredit-forward-up
+     ;; Editing
+     'paredit-raise-sexp
+     'paredit-splice-sexp-killing-backward
+     'paredit-convolute-sexp
+     'paredit-close-round
+     'paredit-close-round-and-newline
+     'paredit-forward-delete
+     'paredit-backward-delete))
 #+end_src
 
 ** Applications
