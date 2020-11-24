@@ -39,5 +39,6 @@ lisp/custom-file.el
 /tramp
 /transient
 /eln-cache/
+/image-dired/
 
 *-autoloads.el
