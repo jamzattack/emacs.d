@@ -2762,22 +2762,15 @@ is pretty slow, and [[help:insert-char][insert-char]].
 **** Kill buffer
 
 I rebind =C-x k= to kill the current buffer, because [[help:helm-mini][helm-mini]] is so
-useful.  If buffer is in the list [[help:buffers-to-bury][buffers-to-bury]], bury it instead of
-killing.
+useful.
 
 #+name: kill-this-buffer-please
 #+begin_src emacs-lisp :tangle no
-  (defvar buffers-to-bury '("*scratch*" "#emacs" "*Messages*")
-    "List of buffers to bury instead of kill with the function
-  `kill-this-buffer-please'")
-
   (defun kill-this-buffer-please ()
     "Actually kill this buffer, unlike `kill-this-buffer' which
   sometimes doesn't work."
     (interactive)
-    (if (member (buffer-name) buffers-to-bury)
-        (bury-buffer)
-      (kill-buffer (current-buffer))))
+    (kill-buffer (current-buffer)))
 #+end_src
 
 **** Split window
