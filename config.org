@@ -865,20 +865,20 @@ this means I can open gopher links from eww in [[*Elpher][elpher]].
     (let ((url (get-text-property (point) 'shr-url)))
       (cond
        ((not url)
-	(message "No link under point"))
+        (message "No link under point"))
        ((and (consp external) (<= (car external) 4))
-	(funcall browse-url-secondary-browser-function url)
-	(shr--blink-link))
+        (funcall browse-url-secondary-browser-function url)
+        (shr--blink-link))
        ;; This is a #target url in the same page as the current one.
        ((and (url-target (url-generic-parse-url url))
-	     (eww-same-page-p url (plist-get eww-data :url)))
-	(let ((dom (plist-get eww-data :dom)))
-	  (eww-save-history)
-	  (plist-put eww-data :url url)
-	  (eww-display-html 'utf-8 url dom nil (current-buffer))))
+             (eww-same-page-p url (plist-get eww-data :url)))
+        (let ((dom (plist-get eww-data :dom)))
+          (eww-save-history)
+          (plist-put eww-data :url url)
+          (eww-display-html 'utf-8 url dom nil (current-buffer))))
        (t
-	(let ((browse-url-browser-function #'eww-browse-url))
-	  (browse-url url external))))))
+        (let ((browse-url-browser-function #'eww-browse-url))
+          (browse-url url external))))))
 
   (advice-add 'eww-follow-link :override #'eww-follow-link-with-browse-url)
 #+end_src
@@ -3427,11 +3427,11 @@ with a nice inline interface.  Kind of like [[https://github.com/joddie/macroste
   (use-package regexp-expand
     :straight
     (regexp-expand :type git
-		   :host github
-		   :repo "danielmartin/regexp-expand")
+                   :host github
+                   :repo "danielmartin/regexp-expand")
     :bind
     (:map emacs-lisp-mode-map
-	  ("C-c M-r" . regexp-expand)))
+          ("C-c M-r" . regexp-expand)))
 #+end_src
 
 *** Selime                                                             :mine:
