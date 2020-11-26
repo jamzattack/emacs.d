@@ -1071,6 +1071,20 @@ I also bind =C-c n= and =C-c p= to go to the next/previous hunk.
           ("C-c p" . smerge-prev)))
 #+end_src
 
+*** Proced
+
+I don't use [[help:proced][proced]] much in favour of [[help:list-processes][list-processes]] (because virtually
+all of my processes are started from Emacs anyway) but I feel more
+comfortable with it opening in the same window for some reason.
+
+#+begin_src emacs-lisp
+  (use-package proced
+    :defer t
+    :config
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Proced\\*\\'" display-buffer-same-window)))
+#+end_src
+
 ** Shells
 
 Shells in Emacs - both shell and eshell settings are here.
