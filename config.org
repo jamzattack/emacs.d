@@ -3494,6 +3494,19 @@ Hosted [[https://git.jamzattack.xyz/lilypond-auto-insert][here]].
           ("C-c a" . lilypond-auto-insert)))
 #+end_src
 
+*** Lua Mode
+
+I don't know much lua, but when I downloaded some lua scripts for mpv
+I was dismayed that a lua-mode isn't included with lua itself.
+Anyway, I just want it for font-lock, so it only needs an entry in
+[[help:auto-mode-alist][auto-mode-alist]] with use-package's =:mode= argument.
+
+#+begin_src emacs-lisp
+  (use-package lua-mode
+    :straight t
+    :mode ("\\.lua\\'" . lua-mode))
+#+end_src
+
 ** Extra org packages
 
 *** Html export
