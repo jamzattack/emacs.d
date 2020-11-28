@@ -834,7 +834,6 @@ useful in eww, and a fitting replacement for [[help:set-fill-column][set-fill-co
 #+begin_src emacs-lisp :tangle no
   (defun eww-set-width (width)
     "Set the html rendering width to WIDTH.
-
   If prefix arg is a number, use it.  Otherwise, read number from
   the minibuffer."
     (interactive (list
@@ -842,7 +841,7 @@ useful in eww, and a fitting replacement for [[help:set-fill-column][set-fill-co
                       current-prefix-arg
                     (read-number "Set width: "
                                  (- (window-width) 5)))))
-    (setq shr-width width)
+    (setq-local shr-width width)
     (eww-reload t))
 #+end_src
 
