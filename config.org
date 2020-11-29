@@ -390,8 +390,35 @@ to generate a link from the current position.
 
 #+begin_src emacs-lisp
   (use-package ol
+    :config
+    <<ol-help--export>>
     :bind
     ("C-x M-l" . org-store-link))
+#+end_src
+
+***** Export help links in html
+
+I often use org's help links (e.g. [[help:org-mode][org-mode]]) but by default these are
+useless in an html export.  Thankfully, there's a neat [[https://doc.endlessparentheses.com][site]] that
+contains docstrings for all the built-in definitions.  Here, I:
+1. define a function that formats an href to the symbol's respective
+   page, and
+2. [[help:org-link-set-parameters][let org know]] that I want to use that function whenever a help link
+   is exported
+
+#+name: ol-help--export
+#+begin_src emacs-lisp :tangle no
+  (defun ol-help--export (link description format)
+    (let* ((desc (or description link))
+           (sym (intern link))
+           (type (if (fboundp sym)
+                     "Fun"
+                   "Var")))
+      (when (eq format 'html)
+        (format "<a target=\"_blank\" href=\"https://doc.endlessparentheses.com/%s/%s.html\">%s</a>"
+                type link desc))))
+
+  (org-link-set-parameters "help" :export #'ol-help--export)
 #+end_src
 
 **** Org agenda
