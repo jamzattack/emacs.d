@@ -3550,9 +3550,10 @@ Anyway, I just want it for font-lock, so it only needs an entry in
 
 ** Extra org packages
 
-*** Html export
+*** Htmlize
 
-Export to html.
+[[https://github.com/hniksic/emacs-htmlize][htmlize]] provides a way to turn a buffer's font-lock information into
+html.  ~ox-html~ uses this library to colour source blocks.
 
 #+begin_src emacs-lisp
   (use-package htmlize
