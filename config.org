@@ -3590,6 +3590,21 @@ Hosted [[https://git.jamzattack.xyz/org-el-index][here]].
           ("C-c M-i" . org-el-index-file-small)))
 #+end_src
 
+*** Valign
+
+[[https://github.com/casouri/valign][valign]] is a neat package that lets CJK and ascii characters coexist in
+org tables without alignment issues.  I enable it in [[help:org-mode-hook][org-mode-hook]].
+
+#+begin_src emacs-lisp
+  (use-package valign
+    :straight
+    (valign :type git
+            :host github
+            :repo "casouri/valign")
+    :delight
+    :hook (org-mode . valign-mode))
+#+end_src
+
 ** EXWM - Emacs X Window Manager
 
 Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM config][earlier]], you need
