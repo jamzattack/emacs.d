@@ -1032,9 +1032,7 @@ useful for more complex filtering.
     :init
     (defun ibuffer-helm-major-mode-predicate (buffer)
       "Returns t if BUF is a helm buffer."
-      (equal 'helm-major-mode
-             (with-current-buffer buffer
-               major-mode)))
+      (equal 'helm-major-mode (buffer-local-value 'major-mode buffer)))
     :config
     (add-to-list 'ibuffer-maybe-show-predicates
                  #'ibuffer-helm-major-mode-predicate))
