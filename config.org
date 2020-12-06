@@ -3807,7 +3807,10 @@ eww-mode.
           (setq default-directory "~/Downloads/"))
         (pop-to-buffer-same-window buffer)))
     :bind
-    ("C-z C-t" . open-transmission-in-this-window))
+    ("C-z C-t" . open-transmission-in-this-window)
+    :config
+    (bind-keys :map transmission-mode-map
+               ("M" . transmission-move)))
 #+end_src
 
 *** Elpher
