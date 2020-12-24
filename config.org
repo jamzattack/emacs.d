@@ -2981,6 +2981,26 @@ some multi-file search functions easily accessible is quite handy.
     ("M-g g" . helm-grep-do-git-grep))
 #+end_src
 
+*** Helm eshell
+
+Helm ships with a library containing a couple of useful eshell sources
+-- [[help:helm-eshell-history][history]] and [[help:helm-esh-pcomplete][completion]].  I rebind =M-r= to navigate the history with
+helm ([[help:eshell-hist-mode][eshell-hist-mode]] binds it to just [[help:eshell-previous-matching-input][prompt for a regexp]] which is
+pretty brutal in my opinion).  I also bind =<tab>= to helm's eshell
+completion command -- I want to be able to use the default behaviour
+if I want, so I don't bind =TAB= (meaning that I can use the stock
+completion with =C-i= if helm is too slow).
+
+#+begin_src emacs-lisp
+  (use-package helm-eshell
+    :after (eshell em-hist)
+    :bind
+    (:map eshell-hist-mode-map
+          ("M-r" . helm-eshell-history))
+    (:map eshell-mode-map
+          ("<tab>" . helm-esh-pcomplete)))
+#+end_src
+
 ** Helpful
 
 Helpful gives a whole lot more information than =describe-*=.  I also
