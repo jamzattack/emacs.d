@@ -2733,6 +2733,8 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
     (helm-completion-style 'emacs)
     (helm-describe-variable-function 'helpful-variable)
     (helm-describe-function-function 'helpful-callable)
+    (helm-show-completion-display-function
+     'helm-default-display-buffer)
     (helm-buffer-max-length 24)
     (helm-split-window-preferred-function
      #'helm-split-window-please)
