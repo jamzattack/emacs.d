@@ -3322,6 +3322,23 @@ and prompts for the type and number.
   (define-key LilyPond-mode-map (kbd "C-c C-r") #'lilypond-insert-repeat)
 #+end_src
 
+**** Fancy tuplet command
+
+#+begin_src emacs-lisp
+  (defun lilypond-insert-tuplet (fraction)
+    "Insert a tuplet form at point.
+  Prompt for FRACTION from the minibuffer.  If no text is entered,
+  assume 3/2."
+    (interactive "sTuplet fraction (default 3/2): ")
+    (insert (format "\\tuplet %s {  }"
+                    (if (string-empty-p fraction)
+                        "3/2"
+                      fraction)))
+    (backward-char 2))
+
+  (define-key LilyPond-mode-map (kbd "C-c C-t") #'lilypond-insert-tuplet)
+#+end_src
+
 *** Markdown
 
 A very featureful major mode for markdown files.  I only really use it
