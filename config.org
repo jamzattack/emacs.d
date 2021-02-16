@@ -2294,7 +2294,7 @@ subject]].
 
 #+name: hangul-input-method
 #+begin_src emacs-lisp :tangle no
-  (with-eval-after-load 'hangul
+  (with-eval-after-load "quail/hangul"
     (defun hangul2-input-method (key)
       "2-Bulsik input method."
       (setq key (quail-keyboard-translate key))
