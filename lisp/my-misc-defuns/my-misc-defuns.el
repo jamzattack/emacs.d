@@ -31,24 +31,26 @@
 (require 'thingatpt)
 (require 'url-util)
 
-;;; Emacs is sorely missing an interface for "apropos".  This is my
-;;; meagre attempt at making it useful within emacs.
 ;;;###autoload
-(defun system-apropos (search &optional args)
-  "Run the \"apropos\" comamnd with search term SEARCH and
-optional arguments ARGS."
-  (interactive (list (read-string "Apropos (regex): ")
-		     (when current-prefix-arg
-		       (read-string "apropos arguments: "))))
-  (let* ((command (or (executable-find "apropos")
+(defun system-apropos (search)
+  "Run the \"apropos\" comamnd with search term SEARCH."
+  (interactive (list (read-string "Apropos (regex): ")))
+  (let* ((program (or (executable-find "apropos")
 		      (user-error "apropos must be installed, usually packaged with man")))
 	 (buffer-name (format "*System Apropos %s*" search))
-	 (buffer (or (get-buffer buffer-name)
-		     (generate-new-buffer buffer-name))))
+	 (buffer (get-buffer-create buffer-name)))
     (with-current-buffer buffer
-      (insert
-       (shell-command-to-string (concat command " " args " " search))))
-    (switch-to-buffer buffer)))
+      (let ((inhibit-read-only t))
+	(dolist (line (process-lines program "-l" search))
+	  (when (string-match "\\(.*\\) - " line)
+	    (insert line)
+	    (make-button (line-beginning-position) (line-end-position)
+			 'action `(lambda (&rest _ignored)
+				    (man ,(match-string 1 line)))
+			 'face 'default)
+	    (newline))))
+      (special-mode))
+    (pop-to-buffer-same-window buffer)))
 
 
 ;;; These two list-* functions open up a dired buffer with a list of
