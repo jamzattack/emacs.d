@@ -36,7 +36,7 @@
   "Run the \"apropos\" comamnd with search term SEARCH."
   (interactive (list (read-string "Apropos (regex): ")))
   (let* ((program (or (executable-find "apropos")
-		      (user-error "apropos must be installed, usually packaged with man")))
+		      (user-error "`apropos' must be installed, usually packaged with man")))
 	 (buffer-name (format "*System Apropos %s*" search))
 	 (buffer (get-buffer-create buffer-name)))
     (with-current-buffer buffer
@@ -53,9 +53,11 @@
     (pop-to-buffer-same-window buffer)))
 
 
-;;; These two list-* functions open up a dired buffer with a list of
-;;; videos/documents.  The package `openwith' might be nice, but I just
-;;; use helm to open files externally.
+;;; Listing fellas
+;; These two list-* functions open up a dired buffer with a list of
+;; videos/documents.  The package `openwith' might be nice, but I just
+;; use helm to open files externally.
+
 ;;;###autoload
 (defun list-documents (&optional dir)
   "Using `find-dired', list all ps or pdf files in DIR.
@@ -83,22 +85,22 @@ default to ~/Downloads/."
   (setq truncate-lines t))
 
 
-;;; Open the pdf file with the same name as the current buffer.
-;;; Useful for typesetting programs such as LaTeX, lilypond, ox-latex,
-;;; etc.
+;;; Typesetting fellas
+
 ;;;###autoload
 (defun open-pdf-of-current-file ()
-  "Opens a pdf file of the same name as the current file"
+  "Open a pdf file of the same name as the current file.
+May be useful for typesetting programs such as LaTeX, lilypond,
+ox-latex, etc."
   (interactive)
   (find-file-other-window (concat
                            (file-name-sans-extension buffer-file-name)
                            ".pdf")))
 
-;;; Similar to `open-pdf-of-current-file' - but open an html file in
-;;; eww.  Useful for writing in org-mode and exporting to html.
 ;;;###autoload
 (defun eww-open-html-of-current-file ()
-  "Opens an html file of the same name as the current file"
+  "Open an html file of the same name as the current file.
+May be useful for writing in org-mode and exporting to html."
   (interactive)
   (eww-open-file (concat
                   (file-name-sans-extension buffer-file-name)
@@ -106,11 +108,10 @@ default to ~/Downloads/."
 
 
 
-;;; If region is active, indent it.  Otherwise, indent defun.
 ;;;###autoload
 (defun indent-region-or-defun-please (&optional whole-buffer)
-  "Indent region if it is active, otherwise indent defun.  With
-prefix arg, indent the whole buffer."
+  "Indent region if it is active, otherwise indent defun.
+With prefix arg WHOLE-BUFFER, indent the whole buffer."
   (interactive "*P")
   (let ((bounds (cond
   		 (whole-buffer
@@ -131,10 +132,10 @@ prefix arg, indent the whole buffer."
 ;;;###autoload
 (defun audacity (&rest args)
   "Start up audacity, the audio editor.
-
 This runs in a modified environment, with all environment
 variables related to input method removed.  This is because
-audacity is buggy with these variables."
+audacity is buggy with these variables.  All ARGS are passed onto
+Audacity."
   (interactive)
   (let ((process-environment
          (cl-remove-if
@@ -144,7 +145,7 @@ audacity is buggy with these variables."
     (make-process
      :name "audacity"
      :buffer " audacity"
-     :command `("audacity" ,@args))))
+     :command (cons "audacity" args))))
 
 ;;;###autoload
 (fset 'eshell/audacity #'audacity)
@@ -153,6 +154,7 @@ audacity is buggy with these variables."
 
 ;;;###autoload
 (defun copy-gpl-here ()
+  "Copy the GPL into this directory."
   (interactive)
   (if (file-exists-p "LICENSE")
       (user-error "File \"LICENSE\" already exists"))
@@ -166,12 +168,14 @@ audacity is buggy with these variables."
 (defun jamzattack-pastebin (beg end &optional name)
   "Upload the active region to a personal pastebin.
 The contents of the region BEG and END will be uploaded, or the
-whole buffer if the region is inactive.  Save the resulting url
-in the kill ring."
-  (interactive `(,@(if (region-active-p)
-		       (list (region-beginning) (region-end))
-		     '(nil nil))
-		 ,(read-string "Paste name (leave empty for autogen): ")))
+whole buffer if the region is inactive.  The file saved is named
+NAME, or randomly generated if left empty.  Save the resulting
+url in the kill ring."
+  (interactive (let ((string
+		      (read-string "Paste name (leave empty for autogen): ")))
+		 (if (region-active-p)
+		     (list (region-beginning) (region-end) string)
+		   (list nil nil string))))
   (let* ((string
 	  (buffer-substring (or beg (point-min))
 			    (or end (point-max))))
@@ -179,7 +183,10 @@ in the kill ring."
 	 (file
 	  (if (string-empty-p name)
 	      (make-temp-file dir nil ".txt" string)
-	    (expand-file-name (concat name ".txt") dir)))
+	    (expand-file-name (if (string-match-p "\\.[a-zA-Z]+\\'" name)
+				  name
+				(concat name ".txt"))
+			      dir)))
 	 (url
 	  (url-encode-url
 	   (format "https://jamzattack.xyz/tmp/%s"
