@@ -3251,6 +3251,7 @@ Located [[https://git.jamzattack.xyz/lilypond-mode][here]].
     <<custom-lilypond-setup>>
     :config
     <<lilypond-insert-repeat>>
+    <<lilypond-insert-tuplet>>
     :custom
     (LilyPond-midi-command "timidity -Oj")
     (LilyPond-all-midi-command "timidity -Oj -ia")
@@ -3324,7 +3325,8 @@ and prompts for the type and number.
 
 **** Fancy tuplet command
 
-#+begin_src emacs-lisp
+#+name: lilypond-insert-tuplet
+#+begin_src emacs-lisp :tangle no
   (defun lilypond-insert-tuplet (fraction)
     "Insert a tuplet form at point.
   Prompt for FRACTION from the minibuffer.  If no text is entered,
