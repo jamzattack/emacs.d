@@ -944,9 +944,10 @@ are parsed with =shr= are replaced with the clean version.
           (url (nth 1 args))
           (title (nth 2 args)))
       (list start
-            (let ((unhexed (url-unhex-string url)))
-              (if (string-match "\\`.*[&\\?]uddg=" unhexed)
-                  (replace-match "" nil nil unhexed)
+            (let ((unhexed (url-unhex-string url))
+                  (regexp "\\`.*[&\\?]uddg=\\(.*\\)&rut=[a-z0-9]\\{64\\}"))
+              (if (string-match regexp unhexed)
+                  (match-string 1 unhexed)
                 url))
             title)))
 
