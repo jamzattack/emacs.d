@@ -3381,13 +3381,18 @@ scheme is installed, in order of preference.
 
 #+begin_src emacs-lisp
   (use-package geiser
-    :straight t
+    :straight
+    (geiser :type git
+            :host gitlab
+            :flavor melpa
+            :repo "emacs-geiser/geiser")
     :defer t
     :delight
     (scheme-mode "scm" :major)
     (geiser-repl-mode "SCM>" :major)
     (geiser-autodoc-mode)
     :hook
+    (scheme-mode . geiser-mode)
     (geiser-repl-mode . paredit-mode)
     :custom
     (scheme-program-name
@@ -3398,6 +3403,38 @@ scheme is installed, in order of preference.
          "scheme"))
     (geiser-default-implementation 'guile)
     (geiser-repl-history-filename "~/.cache/geiser/history"))
+#+end_src
+
+**** Geiser Implementations
+
+As of March 2021, geiser doesn't include any implementation-specific
+code, so they need to be installed separately.  I mostly use Guile,
+but also install chez and mit just in case.
+
+#+begin_src emacs-lisp
+  (use-package geiser-guile
+    :straight
+    (geiser-guile :type git
+                  :host gitlab
+                  :flavor melpa
+                  :repo "emacs-geiser/guile")
+    :after geiser)
+
+  (use-package geiser-chez
+    :straight
+    (geiser-chez :type git
+                  :host gitlab
+                  :flavor melpa
+                  :repo "emacs-geiser/chez")
+    :after geiser)
+
+  (use-package geiser-mit
+    :straight
+    (geiser-mit :type git
+                  :host gitlab
+                  :flavor melpa
+                  :repo "emacs-geiser/mit")
+    :after geiser)
 #+end_src
 
 *** SLIME
