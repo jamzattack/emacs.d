@@ -1554,7 +1554,8 @@ which I do not like.
     "Enable `display-battery-mode' if battery is being used.
   If connected to power, or no battery is detected, disable it."
     (if (and battery-status-function
-             (rassoc "discharging" (funcall battery-status-function)))
+             (or (rassoc "discharging" (funcall battery-status-function))
+                 (rassoc "Discharging" (funcall battery-status-function))))
         (display-battery-mode t)
       (display-battery-mode 0)))
 
