@@ -588,7 +588,7 @@ keybindings are now in my package [[https://git.jamzattack.xyz/selime][selime]].
     :custom
     (initial-major-mode 'emacs-lisp-mode)
     :delight
-    (emacs-lisp-mode "el" :major)
+    (emacs-lisp-mode ("el" (lexical-binding "/l" "/d")) :major)
     (inferior-emacs-lisp-mode "EL>" :major)
     :bind
     ("<C-M-backspace>" . backward-kill-sexp))
