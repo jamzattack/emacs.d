@@ -5,7 +5,7 @@
 (set-face-attribute 'default nil
                     :family "Iosevka"
 		    :weight 'normal
-		    :height 80)
+		    :height 100)
 
 (set-face-attribute 'fixed-pitch nil
 		    :family "Iosevka"
