@@ -3459,11 +3459,11 @@ move the history file out of =$HOME=.
             '(slime-simple-completion-at-point)))
     :hook (slime-connected . disable-slime-completion)
     :custom
-    (inferior-lisp-program
-     (or (executable-find "sbcl")
-         (executable-find "ccl")
-         (executable-find "clisp")
-         "lisp"))
+    (slime-lisp-implementations
+     '((roswell ("ros" "-Q" "run"))
+       (sbcl ("sbcl"))
+       (ccl ("ccl"))
+       (clisp ("clisp"))))
     (slime-contribs '(slime-fancy))
     (slime-repl-history-file "~/.cache/slime/history")
     (common-lisp-hyperspec-root
