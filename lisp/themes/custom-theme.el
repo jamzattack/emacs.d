@@ -6,7 +6,7 @@
       (background "#FFFFD0")
       (background2 "lightgoldenrod")
       (background3 "khaki1")
-      (modeline "sky blue"))
+      (modeline "plum1"))
   (custom-theme-set-faces
    'custom
    ;; Text
