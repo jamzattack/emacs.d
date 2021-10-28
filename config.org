@@ -3459,11 +3459,6 @@ move the history file out of =$HOME=.
             '(slime-simple-completion-at-point)))
     :hook (slime-connected . disable-slime-completion)
     :custom
-    (slime-lisp-implementations
-     '((roswell ("ros" "-Q" "run"))
-       (sbcl ("sbcl"))
-       (ccl ("ccl"))
-       (clisp ("clisp"))))
     (slime-contribs '(slime-fancy))
     (slime-repl-history-file "~/.cache/slime/history")
     (common-lisp-hyperspec-root
@@ -3476,7 +3471,12 @@ move the history file out of =$HOME=.
           ("C-c C-z" . slime-switch-to-output-buffer))
     :config
     (with-eval-after-load 'slime-repl
-      (bind-key "C-c C-z" #'quit-window slime-repl-mode-map)))
+      (bind-key "C-c C-z" #'quit-window slime-repl-mode-map))
+    (setq slime-lisp-implementations
+          '((roswell ("ros" "-Q" "run"))
+            (sbcl ("sbcl"))
+            (ccl ("ccl"))
+            (clisp ("clisp")))))
 #+end_src
 
 *** Paredit
