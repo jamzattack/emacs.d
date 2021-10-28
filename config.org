@@ -2536,7 +2536,8 @@ Located [[file:lisp/reddit-browse/reddit-browse.el][here]].
 ** Toggle touchpad
 
 A simple package I wrote to toggle the touchpad/trackpoint on my
-ThinkPad.
+Laptops.  I use [[help:pcase][pcase]] to adjust the device names based on the
+hostname.
 
 Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
 
@@ -2545,7 +2546,15 @@ Located [[file:lisp/toggle-touchpad/toggle-touchpad.el][here]].
     :load-path "lisp/toggle-touchpad"
     :bind
     ("<XF86TouchpadToggle>" . toggle-touchpad)
-    ("C-z \\" . toggle-touchpad))
+    ("C-z \\" . toggle-touchpad)
+    :config
+    (pcase system-name
+      ("Z30C"
+       (setq toggle-touchpad--trackpoint-device "AlpsPS/2 ALPS DualPoint Stick"
+             toggle-touchpad--touchpad-device "AlpsPS/2 ALPS DualPoint TouchPad"))
+      ("T400"
+       (setq toggle-touchpad--trackpoint-device "TPPS/2 IBM TrackPoint"
+             toggle-touchpad--touchpad-device "SynPS/2 Synaptics TouchPad"))))
 #+end_src
 
 ** Arch Linux settings
