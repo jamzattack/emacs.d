@@ -3575,6 +3575,7 @@ Hosted [[https://git.jamzattack.xyz/selime][here]].
     (selime :type git
             :flavor melpa
             :repo "git@jamzattack.xyz:selime.git")
+    :delight
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
 
