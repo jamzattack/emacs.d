@@ -30,8 +30,9 @@
    `(ruler-mode-default ((,class (:inherit header-line :box nil))))
    ))
 
-(when (and (fboundp 'dimmer-mode)
-	   dimmer-mode)
+;;; Restart dimmer-mode if it is loaded and turned on, otherwise
+;;; there's some artefacting
+(when (bound-and-true-p dimmer-mode)
   (dimmer-mode -1)
   (dimmer-mode))
 
