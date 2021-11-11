@@ -968,6 +968,7 @@ server, so I connect to that, and set my password in my [[info:auth#Top][authinf
     (erc-hide-list '("JOIN" "PART" "QUIT"))
     :config
     <<znc-detach-channel>>
+    <<erc-narrow-to-znc-playback>>
     (add-to-list 'erc-modules 'notifications)
     (erc-update-modules)
     (erc-track-mode))
@@ -991,6 +992,39 @@ detach so that I can reattach later.  Here, I override
 
   (advice-add 'erc-kill-channel :override #'znc-detach-channel)
 #+end_src
+
+**** Narrow to ZNC playback
+
+When reattaching to a channel via ZNC, it plays back some number of
+recent messages and sends them upon connection.  This function narrows
+to the most recent playback, unless the buffer is already narrowed
+further.
+
+I would have liked to use a hook to do this automatically, but due to
+the asynchronous mechanics of the system I'm gonna have to make do
+with a keybind.
+
+#+name: erc-narrow-to-znc-playback
+#+begin_src emacs-lisp :tangle no
+  (defun erc-narrow-to-znc-playback (&optional force)
+    "Narrow the buffer beginning at the latest buffer playback.
+  If the buffer is already narrowed beyond that point, don't change
+  anything.  With prefix arg FORCE, extend the buffer to the
+  playback even if it is already narrowed."
+    (interactive "P")
+    (save-excursion
+      (when force
+        (widen))
+      (narrow-to-region
+       (goto-char (point-max))
+       (or (re-search-backward
+            (rx bol "<***> Buffer Playback..." eol)
+            nil :noerror)
+           (point-min)))))
+
+  (define-key erc-mode-map (kbd "C-c b") #'erc-narrow-to-znc-playback)
+#+end_src
+
 
 **** ERC notifications
 
