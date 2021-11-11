@@ -476,9 +476,9 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
      org-publish-project-alist
      `(("blog"
         ,@my-org-publish-default-options
-        :base-directory "~/jamzattack.xyz/blog"
+        :base-directory "~/org/jamzattack.xyz/blog"
         :with-toc t
-        :publishing-directory "~/jamzattack.xyz/out/blog"
+        :publishing-directory "~/org/jamzattack.xyz/out/blog"
         :html-postamble-format ,(my-org-html-postamble-format
                                  "Author: %A"
                                  "Date: %d (modified %M)"
@@ -500,25 +500,25 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
                 (t entry)))
         :sitemap-sort-files anti-chronologically)
        ("gopher"
-        :base-directory "~/jamzattack.xyz/blog"
+        :base-directory "~/org/jamzattack.xyz/blog"
         :with-toc t
         :with-email t
         :section-numbers nil
         :publishing-function org-ascii-publish-to-ascii
-        :publishing-directory "~/jamzattack.xyz/out/gopher")
+        :publishing-directory "~/org/jamzattack.xyz/out/gopher")
        ("music"
         ,@my-org-publish-default-options
-        :base-directory "~/jamzattack.xyz/music"
+        :base-directory "~/org/jamzattack.xyz/music"
         :recursive t
         :html-postamble-format ,(my-org-html-postamble-format
                                  "Author: %A"
                                  "Top: <a href=\"/sitemap.html\">All projects</a>")
-        :publishing-directory "~/jamzattack.xyz/out/music"
+        :publishing-directory "~/org/jamzattack.xyz/out/music"
         :sitemap-title "My Music Projects")
        ("html"
         ,@my-org-publish-default-options
-        :base-directory "~/jamzattack.xyz/html"
-        :publishing-directory "~/jamzattack.xyz/out/html"))))
+        :base-directory "~/org/jamzattack.xyz/html"
+        :publishing-directory "~/org/jamzattack.xyz/out/html"))))
 #+end_src
 
 ***** Generate postamble
