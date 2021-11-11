@@ -1943,6 +1943,8 @@ just using IMAP.
             '(("Topic" "\\[ \\(.*?\\) -- [0-9]+ \\]" 1)
               ("Unread" "[1-9]+.*: \\(.*\\)" 1))))
     (add-hook 'gnus-group-mode-hook 'gnus-group-set-up-imenu-please)
+    (with-eval-after-load 'gnus-win
+      (setq gnus-use-full-window nil))
     :bind
     ("C-z C-n" . gnus-unplugged)
     ("C-z n" . gnus-plugged))
