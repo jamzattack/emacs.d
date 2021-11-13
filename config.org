@@ -3480,6 +3480,9 @@ Interact with Common Lisp in a powerful and emacsy way.  I set the
 default Lisp program, add some fancier stuff such as a nicer REPl, and
 move the history file out of =$HOME=.
 
+I also make slime use a local copy of the hyperspec if it exists,
+which can be [[http://ftp.lispworks.com/pub/software_tools/reference/HyperSpec-7.0.tar.gz][downloaded here]].
+
 #+begin_src emacs-lisp
   (use-package slime
     :straight t
@@ -3498,8 +3501,8 @@ move the history file out of =$HOME=.
     (slime-contribs '(slime-fancy))
     (slime-repl-history-file "~/.cache/slime/history")
     (common-lisp-hyperspec-root
-     (if (file-exists-p "/usr/share/doc/HyperSpec/")
-         "file:///usr/share/doc/HyperSpec/"
+     (if (file-exists-p "/usr/share/doc/clhs/HyperSpec/")
+         "file:///usr/share/doc/clhs/HyperSpec/"
        "http://clhs.lisp.se/"))
     (slime-auto-start 'ask)
     :bind
