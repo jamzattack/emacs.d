@@ -1889,13 +1889,20 @@ which isn't a loadable feature, so use custom instead.
 Allow themes to be loaded from the [[file:lisp/themes][lisp/themes]] directory, allow all
 themes to be loaded, then load my [[file:lisp/themes/custom-theme.el][custom theme]].
 
+I also set up timers to load my dark theme at night, and disable it in
+the morning.  If computer is suspended when the timer is supposed to
+execute, it will run upon wake (not documented, had do test myself).
+
 #+begin_src emacs-lisp
   (use-package custom
     :custom
     (custom-theme-directory
      (expand-file-name "lisp/themes" user-emacs-directory))
     (custom-safe-themes t)
-    (custom-enabled-themes '(custom)))
+    (custom-enabled-themes '(custom))
+    :config
+    (run-at-time "20:00" (* 24 60 60) (lambda () (load-theme 'custom-dark)))
+    (run-at-time "07:00" (* 24 60 60) (lambda () (disable-theme 'custom-dark))))
 #+end_src
 
 ** Convenience
