@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
-;; Version: 2020.09.10
+;; Version: 2021.11.15
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -195,6 +195,24 @@ url in the kill ring."
       (insert string))
     (kill-new url)
     (message "Pasted to: %s" url)))
+
+
+;;;###autoload
+(defun find-file-in-source-directory (file &optional position)
+  "Find the current emacs file in the source directory.
+This should work for any file installed with emacs."
+  (interactive (list (buffer-file-name) (point)))
+  (let* ((installation-directory
+	  (or installation-directory
+	      (expand-file-name (format "../share/emacs/%s" emacs-version)
+				invocation-directory)))
+	 (relative (file-relative-name file installation-directory))
+	 (new (replace-regexp-in-string "\\.gz\\'" ""
+					(expand-file-name relative source-directory))))
+    (if (file-exists-p new)
+	(progn (find-file new)
+	       (goto-char position))
+      (user-error "File `%s' not exist" new))))
 
 (provide 'my-misc-defuns)
 ;;; my-misc-defuns.el ends here
