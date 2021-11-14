@@ -53,7 +53,15 @@ This snippet clones and loads straight, stolen from the README.
   (with-eval-after-load 'straight
     (setq straight-vc-git-default-protocol 'ssh)
     (add-to-list 'straight-built-in-pseudo-packages 'org)
-    (fset 'try #'straight-use-package))
+    (fset 'try #'straight-use-package)
+    (defun straight-clone-package (pkg)
+      "Clone PKG via straight without building or loading it.
+  This function is for interactive use only.  From lisp,
+  use `(straight-use-package PKG nil t)' instead."
+      (declare (interactive-only
+                "Use `straight-use-package' with the NO-BUILD argument instead"))
+      (interactive (list (straight-get-recipe (when current-prefix-arg 'interactive))))
+      (straight-use-package pkg nil t)))
 #+end_src
 
 ** Use-package and dependencies
