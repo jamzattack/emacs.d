@@ -2399,8 +2399,7 @@ The elements I'm mostly interested in are 8 (=KBD-TRANSLATE=) and 9
 
 #+begin_src emacs-lisp
   (use-package abbrev
-    :hook
-    (text-mode . abbrev-mode)
+    :defer t
     :delight
     :config
     (setq save-abbrevs nil)
