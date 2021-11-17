@@ -22,7 +22,7 @@
    `(erc-input-face ((,class (:foreground "Lightskyblue3"))))
 
    ;; Not really text
-   `(tooltip ((,class (:inherit 'default))))
+   `(tooltip ((,class (:foreground ,background :inherit 'default))))
    `(region ((,class (:background ,background2))))
    `(fringe ((,class (:inherit 'default))))
    `(mode-line ((,class (:background ,modeline :foreground "white"))))
