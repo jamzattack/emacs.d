@@ -467,7 +467,6 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
         <<my-org-publish-default-options>>
         )
       "Default options for `org-publish-project-alist'.
-
   This variable must be spliced into `org-publish-project-alist'
   when set, i.e.
       (setq org-publish-project-alist
@@ -537,7 +536,6 @@ A little function to generate postamble.
 #+begin_src emacs-lisp :tangle no
   (defun my-org-html-postamble-format (&rest args)
     "Generate an html postamble using ARGS.
-
   This generates a paragraph for each item in ARGS.  For format
   strings, see the docstring of `org-html-postamble-format'."
     (unless args
@@ -640,7 +638,6 @@ macros when writing something, but I usually just use org-mode anyway.
 #+begin_src emacs-lisp :tangle no
   (defun nroff-mode-compile ()
     "Set the compile command for nroff files.
-
   It will choose the macro set based on the file extension."
     (let* ((in (buffer-file-name))
            (out (concat (file-name-sans-extension in)
@@ -1243,7 +1240,6 @@ run as the current user via local ssh.
 #+begin_src emacs-lisp :tangle no
   (defun eshell/ssh (&rest args)
     "Use tramp to move into an ssh directory.
-
   Usage: ssh [USER@]HOST [PATH]"
     (let ((host (car args))
           (path (or (cadr args) "")))
@@ -1278,7 +1274,6 @@ A wee eshell interface to [[help:helpful-symbol][helpful-symbol]].  Falls back t
 #+begin_src emacs-lisp :tangle no
   (defun eshell/h (symbol-name &rest _ignored)
     "Show help for SYMBOL-NAME.
-
   If `helpful-symbol' is available, use it.  Otherwise, fall back
   to `describe-symbol'."
     (let ((function (if (fboundp 'helpful-symbol)
@@ -1307,7 +1302,6 @@ Otherwise, it will be named according to:
 #+begin_src emacs-lisp :tangle no
   (defun eshell/r (&optional name &rest _ignored)
     "Rename the current buffer.
-
   This will be (in order):
   - [eshell] the first argument
   - [interactive] numeric prefix arg
@@ -1360,7 +1354,6 @@ uses the GUI to its advantage to show:
 #+begin_src emacs-lisp :tangle no
   (defun eshell/img (&rest files)
     "Insert FILES into the buffer as images.
-
   If a file does not match `image-file-name-regexp', nothing
   happens."
     (dolist (file (mapcar #'expand-file-name (flatten-tree files)))
@@ -1387,7 +1380,6 @@ uses the GUI to its advantage to show:
 
   (defun eshell/fontify (&rest files)
     "Insert FILES into the buffer.
-
   Like `eshell/cat', but fontifies the text as it would be if it
   were visited normally."
     (dolist (file (mapcar #'expand-file-name (flatten-tree files)))
@@ -1407,7 +1399,6 @@ uses the GUI to its advantage to show:
 
   (defun eshell/c (&rest files)
     "My overpowered version of `eshell/cat'.
-
   This command show FILES as:
   - images (`eshell/img')
   - directories (`eshell/ls')
@@ -1633,7 +1624,6 @@ consistency's sake).
 #+begin_src emacs-lisp
   (defun indicate-empty-lines-mode (&optional arg)
     "Indicate empty lines in the fringe.
-
   This is not actually a minor mode, just a wrapper function to set
   the variable `indicate-empty-lines'.
 
@@ -2125,7 +2115,6 @@ either fills or unfills the message, and =C-c $= to check spelling.
     :config
     (defun fill-message-please (&optional unfill)
       "Fill the whole message.
-
     With prefix arg UNFILL, unfill the message (i.e. paragraphs will
     all be on one line)"
       (interactive "P")
@@ -2263,7 +2252,6 @@ bound to =s-\=.
 
   (defun toggle-quail-keyboard-layout ()
     "Toggle the keyboard layout between dvorak and qwerty.
-
   This sets `quail-keyboard-layout-type' to the opposite of what is
   currently selected."
     (interactive)
@@ -2474,7 +2462,6 @@ in the =:init= section.
 
   (defun please-print-buffer (&optional file color header side-by-side)
     "Print the current BUFFER.
-
   FILE is a filename to save the generated postscript in.  If this
   is provided, it will NOT be sent to the printer.
 
@@ -2506,7 +2493,6 @@ in the =:init= section.
 
   (defun please-print-buffer-side-by-side (file &optional color)
     "Print the current buffer, split into two subpages.
-
   This calls `ps-print-buffer-with-faces' with the variable
   `ps-n-up-printing' set to 2."
     (interactive
@@ -2516,7 +2502,6 @@ in the =:init= section.
 
   (defun please-print-buffer-with-header (file &optional color)
     "Print the current buffer with a header.
-
   This calls `ps-print-buffer-with-faces' with the variable
   `ps-print-header' set to t."
     (interactive
@@ -3089,7 +3074,6 @@ This now works with both Elisp and C source code.
 #+begin_src emacs-lisp :tangle no
   (defun helpful-edit-source-temporarily ()
     "Edit the source shown in the current helpful buffer.
-
   This pops open a buffer with only the symbol's source, rather
   than taking you to its file.
 
@@ -3129,7 +3113,6 @@ This now works with both Elisp and C source code.
 #+begin_src emacs-lisp :tangle no
   (defun helpful-copy-to-kill-ring (buffer)
     "Copy the callable or variable of BUFFER to the kill ring.
-
   Called interactively, BUFFER is the current buffer or, with
   prefix arg, read from the minibuffer."
     (interactive (list
@@ -3212,7 +3195,6 @@ epubs, and set the default width to 80 columns.
 #+begin_src emacs-lisp :tangle no
   (defun nov-set-width (width)
     "Set the nov rendering width to WIDTH.
-
   If prefix arg is a number, use it.  Otherwise, read number from
   the minibuffer."
     (interactive (list
