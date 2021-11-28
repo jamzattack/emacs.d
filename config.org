@@ -3696,7 +3696,12 @@ Hosted [[https://git.jamzattack.xyz/org-el-index][here]].
           ("C-c M-i" . org-el-index-file-small)))
 #+end_src
 
-*** Valign
+*** COMMENT Valign
+
+NOTE: I've commented this package out because I'm using Iosevka+Sarasa
+at the right font sizes to align ASCII and CJK characters perfectly.
+In the eventual but unavoidable event of getting sick of the current
+fonts, just uncomment this.
 
 [[https://github.com/casouri/valign][valign]] is a neat package that lets CJK and ascii characters coexist in
 org tables without alignment issues.  I enable it in [[help:org-mode-hook][org-mode-hook]].
