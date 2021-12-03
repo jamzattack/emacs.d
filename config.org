@@ -2144,7 +2144,7 @@ I can't figure out how to make my postfix server copy messages to
     (interactive)
     (let ((new-gcc
            (format-time-string
-            "nnfolder+archive:sent.%Y-%m, nnimap+mail.jamzattack.xyz:Sent")))
+            "nnfolder+archive:sent.%Y-%m,nnimap+mail.jamzattack.xyz:Sent")))
       (save-excursion
         (goto-char (point-min))
         (ignore-errors
