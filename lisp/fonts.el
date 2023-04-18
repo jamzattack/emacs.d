@@ -3,12 +3,12 @@
 ;; I copied the majority from https://idiocy.org/emacs-fonts-and-fontsets.html
 
 (set-face-attribute 'default nil
-                    :family "Iosevka"
+                    :family "Iosevka Nerd Font"
 		    :weight 'normal
 		    :height 105)
 
 (set-face-attribute 'fixed-pitch nil
-		    :family "Iosevka"
+		    :family "Iosevka Nerd Font"
 		    :height 1.0)
 
 (set-face-attribute 'italic nil
