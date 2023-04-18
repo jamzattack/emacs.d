@@ -284,7 +284,10 @@ file.  Similar to [[help:remember][remember]].
         "* %^{Title}\n\n#+begin_src emacs-lisp\n %i\n#+end_src\n")
        ("d" "Diary" entry
         (file "diary.org")
-        "* %?\nEntered on %u\n\n")))
+        "* %?\nEntered on %u\n\n")
+       ("h" "Haiku" entry
+        (file "haiku.org")
+        "* %U\n%?\n")))
     (org-capture-bookmark nil)
     :bind
     ("C-x M-r" . org-capture))
