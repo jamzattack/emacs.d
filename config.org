@@ -463,7 +463,8 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
       :demand
       :straight
       (ox-jamzattack :type git
-                     :repo "git@jamzattack.xyz:ox-jamzattack.git"))
+                     :host github
+                     :repo "jamzattack/ox-jamzattack"))
     <<my-org-html-postamble-format>>
     (defvar my-org-publish-default-options
       '(
@@ -2293,7 +2294,8 @@ Hosted [[https://git.jamzattack.xyz/maori-input-method][here]].
     :straight
     (maori-input-method
      :type git
-     :repo "git@jamzattack.xyz:maori-input-method"))
+     :host github
+     :repo "jamzattack/maori-input-method"))
 #+end_src
 
 **** Shavian
@@ -2308,7 +2310,8 @@ Hosted [[https://git.jamzattack.xyz/shavian-input-method][here]].
     :straight
     (shavian-input-method
      :type git
-     :repo "git@jamzattack.xyz:shavian-input-method"))
+     :host github
+     :repo "jamzattack/shavian-input-method"))
 #+end_src
 
 **** Hangul
@@ -3273,7 +3276,8 @@ Located [[https://git.jamzattack.xyz/lilypond-mode][here]].
   (use-package lilypond-mode
     :straight
     (lilypond-mode :type git
-                   :repo "git@jamzattack.xyz:lilypond-mode.git")
+                   :host github
+                   :repo "jamzattack/lilypond-mode")
     :delight
     (LilyPond-mode "ly" :major)
     :init
@@ -3596,7 +3600,8 @@ Hosted [[https://git.jamzattack.xyz/selime][here]].
     :straight
     (selime :type git
             :flavor melpa
-            :repo "git@jamzattack.xyz:selime.git")
+            :host github
+            :repo "jamzattack/selime")
     :delight
     :hook (emacs-lisp-mode . selime-mode))
 #+end_src
@@ -3614,7 +3619,8 @@ Hosted [[https://git.jamzattack.xyz/lex-hl][here]].
     :straight
     (lex-hl :type git
             :flavor melpa
-            :repo "git@jamzattack.xyz:lex-hl.git")
+            :host github
+            :repo "jamzattack/lex-hl")
     :bind
     (:map emacs-lisp-mode-map
           ("C-c `" . lex-hl-unhighlight)
@@ -3635,7 +3641,8 @@ Hosted [[https://git.jamzattack.xyz/lilypond-auto-insert][here]].
     :straight
     (lilypond-auto-insert :type git
                           :flavor melpa
-                          :repo "git@jamzattack.xyz:lilypond-auto-insert.git")
+                          :host github
+                          :repo "jamzattack/lilypond-auto-insert")
     :after lilypond-mode
     :custom
     (lilypond-auto-insert-language "english")
@@ -3692,7 +3699,8 @@ Hosted [[https://git.jamzattack.xyz/org-el-index][here]].
   (use-package org-el-index
     :straight
     (org-el-index :type git
-                  :repo "git@jamzattack.xyz:org-el-index.git")
+                  :host github
+                  :repo "jamzattack/org-el-index")
     :after org
     :bind
     (:map org-mode-map
@@ -3977,7 +3985,8 @@ Hosted [[https://git.jamzattack.xyz/ol-elpher][here]].
   (use-package ol-elpher
     :straight
     (ol-elpher :type git
-               :repo "git@jamzattack.xyz:ol-elpher.git")
+               :host github
+               :repo "jamzattack/ol-elpher")
     :after ol)
 #+end_src
 
@@ -4105,7 +4114,8 @@ Hosted [[https://git.jamzattack.xyz/plumb][here]].
     :straight
     (plumb :type git
            :flavor melpa
-           :repo "git@jamzattack.xyz:plumb.git")
+           :host github
+           :repo "jamzattack/plumb")
     :bind
     ("C-z d" . plumb)
     ("C-z C-d" . plumb))
@@ -4121,7 +4131,8 @@ Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
   (use-package narrow-x
     :straight
     (narrow-x :type git
-              :repo "git@jamzattack.xyz:narrow-x.git")
+              :host github
+              :repo "jamzattack/narrow-x")
     :bind
     (:map narrow-map
           ("h" . narrow-to-paragraph)
@@ -4148,7 +4159,8 @@ Hosted [[https://git.jamzattack.xyz/search-query][here]].
   (use-package search-query
     :straight
     (search-query :type git
-                  :repo "git@jamzattack.xyz:search-query")
+                  :host github
+                  :repo "jamzattack/search-query")
     :custom
     (search-query-tpb-mirror "piratebay.live")
     (search-query-invidious-mirror "yewtu.be")
@@ -4172,7 +4184,8 @@ Hosted [[https://git.jamzattack.xyz/insert-date][here]].
   (use-package insert-date
     :straight
     (insert-date :type git
-                 :repo "git@jamzattack.xyz:insert-date.git")
+                 :host github
+                 :repo "jamzattack/insert-date")
     :bind
     (:prefix "C-c d" :prefix-map insert-date-map
              ("v" . insert-date-version)
@@ -4193,7 +4206,8 @@ Hosted [[https://git.jamzattack.xyz/itch][here]].
 #+begin_src emacs-lisp
   (use-package itch
     :straight (itch :type git
-                    :repo "git@jamzattack.xyz:itch")
+                    :host github
+                    :repo "jamzattack/itch")
     :bind
     ("s-a" . itch-fundamental)
     ("s-A" . itch-switch-to-fundamental)
@@ -4255,7 +4269,8 @@ Hosted [[https://git.jamzattack.xyz/eshell-outline][here]].
     :straight
     (eshell-outline :type git
                     :flavor melpa
-                    :repo "git@jamzattack.xyz:eshell-outline.git")
+                    :host github
+                    :repo "jamzattack/eshell-outline")
     :hook (eshell-mode . eshell-outline-mode))
 #+end_src
 
