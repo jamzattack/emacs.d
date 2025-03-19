@@ -1,9 +1,9 @@
 ;;; my-misc-defuns.el --- My miscellaneous functions  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  Jamie Beardslee
+;; Copyright (C) 2025  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
-;; Version: 2021.11.15
+;; Version: 2025-03-20
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -93,9 +93,12 @@ default to ~/Downloads/."
 May be useful for typesetting programs such as LaTeX, lilypond,
 ox-latex, etc."
   (interactive)
-  (find-file-other-window (concat
-                           (file-name-sans-extension buffer-file-name)
-                           ".pdf")))
+  (let ((file (concat
+	       (file-name-sans-extension buffer-file-name)
+	       ".pdf")))
+    (if (file-exists-p file)
+	(find-file-other-window file)
+      (message "File doesn't exist: %s" file))))
 
 ;;;###autoload
 (defun eww-open-html-of-current-file ()
