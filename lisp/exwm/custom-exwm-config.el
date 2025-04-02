@@ -224,7 +224,7 @@ somewhat awkward because they're used as prefix keys."
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
   (setq exwm-workspace-number 1)
-  (exwm-xim--init)
+  ;; (exwm-xim--init)
   (add-hook 'exwm-manage-finish-hook 'custom-exwm-input-terminal-keys)
   (custom-exwm-input-global-keys)
   (custom-exwm-input-simulation-keys)
