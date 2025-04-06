@@ -2788,6 +2788,7 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
        ("pdf" . "zathura")))
     (helm-ff-cache-mode-lighter-sleep "")
     (helm-ff-cache-mode-lighter-updating "")
+    (helm-move-to-line-cycle-in-source nil)
     :init
     <<kill-this-buffer-please>>
     :config
