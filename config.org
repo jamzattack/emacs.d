@@ -1701,6 +1701,19 @@ you are in the minibuffer "stack".
     (minibuffer-depth-indicate-mode))
 #+end_src
 
+*** Variable Pitch Mode
+
+Writing a decent amount of notes, it can be useful to have some
+keybindings set up to enable [[help:variable-pitch-mode][variable-pitch-mode]].  I use =C-z C-v= and
+=C-z v=.  This mode is part of the built-in =face-remap= library.
+
+#+begin_src emacs-lisp
+  (use-package face-remap
+    :bind
+    ("C-z C-v" . variable-pitch-mode)
+    ("C-z v" . variable-pitch-mode))
+#+end_src
+
 ** Environment variables
 
 Set the =$EDITOR= to =emacsclient=.  Because I (almost) only use other
