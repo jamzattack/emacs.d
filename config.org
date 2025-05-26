@@ -3745,7 +3745,8 @@ to enable exwm (via [[help:exwm-init][exwm-init]]) when creating the Emacs frame
     (exwm :type git
           :host github
           :repo "emacs-exwm/exwm")
-    :defer t)
+    :defer t
+    :commands exwm-init)
 #+end_src
 
 *** Desktop-environment (useful with EXWM)
