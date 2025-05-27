@@ -4208,7 +4208,8 @@ Hosted [[https://git.jamzattack.xyz/insert-date][here]].
              ("t" . insert-date-only-time)
              ("l" . insert-date-locale)
              ("b" . insert-date-both)
-             ("i" . insert-date-iso8601)))
+             ("i" . insert-date-iso8601)
+             ("c" . insert-date-casual)))
 #+end_src
 
 *** Itch                                                               :mine:
