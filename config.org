@@ -1497,8 +1497,9 @@ Some settings for the UI of Emacs - mode-line, scroll-bar, etc.
 
 *** Extraneous bars
 
-Section for the three wasteful bars -- tool bar, menu bar, and scroll
-bar.
+Section for the GUI bars -- tool bar, menu bar, and scroll bar.  I
+used to just avoid these at all costs, but now I've taken a bit of a
+liking to having a [[help:window-divider-mode][window divider]].
 
 **** Scroll bar
 
@@ -1530,6 +1531,17 @@ Disable the tool bar.
   (use-package tool-bar
     :config
     (tool-bar-mode -1))
+#+end_src
+
+**** Window divider
+
+This extra visual divider is useful mainly to grab and resize a window
+with the mouse.  But with my theme, I've turned it into a nice,
+somewhat-visually-appealing separator.
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'frame
+    (window-divider-mode t))
 #+end_src
 
 *** Mode-line
@@ -1822,7 +1834,7 @@ to switch tab.
   (use-package tab-bar
     :defer t
     :custom
-    (tab-bar-show nil)
+    (tab-bar-show 1)
     (tab-bar-close-button-show nil)
     (tab-bar-new-button-show nil)
     (tab-bar-tab-hints t)

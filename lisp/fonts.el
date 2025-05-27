@@ -5,7 +5,7 @@
 (set-face-attribute 'default nil
                     :family "Iosevka Nerd Font"
 		    :weight 'normal
-		    :height 105)
+		    :height 120)
 
 (set-face-attribute 'fixed-pitch nil
 		    :family "Iosevka Nerd Font"

@@ -34,6 +34,8 @@
       (background "#FFFFD0")
       (background2 "lightgoldenrod")
       (background3 "khaki1")
+      (fringe "grey40")
+      (border "grey90")
       (modeline "plum1"))
   (custom-theme-set-faces
    'custom
@@ -50,8 +52,16 @@
    ;; Not really text
    `(tooltip ((,class (:inherit 'default))))
    `(region ((,class (:background ,background2))))
-   `(fringe ((,class (:inherit 'default))))
+
+   ;; Borders: All subtle grey
+   `(fringe ((,class (:inherit 'default :foreground ,fringe))))
+   `(vertical-border ((,class (:inherit 'fringe))))
+   `(mode-line-inactive ((,class (:background ,border))))
    `(mode-line ((,class (:background ,modeline))))
+   `(window-divider ((,class (:foreground ,border))))
+   `(window-divider-first-pixel ((,class (:inherit 'window-divider))))
+   `(window-divider-last-pixel ((,class (:inherit 'window-divider))))
+
    `(tab-bar ((,class (:inherit mode-line-inactive))))
    `(tab-bar-tab ((,class (:inherit default))))
    `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive))))
