@@ -1845,8 +1845,7 @@ to switch tab.
     :config
     (dolist (k (number-sequence 0 9))
       (bind-key (kbd (format "s-%s" k)) 'tab-bar-select-tab))
-    (defadvice tab-bar-select-tab
-        (after show-tab-name activate)
+    (define-advice tab-bar-select-tab (:after (&rest _ignore) show-tab-name)
       "Show the tab name and index+1 in the echo area."
       (message "Switched to tab: %s (%s)"
                (propertize
@@ -3770,9 +3769,8 @@ colour.
     (exwm-init . desktop-environment-mode)
     :config
     <<custom-screenlock-command>>
-    (defadvice desktop-environment-lock-screen
-        (before change-bg-color activate)
-      (custom-screenlock-command))
+    (advice-add 'desktop-environment-lock-screen
+  	      :before 'custom-screenlock-command)
     (desktop-environment-mode))
 #+end_src
 
