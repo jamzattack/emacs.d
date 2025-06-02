@@ -250,7 +250,7 @@ enabled.  Without it, the window can get cluttered pretty easily.
 
 #+begin_src emacs-lisp
   (use-package org-indent
-    :defer
+    :hook org-mode
     :delight
     :config
     (setq org-indent-indentation-per-level 1))
