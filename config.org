@@ -3745,6 +3745,9 @@ org tables without alignment issues.  I enable it in [[help:org-mode-hook][org-m
 Manipulate X windows as Emacs buffers.  As mentioned [[*Custom EXWM config][earlier]], you need
 to enable exwm (via [[help:exwm-init][exwm-init]]) when creating the Emacs frame.
 
+The =exwm-randr= snippets just sets up exwm to use specific workspaces
+depending on the [[help:system-name][system name (HOSTNAME)]].
+
 #+begin_src emacs-lisp
   (use-package exwm
     :straight
@@ -3752,7 +3755,13 @@ to enable exwm (via [[help:exwm-init][exwm-init]]) when creating the Emacs frame
           :host github
           :repo "emacs-exwm/exwm")
     :defer t
-    :commands exwm-init)
+    :commands exwm-init
+    :config
+    (when (equal (system-name) "Z30C")
+      (require 'exwm-randr)
+      (setq exwm-randr-workspace-monitor-plist
+  	  '(0 "eDP-1" 1 "HDMI-2"))
+      (exwm-randr-mode)))
 #+end_src
 
 *** Desktop-environment (useful with EXWM)
