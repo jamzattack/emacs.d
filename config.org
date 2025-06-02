@@ -2089,8 +2089,7 @@ disable this.  Default behaviour can be restored with =T H=.
     :defer t
     :custom
     (gnus-topic-display-empty-topics nil)
-    :hook
-    (gnus-group-mode . gnus-topic-mode))
+    :hook gnus-group-mode)
 #+end_src
 
 **** Gnus-start
@@ -3533,7 +3532,9 @@ Efficient and clever editing commands for working with s-expressions.
 Only fully enabled in Lisp modes, but I also define a few useful keys
 globally.
 
-- [ ] TODO replace all these hooks with [[help:lisp-data-mode-hook][lisp-data-mode]], added in 28.
+- NOTE: Have simplified as much as possible, but as of [2025-06-02],
+  some modes still aren't derived from =lisp-data-mode= (introduced in
+  ver. 28).
 
 #+begin_src emacs-lisp
   (use-package paredit
@@ -3549,14 +3550,12 @@ globally.
     ("C-}" . paredit-forward-barf-sexp)
     (:map paredit-mode-map
           ("M-R" . paredit-splice-sexp-killing-backward))
-    :hook
-    (emacs-lisp-mode . paredit-mode)
-    (lisp-interaction-mode . paredit-mode)
-    (ielm-mode . paredit-mode)
-    (eval-expression-minibuffer-setup . paredit-mode)
-    (lisp-mode . paredit-mode)
-    (slime-repl-mode . paredit-mode)
-    (scheme-mode . paredit-mode))
+    :hook (lisp-data-mode
+  	 lisp-interaction-mode
+  	 ielm-mode
+  	 eval-expression-minibuffer-setup
+  	 slime-repl-mode
+  	 scheme-mode))
 #+end_src
 
 *** Elf-mode
@@ -3616,7 +3615,7 @@ Hosted [[https://git.jamzattack.xyz/selime][here]].
             :host github
             :repo "jamzattack/selime")
     :delight
-    :hook (emacs-lisp-mode . selime-mode))
+    :hook emacs-lisp-mode)
 #+end_src
 
 *** Lex-hl                                                             :mine:
@@ -3737,7 +3736,7 @@ org tables without alignment issues.  I enable it in [[help:org-mode-hook][org-m
             :host github
             :repo "casouri/valign")
     :delight
-    :hook (org-mode . valign-mode))
+    :hook org-mode)
 #+end_src
 
 ** EXWM - Emacs X Window Manager
@@ -3774,8 +3773,7 @@ colour.
   (use-package desktop-environment
     :straight t
     :delight
-    :hook
-    (exwm-init . desktop-environment-mode)
+    :hook exwm-init
     :config
     <<custom-screenlock-command>>
     (advice-add 'desktop-environment-lock-screen
@@ -4085,7 +4083,7 @@ Minor mode that highlights parentheses well.
   (use-package rainbow-delimiters
     :straight t
     :defer t
-    :hook (prog-mode . rainbow-delimiters-mode))
+    :hook prog-mode)
 #+end_src
 
 *** Dimmer (dim inactive buffers)
@@ -4099,8 +4097,7 @@ before writing your own!
 #+begin_src emacs-lisp
   (use-package dimmer
     :straight t
-    :hook
-    (after-init . dimmer-mode)
+    :hook after-init
     :config
     (setq dimmer-fraction 0.3)
     (dimmer-configure-org)
@@ -4294,7 +4291,7 @@ Hosted [[https://git.jamzattack.xyz/eshell-outline][here]].
                     :flavor melpa
                     :host github
                     :repo "jamzattack/eshell-outline")
-    :hook (eshell-mode . eshell-outline-mode))
+    :hook eshell-mode)
 #+end_src
 
 *** Fish completion
