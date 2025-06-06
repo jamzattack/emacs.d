@@ -91,6 +91,31 @@ output."
               (exwm-workspace-rename-buffer
 	       (format "%s <%s>" exwm-title exwm-class-name)))))
 
+
+;; Switch back and forth between dvorak layout
+(defvar custom-exwm-dvorak-p nil
+  "Whether or not Dvorak layout is in use.
+Used in `custom-exwm-switch-dvorak' to determine current keyboard
+layout.")
+
+(defun custom-exwm-switch-dvorak (&optional force)
+  "Switch between Dvorak and qwerty keyboard layouts.
+This uses \"setxkbmap\" so only works from within an X session, hence
+this is defined in my EXWM config.  Optional prefix arg FORCE to switch
+to Dvorak layout regardless of current one."
+  (interactive "P")
+  (let ((dvorak-p (unless force
+		    custom-exwm-dvorak-p)))
+    (call-process "setxkbmap" nil nil nil
+		  "us" (if (not dvorak-p)
+			   "dvorak"
+			 ""))
+    (message "Switched keyboard layout: %s"
+	     (propertize (if dvorak-p
+			     "qwerty"
+			   "Dvorak")
+			 'face 'bold))
+    (setq custom-exwm-dvorak-p (not dvorak-p))))
 
 ;;; Keybindings
 
@@ -146,6 +171,9 @@ output."
 
      ;; Don't accidentally suspend Emacs
      (,(kbd "C-x C-z") . ignore)
+
+     ;; Switch dvorak layout
+     (,(kbd "<f12>") . custom-exwm-switch-dvorak)
 
      ;; Frames/workspaces
      ,@(mapcar (lambda (i)
