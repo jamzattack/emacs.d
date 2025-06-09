@@ -1,9 +1,9 @@
 ;;; custom-theme.el --- My custom theme              -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021 Jamie Beardslee
+;; Copyright (C) 2021-2025 Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
-;; Version: 2021.11.10
+;; Version: 2025.06.09
 ;; Keywords: theme
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -26,8 +26,14 @@
 
 ;;; Code:
 
+(defvar custom-theme-mode-line-colors
+  '("plum1" "orange" "skyblue" "green yellow")
+  "A list of colors for the active mode-line.")
+
 (deftheme custom
-  "Not much but changing the background colour to off-white")
+  "Not much but changing the background colour to off-white.
+Active mode-line color will be randomized based on the variable
+`custom-theme-mode-line-colors'.")
 
 (let ((class '((class color) (min-colors 89)))
       (foreground "#2b0000")
@@ -36,7 +42,8 @@
       (background3 "khaki1")
       (fringe "grey40")
       (border "grey90")
-      (modeline "plum1"))
+      (modeline (nth (random (length custom-theme-mode-line-colors))
+		     custom-theme-mode-line-colors)))
   (custom-theme-set-faces
    'custom
    ;; Text
