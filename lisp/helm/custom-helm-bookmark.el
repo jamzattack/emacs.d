@@ -1,8 +1,9 @@
 ;;; custom-helm-bookmark.el --- Quickly define sources for `helm-bookmark-jump'  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  Jamie Beardslee
+;; Copyright (C) 2020-2025  Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
+;; Version: 2025.06.09
 ;; Keywords: convenience, helm, completion
 
 ;; This file is not part of GNU Emacs.
@@ -98,8 +99,8 @@ It can then be added to the list `helm-bookmark-default-filtered-sources':
 ;;; University files -- matches anything in ~/Documents/uni
 (helm-bookmark-create-source-please
  university "University"
- (file-in-directory-p
-  filename "~/Documents/uni"))
+ (or (file-in-directory-p filename "~/Documents/uni")
+     (file-in-directory-p filename "~/Documents/UNI")))
 
 ;;; Config files -- matches all org-mode files in ~/org/config/, as
 ;;; well as anything with "config" in the name.
