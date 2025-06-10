@@ -1,8 +1,9 @@
 ;;; custom-exwm-config.el --- My EXWM configuration  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020  Jamie Beardslee
+;; Copyright (C) 2020-2025 Jamie Beardslee
 
 ;; Author: Jamie Beardslee <jdb@jamzattack.xyz>
+;; Version: 2025.06.11
 ;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -21,24 +22,15 @@
 ;;; Commentary:
 
 ;; This file contains my settings for EXWM.  Notable features:
-;;   - Functions `exwm-fullscreen-or-reset' and `exwm-quit'
-;;   - Keybindings for `eshell' and `helm-mini'
-;;   - A bunch of prefix keys for use with Edwina
-;;   - All the annoying bars are disabled.
+;; - Allow all super-prefixed and XF86 keys to be bound globally
+;; - EXWM workspace and tab-bar keybindings on <s-f[1-4]> and s-[0-9]
+;;   respectively
+;; - Some basic simulation keys for general movement in X windows
+;;   - Special input for terminal programs (st, XTerm)
 
 ;;; Code:
 
 (require 'exwm)
-(require 'exwm-xim)
-
-(defun custom-exwm-window-setup ()
-  "Make some extra room in the frame.
-
-This disables `menu-bar-mode', `tool-bar-mode', and
-`scroll-bar-mode'"
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
 
 ;;; Toggle fullscreen
 (defvar exwm-fullscreen--old-window nil
@@ -252,14 +244,12 @@ somewhat awkward because they're used as prefix keys."
 (defun custom-exwm-config ()
   ;; Don't start with extra workspaces
   (setq exwm-workspace-number 1)
-  ;; (exwm-xim--init)
   (add-hook 'exwm-manage-finish-hook 'custom-exwm-input-terminal-keys)
   (custom-exwm-input-global-keys)
   (custom-exwm-input-simulation-keys)
   (define-key exwm-mode-map (kbd "C-q") #'exwm-input-send-next-key)
   (custom-exwm-prefix-keys)
-  (custom-exwm-buffer-name)
-  (custom-exwm-window-setup))
+  (custom-exwm-buffer-name))
 
 (provide 'custom-exwm-config)
 ;;; custom-exwm-config.el ends here
