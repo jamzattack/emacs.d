@@ -1462,7 +1462,9 @@ everywhere.
     (desktop-save-mode t)
     :config
     (add-to-list 'desktop-globals-to-save 'helm-ff-history)
-    (add-to-list 'desktop-globals-to-save 'extended-command-history))
+    (add-to-list 'desktop-globals-to-save 'extended-command-history)
+    (add-to-list 'desktop-modes-not-to-save 'exwm-mode)
+    (add-to-list 'desktop-modes-not-to-save 'pdf-view-mode))
 #+end_src
 
 *** Save Place
