@@ -3926,7 +3926,6 @@ eww-mode.
     :straight t
     :when (executable-find "transmission-daemon")
     :defer t
-    :commands transmission-mode
     :init
     (defun transmission-add-url-at-point (url &optional directory)
       "Adds torrent if point is on a magnet or torrent link.
@@ -3935,22 +3934,16 @@ eww-mode.
                          (when current-prefix-arg
                            (read-directory-name "Download in: " "~/Downloads/"))))
       (transmission-add url directory))
-    (defun open-transmission-in-this-window ()
-      "Open the transmission buffer in the selected window.
-  This also sets the buffer's default directory to ~/Downloads."
-      (interactive)
-      (let ((buffer (get-buffer-create "*transmission*")))
-        (with-current-buffer buffer
-          (unless (derived-mode-p 'transmission-mode)
-            (transmission-mode)
-            (revert-buffer))
-          (setq default-directory "~/Downloads/"))
-        (pop-to-buffer-same-window buffer)))
+    (add-to-list 'display-buffer-alist
+  	       '("\\`\\*transmission\\*\\'" display-buffer-same-window))
     :bind
-    ("C-z C-t" . open-transmission-in-this-window)
+    ("C-z C-t" . transmission)
     :config
     (bind-keys :map transmission-mode-map
-               ("M" . transmission-move)))
+               ("M" . transmission-move))
+    (add-hook 'transmission-mode-hook
+  	    (lambda ()
+  	      (cd "~/Downloads"))))
 #+end_src
 
 *** Elpher
