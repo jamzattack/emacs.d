@@ -192,7 +192,7 @@ and use [[help:eww][eww]] for html instead of [[help:mhtml-mode][mhtml-mode]].
     :bind
     ("C-c M-." . org-time-stamp)
     (:map org-mode-map
-          ("C-c C-v h" . org-hide-block-all)
+          ("C-c C-v h" . org-fold-hide-block-all)
           ("M-h" . mark-paragraph)
           ("C-M-h" . org-mark-element)
           ("C-c h" . org-insert-emacs-help)))
@@ -2345,7 +2345,7 @@ subject]].
     (defun hangul2-input-method (key)
       "2-Bulsik input method."
       (setq key (quail-keyboard-translate key))
-      (if (or buffer-read-only (not (alphabetp key)))
+      (if (or buffer-read-only (not (hangul-alphabetp key)))
           (list key)
         (quail-setup-overlays nil)
         (let ((input-method-function nil)
