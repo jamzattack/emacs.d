@@ -70,7 +70,7 @@
    `(window-divider-last-pixel ((,class (:inherit 'window-divider))))
 
    `(tab-bar ((,class (:inherit mode-line-inactive))))
-   `(tab-bar-tab ((,class (:inherit default :height 80))))
+   `(tab-bar-tab ((,class (:background ,background :foreground ,foreground))))
    `(tab-bar-tab-inactive ((,class (:inherit mode-line-inactive))))
    `(ruler-mode-default ((,class (:inherit header-line :box nil))))
    ))
