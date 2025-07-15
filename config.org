@@ -18,67 +18,25 @@ will take some time.
 
 * Startup
 
-Get some things out of the way early.  Without [[*Straight][straight]] or
-[[*Use-package and dependencies][use-package]], none of this config would work.
-
-** Straight
-
-Install [[https://github.com/raxod502/straight.el][straight.el]].  It gets a lot of hype, so I'm trying to use it
-instead of the built-in =package.el=.  It has a use-package keyword, so
-you can simply (re)define a package like so:
-
-#+begin_src emacs-lisp :tangle no
-  (use-package package-name
-    :straight
-    (package-name :host gitlab
-                  :repo "user/forked-package"
-                  :branch "cool-new-feature"))
-#+end_src
-
-This snippet clones and loads straight, stolen from the README.
-
-#+begin_src emacs-lisp
-  (let ((bootstrap-file
-         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-        (bootstrap-version 5))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
-  (with-eval-after-load 'straight
-    (setq straight-vc-git-default-protocol 'ssh)
-    (add-to-list 'straight-built-in-pseudo-packages 'org)
-    (fset 'try #'straight-use-package)
-    (defun straight-clone-package (pkg)
-      "Clone PKG via straight without building or loading it.
-  This function is for interactive use only.  From lisp,
-  use `(straight-use-package PKG nil t)' instead."
-      (declare (interactive-only
-                "Use `straight-use-package' with the NO-BUILD argument instead"))
-      (interactive (list (straight-get-recipe (when current-prefix-arg 'interactive))))
-      (straight-use-package pkg nil t)))
-#+end_src
+Get some things out of the way early.  Without [[*Use-package and dependencies][use-package]], none of
+this config would work.
 
 ** Use-package and dependencies
 
-Install use-package using [[help:straight-use-package][straight-use-package]], and load both
-[[help:use-package][use-package]] and [[help:bind-key][bind-key]].  Note [[help:bind-key][bind-key]] is a dependency of
-[[help:use-package][use-package]], so I don't need to install it manually.
+[[info:use-package#Top][use-package]] is a very powerful macro that allows you to control how a
+package is loaded, and when certain configurations are evaluated.  It
+is included in Emacs since version 29.1, along with =bind-key=, though
+in the past I have had to install them separately.
 
-I also use use-package's =:delight= keyword, so install that as well.  I
-don't need to use =(require delight)= as use-package handles that.
+I will use =use-package='s [[info:use-package#Delight][:delight]] keyword throughout this config file,
+so I install that here as well.
 
 #+begin_src emacs-lisp
-  (straight-use-package 'use-package)
-  (straight-use-package 'delight)
+  (require 'use-package)
   (setq use-package-compute-statistics t)
   (require 'use-package)
-  (require 'bind-key)
+  (use-package bind-key)
+  (use-package delight :ensure t)
 #+end_src
 
 ** Fonts
@@ -2738,7 +2696,7 @@ It also comes with an [[info:epkg#Top][info manual]], yippee!
 
 #+begin_src emacs-lisp
   (use-package epkg
-    :straight t
+    :ensure t
     :config
     <<epkg-straight>>
     :bind
@@ -2780,7 +2738,7 @@ replace [[help:yank-pop][yank-pop]] but the latter is too engrained in my finger
 
 #+begin_src emacs-lisp
   (use-package helm
-    :straight t
+    :ensure t
     :custom
     (helm-completion-style 'emacs)
     (helm-describe-variable-function 'helpful-variable)
@@ -2936,7 +2894,7 @@ packages.
 
 #+begin_src emacs-lisp
   (use-package helm-system-packages
-    :straight t
+    :ensure t
     :bind
     (:map help-map
           ("C-p" . helm-system-packages)))
@@ -2949,7 +2907,7 @@ the Helm alternatives [[*EWW][here]].
 
 #+begin_src emacs-lisp
   (use-package helm-eww
-    :straight t
+    :ensure t
     :bind
     ("C-x r e" . helm-eww-bookmarks))
 #+end_src
@@ -2964,7 +2922,7 @@ sometimes only shows the first couple.
 
 #+begin_src emacs-lisp
   (use-package helm-org
-    :straight t
+    :ensure t
     :after org
     :bind
     (:map org-mode-map
@@ -3061,7 +3019,7 @@ there.
 
 #+begin_src emacs-lisp
   (use-package helpful
-    :straight t
+    :ensure t
     :init
     <<helpful-overrides>>
     :config
@@ -3193,7 +3151,7 @@ epubs, and set the default width to 80 columns.
 
 #+begin_src emacs-lisp
   (use-package nov
-    :straight t
+    :ensure t
     :custom
     (nov-text-width 80)
     (nov-variable-pitch nil)
@@ -3230,7 +3188,7 @@ provides some note-taking facilities.
 
 #+begin_src emacs-lisp
   (use-package pdf-tools
-    :straight t
+    :ensure t
     :magic ("%PDF" . pdf-view-mode)
     :custom
     (pdf-links-browse-uri-function #'pdf-links-open-please)
@@ -3392,7 +3350,7 @@ for looking at READMEs though, so I add [[help:view-mode][view-mode]] to the hoo
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
-    :straight t
+    :ensure t
     :mode "\\.md\\'"
     :hook (markdown-mode . view-mode))
 #+end_src
@@ -3406,7 +3364,7 @@ set the prefix to ". ".
 
 #+begin_src emacs-lisp
   (use-package gnu-apl-mode
-    :straight t
+    :ensure t
     :mode
     "\\.apl'"
     :custom
@@ -3491,7 +3449,7 @@ which can be [[http://ftp.lispworks.com/pub/software_tools/reference/HyperSpec-7
 
 #+begin_src emacs-lisp
   (use-package slime
-    :straight t
+    :ensure t
     :delight
     (lisp-mode "cl" :major)
     (slime-repl-mode "CL>" :major)
@@ -3536,7 +3494,7 @@ globally.
 
 #+begin_src emacs-lisp
   (use-package paredit
-    :straight t
+    :ensure t
     :defer t
     :delight
     :bind
@@ -3563,7 +3521,7 @@ often, but it's nice to be able to see what a program does sometimes.
 
 #+begin_src emacs-lisp
   (use-package elf-mode
-    :straight t
+    :ensure t
     :magic ("\dELF" . elf-mode))
 #+end_src
 
@@ -3575,7 +3533,7 @@ dependency of [[*SLIME][slime]].  But I figure I should give it a keybinding --
 
 #+begin_src emacs-lisp
   (use-package macrostep
-    :straight t
+    :ensure t
     :bind
     (:map emacs-lisp-mode-map
           ("C-c M-e" . macrostep-expand)))
@@ -3670,7 +3628,7 @@ Anyway, I just want it for font-lock, so it only needs an entry in
 
 #+begin_src emacs-lisp
   (use-package lua-mode
-    :straight t
+    :ensure t
     :mode ("\\.lua\\'" . lua-mode))
 #+end_src
 
@@ -3683,7 +3641,7 @@ html.  ~ox-html~ uses this library to colour source blocks.
 
 #+begin_src emacs-lisp
   (use-package htmlize
-    :straight t
+    :ensure t
     :defer t)
 #+end_src
 
@@ -3694,7 +3652,7 @@ org-mode.  I use it in my package [[*Plumb][plumb]].
 
 #+begin_src emacs-lisp
   (use-package org-web-tools
-    :straight t
+    :ensure t
     :defer t)
 #+end_src
 
@@ -3769,7 +3727,7 @@ colour.
 
 #+begin_src emacs-lisp
   (use-package desktop-environment
-    :straight t
+    :ensure t
     :delight
     :hook exwm-init
     :config
@@ -3808,7 +3766,7 @@ doesn't play nice with complicated things such as NetHack.
 
 #+begin_src emacs-lisp
   (use-package vterm
-    :straight t
+    :ensure t
     :defer t
     :config
     <<eshell/vterm>>)
@@ -3847,7 +3805,7 @@ doesn't support that somehow.
 
 #+begin_src emacs-lisp
   (use-package libmpdee
-    :straight t
+    :ensure t
     :when (executable-find "mpd")
     :bind
     (:map my-music-map
@@ -3862,7 +3820,7 @@ directly.
 
 #+begin_src emacs-lisp
   (use-package mpdel
-    :straight t
+    :ensure t
     :when (executable-find "mpd")
     :bind
     (:map my-music-map
@@ -3898,7 +3856,7 @@ classical channels.
 
 #+begin_src emacs-lisp
   (use-package eradio
-    :straight t
+    :ensure t
     :config
     (setq eradio-channels
           '(("RNZ Concert" . "https://radionz-ice.streamguys.com/concert.mp3")
@@ -3923,7 +3881,7 @@ eww-mode.
 
 #+begin_src emacs-lisp
   (use-package transmission
-    :straight t
+    :ensure t
     :when (executable-find "transmission-daemon")
     :defer t
     :init
@@ -3956,7 +3914,7 @@ function which can accept the extra arguments.
 
 #+begin_src emacs-lisp
   (use-package elpher
-    :straight t
+    :ensure t
     :defer t
     :commands elpher-go
     :bind
@@ -4051,7 +4009,7 @@ desktop as a daemon).
 
 #+begin_src emacs-lisp
   (use-package magit
-    :straight t
+    :ensure t
     :custom
     (magit-display-buffer-function
      #'magit-display-buffer-same-window-except-diff-v1)
@@ -4072,7 +4030,7 @@ Minor mode that highlights parentheses well.
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
-    :straight t
+    :ensure t
     :defer t
     :hook prog-mode)
 #+end_src
@@ -4087,7 +4045,7 @@ before writing your own!
 
 #+begin_src emacs-lisp
   (use-package dimmer
-    :straight t
+    :ensure t
     :hook after-init
     :config
     (setq dimmer-fraction 0.3)
@@ -4106,7 +4064,7 @@ Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  T
 
 #+begin_src emacs-lisp
   (use-package edwina
-    :straight t
+    :ensure t
     :defer t
     :config
     (edwina-setup-dwm-keys 'super))
@@ -4292,7 +4250,7 @@ completion.  I only enable it when fish is installed.
 
 #+begin_src emacs-lisp
   (use-package fish-completion
-    :straight t
+    :ensure t
     :after eshell
     :when (executable-find "fish")
     :config
@@ -4306,7 +4264,7 @@ installed with your system's package manager.
 
 #+begin_src emacs-lisp
   (use-package system-packages
-    :straight t
+    :ensure t
     :defer t)
 #+end_src
 
@@ -4318,7 +4276,7 @@ A /Lorem Ipsum/ generator.
 
 #+begin_src emacs-lisp
   (use-package lorem-ipsum
-    :straight t
+    :ensure t
     :defer t)
 #+end_src
 
