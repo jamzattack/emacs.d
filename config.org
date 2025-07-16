@@ -13,8 +13,7 @@ Note: [[file:lisp/custom.el][custom.el]] should not be edited manually, as it is
 for settings changed using the customisation interface.
 
 My own packages and other things that I need to [[help:require][require]] are housed in
-[[file:lisp][lisp/]].  I don't include the [[file:straight][straight/]] directory so the first startup
-will take some time.
+[[file:lisp][lisp/]].
 
 * Startup
 
@@ -99,18 +98,18 @@ This is the section for built-in packages.
 
 ** package.el
 
-It's useful to keep =package.el= updated for the functions
-[[help:describe-package][describe-package]] and [[help:list-packages][list-packages]].  All my packages are now installed
-using [[*Straight][straight]], so disable the function [[help:package-install][package-install]].
+Here, I include [[https://melpa.org][MELPA]] in the [[help:package-archives][package-archives]] variable.  A lot of
+valuable packages have now been included in the NonGNU archive--but
+there are still a few that only exist in MELPA, and I'd rather not be
+installing them from source.
 
 #+begin_src emacs-lisp
   (use-package package
-    :no-require t
-    :config
-    (setq package-archives
-          '(("gnu" . "http://elpa.gnu.org/packages/")
-            ("melpa" . "http://melpa.org/packages/")))
-    (fmakunbound 'package-install))
+    :custom
+    (package-archives
+     '(("gnu" . "https://elpa.gnu.org/packages/")
+       ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+       ("melpa" . "https://melpa.org/packages/"))))
 #+end_src
 
 ** Major editing modes
@@ -419,10 +418,7 @@ I use [[info:org#Publishing][org-publish]] for my websites.  This block has a lo
     :config
     (use-package ox-jamzattack
       :demand
-      :straight
-      (ox-jamzattack :type git
-                     :host github
-                     :repo "jamzattack/ox-jamzattack"))
+      :vc (:url "https://github.com/jamzattack/ox-jamzattack"))
     <<my-org-html-postamble-format>>
     (defvar my-org-publish-default-options
       '(
@@ -2265,11 +2261,7 @@ Hosted [[https://git.jamzattack.xyz/maori-input-method][here]].
 #+name: maori-input-method
 #+begin_src emacs-lisp :tangle no
   (use-package maori-input-method
-    :straight
-    (maori-input-method
-     :type git
-     :host github
-     :repo "jamzattack/maori-input-method"))
+    :vc (:url "https://github.com/jamzattack/maori-input-method"))
 #+end_src
 
 **** Shavian
@@ -2281,11 +2273,7 @@ Hosted [[https://git.jamzattack.xyz/shavian-input-method][here]].
 #+name: shavian-input-method
 #+begin_src emacs-lisp :tangle no
   (use-package shavian-input-method
-    :straight
-    (shavian-input-method
-     :type git
-     :host github
-     :repo "jamzattack/shavian-input-method"))
+    :vc (:url "https://github.com/jamzattack/shavian-input-method"))
 #+end_src
 
 **** Hangul
@@ -2674,14 +2662,12 @@ Currently, it's only:
 
 * Third party packages
 
-This is where the packages installed with [[https://github.com/raxod502/straight.el][straight.el]] are located.
-All of these use the =:straight= keyword, so that they are downloaded if
-they aren't already.
+This is where ELPA packages are listed.  Some of these aren't in the
+ELPA archives, so I make use of the =use-package= [[info:use-package#Install package][:vc keyword]].
 
 ** epkg
 
-Since I don't use the built-in =package= library, [[https://emacsmirror.net/][epkg]] is a nice
-replacement for the UI (paired with [[*Straight][straight]] for installing).  It
+Epkg is a library that interfaces with the [[https://emacsmirror.net][Emacsmirror]] database and
 provides functions to describe, list, search by author.
 
 One of the biggest advantages is that is shows way more information in
@@ -2697,34 +2683,9 @@ It also comes with an [[info:epkg#Top][info manual]], yippee!
 #+begin_src emacs-lisp
   (use-package epkg
     :ensure t
-    :config
-    <<epkg-straight>>
     :bind
     ([remap describe-package] . epkg-describe-package)
     ([remap finder-by-keyword] . epkg-list-matching-packages))
-#+end_src
-
-*** "Install with straight" button
-
-Advise [[help:epkg-describe-package][epkg-describe-package]] to add a button for installation with
-straight.
-
-#+name: epkg-straight
-#+begin_src emacs-lisp :tangle no
-  (defun add-straight-button-to-epkg-describe (pkg &rest _ignored)
-    (when (member pkg (straight-recipes-list))
-      (let ((inhibit-read-only t))
-        (with-current-buffer (help-buffer)
-          (goto-char (point-min))
-          (forward-line 1)
-          (insert "\n")
-          (insert-button (format "Install %s with straight"
-                                 (propertize pkg 'face '(:inherit bold)))
-                         'action `(lambda (&rest _ignored)
-                                    (straight-use-package ',(intern pkg))))
-          (insert "\n")))))
-
-  (advice-add 'epkg-describe-package :after #'add-straight-button-to-epkg-describe)
 #+end_src
 
 ** HELM
@@ -2864,7 +2825,7 @@ and also provides a way to access an imenu for multiple buffers.
 
 #+begin_src emacs-lisp
   (use-package helm-imenu
-    :straight helm
+    :ensure helm
     :defer t
     :bind
     ("C-c i" . helm-imenu)
@@ -2879,7 +2840,7 @@ manpages.
 #+begin_src emacs-lisp
   (use-package helm-man
     :defer t
-    :straight helm
+    :ensure helm
     :custom
     (man-width 80)
     :bind
@@ -3242,10 +3203,7 @@ Located [[https://git.jamzattack.xyz/lilypond-mode][here]].
 
 #+begin_src emacs-lisp
   (use-package lilypond-mode
-    :straight
-    (lilypond-mode :type git
-                   :host github
-                   :repo "jamzattack/lilypond-mode")
+    :vc (:url "https://github.com/jamzattack/lilypond-mode")
     :delight
     (LilyPond-mode "ly" :major)
     :init
@@ -3382,11 +3340,7 @@ scheme is installed, in order of preference.
 
 #+begin_src emacs-lisp
   (use-package geiser
-    :straight
-    (geiser :type git
-            :host gitlab
-            :flavor melpa
-            :repo "emacs-geiser/geiser")
+    :ensure t
     :defer t
     :delight
     (scheme-mode "scm" :major)
@@ -3414,27 +3368,15 @@ but also install chez and mit just in case.
 
 #+begin_src emacs-lisp
   (use-package geiser-guile
-    :straight
-    (geiser-guile :type git
-                  :host gitlab
-                  :flavor melpa
-                  :repo "emacs-geiser/guile")
+    :ensure t
     :after geiser)
 
   (use-package geiser-chez
-    :straight
-    (geiser-chez :type git
-                  :host gitlab
-                  :flavor melpa
-                  :repo "emacs-geiser/chez")
+    :ensure t
     :after geiser)
 
   (use-package geiser-mit
-    :straight
-    (geiser-mit :type git
-                  :host gitlab
-                  :flavor melpa
-                  :repo "emacs-geiser/mit")
+    :ensure t
     :after geiser)
 #+end_src
 
@@ -3546,10 +3488,7 @@ with a nice inline interface.  Kind of like [[https://github.com/joddie/macroste
 
 #+begin_src emacs-lisp
   (use-package regexp-expand
-    :straight
-    (regexp-expand :type git
-                   :host github
-                   :repo "danielmartin/regexp-expand")
+    :vc (:url "https://github.com/danielmartin/regexp-expand")
     :bind
     (:map emacs-lisp-mode-map
           ("C-c M-r" . regexp-expand)))
@@ -3565,11 +3504,7 @@ Hosted [[https://git.jamzattack.xyz/selime][here]].
 
 #+begin_src emacs-lisp
   (use-package selime
-    :straight
-    (selime :type git
-            :flavor melpa
-            :host github
-            :repo "jamzattack/selime")
+    :vc (:url "https://github.com/jamzattack/selime")
     :delight
     :hook emacs-lisp-mode)
 #+end_src
@@ -3584,11 +3519,7 @@ Hosted [[https://git.jamzattack.xyz/lex-hl][here]].
 
 #+begin_src emacs-lisp
   (use-package lex-hl
-    :straight
-    (lex-hl :type git
-            :flavor melpa
-            :host github
-            :repo "jamzattack/lex-hl")
+    :vc (:url "https://github.com/jamzattack/lex-hl")
     :bind
     (:map emacs-lisp-mode-map
           ("C-c `" . lex-hl-unhighlight)
@@ -3606,11 +3537,7 @@ Hosted [[https://git.jamzattack.xyz/lilypond-auto-insert][here]].
 
 #+begin_src emacs-lisp
   (use-package lilypond-auto-insert
-    :straight
-    (lilypond-auto-insert :type git
-                          :flavor melpa
-                          :host github
-                          :repo "jamzattack/lilypond-auto-insert")
+    :vc (:url "https://github.com/jamzattack/lilypond-auto-insert")
     :after lilypond-mode
     :custom
     (lilypond-auto-insert-language "english")
@@ -3665,10 +3592,7 @@ Hosted [[https://git.jamzattack.xyz/org-el-index][here]].
 
 #+begin_src emacs-lisp
   (use-package org-el-index
-    :straight
-    (org-el-index :type git
-                  :host github
-                  :repo "jamzattack/org-el-index")
+    :vc (:url "https://github.com/jamzattack/org-el-index")
     :after org
     :bind
     (:map org-mode-map
@@ -3687,10 +3611,7 @@ org tables without alignment issues.  I enable it in [[help:org-mode-hook][org-m
 
 #+begin_src emacs-lisp
   (use-package valign
-    :straight
-    (valign :type git
-            :host github
-            :repo "casouri/valign")
+    :ensure t
     :delight
     :hook org-mode)
 #+end_src
@@ -3705,10 +3626,7 @@ depending on the [[help:system-name][system name (HOSTNAME)]].
 
 #+begin_src emacs-lisp
   (use-package exwm
-    :straight
-    (exwm :type git
-          :host github
-          :repo "emacs-exwm/exwm")
+    :ensure t
     :defer t
     :commands exwm-init
     :config
@@ -3952,10 +3870,7 @@ Hosted [[https://git.jamzattack.xyz/ol-elpher][here]].
 
 #+begin_src emacs-lisp
   (use-package ol-elpher
-    :straight
-    (ol-elpher :type git
-               :host github
-               :repo "jamzattack/ol-elpher")
+    :vc (:url "https://github.com/jamzattack/ol-elpher")
     :after ol)
 #+end_src
 
@@ -3982,8 +3897,7 @@ I also prefer to keep my contacts file encrypted, so I set
 
 #+begin_src emacs-lisp
   (use-package ebdb
-    :straight
-    (:host github :repo "girzel/ebdb")
+    :ensure t
     :defer t
     :custom
     (ebdb-mua-pop-up nil)
@@ -4045,7 +3959,8 @@ before writing your own!
 
 #+begin_src emacs-lisp
   (use-package dimmer
-    :ensure t
+    :vc (:url "https://github.com/gonewest818/dimmer.el"
+  	    :rev :newest)
     :hook after-init
     :config
     (setq dimmer-fraction 0.3)
@@ -4064,7 +3979,8 @@ Edwina provides some rudimentary [[https://dwm.suckless.org][dwm]] emulation.  T
 
 #+begin_src emacs-lisp
   (use-package edwina
-    :ensure t
+    :vc (:url "https://gitlab.com/axgfn/edwina"
+  	    :rev :newest)
     :defer t
     :config
     (edwina-setup-dwm-keys 'super))
@@ -4079,11 +3995,7 @@ Hosted [[https://git.jamzattack.xyz/plumb][here]].
 
 #+begin_src emacs-lisp
   (use-package plumb
-    :straight
-    (plumb :type git
-           :flavor melpa
-           :host github
-           :repo "jamzattack/plumb")
+    :vc (:url "https://github.com/jamzattack/plumb")
     :bind
     ("C-z d" . plumb)
     ("C-z C-d" . plumb))
@@ -4097,10 +4009,7 @@ Hosted [[https://git.jamzattack.xyz/narrow-x][here]].
 
 #+begin_src emacs-lisp
   (use-package narrow-x
-    :straight
-    (narrow-x :type git
-              :host github
-              :repo "jamzattack/narrow-x")
+    :vc (:url "https://github.com/jamzattack/narrow-x")
     :bind
     (:map narrow-map
           ("h" . narrow-to-paragraph)
@@ -4125,10 +4034,7 @@ Hosted [[https://git.jamzattack.xyz/search-query][here]].
 
 #+begin_src emacs-lisp
   (use-package search-query
-    :straight
-    (search-query :type git
-                  :host github
-                  :repo "jamzattack/search-query")
+    :vc (:url "https://github.com/jamzattack/search-query")
     :custom
     (search-query-tpb-mirror "piratebay.live")
     (search-query-invidious-mirror "yewtu.be")
@@ -4150,10 +4056,7 @@ Hosted [[https://git.jamzattack.xyz/insert-date][here]].
 
 #+begin_src emacs-lisp
   (use-package insert-date
-    :straight
-    (insert-date :type git
-                 :host github
-                 :repo "jamzattack/insert-date")
+    :vc (:url "https://github.com/jamzattack/insert-date")
     :bind
     (:prefix "C-c d" :prefix-map insert-date-map
              ("v" . insert-date-version)
@@ -4174,9 +4077,7 @@ Hosted [[https://git.jamzattack.xyz/itch][here]].
 
 #+begin_src emacs-lisp
   (use-package itch
-    :straight (itch :type git
-                    :host github
-                    :repo "jamzattack/itch")
+    :vc (:url "https://github.com/jamzattack/itch")
     :bind
     ("s-a" . itch-fundamental)
     ("s-A" . itch-switch-to-fundamental)
@@ -4199,28 +4100,10 @@ Make dired run actions in the background.  This is in the package
 
 #+begin_src emacs-lisp
   (use-package dired-async
-    :straight async
+    :ensure async
     :defer t
     :config
     (dired-async-mode))
-#+end_src
-
-*** Dired-subtree
-
-Recursively list directories and cycle like org-mode.  Bind =TAB= to
-show/hide a subtree, and disable the predefined faces.  Part of the
-=dired-hacks= package.
-
-#+begin_src emacs-lisp
-  (use-package dired-subtree
-    :straight dired-hacks
-    :after dired
-    :demand t
-    :custom
-    (dired-subtree-use-backgrounds nil)
-    :bind
-    (:map dired-mode-map
-          ("TAB" . dired-subtree-cycle)))
 #+end_src
 
 ** Eshell
@@ -4235,11 +4118,7 @@ Hosted [[https://git.jamzattack.xyz/eshell-outline][here]].
 
 #+begin_src emacs-lisp
   (use-package eshell-outline
-    :straight
-    (eshell-outline :type git
-                    :flavor melpa
-                    :host github
-                    :repo "jamzattack/eshell-outline")
+    :vc (:url "https://github.com/jamzattack/eshell-outline")
     :hook eshell-mode)
 #+end_src
 
